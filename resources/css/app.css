@@ -1,0 +1,334 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+body {
+@apply font-poppins antialiased text-gray-800;
+background-color: #f6f4f0;
+background-image:
+radial-gradient(1100px 500px at 100% -10%, rgba(200, 162, 96, 0.07), transparent),
+radial-gradient(900px 480px at -10% 110%, rgba(19, 44, 92, 0.06), transparent),
+radial-gradient(700px 400px at 50% 0%, rgba(130, 30, 56, 0.03), transparent);
+background-attachment: fixed;
+}
+
+::selection {
+@apply bg-[#520A18] text-[#E3DBAF];
+}
+
+[x-cloak] {
+display: none !important;
+}
+
+/* Refined scrollbars */
+::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+
+::-webkit-scrollbar-track {
+background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+@apply rounded-full bg-gray-300;
+}
+
+::-webkit-scrollbar-thumb:hover {
+@apply bg-gray-400;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+@apply bg-[#132C5C]/30;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+@apply bg-white/20;
+}
+}
+
+@layer components {
+/* ---------- Page header ---------- */
+.page-header {
+@apply mb-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4;
+}
+
+.page-title {
+@apply text-2xl md:text-[1.7rem] font-bold text-[#520A18] leading-tight tracking-tight;
+}
+
+.page-subtitle {
+@apply mt-1.5 text-sm text-gray-500;
+}
+
+.breadcrumb {
+@apply mb-2 inline-flex items-center gap-1.5 text-xs font-medium text-[#5876B0];
+}
+
+.breadcrumb a {
+@apply transition-colors hover:text-[#2B4E94];
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+@apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all
+duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white
+disabled:opacity-60 disabled:pointer-events-none;
+}
+
+.btn-primary {
+@apply btn border border-[#4a0813]/40 bg-gradient-to-br from-[#650d1f] to-[#520A18] text-white
+shadow-[0_4px_14px_-3px_rgba(82,10,24,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] hover:-translate-y-0.5
+hover:shadow-[0_10px_26px_-6px_rgba(82,10,24,0.6),inset_0_1px_0_rgba(255,255,255,0.14)] focus-visible:ring-[#520A18]/40
+active:translate-y-0 active:shadow-none;
+}
+
+.btn-secondary {
+@apply btn border border-[#0f1f42]/40 bg-gradient-to-br from-[#16336D] to-[#132C5C] text-white
+shadow-[0_4px_14px_-3px_rgba(19,44,92,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] hover:-translate-y-0.5
+hover:shadow-[0_10px_26px_-6px_rgba(19,44,92,0.6)] focus-visible:ring-[#132C5C]/40 active:translate-y-0;
+}
+
+.btn-gold {
+@apply btn border border-[#7a5f2e]/40 bg-gradient-to-br from-[#B09861] to-[#97763A] text-white
+shadow-[0_4px_14px_-3px_rgba(151,118,58,0.5),inset_0_1px_0_rgba(255,255,255,0.18)] hover:-translate-y-0.5
+hover:shadow-[0_10px_26px_-6px_rgba(151,118,58,0.6)] focus-visible:ring-[#97763A]/40 active:translate-y-0;
+}
+
+.btn-outline {
+@apply btn border border-gray-200 bg-white text-gray-600 shadow-sm hover:border-gray-300 hover:bg-gray-50
+hover:text-gray-800 focus-visible:ring-gray-300;
+}
+
+.btn-ghost {
+@apply btn border border-[#2B4E94]/20 bg-white text-[#2B4E94] hover:border-[#2B4E94]/40 hover:bg-[#132C5C]/[0.04]
+focus-visible:ring-[#2B4E94]/40;
+}
+
+/* ---------- Cards ---------- */
+.card {
+@apply rounded-2xl border border-gray-200/70 bg-white
+shadow-[0_1px_2px_rgba(23,32,54,0.04),0_8px_24px_-12px_rgba(23,32,54,0.12)];
+}
+
+.card-hover {
+@apply transition-all duration-300 hover:-translate-y-0.5 hover:border-gray-300/80
+hover:shadow-[0_2px_4px_rgba(23,32,54,0.05),0_16px_40px_-12px_rgba(23,32,54,0.18)];
+}
+
+.form-card {
+@apply card p-5 md:p-8;
+}
+
+/* ---------- Form controls ---------- */
+.form-label {
+@apply mb-1.5 block text-[0.82rem] font-semibold text-gray-700;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+@apply w-full rounded-xl border border-gray-300/80 bg-white px-3.5 py-2.5 text-sm text-gray-900
+shadow-[inset_0_1px_2px_rgba(23,32,54,0.03)] transition placeholder:text-gray-400 hover:border-gray-400/80
+focus:border-[#520A18] focus:outline-none focus:ring-[3px] focus:ring-[#520A18]/10;
+}
+
+.form-error {
+@apply mt-1.5 flex items-center gap-1.5 text-[0.82rem] font-medium text-red-600;
+}
+
+.form-file {
+@apply block w-full cursor-pointer text-sm text-gray-500 transition file:mr-4 file:cursor-pointer file:rounded-xl
+file:border file:border-transparent file:bg-[#520A18]/[0.06] file:px-4 file:py-2.5 file:text-sm file:font-semibold
+file:text-[#520A18] hover:file:bg-[#520A18]/[0.12];
+}
+
+.form-checkbox {
+@apply h-4 w-4 rounded border-gray-300 text-[#520A18] shadow-sm focus:ring-[#520A18] focus:ring-offset-0 transition;
+}
+
+/* ---------- Badges ---------- */
+.badge {
+@apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset;
+}
+
+.badge-active,
+.badge-published {
+@apply badge bg-emerald-50 text-emerald-700 ring-emerald-200/70;
+}
+
+.badge-inactive {
+@apply badge bg-rose-50 text-rose-600 ring-rose-200/70;
+}
+
+.badge-draft {
+@apply badge bg-amber-50 text-amber-700 ring-amber-200/70;
+}
+
+/* ---------- Tables ---------- */
+.table-container {
+@apply card overflow-hidden;
+}
+
+.table-scroll {
+@apply overflow-x-auto;
+}
+
+.table {
+@apply min-w-full divide-y divide-gray-100;
+}
+
+.thead {
+@apply bg-gradient-to-r from-[#132C5C] to-[#16336D];
+}
+
+.th {
+@apply whitespace-nowrap px-5 py-3.5 text-left text-[0.68rem] font-bold uppercase tracking-[0.08em] text-[#C7D3EC];
+}
+
+.tbody {
+@apply divide-y divide-gray-100 bg-white;
+}
+
+.td {
+@apply whitespace-nowrap px-5 py-4 text-sm;
+}
+
+.tr-hover {
+@apply transition-colors duration-150 hover:bg-[#132C5C]/[0.035];
+}
+
+.tbody tr:nth-child(even) {
+@apply bg-gray-50/40;
+}
+
+/* ---------- Thumbnails ---------- */
+.thumb {
+@apply h-12 w-12 shrink-0 rounded-lg object-cover ring-1 ring-gray-200;
+}
+
+.thumb-sm {
+@apply h-10 w-10 shrink-0 rounded-lg object-cover ring-1 ring-gray-200;
+}
+
+.thumb-xl {
+@apply h-20 w-20 shrink-0 rounded-xl object-cover ring-1 ring-gray-200;
+}
+
+/* ---------- Icon buttons ---------- */
+.icon-btn {
+@apply inline-flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-150;
+}
+
+.icon-btn-edit {
+@apply icon-btn text-[#2B4E94] hover:bg-[#132C5C]/10 hover:scale-105;
+}
+
+.icon-btn-delete {
+@apply icon-btn text-rose-500 hover:bg-rose-50 hover:text-rose-700 hover:scale-105;
+}
+
+.icon-btn-gold {
+@apply icon-btn text-[#97763A] hover:bg-[#97763A]/10 hover:text-[#B09861] hover:scale-105;
+}
+
+/* ---------- Empty state ---------- */
+.empty-state {
+@apply card flex flex-col items-center justify-center border border-dashed border-gray-300 bg-gray-50/50 px-6 py-16
+text-center;
+}
+
+.empty-icon {
+@apply mx-auto mb-4 h-14 w-14 text-gray-300;
+}
+
+.empty-title {
+@apply text-sm font-semibold text-gray-700;
+}
+
+.empty-desc {
+@apply mt-1 text-sm text-gray-400;
+}
+
+/* ---------- Misc ---------- */
+.section-label {
+@apply mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#520A18];
+}
+
+.divider {
+@apply my-6 border-t border-gray-200/80;
+}
+
+.input-group {
+@apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.stat-label {
+@apply truncate text-sm text-gray-500;
+}
+
+.stat-value {
+@apply mt-1 text-3xl font-bold md:text-4xl;
+}
+
+.link-arrow {
+@apply text-sm font-medium text-[#2B4E94] transition-colors hover:text-[#132C5C] hover:underline;
+}
+
+/* ---------- Count chip (index headers) ---------- */
+.count-chip {
+@apply inline-flex items-center gap-1.5 rounded-full bg-[#520A18]/[0.06] px-3 py-1 text-xs font-semibold text-[#520A18]
+ring-1 ring-inset ring-[#520A18]/10;
+}
+
+/* Badge Warning */
+.badge-warning {
+@apply inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2.5 py-1 text-xs font-semibold text-yellow-800;
+}
+
+/* Badge Published */
+.badge-published {
+@apply inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-800;
+}
+
+/* Badge Draft */
+.badge-draft {
+@apply inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700;
+}
+
+/* Icon Button View */
+.icon-btn-view {
+@apply inline-flex h-8 w-8 items-center justify-center rounded-lg text-[#2B4E94] transition-colors
+hover:bg-[#2B4E94]/[0.08];
+}
+
+/* ---------- Mobile optimizations ---------- */
+@media (max-width: 640px) {
+.table td,
+.table th {
+@apply px-3 py-3;
+}
+
+.form-card {
+@apply rounded-xl;
+}
+
+.page-header {
+@apply mb-5;
+}
+
+.empty-state {
+@apply py-10 px-4;
+}
+
+.empty-icon {
+@apply h-10 w-10;
+}
+}
+
+/* Prevent text overflow in table cells */
+.td {
+@apply overflow-hidden text-ellipsis;
+}
+}
