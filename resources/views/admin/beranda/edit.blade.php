@@ -3,7 +3,7 @@
 @section('title', 'Edit Beranda')
 
 @section('content')
-<div class="max-w-3xl">
+<div class="form-page">
     <div class="page-header">
         <div>
             <nav class="breadcrumb">

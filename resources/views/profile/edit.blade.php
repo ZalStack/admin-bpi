@@ -3,7 +3,7 @@
 @section('title', 'Profile')
 
 @section('content')
-<div class="max-w-5xl mx-auto px-4 sm:px-6">
+<div class="form-page">
     {{-- Header --}}
     <div class="mb-6 sm:mb-8">
         <nav class="flex items-center gap-2 text-sm text-gray-500 mb-2">

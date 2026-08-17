@@ -331,4 +331,43 @@ hover:bg-[#2B4E94]/[0.08];
 .td {
 @apply overflow-hidden text-ellipsis;
 }
+
+/* ---------- Full-width form page layout ---------- */
+.form-page {
+@apply w-full;
+}
+
+.form-page .form-card {
+@apply rounded-2xl border border-gray-200/70 bg-white p-5 sm:p-6 md:p-8 lg:p-10;
+box-shadow: 0 1px 2px rgba(23,32,54,0.04), 0 8px 24px -12px rgba(23,32,54,0.12);
+}
+
+@media (min-width: 1024px) {
+.form-page .input-group {
+@apply grid grid-cols-2 gap-5;
+}
+}
+
+@media (min-width: 1280px) {
+.form-page .input-group {
+@apply gap-6;
+}
+}
+
+/* Sticky form action bar on mobile */
+.form-actions-bar {
+@apply sticky bottom-0 left-0 right-0 z-30 border-t border-gray-200/80 bg-white/95 backdrop-blur-md px-5 py-4 sm:px-6 sm:py-5 md:px-8;
+box-shadow: 0 -4px 16px -4px rgba(23,32,54,0.08);
+}
+
+@media (min-width: 1024px) {
+.form-actions-bar {
+@apply relative border-t-0 bg-transparent backdrop-blur-none shadow-none px-0 py-0;
+}
+}
+
+/* Section label improvements for wide screens */
+.form-page .section-label {
+@apply text-xs font-bold uppercase tracking-[0.1em] text-[#520A18] mb-4 pb-2 border-b border-gray-100;
+}
 }

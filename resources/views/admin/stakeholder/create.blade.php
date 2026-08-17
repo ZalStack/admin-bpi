@@ -3,7 +3,7 @@
 @section('title', 'Tambah Stakeholder')
 
 @section('content')
-<div class="max-w-4xl">
+<div class="form-page">
     <div class="page-header">
         <div>
             <nav class="breadcrumb">
