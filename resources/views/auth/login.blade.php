@@ -54,7 +54,7 @@
                                 required
                                 autofocus
                                 class="w-full pl-10 pr-3 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#E3DBAF] focus:border-transparent transition-all"
-                                placeholder="admin.bpi@gmail.com"
+                                placeholder="Masukan Email"
                             >
                         </div>
                         @error('email')
@@ -79,7 +79,7 @@
                                 id="password"
                                 required
                                 class="w-full pl-10 pr-3 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#E3DBAF] focus:border-transparent transition-all"
-                                placeholder="password123"
+                                placeholder="Masukan Password"
                             >
                         </div>
                         @error('password')
@@ -127,14 +127,6 @@
                         </p>
                     </div>
                 </form>
-            </div>
-
-            <!-- Demo Credentials -->
-            <div class="mt-6 bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-                <p class="text-white/60 text-sm text-center">
-                    <span class="font-semibold text-[#E3DBAF]">Demo Credentials:</span><br>
-                    Email: admin.bpi@gmail.com | Password: password123
-                </p>
             </div>
         </div>
     </div>
