@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.api-docs')
 
 @section('title', 'Dokumentasi API')
 
@@ -18,11 +18,6 @@
     <!-- Page Header -->
     <div class="page-header">
         <div>
-            <p class="breadcrumb">
-                <a href="{{ route('dashboard') }}">Dashboard</a>
-                <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                <span class="text-[#520A18]">API Documentation</span>
-            </p>
             <h1 class="page-title font-poppins">Dokumentasi API</h1>
             <p class="page-subtitle">Referensi lengkap REST API Admin Panel BPI — endpoint, method, format request &amp; response.</p>
         </div>
@@ -71,37 +66,9 @@
         </div>
     </div>
 
-    <!-- Search & Filter -->
-    <div class="card p-4 sticky top-[4.5rem] z-30 backdrop-blur-md bg-white/95">
-        <div class="flex flex-col lg:flex-row lg:items-center gap-3">
-            <!-- Search -->
-            <div class="relative flex-1 min-w-0">
-                <svg class="pointer-events-none absolute left-3.5 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input type="text" x-model="search" placeholder="Cari endpoint... (misal: banner, berita, toggle)"
-                       class="form-input pl-10">
-            </div>
-            <!-- Method filter -->
-            <div class="flex flex-wrap items-center gap-1.5">
-                <template x-for="m in methods" :key="m">
-                    <button @click="toggleMethod(m)"
-                            class="rounded-full px-3 py-1.5 text-xs font-bold tracking-wide transition-all ring-1"
-                            :class="activeMethods.includes(m)
-                                ? methodClass(m) + ' opacity-100 scale-100'
-                                : 'bg-white text-gray-300 ring-gray-200 hover:text-gray-500'"
-                            x-text="m"></button>
-                </template>
-                <button x-show="activeMethods.length > 0 || search !== ''" @click="resetFilters()"
-                        class="ml-1 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
-                        title="Reset filter">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Endpoints per module -->
     <div class="space-y-5">
-        <template x-for="(module, mi) in filteredModules" :key="module.prefix">
+        <template x-for="(module, mi) in modules" :key="module.prefix">
             <div class="card overflow-hidden">
                 <!-- Module header (collapsible) -->
                 <button @click="toggleModule(module.prefix)"
@@ -126,7 +93,14 @@
                 </button>
 
                 <!-- Endpoint list -->
-                <div x-show="openModules.includes(module.prefix)" x-collapse x-cloak>
+                <div x-show="openModules.includes(module.prefix)"
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 -translate-y-1"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     x-cloak>
                     <ul class="divide-y divide-gray-100 border-t border-gray-100">
                         <template x-for="ep in module.endpoints" :key="ep.method + ep.path">
                             <li class="group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 px-5 py-3.5 transition-colors hover:bg-[#132C5C]/[0.03]">
@@ -150,13 +124,6 @@
                 </div>
             </div>
         </template>
-
-        <!-- Empty state -->
-        <div x-show="filteredModules.length === 0" x-cloak class="empty-state">
-            <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <p class="empty-title">Endpoint tidak ditemukan</p>
-            <p class="empty-desc">Coba kata kunci lain atau reset filter pencarian.</p>
-        </div>
     </div>
 
     <!-- Response Format -->
@@ -343,44 +310,13 @@ curl -X POST "{{ url('api/admin/v1') }}/banner" \
         return {
             modules: allModules,
             openModules: allModules.map(m => m.prefix),
-            search: '',
-            activeMethods: [],
-            methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
             copiedPath: null,
             toast: false,
             toastMessage: '',
 
-            get filteredModules() {
-                return this.modules
-                    .map(module => {
-                        const q = this.search.toLowerCase().trim();
-                        const matchModule = !q || module.name.toLowerCase().includes(q) || module.prefix.toLowerCase().includes(q);
-                        let endpoints = module.endpoints.filter(ep => this.activeMethods.length === 0 || this.activeMethods.includes(ep.method));
-                        if (q && !matchModule) {
-                            endpoints = endpoints.filter(ep =>
-                                ep.path.toLowerCase().includes(q) ||
-                                ep.desc.toLowerCase().includes(q) ||
-                                ep.method.toLowerCase() === q
-                            );
-                        }
-                        return { ...module, endpoints };
-                    })
-                    .filter(module => module.endpoints.length > 0);
-            },
-
             toggleModule(prefix) {
                 const i = this.openModules.indexOf(prefix);
                 i === -1 ? this.openModules.push(prefix) : this.openModules.splice(i, 1);
-            },
-
-            toggleMethod(method) {
-                const i = this.activeMethods.indexOf(method);
-                i === -1 ? this.activeMethods.push(method) : this.activeMethods.splice(i, 1);
-            },
-
-            resetFilters() {
-                this.search = '';
-                this.activeMethods = [];
             },
 
             methodClass(method) {
