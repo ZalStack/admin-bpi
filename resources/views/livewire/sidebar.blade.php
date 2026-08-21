@@ -1,7 +1,4 @@
-<div x-data="{
-    isOpen: false,
-    contentOpen: @js(request()->routeIs('admin.banner.*','admin.beranda.*','admin.tentang.*','admin.mitra.*','admin.stakeholder.*','admin.program.*','admin.proyek.*','admin.berita.*','admin.struktur.*','admin.kontak.*','admin.kontak-form.*','admin.menu.*','admin.footer.*'))
-}"
+<div x-data="{ isOpen: false }"
      @toggle-sidebar.window="isOpen = !isOpen">
 
     <!-- Mobile backdrop -->
@@ -37,45 +34,34 @@
                         <p class="px-2.5 pb-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#5876B0]">Content Manager</p>
                     </li>
 
-                    <!-- Content Manager submenu -->
-                    <li>
-                        <button type="button"
-                                class="group flex w-full items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white"
-                                @click="contentOpen = !contentOpen">
-                            <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                                <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
-                            </svg>
-                            <span class="ms-3 flex-1 text-left font-poppins">Kelola Konten</span>
-                            <svg class="h-3.5 w-3.5 text-white/50 transition-transform duration-200" :class="{ 'rotate-180': contentOpen }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <ul x-show="contentOpen" x-transition.opacity.duration.200ms x-cloak class="mt-1 space-y-0.5 border-l border-white/10 ps-3 ms-5">
-                            @foreach([
-                                ['label' => 'Banner', 'route' => 'admin.banner.index', 'active' => 'admin.banner.*'],
-                                ['label' => 'Beranda', 'route' => 'admin.beranda.index', 'active' => 'admin.beranda.*'],
-                                ['label' => 'Tentang', 'route' => 'admin.tentang.index', 'active' => 'admin.tentang.*'],
-                                ['label' => 'Mitra', 'route' => 'admin.mitra.index', 'active' => 'admin.mitra.*'],
-                                ['label' => 'Stakeholder', 'route' => 'admin.stakeholder.index', 'active' => 'admin.stakeholder.*'],
-                                ['label' => 'Program', 'route' => 'admin.program.index', 'active' => 'admin.program.*'],
-                                ['label' => 'Proyek', 'route' => 'admin.proyek.index', 'active' => 'admin.proyek.*'],
-                                ['label' => 'Berita', 'route' => 'admin.berita.index', 'active' => 'admin.berita.*'],
-                                ['label' => 'Struktur Organisasi', 'route' => 'admin.struktur.index', 'active' => 'admin.struktur.*'],
-                                ['label' => 'Kontak', 'route' => 'admin.kontak.index', 'active' => 'admin.kontak.*'],
-                                ['label' => 'Pesan Kontak', 'route' => 'admin.kontak-form.index', 'active' => 'admin.kontak-form.*'],
-                                ['label' => 'Menu', 'route' => 'admin.menu.index', 'active' => 'admin.menu.*'],
-                                ['label' => 'Footer', 'route' => 'admin.footer.index', 'active' => 'admin.footer.*'],
-                            ] as $item)
-                                <li>
-                                    <a href="{{ route($item['route']) }}" @click="isOpen = false"
-                                       class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-[#C7D3EC] transition-all duration-150 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs($item['active']) ? 'bg-[#2B4E94]/40 font-semibold text-white' : '' }}">
-                                        <span class="h-1 w-1 rounded-full {{ request()->routeIs($item['active']) ? 'bg-[#E3DBAF]' : 'bg-current opacity-50' }}"></span>
-                                        {{ $item['label'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
+                    @foreach([
+                        ['label' => 'Banner', 'route' => 'admin.banner.index', 'active' => 'admin.banner.*'],
+                        ['label' => 'Beranda', 'route' => 'admin.beranda.index', 'active' => 'admin.beranda.*'],
+                        ['label' => 'Tentang', 'route' => 'admin.tentang.index', 'active' => 'admin.tentang.*'],
+                        ['label' => 'Mitra', 'route' => 'admin.mitra.index', 'active' => 'admin.mitra.*'],
+                        ['label' => 'Stakeholder', 'route' => 'admin.stakeholder.index', 'active' => 'admin.stakeholder.*'],
+                        ['label' => 'Program', 'route' => 'admin.program.index', 'active' => 'admin.program.*'],
+                        ['label' => 'Proyek', 'route' => 'admin.proyek.index', 'active' => 'admin.proyek.*'],
+                        ['label' => 'Berita', 'route' => 'admin.berita.index', 'active' => 'admin.berita.*'],
+                        ['label' => 'Struktur Organisasi', 'route' => 'admin.struktur.index', 'active' => 'admin.struktur.*'],
+                        ['label' => 'Kontak', 'route' => 'admin.kontak.index', 'active' => 'admin.kontak.*'],
+                        ['label' => 'Pesan Kontak', 'route' => 'admin.kontak-form.index', 'active' => 'admin.kontak-form.*'],
+                        ['label' => 'Menu', 'route' => 'admin.menu.index', 'active' => 'admin.menu.*'],
+                        ['label' => 'Footer', 'route' => 'admin.footer.index', 'active' => 'admin.footer.*'],
+                    ] as $item)
+                        <li>
+                            <a href="{{ route($item['route']) }}" @click="isOpen = false"
+                               class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs($item['active']) ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
+                                @if(request()->routeIs($item['active']))
+                                    <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
+                                @endif
+                                <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                    <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
+                                </svg>
+                                <span class="ms-3 font-poppins">{{ $item['label'] }}</span>
+                            </a>
+                        </li>
+                    @endforeach
 
                     <!-- Pengaturan Bahasa -->
                     <li>

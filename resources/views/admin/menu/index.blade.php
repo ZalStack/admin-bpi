@@ -94,26 +94,5 @@
     @endif
 </div>
 
-@push('scripts')
-<script>
-function toggleStatus(type, id) {
-    fetch(`/admin/${type}/${id}/toggle-status`, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success) {
-            location.reload();
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-</script>
-@endpush
+
 @endsection
