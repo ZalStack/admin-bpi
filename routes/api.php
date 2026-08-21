@@ -25,7 +25,7 @@ use App\Http\Controllers\Api\Admin\DashboardApiController;
 |--------------------------------------------------------------------------
 |
 | Base URL: http://localhost:8000/api/admin/v1/
-| All routes protected with auth middleware
+| Public API - no authentication required
 |
 */
 

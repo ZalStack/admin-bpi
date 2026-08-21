@@ -23,7 +23,9 @@ class BaseApiController extends Controller
 
     public function __construct()
     {
-        //
+        if (is_string($this->model)) {
+            $this->model = new $this->model;
+        }
     }
 
     /**
@@ -127,6 +129,18 @@ class BaseApiController extends Controller
      */
     public function toggleStatus($id)
     {
-        return $this->toggleStatus($this->model, $id);
+        $resource = $this->model->find($id);
+
+        if (!$resource) {
+            return $this->notFoundResponse();
+        }
+
+        $resource->status = !$resource->status;
+        $resource->save();
+
+        return $this->successResponse([
+            'id' => $resource->id,
+            'status' => $resource->status
+        ], 'Status updated successfully');
     }
 }
