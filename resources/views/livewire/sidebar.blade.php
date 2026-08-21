@@ -14,6 +14,7 @@
 
             <div class="relative flex-1">
                 <ul class="space-y-1 pt-4 font-medium">
+                    @auth
                     <!-- Dashboard -->
                     <li>
                         <a href="{{ route('dashboard') }}" @click="isOpen = false"
@@ -77,7 +78,23 @@
                             <span class="ms-3 font-poppins">Pengaturan Bahasa</span>
                         </a>
                     </li>
+                    @endauth
 
+                    <!-- API Documentation -->
+                    <li>
+                        <a href="{{ route('admin.api-documentation.index') }}" @click="isOpen = false"
+                           class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs('admin.api-documentation.*') ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
+                            @if(request()->routeIs('admin.api-documentation.*'))
+                                <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
+                            @endif
+                            <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                            </svg>
+                            <span class="ms-3 font-poppins">API Documentation</span>
+                        </a>
+                    </li>
+
+                    @auth
                     <!-- Group: Account -->
                     <li class="pt-4">
                         <p class="px-2.5 pb-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#5876B0]">Akun</p>
@@ -106,10 +123,24 @@
                             </button>
                         </form>
                     </li>
+                    @endauth
+
+                    @guest
+                    <li class="pt-4">
+                        <a href="{{ route('login') }}" @click="isOpen = false"
+                           class="group flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white">
+                            <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+                            <span class="ms-3 font-poppins">Login</span>
+                        </a>
+                    </li>
+                    @endguest
                 </ul>
             </div>
 
             <!-- Footer card -->
+            @auth
             <div class="relative mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                 <div class="flex items-center gap-3">
                     <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#E3DBAF] to-[#CAB988] font-bold text-[#520A18] shadow-md">
@@ -121,6 +152,21 @@
                     </div>
                 </div>
             </div>
+            @endauth
+
+            @guest
+            <div class="relative mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#E3DBAF] to-[#CAB988] font-bold text-[#520A18] shadow-md">
+                        G
+                    </div>
+                    <div class="min-w-0">
+                        <p class="truncate text-sm font-semibold text-white">Guest</p>
+                        <a href="{{ route('login') }}" class="truncate text-xs text-[#E3DBAF] hover:underline">Login untuk akses admin</a>
+                    </div>
+                </div>
+            </div>
+            @endguest
         </div>
     </aside>
 </div>

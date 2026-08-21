@@ -1,23 +1,24 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ApiDocumentationController;
+use App\Http\Controllers\Admin\BahasaController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BerandaController;
-use App\Http\Controllers\Admin\BahasaController;
-use App\Http\Controllers\Admin\StakeholderController;
-use App\Http\Controllers\Admin\ProgramController;
-use App\Http\Controllers\Admin\ProyekController;
-use App\Http\Controllers\Admin\ProyekGaleriController;
-use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\BeritaGaleriController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\KontakController;
 use App\Http\Controllers\Admin\KontakFormController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\MitraController;
+use App\Http\Controllers\Admin\ProgramController;
+use App\Http\Controllers\Admin\ProyekController;
+use App\Http\Controllers\Admin\ProyekGaleriController;
+use App\Http\Controllers\Admin\StakeholderController;
 use App\Http\Controllers\Admin\StrukturOrganisasiController;
 use App\Http\Controllers\Admin\TentangController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -132,6 +133,10 @@ Route::middleware('auth')->group(function () {
         });
 
 });
+
+// Public routes (no auth required)
+Route::get('/admin/api-documentation', [ApiDocumentationController::class, 'index'])
+    ->name('admin.api-documentation.index');
 
 // Redirect root to login
 Route::get('/', function () {

@@ -31,6 +31,7 @@
                 </div>
 
                 <!-- User Menu -->
+                @auth
                 <div class="flex items-center">
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" type="button" class="flex items-center gap-1.5 sm:gap-2 text-sm bg-white/[0.08] ring-1 ring-inset ring-white/15 rounded-full py-1 ps-1 pe-2 sm:pe-3 hover:bg-white/[0.14] transition-colors" aria-expanded="false">
@@ -74,6 +75,16 @@
                         </div>
                     </div>
                 </div>
+                @endauth
+
+                @guest
+                <a href="{{ route('login') }}" class="flex items-center gap-2 rounded-full bg-[#E3DBAF] px-4 py-1.5 text-sm font-semibold text-[#520A18] shadow-sm transition-colors hover:bg-[#CAB988] font-poppins">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                    </svg>
+                    Login
+                </a>
+                @endguest
             </div>
         </div>
     </div>
