@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Models\Bahasa;
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class BeritaApiController extends BaseApiController
@@ -46,7 +47,7 @@ class BeritaApiController extends BaseApiController
     public function getActive()
     {
         $resources = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'tags'])
             ->where('status', 'published')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -57,7 +58,7 @@ class BeritaApiController extends BaseApiController
     public function getBySlug($slug)
     {
         $resource = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'tags'])
             ->where('slug', $slug)
             ->first();
 
@@ -75,7 +76,7 @@ class BeritaApiController extends BaseApiController
         }
 
         $resources = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'tags'])
             ->where('status', $status)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -86,7 +87,7 @@ class BeritaApiController extends BaseApiController
     public function getByKategori($kategori)
     {
         $resources = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'tags'])
             ->whereHas('translations', function ($q) use ($kategori) {
                 $q->where('kategori', $kategori);
             })
@@ -99,13 +100,26 @@ class BeritaApiController extends BaseApiController
     public function getLatest()
     {
         $resources = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'tags'])
             ->where('status', 'published')
             ->orderBy('tanggal_publikasi', 'desc')
             ->limit(5)
             ->get();
 
         return $this->successResponse($resources);
+    }
+
+    public function getKategori()
+    {
+        $categories = DB::table('berita_translations')
+            ->join('berita', 'berita.id', '=', 'berita_translations.berita_id')
+            ->where('berita.status', 'published')
+            ->distinct()
+            ->pluck('berita_translations.kategori')
+            ->sort()
+            ->values();
+
+        return $this->successResponse($categories);
     }
 
     public function store(Request $request)
@@ -129,9 +143,52 @@ class BeritaApiController extends BaseApiController
 
         $resource = $this->model::create($data);
         $resource->storeTranslations((array) $request->input('translations', []));
-        $resource->load('translations');
+
+        if ($request->has('tag_ids')) {
+            $resource->tags()->sync($request->input('tag_ids', []));
+        }
+
+        $resource->load(['translations', 'tags']);
 
         return $this->successResponse($resource, 'Berita created successfully', 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $resource = $this->model::find($id);
+
+        if (! $resource) {
+            return $this->notFoundResponse();
+        }
+
+        $validator = validator($request->all(), $this->buildValidationRules(true));
+
+        if ($validator->fails()) {
+            return $this->validationErrorResponse($validator->errors());
+        }
+
+        $data = $this->neutralData($request);
+
+        if ($this->imageField && $request->hasFile($this->imageField)) {
+            $oldFile = $resource->{$this->imageField};
+            $data[$this->imageField] = $this->uploadFile(
+                $request->file($this->imageField),
+                $this->imagePath,
+                $oldFile
+            );
+        }
+
+        $resource->update($data);
+
+        if ($this->usesTranslations() && $request->has('translations')) {
+            $resource->storeTranslations((array) $request->input('translations', []));
+        }
+
+        if ($request->has('tag_ids')) {
+            $resource->tags()->sync($request->input('tag_ids', []));
+        }
+
+        return $this->successResponse($resource->fresh(['galeri', 'translations', 'tags']), ucfirst(class_basename($resource)).' updated successfully');
     }
 
     public function destroy($id)
@@ -151,6 +208,8 @@ class BeritaApiController extends BaseApiController
                 $this->deleteFile('berita/galeri', $galeri->gambar);
             }
         }
+
+        $resource->tags()->detach();
 
         return $this->deleteResource($this->model, $id);
     }

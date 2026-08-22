@@ -31,7 +31,7 @@ class TentangApiController extends BaseApiController
     public function getBySection($section)
     {
         $resources = $this->model::query()
-            ->with($this->withRelations)
+            ->with(['translations', 'poin', 'poin.translations'])
             ->where('section', $section)
             ->orderBy('urutan', 'asc')
             ->get();

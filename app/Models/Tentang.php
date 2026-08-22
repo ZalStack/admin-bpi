@@ -23,4 +23,9 @@ class Tentang extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    public function poin()
+    {
+        return $this->hasMany(TentangPoin::class, 'tentang_id');
+    }
 }

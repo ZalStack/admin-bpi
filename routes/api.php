@@ -9,14 +9,18 @@ use App\Http\Controllers\Api\Admin\DashboardApiController;
 use App\Http\Controllers\Api\Admin\FooterApiController;
 use App\Http\Controllers\Api\Admin\KontakApiController;
 use App\Http\Controllers\Api\Admin\KontakFormApiController;
+use App\Http\Controllers\Api\Admin\KontakDetailApiController;
 use App\Http\Controllers\Api\Admin\MenuApiController;
 use App\Http\Controllers\Api\Admin\MitraApiController;
 use App\Http\Controllers\Api\Admin\ProgramApiController;
+use App\Http\Controllers\Api\Admin\ProgramPoinApiController;
 use App\Http\Controllers\Api\Admin\ProyekApiController;
 use App\Http\Controllers\Api\Admin\ProyekGaleriApiController;
 use App\Http\Controllers\Api\Admin\StakeholderApiController;
 use App\Http\Controllers\Api\Admin\StrukturOrganisasiApiController;
 use App\Http\Controllers\Api\Admin\TentangApiController;
+use App\Http\Controllers\Api\Admin\TentangPoinApiController;
+use App\Http\Controllers\Api\Admin\TagApiController;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
@@ -95,6 +99,19 @@ Route::prefix('admin/v1')
         });
 
         // ============================================
+        // TENTANG POIN
+        // ============================================
+        Route::prefix('tentang-poin')->group(function () {
+            Route::get('/', [TentangPoinApiController::class, 'index']);
+            Route::post('/', [TentangPoinApiController::class, 'store']);
+            Route::get('/tentang/{tentangId}', [TentangPoinApiController::class, 'getByTentang']);
+            Route::patch('/{id}/toggle-status', [TentangPoinApiController::class, 'toggleStatus']);
+            Route::get('/{id}', [TentangPoinApiController::class, 'show']);
+            Route::put('/{id}', [TentangPoinApiController::class, 'update']);
+            Route::delete('/{id}', [TentangPoinApiController::class, 'destroy']);
+        });
+
+        // ============================================
         // MITRA
         // ============================================
         Route::prefix('mitra')->group(function () {
@@ -138,6 +155,19 @@ Route::prefix('admin/v1')
         });
 
         // ============================================
+        // PROGRAM POIN
+        // ============================================
+        Route::prefix('program-poin')->group(function () {
+            Route::get('/', [ProgramPoinApiController::class, 'index']);
+            Route::post('/', [ProgramPoinApiController::class, 'store']);
+            Route::get('/program/{programId}', [ProgramPoinApiController::class, 'getByProgram']);
+            Route::patch('/{id}/toggle-status', [ProgramPoinApiController::class, 'toggleStatus']);
+            Route::get('/{id}', [ProgramPoinApiController::class, 'show']);
+            Route::put('/{id}', [ProgramPoinApiController::class, 'update']);
+            Route::delete('/{id}', [ProgramPoinApiController::class, 'destroy']);
+        });
+
+        // ============================================
         // PROYEK
         // ============================================
         Route::prefix('proyek')->group(function () {
@@ -174,6 +204,7 @@ Route::prefix('admin/v1')
             Route::get('/', [BeritaApiController::class, 'index']);
             Route::post('/', [BeritaApiController::class, 'store']);
             Route::get('/active', [BeritaApiController::class, 'getActive']);
+            Route::get('/kategori', [BeritaApiController::class, 'getKategori']);
             Route::get('/slug/{slug}', [BeritaApiController::class, 'getBySlug']);
             Route::get('/status/{status}', [BeritaApiController::class, 'getByStatus']);
             Route::get('/kategori/{kategori}', [BeritaApiController::class, 'getByKategori']);
@@ -182,6 +213,18 @@ Route::prefix('admin/v1')
             Route::get('/{id}', [BeritaApiController::class, 'show']);
             Route::put('/{id}', [BeritaApiController::class, 'update']);
             Route::delete('/{id}', [BeritaApiController::class, 'destroy']);
+        });
+
+        // ============================================
+        // TAGS
+        // ============================================
+        Route::prefix('tag')->group(function () {
+            Route::get('/', [TagApiController::class, 'index']);
+            Route::post('/', [TagApiController::class, 'store']);
+            Route::patch('/{id}/toggle-status', [TagApiController::class, 'toggleStatus']);
+            Route::get('/{id}', [TagApiController::class, 'show']);
+            Route::put('/{id}', [TagApiController::class, 'update']);
+            Route::delete('/{id}', [TagApiController::class, 'destroy']);
         });
 
         // ============================================
@@ -222,6 +265,19 @@ Route::prefix('admin/v1')
             Route::get('/{id}', [KontakApiController::class, 'show']);
             Route::put('/{id}', [KontakApiController::class, 'update']);
             Route::delete('/{id}', [KontakApiController::class, 'destroy']);
+        });
+
+        // ============================================
+        // KONTAK DETAIL
+        // ============================================
+        Route::prefix('kontak-detail')->group(function () {
+            Route::get('/', [KontakDetailApiController::class, 'index']);
+            Route::post('/', [KontakDetailApiController::class, 'store']);
+            Route::get('/kontak/{kontakId}', [KontakDetailApiController::class, 'getByKontak']);
+            Route::patch('/{id}/toggle-status', [KontakDetailApiController::class, 'toggleStatus']);
+            Route::get('/{id}', [KontakDetailApiController::class, 'show']);
+            Route::put('/{id}', [KontakDetailApiController::class, 'update']);
+            Route::delete('/{id}', [KontakDetailApiController::class, 'destroy']);
         });
 
         // ============================================

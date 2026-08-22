@@ -25,4 +25,28 @@ class ProgramApiController extends BaseApiController
         'judul' => 'required|string|max:255',
         'deskripsi' => 'required|string',
     ];
+
+    public function getActive()
+    {
+        $resources = $this->model::query()
+            ->with(['translations', 'poin', 'poin.translations'])
+            ->where('status', true)
+            ->orderBy('urutan', 'asc')
+            ->get();
+
+        return $this->successResponse($resources);
+    }
+
+    public function show($id)
+    {
+        $resource = $this->model::query()
+            ->with(['translations', 'poin', 'poin.translations'])
+            ->find($id);
+
+        if (! $resource) {
+            return $this->notFoundResponse();
+        }
+
+        return $this->successResponse($resource);
+    }
 }

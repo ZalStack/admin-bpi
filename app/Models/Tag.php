@@ -6,19 +6,14 @@ use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kontak extends Model
+class Tag extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $table = 'kontak';
+    protected $table = 'tags';
 
     protected $fillable = [
-        'email',
-        'telepon',
-        'whatsapp',
-        'media_sosial',
-        'latitude',
-        'longitude',
+        'slug',
         'status',
     ];
 
@@ -26,8 +21,8 @@ class Kontak extends Model
         'status' => 'boolean',
     ];
 
-    public function detail()
+    public function berita()
     {
-        return $this->hasMany(KontakDetail::class, 'kontak_id');
+        return $this->belongsToMany(Berita::class, 'berita_tag', 'tag_id', 'berita_id');
     }
 }

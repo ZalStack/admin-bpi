@@ -25,4 +25,73 @@ class KontakApiController extends BaseApiController
         'deskripsi' => 'required|string',
         'alamat' => 'nullable|string',
     ];
+
+    public function getActive()
+    {
+        $resources = $this->model::query()
+            ->with(['translations', 'detail', 'detail.translations'])
+            ->where('status', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $this->successResponse($resources);
+    }
+
+    public function show($id)
+    {
+        $resource = $this->model::query()
+            ->with(['translations', 'detail', 'detail.translations'])
+            ->find($id);
+
+        if (! $resource) {
+            return $this->notFoundResponse();
+        }
+
+        return $this->successResponse($resource);
+    }
+
+    public function store(\Illuminate\Http\Request $request)
+    {
+        $validator = validator($request->all(), $this->buildValidationRules(false));
+
+        if ($validator->fails()) {
+            return $this->validationErrorResponse($validator->errors());
+        }
+
+        $data = $this->neutralData($request);
+
+        $resource = $this->model::create($data);
+
+        if ($this->usesTranslations()) {
+            $resource->storeTranslations((array) $request->input('translations', []));
+            $resource->load('translations');
+        }
+
+        return $this->successResponse($resource->fresh(['translations', 'detail', 'detail.translations']), ucfirst(class_basename($resource)).' created successfully', 201);
+    }
+
+    public function update(\Illuminate\Http\Request $request, $id)
+    {
+        $resource = $this->model::find($id);
+
+        if (! $resource) {
+            return $this->notFoundResponse();
+        }
+
+        $validator = validator($request->all(), $this->buildValidationRules(true));
+
+        if ($validator->fails()) {
+            return $this->validationErrorResponse($validator->errors());
+        }
+
+        $data = $this->neutralData($request);
+
+        $resource->update($data);
+
+        if ($this->usesTranslations() && $request->has('translations')) {
+            $resource->storeTranslations((array) $request->input('translations', []));
+        }
+
+        return $this->successResponse($resource->fresh(['translations', 'detail', 'detail.translations']), ucfirst(class_basename($resource)).' updated successfully');
+    }
 }

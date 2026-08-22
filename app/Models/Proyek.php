@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Proyek extends Model
 {
@@ -23,5 +24,10 @@ class Proyek extends Model
     public function galeri()
     {
         return $this->hasMany(ProyekGaleri::class, 'proyek_id');
+    }
+
+    public function mitra(): BelongsToMany
+    {
+        return $this->belongsToMany(Mitra::class, 'proyek_mitra', 'proyek_id', 'mitra_id');
     }
 }

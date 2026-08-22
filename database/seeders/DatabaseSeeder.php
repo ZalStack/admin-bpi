@@ -8,14 +8,18 @@ use App\Models\Berita;
 use App\Models\BeritaGaleri;
 use App\Models\Footer;
 use App\Models\Kontak;
+use App\Models\KontakDetail;
 use App\Models\Menu;
 use App\Models\Mitra;
 use App\Models\Program;
+use App\Models\ProgramPoin;
 use App\Models\Proyek;
 use App\Models\ProyekGaleri;
 use App\Models\Stakeholder;
 use App\Models\StrukturOrganisasi;
+use App\Models\Tag;
 use App\Models\Tentang;
+use App\Models\TentangPoin;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -455,6 +459,63 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
+        | PROGRAM POIN (Sub-items per Program)
+        |--------------------------------------------------------------------------
+        */
+
+        $programs = Program::all();
+
+        $programPoinData = [
+            // Pembiayaan (program_id 1)
+            1 => [
+                ['icon' => 'fa-solid fa-coins', 'urutan' => 1, 'judul_id' => 'Dana Pembiayaan Produktif', 'judul_en' => 'Productive Financing Fund', 'deskripsi_id' => 'Akses pendanaan bagi produksi film Indonesia.', 'deskripsi_en' => 'Access to funding for Indonesian film production.'],
+                ['icon' => 'fa-solid fa-hand-holding-dollar', 'urutan' => 2, 'judul_id' => 'Insentif Fiskal', 'judul_en' => 'Fiscal Incentives', 'deskripsi_id' => 'Kemudahan pajak dan insentif bagi pelaku industri.', 'deskripsi_en' => 'Tax facilities and incentives for industry players.'],
+                ['icon' => 'fa-solid fa-piggy-bank', 'urutan' => 3, 'judul_id' => 'Skema Co-Financing', 'judul_en' => 'Co-Financing Scheme', 'deskripsi_id' => 'Kerja sama pendanaan bersama mitra dan investor.', 'deskripsi_en' => 'Joint funding collaboration with partners and investors.'],
+            ],
+            // Pasar Global (program_id 2)
+            2 => [
+                ['icon' => 'fa-solid fa-earth-americas', 'urutan' => 1, 'judul_id' => 'Promosi Internasional', 'judul_en' => 'International Promotion', 'deskripsi_id' => 'Pemasaran film Indonesia di pasar global.', 'deskripsi_en' => 'Marketing Indonesian films in global markets.'],
+                ['icon' => 'fa-solid fa-handshake', 'urutan' => 2, 'judul_id' => 'Kemitraan Strategis', 'judul_en' => 'Strategic Partnerships', 'deskripsi_id' => 'Jaringan kerja sama dengan lembaga perfilman dunia.', 'deskripsi_en' => 'Collaboration network with world film institutions.'],
+                ['icon' => 'fa-solid fa-ticket', 'urutan' => 3, 'judul_id' => 'Festival & Market', 'judul_en' => 'Festivals & Markets', 'deskripsi_id' => 'Partisipasi aktif dalam festival dan market internasional.', 'deskripsi_en' => 'Active participation in international festivals and markets.'],
+            ],
+            // Pengembangan Talenta (program_id 3)
+            3 => [
+                ['icon' => 'fa-solid fa-graduation-cap', 'urutan' => 1, 'judul_id' => 'Program Pendidikan', 'judul_en' => 'Education Programs', 'deskripsi_id' => 'Pelatihan dan workshop untuk talenta perfilman.', 'deskripsi_en' => 'Training and workshops for film talent.'],
+                ['icon' => 'fa-solid fa-users', 'urutan' => 2, 'judul_id' => 'Mentoring & Residensi', 'judul_en' => 'Mentoring & Residency', 'deskripsi_id' => 'Pendampingan dan program residensi sineas muda.', 'deskripsi_en' => 'Mentoring and residency programs for young filmmakers.'],
+                ['icon' => 'fa-solid fa-earth-asia', 'urutan' => 3, 'judul_id' => 'Mobilitas Talenta', 'judul_en' => 'Talent Mobility', 'deskripsi_id' => 'Pertukaran dan kolaborasi lintas negara.', 'deskripsi_en' => 'Cross-border talent exchange and collaboration.'],
+            ],
+            // Infrastruktur (program_id 4)
+            4 => [
+                ['icon' => 'fa-solid fa-building', 'urutan' => 1, 'judul_id' => 'Sarana Produksi', 'judul_en' => 'Production Facilities', 'deskripsi_id' => 'Pengembangan studio dan fasilitas produksi.', 'deskripsi_en' => 'Development of studios and production facilities.'],
+                ['icon' => 'fa-solid fa-microchip', 'urutan' => 2, 'judul_id' => 'Teknologi Digital', 'judul_en' => 'Digital Technology', 'deskripsi_id' => 'Penerapan teknologi terkini dalam produksi film.', 'deskripsi_en' => 'Implementation of latest technology in film production.'],
+                ['icon' => 'fa-solid fa-network-wired', 'urutan' => 3, 'judul_id' => 'Distribusi Digital', 'judul_en' => 'Digital Distribution', 'deskripsi_id' => 'Platform dan infrastruktur distribusi digital.', 'deskripsi_en' => 'Digital distribution platforms and infrastructure.'],
+            ],
+        ];
+
+        foreach ($programs as $program) {
+            if (isset($programPoinData[$program->id])) {
+                foreach ($programPoinData[$program->id] as $poinData) {
+                    ProgramPoin::create([
+                        'program_id' => $program->id,
+                        'icon' => $poinData['icon'],
+                        'urutan' => $poinData['urutan'],
+                        'status' => true,
+                    ])->storeTranslations([
+                        'id' => [
+                            'judul' => $poinData['judul_id'],
+                            'deskripsi' => $poinData['deskripsi_id'],
+                        ],
+                        'en' => [
+                            'judul' => $poinData['judul_en'],
+                            'deskripsi' => $poinData['deskripsi_en'],
+                        ],
+                    ]);
+                }
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
         | PROYEK
         |--------------------------------------------------------------------------
         */
@@ -799,6 +860,29 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
+        | RELASI PROYEK - MITRA
+        |--------------------------------------------------------------------------
+        */
+
+        $proyekMitraMap = [
+            1 => [1, 2, 9, 10],
+            2 => [5, 6, 13, 14],
+            3 => [3, 7, 9, 11],
+            4 => [2, 4, 10, 12],
+            5 => [3, 8, 15, 16],
+            6 => [1, 4, 11, 12],
+            7 => [5, 6, 13, 16],
+            8 => [7, 8, 14, 15],
+        ];
+
+        foreach ($proyekMitraMap as $proyekIdx => $mitraIds) {
+            if (isset($projects[$proyekIdx - 1])) {
+                $projects[$proyekIdx - 1]->mitra()->sync($mitraIds);
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
         | BERITA
         |--------------------------------------------------------------------------
         */
@@ -980,6 +1064,56 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
+        | TAGS
+        |--------------------------------------------------------------------------
+        */
+
+        $tagsData = [
+            ['slug' => 'profilman-indonesia', 'nama_id' => 'Profilman Indonesia', 'nama_en' => 'Indonesian Cinema'],
+            ['slug' => 'kebijakan-budaya', 'nama_id' => 'Kebijakan Budaya', 'nama_en' => 'Cultural Policy'],
+            ['slug' => 'ekonomi-kreatif', 'nama_id' => 'Ekonomi Kreatif', 'nama_en' => 'Creative Economy'],
+            ['slug' => 'teknologi-film', 'nama_id' => 'Teknologi Film', 'nama_en' => 'Film Technology'],
+            ['slug' => 'talenta-muda', 'nama_id' => 'Talenta Muda', 'nama_en' => 'Young Talent'],
+            ['slug' => 'festival-film', 'nama_id' => 'Festival Film', 'nama_en' => 'Film Festival'],
+            ['slug' => 'pelestarian-warisan', 'nama_id' => 'Pelestarian Warisan', 'nama_en' => 'Heritage Preservation'],
+            ['slug' => 'kolaborasi-internasional', 'nama_id' => 'Kolaborasi Internasional', 'nama_en' => 'International Collaboration'],
+            ['slug' => 'industri-kreatif', 'nama_id' => 'Industri Kreatif', 'nama_en' => 'Creative Industry'],
+            ['slug' => 'literasi-film', 'nama_id' => 'Literasi Film', 'nama_en' => 'Film Literacy'],
+        ];
+
+        $tags = [];
+        foreach ($tagsData as $tagData) {
+            $tag = Tag::create([
+                'slug' => $tagData['slug'],
+                'status' => true,
+            ]);
+            $tag->storeTranslations([
+                'id' => ['nama' => $tagData['nama_id']],
+                'en' => ['nama' => $tagData['nama_en']],
+            ]);
+            $tags[] = $tag;
+        }
+
+        // Relasi Berita - Tag
+        $beritaTagMap = [
+            1 => [0, 1, 5],
+            2 => [0, 2],
+            3 => [0, 7, 8],
+            4 => [0, 4, 9],
+            5 => [0, 3],
+            6 => [0, 6],
+            7 => [0, 8, 2],
+        ];
+
+        foreach ($beritaTagMap as $beritaIdx => $tagIdxs) {
+            if (isset($news[$beritaIdx - 1])) {
+                $tagIds = array_map(fn ($idx) => $tags[$idx]->id, $tagIdxs);
+                $news[$beritaIdx - 1]->tags()->sync($tagIds);
+            }
+        }
+
+        /*
+        |--------------------------------------------------------------------------
         | TENTANG
         |--------------------------------------------------------------------------
         */
@@ -1059,6 +1193,53 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
         ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | TENTANG POIN (Visi & Misi Sub-items)
+        |--------------------------------------------------------------------------
+        */
+
+        $tentang = Tentang::all();
+
+        $tentangPoinData = [
+            // Visi (tentang_id 2)
+            2 => [
+                ['icon' => 'fa-solid fa-globe', 'urutan' => 1, 'judul_id' => 'Keunggulan Global', 'judul_en' => 'Global Excellence', 'deskripsi_id' => 'Membangun ekosistem perfilman yang mampu bersaing di tingkat internasional.', 'deskripsi_en' => 'Building a film ecosystem capable of competing at the international level.'],
+                ['icon' => 'fa-solid fa-users', 'urutan' => 2, 'judul_id' => 'Inklusivitas', 'judul_en' => 'Inclusivity', 'deskripsi_id' => 'Menjamin partisipasi seluruh pemangku kepentingan tanpa diskriminasi.', 'deskripsi_en' => 'Ensuring participation of all stakeholders without discrimination.'],
+                ['icon' => 'fa-solid fa-lightbulb', 'urutan' => 3, 'judul_id' => 'Inovasi Kreatif', 'judul_en' => 'Creative Innovation', 'deskripsi_id' => 'Mendorong inovasi dalam karya dan proses produksi perfilman.', 'deskripsi_en' => 'Encouraging innovation in filmmaking works and production processes.'],
+                ['icon' => 'fa-solid fa-leaf', 'urutan' => 4, 'judul_id' => 'Keberlanjutan', 'judul_en' => 'Sustainability', 'deskripsi_id' => 'Memastikan pertumbuhan industri yang berkelanjutan dan bertanggung jawab.', 'deskripsi_en' => 'Ensuring sustainable and responsible industry growth.'],
+            ],
+            // Misi (tentang_id 3)
+            3 => [
+                ['icon' => 'fa-solid fa-graduation-cap', 'urutan' => 1, 'judul_id' => 'Pengembangan SDM', 'judul_en' => 'Human Resource Development', 'deskripsi_id' => 'Meningkatkan kompetensi dan kapasitas talenta perfilman Indonesia melalui pendidikan, pelatihan, dan pengembangan profesional.', 'deskripsi_en' => 'Improving the competency and capacity of Indonesian film talent through education, training, and professional development.'],
+                ['icon' => 'fa-solid fa-earth-americas', 'urutan' => 2, 'judul_id' => 'Promosi Internasional', 'judul_en' => 'International Promotion', 'deskripsi_id' => 'Memperluas jangkauan dan apresiasi film Indonesia di pasar global melalui promosi, festival, dan kemitraan strategis.', 'deskripsi_en' => 'Expanding the reach and appreciation of Indonesian films in global markets through promotion, festivals, and strategic partnerships.'],
+                ['icon' => 'fa-solid fa-gavel', 'urutan' => 3, 'judul_id' => 'Advokasi Kebijakan', 'judul_en' => 'Policy Advocacy', 'deskripsi_id' => 'Mendorong kebijakan yang mendukung pertumbuhan, perlindungan, dan keberlanjutan industri perfilman Indonesia.', 'deskripsi_en' => 'Advocating policies that support the growth, protection, and sustainability of the Indonesian film industry.'],
+                ['icon' => 'fa-solid fa-link', 'urutan' => 4, 'judul_id' => 'Koordinasi Ekosistem', 'judul_en' => 'Ecosystem Coordination', 'deskripsi_id' => 'Menghubungkan dan mengkoordinasikan seluruh pemangku kepentingan untuk membangun sinergi dan kolaborasi yang efektif.', 'deskripsi_en' => 'Connecting and coordinating all stakeholders to build effective synergy and collaboration.'],
+            ],
+        ];
+
+        foreach ($tentang as $item) {
+            if (isset($tentangPoinData[$item->id])) {
+                foreach ($tentangPoinData[$item->id] as $poinData) {
+                    TentangPoin::create([
+                        'tentang_id' => $item->id,
+                        'icon' => $poinData['icon'],
+                        'urutan' => $poinData['urutan'],
+                        'status' => true,
+                    ])->storeTranslations([
+                        'id' => [
+                            'judul' => $poinData['judul_id'],
+                            'deskripsi' => $poinData['deskripsi_id'],
+                        ],
+                        'en' => [
+                            'judul' => $poinData['judul_en'],
+                            'deskripsi' => $poinData['deskripsi_en'],
+                        ],
+                    ]);
+                }
+            }
+        }
 
         /*
         |--------------------------------------------------------------------------
@@ -1145,6 +1326,81 @@ class DatabaseSeeder extends Seeder
                 'alamat' => 'Film Building, Jl. M.T. Haryono Kav. 47-48, South Jakarta 12770',
             ],
         ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | KONTAK DETAIL (Card per Contact Point)
+        |--------------------------------------------------------------------------
+        */
+
+        $kontak = Kontak::first();
+
+        if ($kontak) {
+            $kontakDetails = [
+                [
+                    'icon' => 'fa-solid fa-envelope',
+                    'link_url' => 'mailto:info@bpi.or.id',
+                    'link_nama' => 'Kirim Pesan Email',
+                    'handle' => 'info@bpi.or.id',
+                    'urutan' => 1,
+                    'judul_id' => 'Alamat Email',
+                    'judul_en' => 'Email Address',
+                    'deskripsi_id' => 'Kirimkan pesan atau pertanyaan Anda melalui email.',
+                    'deskripsi_en' => 'Send your message or inquiries via email.',
+                    'nilai_id' => 'info@bpi.or.id',
+                    'nilai_en' => 'info@bpi.or.id',
+                ],
+                [
+                    'icon' => 'fa-solid fa-phone',
+                    'link_url' => 'tel:+62217980900',
+                    'link_nama' => 'Hubungi via Telepon',
+                    'handle' => '+62 21 798 0900',
+                    'urutan' => 2,
+                    'judul_id' => 'Kontak Telepon',
+                    'judul_en' => 'Phone Contact',
+                    'deskripsi_id' => 'Hubungi kami langsung melalui telepon untuk informasi lebih lanjut.',
+                    'deskripsi_en' => 'Contact us directly by phone for more information.',
+                    'nilai_id' => '+62 21 798 0900',
+                    'nilai_en' => '+62 21 798 0900',
+                ],
+                [
+                    'icon' => 'fa-brands fa-whatsapp',
+                    'link_url' => 'https://wa.me/6281200000000',
+                    'link_nama' => 'Hubungi via WhatsApp',
+                    'handle' => '@bpi.or.id',
+                    'urutan' => 3,
+                    'judul_id' => 'Media Sosial',
+                    'judul_en' => 'Social Media',
+                    'deskripsi_id' => 'Ikuti dan hubungi kami melalui media sosial untuk kabar terkini.',
+                    'deskripsi_en' => 'Follow and contact us on social media for the latest updates.',
+                    'nilai_id' => '@bpi.or.id',
+                    'nilai_en' => '@bpi.or.id',
+                ],
+            ];
+
+            foreach ($kontakDetails as $detail) {
+                KontakDetail::create([
+                    'kontak_id' => $kontak->id,
+                    'icon' => $detail['icon'],
+                    'link_url' => $detail['link_url'],
+                    'link_nama' => $detail['link_nama'],
+                    'handle' => $detail['handle'],
+                    'urutan' => $detail['urutan'],
+                    'status' => true,
+                ])->storeTranslations([
+                    'id' => [
+                        'judul' => $detail['judul_id'],
+                        'deskripsi' => $detail['deskripsi_id'],
+                        'nilai' => $detail['nilai_id'],
+                    ],
+                    'en' => [
+                        'judul' => $detail['judul_en'],
+                        'deskripsi' => $detail['deskripsi_en'],
+                        'nilai' => $detail['nilai_en'],
+                    ],
+                ]);
+            }
+        }
 
         /*
         |--------------------------------------------------------------------------

@@ -46,10 +46,12 @@ class ProyekApiController extends BaseApiController
         'timeline' => 'required|string',
     ];
 
+    protected array $withRelations = ['galeri', 'translations', 'mitra'];
+
     public function getBySlug($slug)
     {
         $resource = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'mitra'])
             ->where('slug', $slug)
             ->first();
 
@@ -67,7 +69,7 @@ class ProyekApiController extends BaseApiController
         }
 
         $resources = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'mitra'])
             ->where('status', $status)
             ->orderBy('urutan', 'asc')
             ->get();
@@ -78,7 +80,7 @@ class ProyekApiController extends BaseApiController
     public function getByKategori($kategori)
     {
         $resources = $this->model::query()
-            ->with(['galeri', 'translations'])
+            ->with(['galeri', 'translations', 'mitra'])
             ->whereHas('translations', function ($q) use ($kategori) {
                 $q->where('kategori', $kategori);
             })
@@ -111,8 +113,51 @@ class ProyekApiController extends BaseApiController
 
         $resource = $this->model::create($data);
         $resource->storeTranslations((array) $request->input('translations', []));
-        $resource->load('translations');
+
+        if ($request->has('mitra_ids')) {
+            $resource->mitra()->sync($request->input('mitra_ids', []));
+        }
+
+        $resource->load(['translations', 'mitra']);
 
         return $this->successResponse($resource, 'Proyek created successfully', 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $resource = $this->model::find($id);
+
+        if (! $resource) {
+            return $this->notFoundResponse();
+        }
+
+        $validator = validator($request->all(), $this->buildValidationRules(true));
+
+        if ($validator->fails()) {
+            return $this->validationErrorResponse($validator->errors());
+        }
+
+        $data = $this->neutralData($request);
+
+        if ($this->imageField && $request->hasFile($this->imageField)) {
+            $oldFile = $resource->{$this->imageField};
+            $data[$this->imageField] = $this->uploadFile(
+                $request->file($this->imageField),
+                $this->imagePath,
+                $oldFile
+            );
+        }
+
+        $resource->update($data);
+
+        if ($this->usesTranslations() && $request->has('translations')) {
+            $resource->storeTranslations((array) $request->input('translations', []));
+        }
+
+        if ($request->has('mitra_ids')) {
+            $resource->mitra()->sync($request->input('mitra_ids', []));
+        }
+
+        return $this->successResponse($resource->fresh(['galeri', 'translations', 'mitra']), ucfirst(class_basename($resource)).' updated successfully');
     }
 }

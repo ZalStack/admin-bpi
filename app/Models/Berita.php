@@ -28,4 +28,9 @@ class Berita extends Model
     {
         return $this->hasMany(BeritaGaleri::class, 'berita_id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'berita_tag', 'berita_id', 'tag_id');
+    }
 }

@@ -6,15 +6,15 @@ use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Program extends Model
+class TentangPoin extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasTranslations, HasFactory;
 
-    protected $table = 'program';
+    protected $table = 'tentang_poin';
 
     protected $fillable = [
+        'tentang_id',
         'icon',
-        'gambar',
         'urutan',
         'status',
     ];
@@ -23,8 +23,8 @@ class Program extends Model
         'status' => 'boolean',
     ];
 
-    public function poin()
+    public function tentang()
     {
-        return $this->hasMany(ProgramPoin::class, 'program_id');
+        return $this->belongsTo(Tentang::class, 'tentang_id');
     }
 }
