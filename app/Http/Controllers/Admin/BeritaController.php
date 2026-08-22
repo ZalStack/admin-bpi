@@ -2,130 +2,76 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Bahasa;
 use App\Models\Berita;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class BeritaController extends Controller
+class BeritaController extends AdminBaseController
 {
-    public function index()
-    {
-        $beritas = Berita::orderBy('created_at', 'desc')->get();
-        return view('admin.berita.index', compact('beritas'));
-    }
+    protected string $model = Berita::class;
 
-    public function create()
-    {
-        return view('admin.berita.create');
-    }
+    protected string $viewPrefix = 'admin.berita';
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'judul_id' => 'required|string|max:255',
-            'judul_en' => 'required|string|max:255',
-            'ringkasan_id' => 'required|string',
-            'ringkasan_en' => 'required|string',
-            'isi_id' => 'required|string',
-            'isi_en' => 'required|string',
-            'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'kategori_id' => 'required|string|max:100',
-            'kategori_en' => 'required|string|max:100',
-            'penulis' => 'required|string|max:255',
-            'tanggal_publikasi' => 'required|date',
-            'kutipan_id' => 'nullable|string',
-            'kutipan_en' => 'nullable|string',
-            'status' => 'nullable|string|max:50'
-        ]);
+    protected string $routeName = 'admin.berita';
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->judul_id) . '-' . time();
+    protected string $label = 'Berita';
 
-        if ($request->hasFile('gambar_utama')) {
-            $imageName = time() . '.' . $request->gambar_utama->extension();
-            $request->gambar_utama->storeAs('berita', $imageName, 'public');
-            $data['gambar_utama'] = $imageName;
-        }
+    protected string $indexOrderColumn = 'created_at';
 
-        Berita::create($data);
+    protected string $indexOrderDirection = 'desc';
 
-        return redirect()->route('admin.berita.index')
-            ->with('success', 'Berita berhasil ditambahkan');
-    }
+    protected array $validationRules = [
+        'penulis' => 'required|string|max:255',
+        'tanggal_publikasi' => 'required|date',
+        'status' => 'nullable|string|in:draft,published,archived',
+    ];
+
+    protected array $translatableRules = [
+        'judul' => 'required|string|max:255',
+        'ringkasan' => 'required|string',
+        'isi' => 'required|string',
+        'kategori' => 'required|string|max:100',
+        'kutipan' => 'nullable|string',
+    ];
+
+    protected ?string $imageField = 'gambar_utama';
+
+    protected ?string $imagePath = 'berita';
 
     public function edit($id)
     {
-        $berita = Berita::with('galeri')->findOrFail($id);
-        return view('admin.berita.edit', compact('berita'));
-    }
+        $item = Berita::with('galeri')->findOrFail($id);
 
-    public function update(Request $request, $id)
-    {
-        $berita = Berita::findOrFail($id);
-
-        $request->validate([
-            'judul_id' => 'required|string|max:255',
-            'judul_en' => 'required|string|max:255',
-            'ringkasan_id' => 'required|string',
-            'ringkasan_en' => 'required|string',
-            'isi_id' => 'required|string',
-            'isi_en' => 'required|string',
-            'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'kategori_id' => 'required|string|max:100',
-            'kategori_en' => 'required|string|max:100',
-            'penulis' => 'required|string|max:255',
-            'tanggal_publikasi' => 'required|date',
-            'kutipan_id' => 'nullable|string',
-            'kutipan_en' => 'nullable|string',
-            'status' => 'nullable|string|max:50'
-        ]);
-
-        $data = $request->all();
-
-        if ($request->hasFile('gambar_utama')) {
-            if ($berita->gambar_utama) {
-                Storage::disk('public')->delete('berita/' . $berita->gambar_utama);
-            }
-
-            $imageName = time() . '.' . $request->gambar_utama->extension();
-            $request->gambar_utama->storeAs('berita', $imageName, 'public');
-            $data['gambar_utama'] = $imageName;
-        }
-
-        $berita->update($data);
-
-        return redirect()->route('admin.berita.index')
-            ->with('success', 'Berita berhasil diupdate');
-    }
-
-    public function destroy($id)
-    {
-        $berita = Berita::findOrFail($id);
-
-        if ($berita->gambar_utama) {
-            Storage::disk('public')->delete('berita/' . $berita->gambar_utama);
-        }
-
-        foreach ($berita->galeri as $galeri) {
-            if ($galeri->gambar) {
-                Storage::disk('public')->delete('berita/galeri/' . $galeri->gambar);
-            }
-        }
-
-        $berita->delete();
-
-        return redirect()->route('admin.berita.index')
-            ->with('success', 'Berita berhasil dihapus');
+        return view($this->viewPrefix.'.edit', $this->viewData(['item' => $item]));
     }
 
     public function toggleStatus($id)
     {
         $berita = Berita::findOrFail($id);
-        $berita->status = $berita->status == 'published' ? 'draft' : 'published';
+        $berita->status = $berita->status === 'published' ? 'draft' : 'published';
         $berita->save();
 
         return response()->json(['success' => true]);
+    }
+
+    protected function extraData(Request $request, bool $creating): array
+    {
+        if (! $creating) {
+            return [];
+        }
+
+        $defaultKode = Bahasa::defaultKode();
+
+        return ['slug' => Str::slug($request->input("translations.$defaultKode.judul", '')).'-'.time()];
+    }
+
+    protected function beforeDelete(Model $item): array
+    {
+        return $item->galeri
+            ->filter(fn ($galeri) => $galeri->gambar !== null)
+            ->map(fn ($galeri) => 'berita/galeri/'.$galeri->gambar)
+            ->all();
     }
 }

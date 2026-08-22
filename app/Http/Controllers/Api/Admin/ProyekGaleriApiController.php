@@ -2,103 +2,62 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Proyek;
 use App\Models\ProyekGaleri;
 use Illuminate\Http\Request;
 
 class ProyekGaleriApiController extends BaseApiController
 {
     protected $model = ProyekGaleri::class;
-    protected $imageField = 'gambar';
-    protected $imagePath = 'proyek/galeri';
 
-    protected $validationRules = [
+    protected ?string $imageField = 'gambar';
+
+    protected ?string $imagePath = 'proyek/galeri';
+
+    protected array $validationRules = [
         'proyek_id' => 'required|exists:proyek,id',
-        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'judul_id' => 'nullable|string|max:255',
-        'judul_en' => 'nullable|string|max:255',
-        'deskripsi_id' => 'nullable|string',
-        'deskripsi_en' => 'nullable|string',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'urutan' => 'nullable|integer',
-        'status' => 'boolean'
+        'status' => 'boolean',
     ];
 
-    protected $updateValidationRules = [
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'judul_id' => 'nullable|string|max:255',
-        'judul_en' => 'nullable|string|max:255',
-        'deskripsi_id' => 'nullable|string',
-        'deskripsi_en' => 'nullable|string',
-        'urutan' => 'nullable|integer',
-        'status' => 'boolean'
+    protected array $translatableRules = [
+        'judul' => 'nullable|string|max:255',
+        'deskripsi' => 'nullable|string',
     ];
 
-    /**
-     * Get gallery by proyek ID
-     */
     public function getByProyek($proyekId)
     {
-        $proyek = Proyek::find($proyekId);
-
-        if (!$proyek) {
-            return $this->notFoundResponse('Proyek not found');
-        }
-
-        $galeris = ProyekGaleri::where('proyek_id', $proyekId)
-            ->orderBy('urutan')
+        $resources = $this->model::query()
+            ->with($this->withRelations)
+            ->where('proyek_id', $proyekId)
+            ->orderBy('urutan', 'asc')
             ->get();
 
-        return $this->successResponse($galeris);
+        return $this->successResponse($resources);
     }
 
     public function store(Request $request)
     {
-        $validator = validator($request->all(), $this->validationRules);
+        $validator = validator($request->all(), $this->buildValidationRules(false));
 
         if ($validator->fails()) {
             return $this->validationErrorResponse($validator->errors());
         }
 
-        $data = $request->all();
-
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $this->uploadFile(
-                $request->file('gambar'),
-                $this->imagePath
-            );
+        if (! $request->hasFile('gambar')) {
+            return $this->errorResponse('Gambar wajib diunggah', 422);
         }
 
-        return $this->createResource($this->model, $data);
-    }
+        $data = $this->neutralData($request);
+        $data[$this->imageField] = $this->uploadFile(
+            $request->file($this->imageField),
+            $this->imagePath
+        );
 
-    public function update(Request $request, $id)
-    {
-        $validator = validator($request->all(), $this->updateValidationRules);
+        $resource = $this->model::create($data);
+        $resource->storeTranslations((array) $request->input('translations', []));
+        $resource->load('translations');
 
-        if ($validator->fails()) {
-            return $this->validationErrorResponse($validator->errors());
-        }
-
-        $data = $request->all();
-        $resource = $this->model->find($id);
-
-        if (!$resource) {
-            return $this->notFoundResponse();
-        }
-
-        if ($request->hasFile('gambar')) {
-            $oldFile = $resource->gambar;
-            $data['gambar'] = $this->uploadFile(
-                $request->file('gambar'),
-                $this->imagePath,
-                $oldFile
-            );
-        }
-
-        if (!$request->hasFile('gambar')) {
-            unset($data['gambar']);
-        }
-
-        return $this->updateResource($this->model, $id, $data);
+        return $this->successResponse($resource, 'Proyek galeri created successfully', 201);
     }
 }

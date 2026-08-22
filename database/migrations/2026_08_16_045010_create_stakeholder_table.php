@@ -10,10 +10,6 @@ return new class extends Migration
     {
         Schema::create('stakeholder', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_id', 255);
-            $table->string('nama_en', 255);
-            $table->text('deskripsi_id');
-            $table->text('deskripsi_en');
             $table->string('icon')->nullable();
             $table->string('gambar')->nullable();
             $table->integer('urutan')->default(0);

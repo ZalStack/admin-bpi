@@ -17,7 +17,7 @@
             <p class="page-subtitle">Kelola mitra dan logo organisasi</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#97763A] ring-1 ring-[#97763A]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#97763A]"></span>
-                {{ $mitras->count() }} Data
+                {{ $items->count() }} Data
             </div>
         </div>
         <a href="{{ route('admin.mitra.create') }}" class="btn-primary">
@@ -28,7 +28,7 @@
         </a>
     </div>
 
-    @if($mitras->isEmpty())
+    @if($items->isEmpty())
         <div class="empty-state">
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -42,26 +42,20 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th class="th">#</th>
-                            <th class="th">Nama (ID)</th>
+                            <th class="th">Logo</th>
+                            <th class="th">Nama</th>
                             <th class="th hidden md:table-cell">Kategori</th>
-                            <th class="th hidden lg:table-cell">Logo</th>
-                            <th class="th hidden sm:table-cell">Urutan</th>
+                            <th class="th hidden lg:table-cell">Website</th>
                             <th class="th hidden md:table-cell">Status</th>
                             <th class="th text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
-                        @foreach($mitras as $index => $mitra)
+                        @foreach($items as $item)
                             <tr class="tr-hover">
-                                <td class="td text-gray-500">{{ $index + 1 }}</td>
-                                <td class="td font-medium text-gray-900">{{ Str::limit($mitra->nama_id, 25) }}</td>
-                                <td class="td text-gray-500 hidden md:table-cell">
-                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">{{ Str::limit($mitra->kategori_id, 15) }}</span>
-                                </td>
-                                <td class="td hidden lg:table-cell">
-                                    @if($mitra->logo)
-                                        <img src="{{ asset('storage/mitra/'.$mitra->logo) }}" alt="logo" class="thumb-sm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                <td class="td">
+                                    @if($item->logo)
+                                        <img src="{{ asset('storage/mitra/'.$item->logo) }}" alt="logo" class="thumb" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                                         <div class="hidden items-center justify-center h-10 w-10 rounded-lg bg-gray-100">
                                             <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                         </div>
@@ -69,23 +63,25 @@
                                         <span class="text-gray-400">-</span>
                                     @endif
                                 </td>
-                                <td class="td hidden sm:table-cell">
-                                    <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 text-sm font-bold text-gray-600">{{ $mitra->urutan }}</span>
-                                </td>
+                                <td class="td font-medium text-gray-800">{{ Str::limit($item->translateField('nama'), 30) }}</td>
                                 <td class="td hidden md:table-cell">
-                                    <button onclick="toggleStatus('mitra', {{ $mitra->id }})" class="{{ $mitra->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
+                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">{{ Str::limit($item->translateField('kategori'), 15) }}</span>
+                                </td>
+                                <td class="td hidden lg:table-cell text-sm text-gray-600">{{ $item->website ?: '-' }}</td>
+                                <td class="td hidden md:table-cell">
+                                    <button onclick="toggleStatus('mitra', {{ $item->id }})" class="{{ $item->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
                                         <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
-                                        {{ $mitra->status ? 'Active' : 'Inactive' }}
+                                        {{ $item->status ? 'Active' : 'Inactive' }}
                                     </button>
                                 </td>
                                 <td class="td text-right">
                                     <div class="flex items-center justify-end gap-1.5">
-                                        <a href="{{ route('admin.mitra.edit', $mitra->id) }}" class="icon-btn-edit" title="Edit">
+                                        <a href="{{ route('admin.mitra.edit', $item->id) }}" class="icon-btn-edit" title="Edit">
                                             <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.mitra.destroy', $mitra->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.mitra.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="icon-btn-delete" title="Hapus">
@@ -104,4 +100,8 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+    @include('admin.partials.toggle-status-script')
+@endpush
 @endsection

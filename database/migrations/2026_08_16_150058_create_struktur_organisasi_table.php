@@ -11,11 +11,7 @@ return new class extends Migration
         Schema::create('struktur_organisasi', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 255);
-            $table->string('jabatan_id', 255);
-            $table->string('jabatan_en', 255);
             $table->string('foto')->nullable();
-            $table->text('deskripsi_id')->nullable();
-            $table->text('deskripsi_en')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('instagram')->nullable();
             $table->string('email')->nullable();

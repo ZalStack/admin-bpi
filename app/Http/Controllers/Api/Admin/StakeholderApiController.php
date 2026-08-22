@@ -3,134 +3,26 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Stakeholder;
-use Illuminate\Http\Request;
 
 class StakeholderApiController extends BaseApiController
 {
     protected $model = Stakeholder::class;
-    protected $imageField = 'gambar';
-    protected $imagePath = 'stakeholder';
-    protected $orderBy = ['urutan' => 'asc'];
 
-    protected $validationRules = [
-        'nama_id' => 'required|string|max:255',
-        'nama_en' => 'required|string|max:255',
-        'deskripsi_id' => 'required|string',
-        'deskripsi_en' => 'required|string',
+    protected ?string $imageField = 'gambar';
+
+    protected ?string $imagePath = 'stakeholder';
+
+    protected array $orderBy = ['urutan' => 'asc'];
+
+    protected array $validationRules = [
         'icon' => 'nullable|string|max:255',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'urutan' => 'nullable|integer',
-        'status' => 'boolean'
+        'status' => 'boolean',
     ];
 
-    protected $updateValidationRules = [
-        'nama_id' => 'required|string|max:255',
-        'nama_en' => 'required|string|max:255',
-        'deskripsi_id' => 'required|string',
-        'deskripsi_en' => 'required|string',
-        'icon' => 'nullable|string|max:255',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'urutan' => 'nullable|integer',
-        'status' => 'boolean'
+    protected array $translatableRules = [
+        'nama' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
     ];
-
-    public function getActive()
-    {
-        $resources = $this->model->where('status', true)
-            ->orderBy('urutan', 'asc')
-            ->get();
-
-        return $this->successResponse($resources);
-    }
-
-    public function store(Request $request)
-    {
-        $validator = validator($request->all(), $this->validationRules);
-
-        if ($validator->fails()) {
-            return $this->validationErrorResponse($validator->errors());
-        }
-
-        $data = $request->all();
-
-        if ($this->imageField && $request->hasFile($this->imageField)) {
-            $data[$this->imageField] = $this->uploadFile(
-                $request->file($this->imageField),
-                $this->imagePath
-            );
-        }
-
-        return $this->createResource($this->model, $data);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $validator = validator($request->all(), $this->updateValidationRules);
-
-        if ($validator->fails()) {
-            return $this->validationErrorResponse($validator->errors());
-        }
-
-        $data = $request->all();
-        $resource = $this->model->find($id);
-
-        if (!$resource) {
-            return $this->notFoundResponse();
-        }
-
-        if ($this->imageField && $request->hasFile($this->imageField)) {
-            $oldFile = $resource->{$this->imageField};
-            $data[$this->imageField] = $this->uploadFile(
-                $request->file($this->imageField),
-                $this->imagePath,
-                $oldFile
-            );
-        }
-
-        if ($this->imageField && !$request->hasFile($this->imageField)) {
-            unset($data[$this->imageField]);
-        }
-
-        return $this->updateResource($this->model, $id, $data);
-    }
-
-    public function destroy($id)
-    {
-        $resource = $this->model->find($id);
-
-        if (!$resource) {
-            return $this->notFoundResponse();
-        }
-
-        if ($this->imageField && $resource->{$this->imageField}) {
-            $this->deleteFile($this->imagePath, $resource->{$this->imageField});
-        }
-
-        $resource->delete();
-        return $this->successResponse(null, 'Stakeholder deleted successfully');
-    }
-
-    public function toggleStatus($id)
-    {
-        return $this->toggleStatus($this->model, $id);
-    }
-
-    public function updateUrutan(Request $request)
-    {
-        $validator = validator($request->all(), [
-            'urutan' => 'required|array',
-            'urutan.*.id' => 'required|exists:stakeholder,id',
-            'urutan.*.urutan' => 'required|integer'
-        ]);
-
-        if ($validator->fails()) {
-            return $this->validationErrorResponse($validator->errors());
-        }
-
-        foreach ($request->urutan as $item) {
-            Stakeholder::where('id', $item['id'])->update(['urutan' => $item['urutan']]);
-        }
-
-        return $this->successResponse(null, 'Urutan updated successfully');
-    }
 }

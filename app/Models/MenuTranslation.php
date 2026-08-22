@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PengaturanBahasa extends Model
+class MenuTranslation extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengaturan_bahasa';
+    protected $table = 'menu_translations';
 
     protected $fillable = [
-        'bahasa_default',
-        'bahasa_tersedia',
-        'status'
+        'menu_id',
+        'bahasa',
+        'nama',
     ];
 }

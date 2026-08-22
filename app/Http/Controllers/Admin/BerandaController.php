@@ -2,112 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Beranda;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-class BerandaController extends Controller
+class BerandaController extends AdminBaseController
 {
-    public function index()
-    {
-        $berandas = Beranda::orderBy('urutan')->get();
-        return view('admin.beranda.index', compact('berandas'));
-    }
+    protected string $model = Beranda::class;
 
-    public function create()
-    {
-        return view('admin.beranda.create');
-    }
+    protected string $viewPrefix = 'admin.beranda';
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'section' => 'required|string|max:100',
-            'judul_id' => 'required|string|max:255',
-            'judul_en' => 'required|string|max:255',
-            'deskripsi_id' => 'required|string',
-            'deskripsi_en' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'icon' => 'nullable|string|max:255',
-            'urutan' => 'nullable|integer',
-            'status' => 'boolean'
-        ]);
+    protected string $routeName = 'admin.beranda';
 
-        $data = $request->all();
+    protected string $label = 'Data beranda';
 
-        if ($request->hasFile('gambar')) {
-            $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->storeAs('beranda', $imageName, 'public');
-            $data['gambar'] = $imageName;
-        }
+    protected array $validationRules = [
+        'section' => 'required|string|max:100',
+        'icon' => 'nullable|string|max:255',
+        'urutan' => 'nullable|integer',
+        'status' => 'boolean',
+    ];
 
-        Beranda::create($data);
+    protected array $translatableRules = [
+        'judul' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+    ];
 
-        return redirect()->route('admin.beranda.index')
-            ->with('success', 'Data beranda berhasil ditambahkan');
-    }
+    protected ?string $imageField = 'gambar';
 
-    public function edit($id)
-    {
-        $beranda = Beranda::findOrFail($id);
-        return view('admin.beranda.edit', compact('beranda'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $beranda = Beranda::findOrFail($id);
-
-        $request->validate([
-            'section' => 'required|string|max:100',
-            'judul_id' => 'required|string|max:255',
-            'judul_en' => 'required|string|max:255',
-            'deskripsi_id' => 'required|string',
-            'deskripsi_en' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'icon' => 'nullable|string|max:255',
-            'urutan' => 'nullable|integer',
-            'status' => 'boolean'
-        ]);
-
-        $data = $request->all();
-
-        if ($request->hasFile('gambar')) {
-            if ($beranda->gambar) {
-                Storage::disk('public')->delete('beranda/'.$beranda->gambar);
-            }
-
-            $imageName = time().'.'.$request->gambar->extension();
-            $request->gambar->storeAs('beranda', $imageName, 'public');
-            $data['gambar'] = $imageName;
-        }
-
-        $beranda->update($data);
-
-        return redirect()->route('admin.beranda.index')
-            ->with('success', 'Data beranda berhasil diupdate');
-    }
-
-    public function destroy($id)
-    {
-        $beranda = Beranda::findOrFail($id);
-
-        if ($beranda->gambar) {
-            Storage::disk('public')->delete('beranda/'.$beranda->gambar);
-        }
-
-        $beranda->delete();
-
-        return redirect()->route('admin.beranda.index')
-            ->with('success', 'Data beranda berhasil dihapus');
-    }
-
-    public function toggleStatus($id)
-    {
-        $beranda = Beranda::findOrFail($id);
-        $beranda->status = !$beranda->status;
-        $beranda->save();
-
-        return response()->json(['success' => true]);
-    }
+    protected ?string $imagePath = 'beranda';
 }

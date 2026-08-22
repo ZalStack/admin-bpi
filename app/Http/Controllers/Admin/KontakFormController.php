@@ -4,19 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KontakForm;
-use Illuminate\Http\Request;
 
 class KontakFormController extends Controller
 {
     public function index()
     {
         $forms = KontakForm::orderBy('created_at', 'desc')->get();
+
         return view('admin.kontak-form.index', compact('forms'));
     }
 
     public function show($id)
     {
         $form = KontakForm::findOrFail($id);
+
         return view('admin.kontak-form.show', compact('form'));
     }
 

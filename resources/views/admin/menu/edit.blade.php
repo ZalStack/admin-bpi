@@ -18,7 +18,7 @@
                 <span>Edit</span>
             </nav>
             <h1 class="page-title">Edit Menu</h1>
-            <p class="page-subtitle">Perbarui menu navigasi website</p>
+            <p class="page-subtitle">{{ $item->translateField('nama') }}</p>
         </div>
         <a href="{{ route('admin.menu.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,75 +29,48 @@
     </div>
 
     <div class="form-card">
-        <form action="{{ route('admin.menu.update', $menu->id) }}" method="POST">
+        <form action="{{ route('admin.menu.update', $item->id) }}" method="POST"
+            x-data="{ lang: @js($bahasas->first()?->kode) }">
             @csrf
             @method('PUT')
 
             <div class="input-group">
                 <div>
-                    <label for="nama_id" class="form-label">Nama Menu (Indonesia) *</label>
-                    <input type="text" name="nama_id" id="nama_id" value="{{ old('nama_id', $menu->nama_id) }}" class="form-input" placeholder="cth: Beranda" required>
-                    @error('nama_id')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="nama_en" class="form-label">Nama Menu (English) *</label>
-                    <input type="text" name="nama_en" id="nama_en" value="{{ old('nama_en', $menu->nama_en) }}" class="form-input" placeholder="cth: Home" required>
-                    @error('nama_en')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div>
                     <label for="url" class="form-label">URL</label>
-                    <input type="text" name="url" id="url" value="{{ old('url', $menu->url) }}" class="form-input" placeholder="https://example.com atau /halaman">
+                    <input type="text" name="url" id="url" value="{{ old('url', $item->url) }}" class="form-input" placeholder="/tentang">
                     @error('url')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
+                        <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
                     <label for="urutan" class="form-label">Urutan</label>
-                    <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $menu->urutan) }}" class="form-input" min="0">
+                    <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $item->urutan) }}" class="form-input" min="0">
                     @error('urutan')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
+                        <p class="form-error">{{ $message }}</p>
                     @enderror
+                </div>
+
+                <div>
+                    <label for="status" class="form-label">Status</label>
+                    <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="status" value="1" {{ $item->status ? 'checked' : '' }} class="form-checkbox">
+                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <div class="divider"></div>
 
-            <div>
-                <label for="status" class="form-label">Status</label>
-                <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="checkbox" name="status" value="1" {{ $menu->status ? 'checked' : '' }} class="form-checkbox">
-                        <span class="text-sm font-medium text-gray-700">Aktif</span>
-                    </label>
-                </div>
-            </div>
+            <x-lang-tabs :bahasas="$bahasas"/>
+
+            @foreach ($bahasas as $bahasa)
+                <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
+                    <x-trans-input field="nama" label="Nama Menu" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Nama dalam bahasa {{ $bahasa->nama }}"/>
+                </x-lang-panel>
+            @endforeach
 
             <div class="divider"></div>
 

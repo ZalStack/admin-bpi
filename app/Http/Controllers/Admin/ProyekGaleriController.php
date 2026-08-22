@@ -2,113 +2,113 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Proyek;
 use App\Models\ProyekGaleri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ProyekGaleriController extends Controller
+class ProyekGaleriController extends AdminBaseController
 {
-    public function index($proyek_id)
+    protected string $model = ProyekGaleri::class;
+
+    protected string $viewPrefix = 'admin.proyek.galeri';
+
+    protected string $routeName = 'admin.proyek.galeri';
+
+    protected string $label = 'Galeri proyek';
+
+    protected array $validationRules = [
+        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'urutan' => 'nullable|integer',
+        'status' => 'boolean',
+    ];
+
+    protected array $updateValidationRules = [
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'urutan' => 'nullable|integer',
+        'status' => 'boolean',
+    ];
+
+    protected array $translatableRules = [
+        'judul' => 'nullable|string|max:255',
+        'deskripsi' => 'nullable|string',
+    ];
+
+    protected ?string $imageField = 'gambar';
+
+    protected ?string $imagePath = 'proyek/galeri';
+
+    public function index($proyek_id = null)
     {
         $proyek = Proyek::findOrFail($proyek_id);
-        $galeris = ProyekGaleri::where('proyek_id', $proyek_id)->orderBy('urutan')->get();
-        return view('admin.proyek.galeri.index', compact('proyek', 'galeris'));
+        $items = ProyekGaleri::where('proyek_id', $proyek_id)->orderBy('urutan')->get();
+
+        return view($this->viewPrefix.'.index', $this->viewData(['proyek' => $proyek, 'items' => $items]));
     }
 
-    public function create($proyek_id)
+    public function create($proyek_id = null)
     {
         $proyek = Proyek::findOrFail($proyek_id);
-        return view('admin.proyek.galeri.create', compact('proyek'));
+
+        return view($this->viewPrefix.'.create', $this->viewData(['proyek' => $proyek]));
     }
 
-    public function store(Request $request, $proyek_id)
+    public function store(Request $request, $proyek_id = null)
     {
-        $request->validate([
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'judul_id' => 'nullable|string|max:255',
-            'judul_en' => 'nullable|string|max:255',
-            'deskripsi_id' => 'nullable|string',
-            'deskripsi_en' => 'nullable|string',
-            'urutan' => 'nullable|integer',
-            'status' => 'boolean'
-        ]);
+        $validated = $request->validate($this->buildValidationRules(false));
 
-        $data = $request->all();
-        $data['proyek_id'] = $proyek_id;
+        $item = $this->model->create(array_merge(
+            ['proyek_id' => $proyek_id],
+            $this->neutralData($validated),
+            $this->uploadedImage($request)
+        ));
 
-        if ($request->hasFile('gambar')) {
-            $imageName = time() . '.' . $request->gambar->extension();
-            $request->gambar->storeAs('proyek/galeri', $imageName, 'public');
-            $data['gambar'] = $imageName;
+        if ($this->usesTranslations()) {
+            $item->storeTranslations((array) $request->input('translations', []));
         }
 
-        ProyekGaleri::create($data);
-
-        return redirect()->route('admin.proyek.galeri.index', $proyek_id)
-            ->with('success', 'Galeri berhasil ditambahkan');
+        return redirect()->route($this->routeName.'.index', $proyek_id)
+            ->with('success', $this->label.' berhasil ditambahkan');
     }
 
-    public function edit($proyek_id, $id)
+    public function edit($proyek_id = null, $id = null)
     {
         $proyek = Proyek::findOrFail($proyek_id);
-        $galeri = ProyekGaleri::findOrFail($id);
-        return view('admin.proyek.galeri.edit', compact('proyek', 'galeri'));
+        $item = ProyekGaleri::findOrFail($id);
+
+        return view($this->viewPrefix.'.edit', $this->viewData(['proyek' => $proyek, 'galeri' => $item]));
     }
 
-    public function update(Request $request, $proyek_id, $id)
+    public function update(Request $request, $proyek_id = null, $id = null)
     {
-        $galeri = ProyekGaleri::findOrFail($id);
+        $item = ProyekGaleri::findOrFail($id);
 
-        $request->validate([
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'judul_id' => 'nullable|string|max:255',
-            'judul_en' => 'nullable|string|max:255',
-            'deskripsi_id' => 'nullable|string',
-            'deskripsi_en' => 'nullable|string',
-            'urutan' => 'nullable|integer',
-            'status' => 'boolean'
-        ]);
+        $validated = $request->validate($this->buildValidationRules(true));
 
-        $data = $request->all();
+        $item->update(array_merge(
+            $this->neutralData($validated),
+            $this->uploadedImage($request, $item)
+        ));
 
-        if ($request->hasFile('gambar')) {
-            if ($galeri->gambar) {
-                Storage::disk('public')->delete('proyek/galeri/' . $galeri->gambar);
-            }
-
-            $imageName = time() . '.' . $request->gambar->extension();
-            $request->gambar->storeAs('proyek/galeri', $imageName, 'public');
-            $data['gambar'] = $imageName;
+        if ($this->usesTranslations() && $request->has('translations')) {
+            $item->storeTranslations((array) $request->input('translations', []));
         }
 
-        $galeri->update($data);
-
-        return redirect()->route('admin.proyek.galeri.index', $proyek_id)
-            ->with('success', 'Galeri berhasil diupdate');
+        return redirect()->route($this->routeName.'.index', $proyek_id)
+            ->with('success', $this->label.' berhasil diupdate');
     }
 
-    public function destroy($proyek_id, $id)
+    public function destroy($proyek_id = null, $id = null)
     {
-        $galeri = ProyekGaleri::findOrFail($id);
+        $item = ProyekGaleri::findOrFail($id);
 
-        if ($galeri->gambar) {
-            Storage::disk('public')->delete('proyek/galeri/' . $galeri->gambar);
+        if ($item->gambar) {
+            Storage::disk('public')->delete($this->imagePath.'/'.$item->gambar);
         }
 
-        $galeri->delete();
+        $item->delete();
 
-        return redirect()->route('admin.proyek.galeri.index', $proyek_id)
-            ->with('success', 'Galeri berhasil dihapus');
-    }
-
-    public function toggleStatus($proyek_id, $id)
-    {
-        $galeri = ProyekGaleri::findOrFail($id);
-        $galeri->status = !$galeri->status;
-        $galeri->save();
-
-        return response()->json(['success' => true]);
+        return redirect()->route($this->routeName.'.index', $proyek_id)
+            ->with('success', $this->label.' berhasil dihapus');
     }
 }

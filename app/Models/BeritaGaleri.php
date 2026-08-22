@@ -2,22 +2,25 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BeritaGaleri extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $table = 'berita_galeri';
 
     protected $fillable = [
         'berita_id',
         'gambar',
-        'caption_id',
-        'caption_en',
         'urutan',
-        'status'
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
     ];
 
     public function berita()

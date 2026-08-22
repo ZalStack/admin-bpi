@@ -2,31 +2,26 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Berita extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $table = 'berita';
 
     protected $fillable = [
         'slug',
-        'judul_id',
-        'judul_en',
-        'ringkasan_id',
-        'ringkasan_en',
-        'isi_id',
-        'isi_en',
         'gambar_utama',
-        'kategori_id',
-        'kategori_en',
         'penulis',
         'tanggal_publikasi',
-        'kutipan_id',
-        'kutipan_en',
-        'status'
+        'status',
+    ];
+
+    protected $casts = [
+        'tanggal_publikasi' => 'date:Y-m-d',
     ];
 
     public function galeri()

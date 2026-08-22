@@ -10,8 +10,6 @@ return new class extends Migration
     {
         Schema::create('menu', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_id', 100);
-            $table->string('nama_en', 100);
             $table->string('slug', 255)->unique();
             $table->string('url', 255)->nullable();
             $table->integer('urutan')->default(0);

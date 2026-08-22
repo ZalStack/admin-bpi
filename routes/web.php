@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 // Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 });
 
 // Auth routes
@@ -106,7 +106,11 @@ Route::middleware('auth')->group(function () {
 
             // Bahasa
             Route::get('bahasa', [BahasaController::class, 'index'])->name('bahasa.index');
-            Route::put('bahasa', [BahasaController::class, 'update'])->name('bahasa.update');
+            Route::post('bahasa', [BahasaController::class, 'store'])->name('bahasa.store');
+            Route::put('bahasa/{kode}', [BahasaController::class, 'update'])->name('bahasa.update');
+            Route::patch('bahasa/{kode}/set-default', [BahasaController::class, 'setDefault'])->name('bahasa.set-default');
+            Route::patch('bahasa/{kode}/toggle-status', [BahasaController::class, 'toggleStatus'])->name('bahasa.toggle-status');
+            Route::delete('bahasa/{kode}', [BahasaController::class, 'destroy'])->name('bahasa.destroy');
 
             // Tambahkan di dalam group admin routes
             // Struktur Organisasi
@@ -132,11 +136,11 @@ Route::middleware('auth')->group(function () {
             Route::post('/footer/{id}/toggle-status', [FooterController::class, 'toggleStatus'])->name('footer.toggle-status');
         });
 
-});
+    // Dokumentasi API hanya untuk admin yang login
+    Route::get('/admin/api-documentation', [ApiDocumentationController::class, 'index'])
+        ->name('admin.api-documentation.index');
 
-// Public routes (no auth required)
-Route::get('/admin/api-documentation', [ApiDocumentationController::class, 'index'])
-    ->name('admin.api-documentation.index');
+});
 
 // Redirect root to login
 Route::get('/', function () {

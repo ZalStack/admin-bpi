@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Bahasa;
 use App\Models\Berita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -9,48 +10,43 @@ use Illuminate\Support\Str;
 class BeritaApiController extends BaseApiController
 {
     protected $model = Berita::class;
-    protected $imageField = 'gambar_utama';
-    protected $imagePath = 'berita';
-    protected $withRelations = ['galeri'];
-    protected $orderBy = ['created_at' => 'desc'];
 
-    protected $validationRules = [
-        'judul_id' => 'required|string|max:255',
-        'judul_en' => 'required|string|max:255',
-        'ringkasan_id' => 'required|string',
-        'ringkasan_en' => 'required|string',
-        'isi_id' => 'required|string',
-        'isi_en' => 'required|string',
-        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'kategori_id' => 'required|string|max:100',
-        'kategori_en' => 'required|string|max:100',
+    protected ?string $imageField = 'gambar_utama';
+
+    protected ?string $imagePath = 'berita';
+
+    protected array $withRelations = ['galeri'];
+
+    protected array $orderBy = ['created_at' => 'desc'];
+
+    protected array $validationRules = [
+        'slug' => 'nullable|string|max:255|unique:berita,slug',
+        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'penulis' => 'required|string|max:255',
         'tanggal_publikasi' => 'required|date',
-        'kutipan_id' => 'nullable|string',
-        'kutipan_en' => 'nullable|string',
-        'status' => 'nullable|string|max:50'
+        'status' => 'nullable|string|in:draft,published,archived',
     ];
 
-    protected $updateValidationRules = [
-        'judul_id' => 'required|string|max:255',
-        'judul_en' => 'required|string|max:255',
-        'ringkasan_id' => 'required|string',
-        'ringkasan_en' => 'required|string',
-        'isi_id' => 'required|string',
-        'isi_en' => 'required|string',
-        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'kategori_id' => 'required|string|max:100',
-        'kategori_en' => 'required|string|max:100',
+    protected array $updateValidationRules = [
+        'slug' => 'nullable|string|max:255',
+        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'penulis' => 'required|string|max:255',
         'tanggal_publikasi' => 'required|date',
-        'kutipan_id' => 'nullable|string',
-        'kutipan_en' => 'nullable|string',
-        'status' => 'nullable|string|max:50'
+        'status' => 'nullable|string|in:draft,published,archived',
+    ];
+
+    protected array $translatableRules = [
+        'judul' => 'required|string|max:255',
+        'ringkasan' => 'required|string',
+        'isi' => 'required|string',
+        'kategori' => 'required|string|max:100',
+        'kutipan' => 'nullable|string',
     ];
 
     public function getActive()
     {
-        $resources = $this->model->with('galeri')
+        $resources = $this->model::query()
+            ->with(['galeri', 'translations'])
             ->where('status', 'published')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -60,9 +56,12 @@ class BeritaApiController extends BaseApiController
 
     public function getBySlug($slug)
     {
-        $resource = $this->model->with('galeri')->where('slug', $slug)->first();
+        $resource = $this->model::query()
+            ->with(['galeri', 'translations'])
+            ->where('slug', $slug)
+            ->first();
 
-        if (!$resource) {
+        if (! $resource) {
             return $this->notFoundResponse('Berita not found');
         }
 
@@ -71,11 +70,12 @@ class BeritaApiController extends BaseApiController
 
     public function getByStatus($status)
     {
-        if (!in_array($status, ['published', 'draft'])) {
+        if (! in_array($status, ['published', 'draft', 'archived'])) {
             return $this->errorResponse('Invalid status', 400);
         }
 
-        $resources = $this->model->with('galeri')
+        $resources = $this->model::query()
+            ->with(['galeri', 'translations'])
             ->where('status', $status)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -85,9 +85,11 @@ class BeritaApiController extends BaseApiController
 
     public function getByKategori($kategori)
     {
-        $resources = $this->model->with('galeri')
-            ->where('kategori_id', $kategori)
-            ->orWhere('kategori_en', $kategori)
+        $resources = $this->model::query()
+            ->with(['galeri', 'translations'])
+            ->whereHas('translations', function ($q) use ($kategori) {
+                $q->where('kategori', $kategori);
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -96,9 +98,10 @@ class BeritaApiController extends BaseApiController
 
     public function getLatest()
     {
-        $resources = $this->model->with('galeri')
+        $resources = $this->model::query()
+            ->with(['galeri', 'translations'])
             ->where('status', 'published')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('tanggal_publikasi', 'desc')
             ->limit(5)
             ->get();
 
@@ -107,14 +110,15 @@ class BeritaApiController extends BaseApiController
 
     public function store(Request $request)
     {
-        $validator = validator($request->all(), $this->validationRules);
+        $validator = validator($request->all(), $this->buildValidationRules(false));
 
         if ($validator->fails()) {
             return $this->validationErrorResponse($validator->errors());
         }
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->judul_id) . '-' . time();
+        $data = $this->neutralData($request);
+        $defaultJudul = (string) data_get($request->input('translations', []), Bahasa::defaultKode().'.judul', '');
+        $data['slug'] = $data['slug'] ?? Str::slug($defaultJudul, '-').'-'.time();
 
         if ($this->imageField && $request->hasFile($this->imageField)) {
             $data[$this->imageField] = $this->uploadFile(
@@ -123,45 +127,18 @@ class BeritaApiController extends BaseApiController
             );
         }
 
-        return $this->createResource($this->model, $data);
-    }
+        $resource = $this->model::create($data);
+        $resource->storeTranslations((array) $request->input('translations', []));
+        $resource->load('translations');
 
-    public function update(Request $request, $id)
-    {
-        $validator = validator($request->all(), $this->updateValidationRules);
-
-        if ($validator->fails()) {
-            return $this->validationErrorResponse($validator->errors());
-        }
-
-        $data = $request->all();
-        $resource = $this->model->find($id);
-
-        if (!$resource) {
-            return $this->notFoundResponse();
-        }
-
-        if ($this->imageField && $request->hasFile($this->imageField)) {
-            $oldFile = $resource->{$this->imageField};
-            $data[$this->imageField] = $this->uploadFile(
-                $request->file($this->imageField),
-                $this->imagePath,
-                $oldFile
-            );
-        }
-
-        if ($this->imageField && !$request->hasFile($this->imageField)) {
-            unset($data[$this->imageField]);
-        }
-
-        return $this->updateResource($this->model, $id, $data);
+        return $this->successResponse($resource, 'Berita created successfully', 201);
     }
 
     public function destroy($id)
     {
-        $resource = $this->model->with('galeri')->find($id);
+        $resource = $this->model::query()->with('galeri')->find($id);
 
-        if (!$resource) {
+        if (! $resource) {
             return $this->notFoundResponse();
         }
 
@@ -180,18 +157,18 @@ class BeritaApiController extends BaseApiController
 
     public function toggleStatus($id)
     {
-        $resource = $this->model->find($id);
+        $resource = $this->model::find($id);
 
-        if (!$resource) {
+        if (! $resource) {
             return $this->notFoundResponse();
         }
 
-        $resource->status = $resource->status == 'published' ? 'draft' : 'published';
+        $resource->status = $resource->status === 'published' ? 'draft' : 'published';
         $resource->save();
 
         return $this->successResponse([
             'id' => $resource->id,
-            'status' => $resource->status
+            'status' => $resource->status,
         ], 'Status updated successfully');
     }
 }

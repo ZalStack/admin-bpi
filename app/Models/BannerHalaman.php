@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BannerHalaman extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $table = 'banner_halaman';
 
     protected $fillable = [
         'halaman',
-        'judul_id',
-        'judul_en',
-        'deskripsi_id',
-        'deskripsi_en',
         'gambar',
-        'status'
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
     ];
 }

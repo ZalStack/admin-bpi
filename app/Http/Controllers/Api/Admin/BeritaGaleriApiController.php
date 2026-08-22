@@ -2,99 +2,61 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Berita;
 use App\Models\BeritaGaleri;
 use Illuminate\Http\Request;
 
 class BeritaGaleriApiController extends BaseApiController
 {
     protected $model = BeritaGaleri::class;
-    protected $imageField = 'gambar';
-    protected $imagePath = 'berita/galeri';
 
-    protected $validationRules = [
+    protected ?string $imageField = 'gambar';
+
+    protected ?string $imagePath = 'berita/galeri';
+
+    protected array $validationRules = [
         'berita_id' => 'required|exists:berita,id',
-        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'caption_id' => 'nullable|string|max:255',
-        'caption_en' => 'nullable|string|max:255',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'urutan' => 'nullable|integer',
-        'status' => 'boolean'
+        'status' => 'boolean',
     ];
 
-    protected $updateValidationRules = [
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'caption_id' => 'nullable|string|max:255',
-        'caption_en' => 'nullable|string|max:255',
-        'urutan' => 'nullable|integer',
-        'status' => 'boolean'
+    protected array $translatableRules = [
+        'caption' => 'nullable|string|max:255',
     ];
 
-    /**
-     * Get gallery by berita ID
-     */
     public function getByBerita($beritaId)
     {
-        $berita = Berita::find($beritaId);
-
-        if (!$berita) {
-            return $this->notFoundResponse('Berita not found');
-        }
-
-        $galeris = BeritaGaleri::where('berita_id', $beritaId)
-            ->orderBy('urutan')
+        $resources = $this->model::query()
+            ->with($this->withRelations)
+            ->where('berita_id', $beritaId)
+            ->orderBy('urutan', 'asc')
             ->get();
 
-        return $this->successResponse($galeris);
+        return $this->successResponse($resources);
     }
 
     public function store(Request $request)
     {
-        $validator = validator($request->all(), $this->validationRules);
+        $validator = validator($request->all(), $this->buildValidationRules(false));
 
         if ($validator->fails()) {
             return $this->validationErrorResponse($validator->errors());
         }
 
-        $data = $request->all();
-
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $this->uploadFile(
-                $request->file('gambar'),
-                $this->imagePath
-            );
+        if (! $request->hasFile('gambar')) {
+            return $this->errorResponse('Gambar wajib diunggah', 422);
         }
 
-        return $this->createResource($this->model, $data);
-    }
+        $data = $this->neutralData($request);
+        $data[$this->imageField] = $this->uploadFile(
+            $request->file($this->imageField),
+            $this->imagePath
+        );
 
-    public function update(Request $request, $id)
-    {
-        $validator = validator($request->all(), $this->updateValidationRules);
+        $resource = $this->model::create($data);
+        $resource->storeTranslations((array) $request->input('translations', []));
+        $resource->load('translations');
 
-        if ($validator->fails()) {
-            return $this->validationErrorResponse($validator->errors());
-        }
-
-        $data = $request->all();
-        $resource = $this->model->find($id);
-
-        if (!$resource) {
-            return $this->notFoundResponse();
-        }
-
-        if ($request->hasFile('gambar')) {
-            $oldFile = $resource->gambar;
-            $data['gambar'] = $this->uploadFile(
-                $request->file('gambar'),
-                $this->imagePath,
-                $oldFile
-            );
-        }
-
-        if (!$request->hasFile('gambar')) {
-            unset($data['gambar']);
-        }
-
-        return $this->updateResource($this->model, $id, $data);
+        return $this->successResponse($resource, 'Berita galeri created successfully', 201);
     }
 }

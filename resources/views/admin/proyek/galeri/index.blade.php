@@ -18,29 +18,19 @@
                 <span>Galeri</span>
             </nav>
             <h1 class="page-title">Galeri Proyek</h1>
-            <p class="page-subtitle">{{ $proyek->judul_id }}</p>
+            <p class="page-subtitle">{{ $proyek->translateField('judul') }}</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2B4E94] ring-1 ring-[#2B4E94]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#2B4E94]"></span>
-                {{ $galeris->count() }} Data
+                {{ $items->count() }} Data
             </div>
         </div>
         <div class="flex flex-wrap gap-2">
-            <a href="{{ route('admin.proyek.galeri.create', $proyek->id) }}" class="btn-primary">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                Tambah Galeri
-            </a>
-            <a href="{{ route('admin.proyek.index') }}" class="btn-outline">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                Kembali
-            </a>
+            <a href="{{ route('admin.proyek.galeri.create', $proyek->id) }}" class="btn-primary">Tambah Galeri</a>
+            <a href="{{ route('admin.proyek.index') }}" class="btn-outline">Kembali</a>
         </div>
     </div>
 
-    @if($galeris->isEmpty())
+    @if($items->isEmpty())
         <div class="empty-state">
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -50,11 +40,11 @@
         </div>
     @else
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            @foreach($galeris as $galeri)
+            @foreach($items as $galeri)
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
                     <div class="relative h-48 overflow-hidden">
                         @if($galeri->gambar)
-                            <img src="{{ asset('storage/proyek/galeri/'.$galeri->gambar) }}" alt="{{ $galeri->judul_id }}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                            <img src="{{ asset('storage/proyek/galeri/'.$galeri->gambar) }}" alt="{{ $galeri->translateField('judul') ?? 'Galeri' }}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                         @else
                             <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
                                 <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,8 +58,8 @@
                     </div>
 
                     <div class="p-4">
-                        <h3 class="font-semibold text-gray-800 font-poppins">{{ Str::limit($galeri->judul_id ?? 'Galeri', 25) }}</h3>
-                        <p class="text-sm text-gray-500 font-poppins mt-1">{{ Str::limit($galeri->deskripsi_id ?? '', 40) }}</p>
+                        <h3 class="font-semibold text-gray-800 font-poppins">{{ Str::limit($galeri->translateField('judul') ?? 'Galeri', 25) }}</h3>
+                        <p class="text-sm text-gray-500 font-poppins mt-1">{{ Str::limit($galeri->translateField('deskripsi') ?? '', 40) }}</p>
 
                         <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
                             <button onclick="toggleStatus('proyek/{{ $proyek->id }}/galeri', {{ $galeri->id }})" class="{{ $galeri->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
@@ -99,4 +89,8 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+    @include('admin.partials.toggle-status-script')
+@endpush
 @endsection

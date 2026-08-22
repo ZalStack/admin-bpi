@@ -14,10 +14,10 @@
                 <span>Stakeholder</span>
             </nav>
             <h1 class="page-title">Stakeholder</h1>
-            <p class="page-subtitle">Kelola daftar stakeholder organisasi</p>
+            <p class="page-subtitle">Kelola daftar stakeholder organisasi ({{ strtoupper(\App\Models\Bahasa::defaultKode()) }} ditampilkan)</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#A85C66] ring-1 ring-[#A85C66]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#A85C66]"></span>
-                {{ $stakeholders->count() }} Data
+                {{ $items->count() }} Data
             </div>
         </div>
         <a href="{{ route('admin.stakeholder.create') }}" class="btn-primary">
@@ -28,7 +28,7 @@
         </a>
     </div>
 
-    @if($stakeholders->isEmpty())
+    @if($items->isEmpty())
         <div class="empty-state">
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
@@ -42,32 +42,20 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th class="th">#</th>
-                            <th class="th">Nama (ID)</th>
-                            <th class="th hidden md:table-cell">Nama (EN)</th>
-                            <th class="th hidden md:table-cell">Icon</th>
-                            <th class="th hidden lg:table-cell">Gambar</th>
+                            <th class="th">Nama</th>
+                            <th class="th hidden md:table-cell">Gambar</th>
                             <th class="th hidden sm:table-cell">Urutan</th>
                             <th class="th hidden md:table-cell">Status</th>
                             <th class="th text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
-                        @foreach($stakeholders as $index => $stakeholder)
+                        @foreach($items as $item)
                             <tr class="tr-hover">
-                                <td class="td text-gray-500">{{ $index + 1 }}</td>
-                                <td class="td font-medium text-gray-900">{{ Str::limit($stakeholder->nama_id, 20) }}</td>
-                                <td class="td text-gray-500 hidden md:table-cell">{{ Str::limit($stakeholder->nama_en, 20) }}</td>
+                                <td class="td font-medium text-gray-800">{{ $item->translateField('nama') }}</td>
                                 <td class="td hidden md:table-cell">
-                                    @if($stakeholder->icon)
-                                        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#E3DBAF]/50 text-lg">{{ $stakeholder->icon }}</span>
-                                    @else
-                                        <span class="text-gray-400">-</span>
-                                    @endif
-                                </td>
-                                <td class="td hidden lg:table-cell">
-                                    @if($stakeholder->gambar)
-                                        <img src="{{ asset('storage/stakeholder/'.$stakeholder->gambar) }}" alt="stakeholder" class="thumb" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                    @if($item->gambar)
+                                        <img src="{{ asset('storage/stakeholder/'.$item->gambar) }}" alt="stakeholder" class="thumb" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                                         <div class="hidden items-center justify-center h-10 w-10 rounded-lg bg-gray-100">
                                             <svg class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                         </div>
@@ -76,22 +64,22 @@
                                     @endif
                                 </td>
                                 <td class="td hidden sm:table-cell">
-                                    <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 text-sm font-bold text-gray-600">{{ $stakeholder->urutan }}</span>
+                                    <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 text-sm font-bold text-gray-600">{{ $item->urutan }}</span>
                                 </td>
                                 <td class="td hidden md:table-cell">
-                                    <button onclick="toggleStatus('stakeholder', {{ $stakeholder->id }})" class="{{ $stakeholder->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
+                                    <button onclick="toggleStatus('stakeholder', {{ $item->id }})" class="{{ $item->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
                                         <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
-                                        {{ $stakeholder->status ? 'Active' : 'Inactive' }}
+                                        {{ $item->status ? 'Active' : 'Inactive' }}
                                     </button>
                                 </td>
                                 <td class="td text-right">
                                     <div class="flex items-center justify-end gap-1.5">
-                                        <a href="{{ route('admin.stakeholder.edit', $stakeholder->id) }}" class="icon-btn-edit" title="Edit">
+                                        <a href="{{ route('admin.stakeholder.edit', $item->id) }}" class="icon-btn-edit" title="Edit">
                                             <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.stakeholder.destroy', $stakeholder->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.stakeholder.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="icon-btn-delete" title="Hapus">
@@ -110,4 +98,8 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+    @include('admin.partials.toggle-status-script')
+@endpush
 @endsection

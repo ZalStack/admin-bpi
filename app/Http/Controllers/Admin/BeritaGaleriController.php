@@ -2,109 +2,112 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\BeritaGaleri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class BeritaGaleriController extends Controller
+class BeritaGaleriController extends AdminBaseController
 {
-    public function index($berita_id)
+    protected string $model = BeritaGaleri::class;
+
+    protected string $viewPrefix = 'admin.berita.galeri';
+
+    protected string $routeName = 'admin.berita.galeri';
+
+    protected string $label = 'Galeri berita';
+
+    protected array $validationRules = [
+        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'urutan' => 'nullable|integer',
+        'status' => 'boolean',
+    ];
+
+    protected array $updateValidationRules = [
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'urutan' => 'nullable|integer',
+        'status' => 'boolean',
+    ];
+
+    protected array $translatableRules = [
+        'caption' => 'nullable|string|max:255',
+    ];
+
+    protected ?string $imageField = 'gambar';
+
+    protected ?string $imagePath = 'berita/galeri';
+
+    public function index($berita_id = null)
     {
         $berita = Berita::findOrFail($berita_id);
-        $galeris = BeritaGaleri::where('berita_id', $berita_id)->orderBy('urutan')->get();
-        return view('admin.berita.galeri.index', compact('berita', 'galeris'));
+        $items = BeritaGaleri::where('berita_id', $berita_id)->orderBy('urutan')->get();
+
+        return view($this->viewPrefix.'.index', $this->viewData(['berita' => $berita, 'items' => $items]));
     }
 
-    public function create($berita_id)
+    public function create($berita_id = null)
     {
         $berita = Berita::findOrFail($berita_id);
-        return view('admin.berita.galeri.create', compact('berita'));
+
+        return view($this->viewPrefix.'.create', $this->viewData(['berita' => $berita]));
     }
 
-    public function store(Request $request, $berita_id)
+    public function store(Request $request, $berita_id = null)
     {
-        $request->validate([
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'caption_id' => 'nullable|string|max:255',
-            'caption_en' => 'nullable|string|max:255',
-            'urutan' => 'nullable|integer',
-            'status' => 'boolean'
-        ]);
+        $validated = $request->validate($this->buildValidationRules(false));
 
-        $data = $request->all();
-        $data['berita_id'] = $berita_id;
+        $item = $this->model->create(array_merge(
+            ['berita_id' => $berita_id],
+            $this->neutralData($validated),
+            $this->uploadedImage($request)
+        ));
 
-        if ($request->hasFile('gambar')) {
-            $imageName = time() . '.' . $request->gambar->extension();
-            $request->gambar->storeAs('berita/galeri', $imageName, 'public');
-            $data['gambar'] = $imageName;
+        if ($this->usesTranslations()) {
+            $item->storeTranslations((array) $request->input('translations', []));
         }
 
-        BeritaGaleri::create($data);
-
-        return redirect()->route('admin.berita.galeri.index', $berita_id)
-            ->with('success', 'Galeri berita berhasil ditambahkan');
+        return redirect()->route($this->routeName.'.index', $berita_id)
+            ->with('success', $this->label.' berhasil ditambahkan');
     }
 
-    public function edit($berita_id, $id)
+    public function edit($berita_id = null, $id = null)
     {
         $berita = Berita::findOrFail($berita_id);
-        $galeri = BeritaGaleri::findOrFail($id);
-        return view('admin.berita.galeri.edit', compact('berita', 'galeri'));
+        $item = BeritaGaleri::findOrFail($id);
+
+        return view($this->viewPrefix.'.edit', $this->viewData(['berita' => $berita, 'galeri' => $item]));
     }
 
-    public function update(Request $request, $berita_id, $id)
+    public function update(Request $request, $berita_id = null, $id = null)
     {
-        $galeri = BeritaGaleri::findOrFail($id);
+        $item = BeritaGaleri::findOrFail($id);
 
-        $request->validate([
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'caption_id' => 'nullable|string|max:255',
-            'caption_en' => 'nullable|string|max:255',
-            'urutan' => 'nullable|integer',
-            'status' => 'boolean'
-        ]);
+        $validated = $request->validate($this->buildValidationRules(true));
 
-        $data = $request->all();
+        $item->update(array_merge(
+            $this->neutralData($validated),
+            $this->uploadedImage($request, $item)
+        ));
 
-        if ($request->hasFile('gambar')) {
-            if ($galeri->gambar) {
-                Storage::disk('public')->delete('berita/galeri/' . $galeri->gambar);
-            }
-
-            $imageName = time() . '.' . $request->gambar->extension();
-            $request->gambar->storeAs('berita/galeri', $imageName, 'public');
-            $data['gambar'] = $imageName;
+        if ($this->usesTranslations() && $request->has('translations')) {
+            $item->storeTranslations((array) $request->input('translations', []));
         }
 
-        $galeri->update($data);
-
-        return redirect()->route('admin.berita.galeri.index', $berita_id)
-            ->with('success', 'Galeri berita berhasil diupdate');
+        return redirect()->route($this->routeName.'.index', $berita_id)
+            ->with('success', $this->label.' berhasil diupdate');
     }
 
-    public function destroy($berita_id, $id)
+    public function destroy($berita_id = null, $id = null)
     {
-        $galeri = BeritaGaleri::findOrFail($id);
+        $item = BeritaGaleri::findOrFail($id);
 
-        if ($galeri->gambar) {
-            Storage::disk('public')->delete('berita/galeri/' . $galeri->gambar);
+        if ($item->gambar) {
+            Storage::disk('public')->delete($this->imagePath.'/'.$item->gambar);
         }
 
-        $galeri->delete();
+        $item->delete();
 
-        return redirect()->route('admin.berita.galeri.index', $berita_id)
-            ->with('success', 'Galeri berita berhasil dihapus');
-    }
-
-    public function toggleStatus($berita_id, $id)
-    {
-        $galeri = BeritaGaleri::findOrFail($id);
-        $galeri->status = !$galeri->status;
-        $galeri->save();
-
-        return response()->json(['success' => true]);
+        return redirect()->route($this->routeName.'.index', $berita_id)
+            ->with('success', $this->label.' berhasil dihapus');
     }
 }

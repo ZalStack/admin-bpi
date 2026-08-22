@@ -132,6 +132,24 @@
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             Format Response
         </h2>
+        <div class="mb-4 rounded-xl border border-blue-100 bg-blue-50/60 p-4 text-xs leading-relaxed text-gray-600">
+            <p class="font-semibold text-[#2B4E94]">Multibahasa (data-driven):</p>
+            <p class="mt-1">Seluruh teks konten tidak lagi disimpan per kolom (<code>judul_id</code>, <code>judul_en</code>). Gunakan objek <code>translations</code> yang di-key per kode bahasa terdaftar pada tabel <code>bahasa</code>. Bahasa baru cukup didaftarkan via endpoint <code>POST /bahasa</code> tanpa perubahan schema.</p>
+        </div>
+        <div class="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+            <div class="rounded-xl border border-emerald-100 bg-emerald-50/60 p-3.5">
+                <p class="font-mono text-xs font-bold text-emerald-700">GET — publik</p>
+                <p class="mt-1 text-xs leading-relaxed text-gray-600">Terbuka untuk frontend (throttle 120 req/menit per IP).</p>
+            </div>
+            <div class="rounded-xl border border-orange-100 bg-orange-50/60 p-3.5">
+                <p class="font-mono text-xs font-bold text-orange-700">POST / PUT / PATCH / DELETE — wajib login</p>
+                <p class="mt-1 text-xs leading-relaxed text-gray-600">Hanya admin yang sudah login. Tanpa sesi: <code>401 Unauthorized</code>.</p>
+            </div>
+            <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-3.5">
+                <p class="font-mono text-xs font-bold text-violet-700">Pengecualian publik</p>
+                <p class="mt-1 text-xs leading-relaxed text-gray-600"><code>POST /kontak-form</code> (honeypot + throttle 5/mnt) &amp; <code>POST /bahasa/switch/&#123;locale&#125;</code>.</p>
+            </div>
+        </div>
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-5">
 
             <!-- Success -->
@@ -151,9 +169,18 @@
   "data": [
     {
       "id": 1,
-      "judul_id": "Judul Konten",
-      "judul_en": "Content Title",
+      "halaman": "beranda",
       "status": true,
+      "translations": {
+        "id": {
+          "judul": "Judul Konten",
+          "deskripsi": "Deskripsi dalam Bahasa Indonesia"
+        },
+        "en": {
+          "judul": "Content Title",
+          "deskripsi": "Description in English"
+        }
+      },
       "created_at": "2026-08-21T10:00:00.000000Z"
     }
   ]
@@ -176,7 +203,10 @@
   "message": "Resource created successfully",
   "data": {
     "id": 12,
-    "judul_id": "Konten Baru",
+    "translations": {
+      "id": { "judul": "Konten Baru" },
+      "en": { "judul": "New Content" }
+    },
     "status": true
   }
 }</code></pre>
@@ -197,7 +227,7 @@
   "status": "error",
   "message": "Validation error",
   "errors": {
-    "judul_id": ["The judul id field is required."],
+    "translations.id.judul": ["The translations.id.judul field is required."],
     "gambar": ["The gambar must be an image."]
   }
 }</code></pre>
@@ -264,15 +294,15 @@
 curl -X GET "{{ url('api/admin/v1') }}/banner" \
   -H "Accept: application/json"
 
-# POST - Buat banner baru
+# POST - Buat banner baru (teks per bahasa di dalam "translations")
 curl -X POST "{{ url('api/admin/v1') }}/banner" \
   -H "Accept: application/json" \
   -H "Content-Type: multipart/form-data" \
   -F "halaman=beranda" \
-  -F "judul_id=Judul Banner" \
-  -F "judul_en=Banner Title" \
-  -F "deskripsi_id=Deskripsi singkat" \
-  -F "deskripsi_en=Short description" \
+  -F "translations[id][judul]=Judul Banner" \
+  -F "translations[id][deskripsi]=Deskripsi singkat" \
+  -F "translations[en][judul]=Banner Title" \
+  -F "translations[en][deskripsi]=Short description" \
   -F "gambar=@/path/to/image.jpg" \
   -F "status=true"</code></pre>
     </div>

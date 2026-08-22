@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\App;
 
 class AuthController extends Controller
 {
@@ -38,7 +38,7 @@ class AuthController extends Controller
             App::setLocale($locale);
 
             return redirect()->intended('/dashboard')
-                ->with('success', 'Selamat datang kembali, ' . Auth::user()->name . '!');
+                ->with('success', 'Selamat datang kembali, '.Auth::user()->name.'!');
         }
 
         return back()->withErrors([
@@ -65,7 +65,7 @@ class AuthController extends Controller
      */
     public function dashboard()
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('login');
         }
 

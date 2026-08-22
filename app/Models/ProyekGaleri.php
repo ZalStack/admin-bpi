@@ -2,24 +2,25 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProyekGaleri extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $table = 'proyek_galeri';
 
     protected $fillable = [
         'proyek_id',
         'gambar',
-        'judul_id',
-        'judul_en',
-        'deskripsi_id',
-        'deskripsi_en',
         'urutan',
-        'status'
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
     ];
 
     public function proyek()

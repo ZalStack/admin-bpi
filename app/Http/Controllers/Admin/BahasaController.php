@@ -3,49 +3,106 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PengaturanBahasa;
+use App\Models\Bahasa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 class BahasaController extends Controller
 {
     public function index()
     {
-        $pengaturan = PengaturanBahasa::first();
-        return view('admin.bahasa.index', compact('pengaturan'));
+        $items = Bahasa::orderByDesc('is_default')->orderBy('nama')->get();
+
+        return view('admin.bahasa.index', [
+            'items' => $items,
+            'defaultKode' => Bahasa::defaultKode(),
+        ]);
     }
 
-    public function update(Request $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'bahasa_default' => 'required|in:id,en',
-            'bahasa_tersedia' => 'required|string'
+        $validated = $request->validate([
+            'kode' => 'required|string|max:5|alpha_dash|unique:bahasa,kode',
+            'nama' => 'required|string|max:100',
+            'aktif' => 'boolean',
         ]);
 
-        $pengaturan = PengaturanBahasa::first();
-        if (!$pengaturan) {
-            $pengaturan = new PengaturanBahasa();
-        }
-
-        $pengaturan->bahasa_default = $request->bahasa_default;
-        $pengaturan->bahasa_tersedia = $request->bahasa_tersedia;
-        $pengaturan->status = $request->has('status');
-        $pengaturan->save();
-
-        // Set session language
-        Session::put('locale', $request->bahasa_default);
-        App::setLocale($request->bahasa_default);
+        Bahasa::create($validated + ['is_default' => false]);
 
         return redirect()->route('admin.bahasa.index')
-            ->with('success', 'Pengaturan bahasa berhasil diupdate');
+            ->with('success', "Bahasa '{$validated['nama']}' berhasil ditambahkan");
+    }
+
+    public function update(Request $request, $kode)
+    {
+        $bahasa = Bahasa::findOrFail($kode);
+
+        if ($bahasa->is_default && ! $request->boolean('aktif')) {
+            return redirect()->route('admin.bahasa.index')
+                ->with('error', 'Bahasa default tidak dapat dinonaktifkan.');
+        }
+
+        $validated = $request->validate([
+            'nama' => 'required|string|max:100',
+            'aktif' => 'boolean',
+        ]);
+
+        $bahasa->update($validated);
+
+        return redirect()->route('admin.bahasa.index')
+            ->with('success', 'Bahasa berhasil diupdate');
+    }
+
+    public function setDefault($kode)
+    {
+        $bahasa = Bahasa::findOrFail($kode);
+
+        Bahasa::query()->where('is_default', true)->update(['is_default' => false]);
+        $bahasa->update(['is_default' => true, 'aktif' => true]);
+
+        Session::put('locale', $bahasa->kode);
+
+        return redirect()->route('admin.bahasa.index')
+            ->with('success', "'{$bahasa->nama}' sekarang menjadi bahasa default");
+    }
+
+    public function toggleStatus($kode)
+    {
+        $bahasa = Bahasa::findOrFail($kode);
+
+        if ($bahasa->is_default) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Bahasa default tidak dapat dinonaktifkan.',
+            ], 422);
+        }
+
+        $bahasa->aktif = ! $bahasa->aktif;
+        $bahasa->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function destroy($kode)
+    {
+        $bahasa = Bahasa::findOrFail($kode);
+
+        if ($bahasa->is_default) {
+            return redirect()->route('admin.bahasa.index')
+                ->with('error', 'Bahasa default tidak dapat dihapus. Pindahkan default terlebih dahulu.');
+        }
+
+        // Semua translations untuk bahasa ini ikut terhapus via FK cascade.
+        $bahasa->delete();
+
+        return redirect()->route('admin.bahasa.index')
+            ->with('success', "Bahasa '{$bahasa->nama}' beserta semua terjemahannya berhasil dihapus");
     }
 
     public function switchLang($locale)
     {
-        if (in_array($locale, ['id', 'en'])) {
+        if (Bahasa::query()->where('kode', $locale)->where('aktif', true)->exists()) {
             Session::put('locale', $locale);
-            App::setLocale($locale);
         }
 
         return redirect()->back();

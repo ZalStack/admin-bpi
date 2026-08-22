@@ -10,10 +10,6 @@ return new class extends Migration
     {
         Schema::create('program', function (Blueprint $table) {
             $table->id();
-            $table->string('judul_id', 255);
-            $table->string('judul_en', 255);
-            $table->text('deskripsi_id');
-            $table->text('deskripsi_en');
             $table->string('icon')->nullable();
             $table->string('gambar')->nullable();
             $table->integer('urutan')->default(0);

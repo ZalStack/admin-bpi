@@ -16,6 +16,6 @@ class KontakForm extends Model
         'email',
         'subjek',
         'pesan',
-        'status'
+        'status',
     ];
 }

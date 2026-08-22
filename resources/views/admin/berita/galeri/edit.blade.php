@@ -21,19 +21,15 @@
                 </svg>
                 <span>Edit</span>
             </nav>
-            <h1 class="page-title">Edit Galeri Berita</h1>
-            <p class="page-subtitle">Berita: {{ $berita->judul_id }}</p>
+            <h1 class="page-title">Edit Galeri</h1>
+            <p class="page-subtitle">Proyek: {{ $berita->translateField('judul') }}</p>
         </div>
-        <a href="{{ route('admin.berita.galeri.index', $berita->id) }}" class="btn-outline">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            Kembali
-        </a>
+        <a href="{{ route('admin.berita.galeri.index', $berita->id) }}" class="btn-outline">Kembali</a>
     </div>
 
     <div class="form-card">
-        <form action="{{ route('admin.berita.galeri.update', [$berita->id, $galeri->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.berita.galeri.update', [$berita->id, $galeri->id]) }}" method="POST" enctype="multipart/form-data"
+            x-data="{ lang: @js($bahasas->first()?->kode) }">
             @csrf
             @method('PUT')
 
@@ -49,54 +45,31 @@
                 <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
                 <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, GIF, SVG. Maks: 2MB</p>
                 @error('gambar')
-                    <p class="form-error">
-                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        {{ $message }}
-                    </p>
+                    <p class="form-error">{{ $message }}</p>
                 @enderror
             </div>
 
             <div class="divider"></div>
 
+            <x-lang-tabs :bahasas="$bahasas"/>
+
+            @foreach ($bahasas as $bahasa)
+                <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
+                    <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Konten Bahasa {{ $bahasa->nama }}</h4>
+
+                    <x-trans-input field="judul" label="Judul" :kode="$bahasa->kode" :item="$galeri"/>
+                    <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" rows="3" :item="$galeri"/>
+                </x-lang-panel>
+            @endforeach
+
+            <div class="divider"></div>
+
             <div class="input-group">
-                <div>
-                    <label for="caption_id" class="form-label">Caption (Indonesia)</label>
-                    <input type="text" name="caption_id" id="caption_id" value="{{ old('caption_id', $galeri->caption_id) }}" class="form-input">
-                    @error('caption_id')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="caption_en" class="form-label">Caption (English)</label>
-                    <input type="text" name="caption_en" id="caption_en" value="{{ old('caption_en', $galeri->caption_en) }}" class="form-input">
-                    @error('caption_en')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
                 <div>
                     <label for="urutan" class="form-label">Urutan</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $galeri->urutan) }}" class="form-input">
                     @error('urutan')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
+                        <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -114,15 +87,26 @@
             <div class="divider"></div>
 
             <div class="flex flex-wrap items-center gap-3">
-                <button type="submit" class="btn-primary">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
-                    </svg>
-                    Update
-                </button>
+                <button type="submit" class="btn-primary">Update</button>
                 <a href="{{ route('admin.berita.galeri.index', $berita->id) }}" class="btn-outline">Batal</a>
             </div>
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function previewImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+@endpush
 @endsection

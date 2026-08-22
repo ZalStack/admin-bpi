@@ -29,20 +29,18 @@
     </div>
 
     <div class="form-card">
-        <form action="{{ route('admin.beranda.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.beranda.store') }}" method="POST" enctype="multipart/form-data"
+            x-data="{ lang: @js($bahasas->first()?->kode) }">
             @csrf
+
+            <x-lang-tabs :bahasas="$bahasas"/>
 
             <div class="input-group">
                 <div>
                     <label for="section" class="form-label">Section *</label>
                     <input type="text" name="section" id="section" value="{{ old('section') }}" class="form-input" placeholder="cth: hero, tentang, visi" required>
                     @error('section')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
+                        <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -50,38 +48,7 @@
                     <label for="urutan" class="form-label">Urutan</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input">
                     @error('urutan')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="judul_id" class="form-label">Judul (Indonesia) *</label>
-                    <input type="text" name="judul_id" id="judul_id" value="{{ old('judul_id') }}" class="form-input" placeholder="Judul dalam Bahasa Indonesia" required>
-                    @error('judul_id')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="judul_en" class="form-label">Judul (English) *</label>
-                    <input type="text" name="judul_en" id="judul_en" value="{{ old('judul_en') }}" class="form-input" placeholder="Judul in English" required>
-                    @error('judul_en')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
+                        <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -89,12 +56,7 @@
                     <label for="icon" class="form-label">Icon (Font Awesome class)</label>
                     <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="fa-solid fa-home">
                     @error('icon')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
+                        <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -111,33 +73,14 @@
 
             <div class="divider"></div>
 
-            <div class="grid grid-cols-1 gap-4">
-                <div>
-                    <label for="deskripsi_id" class="form-label">Deskripsi (Indonesia) *</label>
-                    <textarea name="deskripsi_id" id="deskripsi_id" rows="4" class="form-textarea" placeholder="Deskripsi dalam Bahasa Indonesia" required>{{ old('deskripsi_id') }}</textarea>
-                    @error('deskripsi_id')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="deskripsi_en" class="form-label">Deskripsi (English) *</label>
-                    <textarea name="deskripsi_en" id="deskripsi_en" rows="4" class="form-textarea" placeholder="Description in English" required>{{ old('deskripsi_en') }}</textarea>
-                    @error('deskripsi_en')
-                        <p class="form-error">
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-            </div>
+            @foreach ($bahasas as $bahasa)
+                <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
+                    <x-trans-input field="judul" label="Judul" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Judul dalam bahasa {{ $bahasa->nama }}"/>
+                    <div class="mt-4">
+                        <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Deskripsi dalam bahasa {{ $bahasa->nama }}"/>
+                    </div>
+                </x-lang-panel>
+            @endforeach
 
             <div class="divider"></div>
 
@@ -147,12 +90,7 @@
                 <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
                 <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
                 @error('gambar')
-                    <p class="form-error">
-                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        {{ $message }}
-                    </p>
+                    <p class="form-error">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -170,4 +108,20 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function previewImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+@endpush
 @endsection
