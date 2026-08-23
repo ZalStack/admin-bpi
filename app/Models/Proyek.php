@@ -30,24 +30,4 @@ class Proyek extends Model
     {
         return $this->belongsToMany(Mitra::class, 'proyek_mitra', 'proyek_id', 'mitra_id');
     }
-
-    public function tujuan()
-    {
-        return $this->hasMany(ProyekTujuan::class, 'proyek_id');
-    }
-
-    public function dampakCapaian()
-    {
-        return $this->hasMany(ProyekDampakCapaian::class, 'proyek_id');
-    }
-
-    public function kegiatanUtama()
-    {
-        return $this->hasMany(ProyekKegiatanUtama::class, 'proyek_id');
-    }
-
-    public function linimasa()
-    {
-        return $this->hasMany(ProyekLinimasa::class, 'proyek_id');
-    }
 }

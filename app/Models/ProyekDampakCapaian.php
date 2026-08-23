@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProyekDampakCapaian extends Model
 {
-    use HasTranslations, HasFactory;
+    use HasFactory;
 
     protected $table = 'proyek_dampak_capaian';
 
     protected $fillable = [
-        'proyek_id',
+        'proyek_translations_id',
         'icon',
         'total_capaian',
+        'deskripsi',
         'urutan',
         'status',
     ];
@@ -24,8 +24,8 @@ class ProyekDampakCapaian extends Model
         'status' => 'boolean',
     ];
 
-    public function proyek()
+    public function translation()
     {
-        return $this->belongsTo(Proyek::class, 'proyek_id');
+        return $this->belongsTo(ProyekTranslation::class, 'proyek_translations_id');
     }
 }

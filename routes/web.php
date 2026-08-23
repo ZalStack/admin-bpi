@@ -17,7 +17,10 @@ use App\Http\Controllers\Admin\ProyekController;
 use App\Http\Controllers\Admin\ProyekGaleriController;
 use App\Http\Controllers\Admin\StakeholderController;
 use App\Http\Controllers\Admin\StrukturOrganisasiController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TentangController;
+use App\Http\Controllers\Admin\TentangPoinController;
+use App\Http\Controllers\Admin\ProgramPoinController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -103,6 +106,18 @@ Route::middleware('auth')->group(function () {
             // Tentang
             Route::resource('tentang', TentangController::class);
             Route::post('/tentang/{id}/toggle-status', [TentangController::class, 'toggleStatus'])->name('tentang.toggle-status');
+
+            // Tentang Poin
+            Route::resource('tentang-poin', TentangPoinController::class);
+            Route::post('/tentang-poin/{id}/toggle-status', [TentangPoinController::class, 'toggleStatus'])->name('tentang-poin.toggle-status');
+
+            // Program Poin
+            Route::resource('program-poin', ProgramPoinController::class);
+            Route::post('/program-poin/{id}/toggle-status', [ProgramPoinController::class, 'toggleStatus'])->name('program-poin.toggle-status');
+
+            // Tag
+            Route::resource('tag', TagController::class);
+            Route::post('/tag/{id}/toggle-status', [TagController::class, 'toggleStatus'])->name('tag.toggle-status');
 
             // Bahasa
             Route::get('bahasa', [BahasaController::class, 'index'])->name('bahasa.index');

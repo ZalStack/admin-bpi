@@ -12,7 +12,7 @@ class ProyekLinimasa extends Model
     protected $table = 'proyek_linimasa';
 
     protected $fillable = [
-        'proyek_id',
+        'proyek_translations_id',
         'tahun',
         'deskripsi',
         'urutan',
@@ -23,8 +23,8 @@ class ProyekLinimasa extends Model
         'status' => 'boolean',
     ];
 
-    public function proyek()
+    public function translation()
     {
-        return $this->belongsTo(Proyek::class, 'proyek_id');
+        return $this->belongsTo(ProyekTranslation::class, 'proyek_translations_id');
     }
 }

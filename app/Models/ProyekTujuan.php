@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProyekTujuan extends Model
 {
-    use HasTranslations, HasFactory;
+    use HasFactory;
 
     protected $table = 'proyek_tujuan';
 
     protected $fillable = [
-        'proyek_id',
+        'proyek_translations_id',
+        'deskripsi',
         'icon',
         'urutan',
         'status',
@@ -23,8 +23,8 @@ class ProyekTujuan extends Model
         'status' => 'boolean',
     ];
 
-    public function proyek()
+    public function translation()
     {
-        return $this->belongsTo(Proyek::class, 'proyek_id');
+        return $this->belongsTo(ProyekTranslation::class, 'proyek_translations_id');
     }
 }

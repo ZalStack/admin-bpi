@@ -24,4 +24,29 @@ class ProyekTranslation extends Model
         'status_proyek',
         'timeline',
     ];
+
+    public function proyek()
+    {
+        return $this->belongsTo(Proyek::class, 'proyek_id');
+    }
+
+    public function tujuan()
+    {
+        return $this->hasMany(ProyekTujuan::class, 'proyek_translations_id');
+    }
+
+    public function dampakCapaian()
+    {
+        return $this->hasMany(ProyekDampakCapaian::class, 'proyek_translations_id');
+    }
+
+    public function kegiatanUtama()
+    {
+        return $this->hasMany(ProyekKegiatanUtama::class, 'proyek_translations_id');
+    }
+
+    public function linimasa()
+    {
+        return $this->hasMany(ProyekLinimasa::class, 'proyek_translations_id');
+    }
 }

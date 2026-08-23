@@ -16,7 +16,11 @@ use App\Models\Mitra;
 use App\Models\Program;
 use App\Models\ProgramPoin;
 use App\Models\Proyek;
+use App\Models\ProyekDampakCapaian;
 use App\Models\ProyekGaleri;
+use App\Models\ProyekKegiatanUtama;
+use App\Models\ProyekLinimasa;
+use App\Models\ProyekTujuan;
 use App\Models\Stakeholder;
 use App\Models\StrukturOrganisasi;
 use App\Models\Tag;
@@ -785,6 +789,121 @@ class DatabaseSeeder extends Seeder
                     'deskripsi' => 'Documentation of activities and development of '.$judulEn.'.',
                 ],
             ]);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | PROYEK SUB-TABLES (tujuan, dampak_capaian, kegiatan_utama, linimasa)
+        | Linked per-translation (proyek_translations_id)
+        |--------------------------------------------------------------------------
+        */
+
+        $proyekSubData = [
+            1 => [ // BPI Film Market
+                'tujuan_id' => [
+                    'Mempertemukan pelaku industri film untuk membangun jejaring dan kolaborasi.',
+                    'Mendorong pendanaan dan distribusi film Indonesia.',
+                    'Mempertemukan investor, distributor, dan lembaga pemerintah.',
+                ],
+                'tujuan_en' => [
+                    'Connecting film industry players to build networks and collaboration.',
+                    'Encouraging financing and distribution of Indonesian films.',
+                    'Connecting investors, distributors, and government institutions.',
+                ],
+                'dampak_capaian_id' => [
+                    ['total_capaian' => '1.250+', 'deskripsi' => 'Peserta dari berbagai sektor industri film'],
+                    ['total_capaian' => '180+', 'deskripsi' => 'Proyek film dipresentasikan dalam sesi pitching'],
+                    ['total_capaian' => '75+', 'deskripsi' => 'Kerja sama dan kesepakatan produksi terjalin'],
+                    ['total_capaian' => '35+', 'deskripsi' => 'Mitra internasional terlibat aktif'],
+                ],
+                'dampak_capaian_en' => [
+                    ['total_capaian' => '1,250+', 'deskripsi' => 'Participants from various film industry sectors'],
+                    ['total_capaian' => '180+', 'deskripsi' => 'Film projects presented in pitching sessions'],
+                    ['total_capaian' => '75+', 'deskripsi' => 'Production collaborations and agreements established'],
+                    ['total_capaian' => '35+', 'deskripsi' => 'International partners actively involved'],
+                ],
+                'kegiatan_utama_id' => [
+                    'Sesi Pitching Proyek',
+                    'Forum Diskusi Industri',
+                    'One-on-One Meeting',
+                    'Showcase Proyek & Networking',
+                    'Pelatihan & Pengembangan Industri',
+                ],
+                'kegiatan_utama_en' => [
+                    'Project Pitching Sessions',
+                    'Industry Discussion Forums',
+                    'One-on-One Meetings',
+                    'Project Showcase & Networking',
+                    'Training & Industry Development',
+                ],
+                'linimasa_id' => [
+                    ['tahun' => '2022', 'deskripsi' => 'Inisiasi program dan penyusunan konsep BPI Film Market.'],
+                    ['tahun' => '2023', 'deskripsi' => 'Pelaksanaan BPI Film Market pertama dengan fokus pasar nasional.'],
+                    ['tahun' => '2024', 'deskripsi' => 'Perluasan jejaring internasional dan peningkatan jumlah peserta.'],
+                    ['tahun' => '2025 - sekarang', 'deskripsi' => 'Penguatan ekosistem dan pengembangan program berkelanjutan.'],
+                ],
+                'linimasa_en' => [
+                    ['tahun' => '2022', 'deskripsi' => 'Program initiation and BPI Film Market concept development.'],
+                    ['tahun' => '2023', 'deskripsi' => 'First BPI Film Market held with focus on national market.'],
+                    ['tahun' => '2024', 'deskripsi' => 'International network expansion and increased participation.'],
+                    ['tahun' => '2025 - present', 'deskripsi' => 'Ecosystem strengthening and sustainable program development.'],
+                ],
+            ],
+        ];
+
+        foreach ($projects as $idx => $project) {
+            $translations = $project->translations()->get();
+            foreach ($translations as $trans) {
+                $data = $proyekSubData[$idx + 1] ?? null;
+                if (! $data) {
+                    continue;
+                }
+
+                $isId = $trans->bahasa === 'id';
+
+                foreach (($isId ? $data['tujuan_id'] : $data['tujuan_en']) as $i => $deskripsi) {
+                    ProyekTujuan::create([
+                        'proyek_translations_id' => $trans->id,
+                        'deskripsi' => $deskripsi,
+                        'icon' => 'fa-solid fa-handshake',
+                        'urutan' => $i + 1,
+                        'status' => true,
+                    ]);
+                }
+
+                $dampakData = $isId ? $data['dampak_capaian_id'] : $data['dampak_capaian_en'];
+                foreach ($dampakData as $i => $dampak) {
+                    ProyekDampakCapaian::create([
+                        'proyek_translations_id' => $trans->id,
+                        'icon' => 'fa-solid fa-handshake',
+                        'total_capaian' => $dampak['total_capaian'],
+                        'deskripsi' => $dampak['deskripsi'],
+                        'urutan' => $i + 1,
+                        'status' => true,
+                    ]);
+                }
+
+                foreach (($isId ? $data['kegiatan_utama_id'] : $data['kegiatan_utama_en']) as $i => $deskripsi) {
+                    ProyekKegiatanUtama::create([
+                        'proyek_translations_id' => $trans->id,
+                        'deskripsi' => $deskripsi,
+                        'icon' => 'fa-solid fa-handshake',
+                        'urutan' => $i + 1,
+                        'status' => true,
+                    ]);
+                }
+
+                $linimasaData = $isId ? $data['linimasa_id'] : $data['linimasa_en'];
+                foreach ($linimasaData as $i => $lin) {
+                    ProyekLinimasa::create([
+                        'proyek_translations_id' => $trans->id,
+                        'tahun' => $lin['tahun'],
+                        'deskripsi' => $lin['deskripsi'],
+                        'urutan' => $i + 1,
+                        'status' => true,
+                    ]);
+                }
+            }
         }
 
         /*
