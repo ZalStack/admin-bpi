@@ -9,7 +9,6 @@ use App\Http\Controllers\Api\Admin\DashboardApiController;
 use App\Http\Controllers\Api\Admin\FooterApiController;
 use App\Http\Controllers\Api\Admin\KontakApiController;
 use App\Http\Controllers\Api\Admin\KontakFormApiController;
-use App\Http\Controllers\Api\Admin\KontakDetailApiController;
 use App\Http\Controllers\Api\Admin\MenuApiController;
 use App\Http\Controllers\Api\Admin\MitraApiController;
 use App\Http\Controllers\Api\Admin\ProgramApiController;
@@ -265,19 +264,6 @@ Route::prefix('admin/v1')
             Route::get('/{id}', [KontakApiController::class, 'show']);
             Route::put('/{id}', [KontakApiController::class, 'update']);
             Route::delete('/{id}', [KontakApiController::class, 'destroy']);
-        });
-
-        // ============================================
-        // KONTAK DETAIL
-        // ============================================
-        Route::prefix('kontak-detail')->group(function () {
-            Route::get('/', [KontakDetailApiController::class, 'index']);
-            Route::post('/', [KontakDetailApiController::class, 'store']);
-            Route::get('/kontak/{kontakId}', [KontakDetailApiController::class, 'getByKontak']);
-            Route::patch('/{id}/toggle-status', [KontakDetailApiController::class, 'toggleStatus']);
-            Route::get('/{id}', [KontakDetailApiController::class, 'show']);
-            Route::put('/{id}', [KontakDetailApiController::class, 'update']);
-            Route::delete('/{id}', [KontakDetailApiController::class, 'destroy']);
         });
 
         // ============================================

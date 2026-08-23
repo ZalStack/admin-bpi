@@ -8,7 +8,9 @@ use App\Models\Berita;
 use App\Models\BeritaGaleri;
 use App\Models\Footer;
 use App\Models\Kontak;
-use App\Models\KontakDetail;
+use App\Models\KontakEmail;
+use App\Models\KontakPhone;
+use App\Models\KontakSocialMedia;
 use App\Models\Menu;
 use App\Models\Mitra;
 use App\Models\Program;
@@ -528,10 +530,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Pasar film nasional untuk mempertemukan pelaku industri, memperluas jaringan, dan mendorong pendanaan serta kerja sama produksi.',
                         'deskripsi' => 'BPI Film Market adalah wadah strategis bagi produser, investor, distributor, lembaga pemerintah, dan pemangku kepentingan lainnya untuk mempertemukan kebutuhan dan peluang dalam industri perfilman Indonesia.',
                         'lokasi' => 'Jakarta, Indonesia',
-                        'tujuan' => 'Mempertemukan pelaku industri film dengan investor, distributor, dan mitra strategis.',
-                        'dampak' => 'Meningkatkan peluang pembiayaan dan distribusi film Indonesia.',
-                        'kegiatan_utama' => 'Pitching film, forum diskusi industri, business matching, dan networking.',
-                        'capaian' => 'Mendorong terciptanya kolaborasi dan peluang pembiayaan baru.',
+                        'icon' => 'fa-film',
+                        'ruang_lingkup' => 'Nasional & Internasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2022 - Sekarang',
                     ],
                     'en' => [
@@ -540,10 +541,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'A national film market connecting industry players, expanding networks, and encouraging financing and production collaboration.',
                         'deskripsi' => 'BPI Film Market is a strategic platform for producers, investors, distributors, government institutions, and other stakeholders to connect needs and opportunities within the Indonesian film industry.',
                         'lokasi' => 'Jakarta, Indonesia',
-                        'tujuan' => 'Connecting film industry players with investors, distributors, and strategic partners.',
-                        'dampak' => 'Increasing financing and distribution opportunities for Indonesian films.',
-                        'kegiatan_utama' => 'Film pitching, industry discussions, business matching, and networking.',
-                        'capaian' => 'Encouraging new collaborations and financing opportunities.',
+                        'icon' => 'fa-film',
+                        'ruang_lingkup' => 'National & International',
+                        'status_proyek' => 'Running',
                         'timeline' => '2022 - Present',
                     ],
                 ],
@@ -560,10 +560,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Jaringan festival film di berbagai daerah untuk memperluas akses apresiasi dan distribusi film Indonesia.',
                         'deskripsi' => 'Program penguatan jaringan festival film Indonesia sebagai ruang bertemunya sineas, penonton, komunitas, dan pelaku industri.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Memperkuat jaringan festival film nasional.',
-                        'dampak' => 'Memperluas akses masyarakat terhadap karya film Indonesia.',
-                        'kegiatan_utama' => 'Kolaborasi festival, program screening, diskusi, dan promosi film.',
-                        'capaian' => 'Terbentuknya jaringan kolaborasi festival film antar daerah.',
+                        'icon' => 'fa-film',
+                        'ruang_lingkup' => 'Nasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2023 - Sekarang',
                     ],
                     'en' => [
@@ -572,10 +571,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'A network of film festivals across regions to expand access to appreciation and distribution of Indonesian films.',
                         'deskripsi' => 'A program strengthening Indonesian film festival networks as spaces connecting filmmakers, audiences, communities, and industry players.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Strengthening the national film festival network.',
-                        'dampak' => 'Expanding public access to Indonesian film works.',
-                        'kegiatan_utama' => 'Festival collaboration, screenings, discussions, and film promotion.',
-                        'capaian' => 'Establishing collaborative networks between film festivals across regions.',
+                        'icon' => 'fa-film',
+                        'ruang_lingkup' => 'National',
+                        'status_proyek' => 'Running',
                         'timeline' => '2023 - Present',
                     ],
                 ],
@@ -592,10 +590,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Program kolaborasi produksi film dengan negara mitra untuk meningkatkan kualitas dan jangkauan global.',
                         'deskripsi' => 'Program yang membuka peluang kerja sama produksi antara sineas Indonesia dengan mitra internasional.',
                         'lokasi' => 'Indonesia & Internasional',
-                        'tujuan' => 'Membuka akses kolaborasi produksi film lintas negara.',
-                        'dampak' => 'Meningkatkan kualitas dan jangkauan film Indonesia.',
-                        'kegiatan_utama' => 'Forum co-production, pitching, business matching, dan networking internasional.',
-                        'capaian' => 'Terbukanya peluang kerja sama produksi dengan mitra internasional.',
+                        'icon' => 'fa-handshake',
+                        'ruang_lingkup' => 'Nasional & Internasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2025 - Sekarang',
                     ],
                     'en' => [
@@ -604,10 +601,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'A film production collaboration program with partner countries to improve quality and expand global reach.',
                         'deskripsi' => 'A program creating co-production opportunities between Indonesian filmmakers and international partners.',
                         'lokasi' => 'Indonesia & International',
-                        'tujuan' => 'Creating access to cross-border film production collaboration.',
-                        'dampak' => 'Improving the quality and reach of Indonesian films.',
-                        'kegiatan_utama' => 'Co-production forums, pitching, business matching, and international networking.',
-                        'capaian' => 'Creating new production collaboration opportunities with international partners.',
+                        'icon' => 'fa-handshake',
+                        'ruang_lingkup' => 'National & International',
+                        'status_proyek' => 'Running',
                         'timeline' => '2025 - Present',
                     ],
                 ],
@@ -624,10 +620,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Hub inovasi yang menggabungkan teknologi sinema dengan pengembangan talenta dan transformasi digital industri film Indonesia.',
                         'deskripsi' => 'Inisiatif pengembangan ekosistem digital perfilman untuk mendorong inovasi teknologi dan kesiapan industri menghadapi perubahan digital.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Mendorong pemanfaatan teknologi dalam industri perfilman.',
-                        'dampak' => 'Meningkatkan inovasi dan efisiensi proses perfilman.',
-                        'kegiatan_utama' => 'Workshop teknologi, inkubasi inovasi, riset, dan pengembangan platform digital.',
-                        'capaian' => 'Terbentuknya ruang kolaborasi teknologi dan perfilman.',
+                        'icon' => 'fa-microchip',
+                        'ruang_lingkup' => 'Nasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2025 - Sekarang',
                     ],
                     'en' => [
@@ -636,10 +631,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'An innovation hub combining cinema technology, talent development, and digital transformation of the Indonesian film industry.',
                         'deskripsi' => 'An initiative developing a digital film ecosystem to encourage technological innovation and industry readiness for digital transformation.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Encouraging the use of technology in the film industry.',
-                        'dampak' => 'Improving innovation and efficiency in filmmaking processes.',
-                        'kegiatan_utama' => 'Technology workshops, innovation incubation, research, and digital platform development.',
-                        'capaian' => 'Creating a collaborative space between technology and cinema.',
+                        'icon' => 'fa-microchip',
+                        'ruang_lingkup' => 'National',
+                        'status_proyek' => 'Running',
                         'timeline' => '2025 - Present',
                     ],
                 ],
@@ -656,10 +650,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Program restorasi dan pelestarian karya film warisan budaya Indonesia.',
                         'deskripsi' => 'Inisiatif untuk menjaga karya film bersejarah agar tetap dapat diakses dan dipelajari oleh generasi mendatang.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Melestarikan warisan perfilman Indonesia.',
-                        'dampak' => 'Menjaga akses terhadap karya film bersejarah.',
-                        'kegiatan_utama' => 'Restorasi film, digitalisasi arsip, kurasi, dan dokumentasi.',
-                        'capaian' => 'Meningkatkan ketersediaan arsip film nasional.',
+                        'icon' => 'fa-film',
+                        'ruang_lingkup' => 'Nasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2024 - Sekarang',
                     ],
                     'en' => [
@@ -668,10 +661,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'A program for restoring and preserving Indonesian film heritage.',
                         'deskripsi' => 'An initiative to preserve historical films so they remain accessible and meaningful for future generations.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Preserving Indonesian film heritage.',
-                        'dampak' => 'Maintaining access to historical film works.',
-                        'kegiatan_utama' => 'Film restoration, archive digitization, curation, and documentation.',
-                        'capaian' => 'Increasing the availability of national film archives.',
+                        'icon' => 'fa-film',
+                        'ruang_lingkup' => 'National',
+                        'status_proyek' => 'Running',
                         'timeline' => '2024 - Present',
                     ],
                 ],
@@ -688,10 +680,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Mendorong praktik produksi film yang lebih ramah lingkungan dan berkelanjutan.',
                         'deskripsi' => 'Program untuk meningkatkan kesadaran industri terhadap dampak lingkungan dari proses produksi film.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Mendorong produksi film yang lebih berkelanjutan.',
-                        'dampak' => 'Mengurangi dampak lingkungan dari kegiatan produksi.',
-                        'kegiatan_utama' => 'Edukasi green production, panduan produksi, dan kampanye industri hijau.',
-                        'capaian' => 'Meningkatnya kesadaran terhadap praktik produksi berkelanjutan.',
+                        'icon' => 'fa-leaf',
+                        'ruang_lingkup' => 'Nasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2025 - Sekarang',
                     ],
                     'en' => [
@@ -700,10 +691,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Encouraging more environmentally friendly and sustainable film production practices.',
                         'deskripsi' => 'A program increasing industry awareness of the environmental impact of film production.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Encouraging more sustainable film production.',
-                        'dampak' => 'Reducing the environmental impact of production activities.',
-                        'kegiatan_utama' => 'Green production education, production guidelines, and green industry campaigns.',
-                        'capaian' => 'Increasing awareness of sustainable production practices.',
+                        'icon' => 'fa-leaf',
+                        'ruang_lingkup' => 'National',
+                        'status_proyek' => 'Running',
                         'timeline' => '2025 - Present',
                     ],
                 ],
@@ -720,10 +710,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Program pertukaran dan mobilitas residensi untuk talenta film Indonesia di tingkat nasional dan global.',
                         'deskripsi' => 'Program pengembangan talenta melalui pertukaran pengalaman, residensi, dan kesempatan kolaborasi lintas negara.',
                         'lokasi' => 'Indonesia & Internasional',
-                        'tujuan' => 'Meningkatkan pengalaman dan jaringan profesional talenta film Indonesia.',
-                        'dampak' => 'Membuka kesempatan pengembangan karier internasional.',
-                        'kegiatan_utama' => 'Residensi, fellowship, pertukaran talenta, dan networking.',
-                        'capaian' => 'Terbentuknya jejaring talenta film lintas negara.',
+                        'icon' => 'fa-users',
+                        'ruang_lingkup' => 'Nasional & Internasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2025 - Sekarang',
                     ],
                     'en' => [
@@ -732,10 +721,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'A mobility and residency program for Indonesian film talent at national and global levels.',
                         'deskripsi' => 'A talent development program through experience exchange, residencies, and cross-border collaboration opportunities.',
                         'lokasi' => 'Indonesia & International',
-                        'tujuan' => 'Improving the experience and professional networks of Indonesian film talent.',
-                        'dampak' => 'Opening international career development opportunities.',
-                        'kegiatan_utama' => 'Residencies, fellowships, talent exchange, and networking.',
-                        'capaian' => 'Establishing cross-border film talent networks.',
+                        'icon' => 'fa-users',
+                        'ruang_lingkup' => 'National & International',
+                        'status_proyek' => 'Running',
                         'timeline' => '2025 - Present',
                     ],
                 ],
@@ -752,10 +740,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'Gerakan literasi film untuk meningkatkan apresiasi, edukasi, dan pemahaman masyarakat terhadap karya sinema Indonesia.',
                         'deskripsi' => 'Gerakan untuk memperluas pemahaman masyarakat mengenai film sebagai karya seni, media komunikasi, dan bagian dari kebudayaan.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Meningkatkan literasi dan apresiasi masyarakat terhadap film.',
-                        'dampak' => 'Terbentuknya penonton yang kritis dan apresiatif.',
-                        'kegiatan_utama' => 'Kelas film, diskusi, screening, edukasi, dan kampanye literasi.',
-                        'capaian' => 'Meningkatnya partisipasi masyarakat dalam kegiatan literasi film.',
+                        'icon' => 'fa-book',
+                        'ruang_lingkup' => 'Nasional',
+                        'status_proyek' => 'Berjalan',
                         'timeline' => '2025 - Sekarang',
                     ],
                     'en' => [
@@ -764,10 +751,9 @@ class DatabaseSeeder extends Seeder
                         'deskripsi_singkat' => 'A film literacy movement to improve public appreciation, education, and understanding of Indonesian cinema.',
                         'deskripsi' => 'A movement expanding public understanding of film as art, communication, and culture.',
                         'lokasi' => 'Indonesia',
-                        'tujuan' => 'Improving public film literacy and appreciation.',
-                        'dampak' => 'Building critical and appreciative audiences.',
-                        'kegiatan_utama' => 'Film classes, discussions, screenings, education, and literacy campaigns.',
-                        'capaian' => 'Increasing public participation in film literacy activities.',
+                        'icon' => 'fa-book',
+                        'ruang_lingkup' => 'National',
+                        'status_proyek' => 'Running',
                         'timeline' => '2025 - Present',
                     ],
                 ],
@@ -1082,8 +1068,8 @@ class DatabaseSeeder extends Seeder
                 'status' => true,
             ]);
             $tag->storeTranslations([
-                'id' => ['nama' => $tagData['nama_id']],
-                'en' => ['nama' => $tagData['nama_en']],
+                'id' => ['tag' => $tagData['nama_id']],
+                'en' => ['tag' => $tagData['nama_en']],
             ]);
             $tags[] = $tag;
         }
@@ -1301,10 +1287,6 @@ class DatabaseSeeder extends Seeder
         */
 
         Kontak::create([
-            'email' => 'info@bpi.or.id',
-            'telepon' => '+62 21 798 0900',
-            'whatsapp' => '+62 812 0000 0000',
-            'media_sosial' => '@bpi.or.id',
             'latitude' => -6.2500000,
             'longitude' => 106.8500000,
             'status' => true,
@@ -1323,75 +1305,59 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | KONTAK DETAIL (Card per Contact Point)
+        | KONTAK SOCIAL MEDIA, EMAIL, PHONE
         |--------------------------------------------------------------------------
         */
 
         $kontak = Kontak::first();
 
         if ($kontak) {
-            $kontakDetails = [
-                [
-                    'icon' => 'fa-solid fa-envelope',
-                    'link_url' => 'mailto:info@bpi.or.id',
-                    'link_nama' => 'Kirim Pesan Email',
-                    'handle' => 'info@bpi.or.id',
-                    'urutan' => 1,
-                    'judul_id' => 'Alamat Email',
-                    'judul_en' => 'Email Address',
-                    'deskripsi_id' => 'Kirimkan pesan atau pertanyaan Anda melalui email.',
-                    'deskripsi_en' => 'Send your message or inquiries via email.',
-                    'nilai_id' => 'info@bpi.or.id',
-                    'nilai_en' => 'info@bpi.or.id',
-                ],
-                [
-                    'icon' => 'fa-solid fa-phone',
-                    'link_url' => 'tel:+62217980900',
-                    'link_nama' => 'Hubungi via Telepon',
-                    'handle' => '+62 21 798 0900',
-                    'urutan' => 2,
-                    'judul_id' => 'Kontak Telepon',
-                    'judul_en' => 'Phone Contact',
-                    'deskripsi_id' => 'Hubungi kami langsung melalui telepon untuk informasi lebih lanjut.',
-                    'deskripsi_en' => 'Contact us directly by phone for more information.',
-                    'nilai_id' => '+62 21 798 0900',
-                    'nilai_en' => '+62 21 798 0900',
-                ],
-                [
-                    'icon' => 'fa-brands fa-whatsapp',
-                    'link_url' => 'https://wa.me/6281200000000',
-                    'link_nama' => 'Hubungi via WhatsApp',
-                    'handle' => '@bpi.or.id',
-                    'urutan' => 3,
-                    'judul_id' => 'Media Sosial',
-                    'judul_en' => 'Social Media',
-                    'deskripsi_id' => 'Ikuti dan hubungi kami melalui media sosial untuk kabar terkini.',
-                    'deskripsi_en' => 'Follow and contact us on social media for the latest updates.',
-                    'nilai_id' => '@bpi.or.id',
-                    'nilai_en' => '@bpi.or.id',
-                ],
+            $socialMediaData = [
+                ['platform' => 'instagram', 'username' => '@bpi.indonesia', 'url' => 'https://instagram.com/bpi.indonesia', 'urutan' => 1],
+                ['platform' => 'youtube', 'username' => 'bpitv', 'url' => 'https://youtube.com/@bpitv', 'urutan' => 2],
+                ['platform' => 'facebook', 'username' => 'bpindonesia', 'url' => 'https://facebook.com/bpindonesia', 'urutan' => 3],
+                ['platform' => 'linkedin', 'username' => 'bpiindonesia', 'url' => 'https://linkedin.com/company/bpiindonesia', 'urutan' => 4],
             ];
 
-            foreach ($kontakDetails as $detail) {
-                KontakDetail::create([
+            foreach ($socialMediaData as $sm) {
+                KontakSocialMedia::create([
                     'kontak_id' => $kontak->id,
-                    'icon' => $detail['icon'],
-                    'link_url' => $detail['link_url'],
-                    'link_nama' => $detail['link_nama'],
-                    'handle' => $detail['handle'],
-                    'urutan' => $detail['urutan'],
+                    'platform' => $sm['platform'],
+                    'username' => $sm['username'],
+                    'url' => $sm['url'],
+                    'urutan' => $sm['urutan'],
                     'status' => true,
-                ])->storeTranslations([
-                    'id' => [
-                        'judul' => $detail['judul_id'],
-                        'deskripsi' => $detail['deskripsi_id'],
-                        'nilai' => $detail['nilai_id'],
-                    ],
-                    'en' => [
-                        'judul' => $detail['judul_en'],
-                        'deskripsi' => $detail['deskripsi_en'],
-                        'nilai' => $detail['nilai_en'],
-                    ],
+                ]);
+            }
+
+            $emailData = [
+                ['email' => 'info@bpi.or.id', 'description' => 'Respon cepat untuk pertanyaan resmi dan kerjasama.', 'url' => 'mailto:info@bpi.or.id', 'urutan' => 1],
+            ];
+
+            foreach ($emailData as $em) {
+                KontakEmail::create([
+                    'kontak_id' => $kontak->id,
+                    'email' => $em['email'],
+                    'description' => $em['description'],
+                    'url' => $em['url'],
+                    'urutan' => $em['urutan'],
+                    'status' => true,
+                ]);
+            }
+
+            $phoneData = [
+                ['number' => '+62 878 3992 0990', 'type' => 'whatsapp', 'url' => 'https://wa.me/6287839920990', 'urutan' => 1],
+                ['number' => '+62 878 3991 0991', 'type' => 'whatsapp', 'url' => 'https://wa.me/6287839910991', 'urutan' => 2],
+            ];
+
+            foreach ($phoneData as $ph) {
+                KontakPhone::create([
+                    'kontak_id' => $kontak->id,
+                    'number' => $ph['number'],
+                    'type' => $ph['type'],
+                    'url' => $ph['url'],
+                    'urutan' => $ph['urutan'],
+                    'status' => true,
                 ]);
             }
         }

@@ -11,10 +11,6 @@ class KontakApiController extends BaseApiController
     protected array $orderBy = ['created_at' => 'desc'];
 
     protected array $validationRules = [
-        'email' => 'nullable|email|max:255',
-        'telepon' => 'nullable|string|max:100',
-        'whatsapp' => 'nullable|string|max:100',
-        'media_sosial' => 'nullable|string|max:255',
         'latitude' => 'nullable|numeric|between:-90,90',
         'longitude' => 'nullable|numeric|between:-180,180',
         'status' => 'boolean',
@@ -29,7 +25,7 @@ class KontakApiController extends BaseApiController
     public function getActive()
     {
         $resources = $this->model::query()
-            ->with(['translations', 'detail', 'detail.translations'])
+            ->with(['translations', 'socialMedia', 'emails', 'phones'])
             ->where('status', true)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -40,7 +36,7 @@ class KontakApiController extends BaseApiController
     public function show($id)
     {
         $resource = $this->model::query()
-            ->with(['translations', 'detail', 'detail.translations'])
+            ->with(['translations', 'socialMedia', 'emails', 'phones'])
             ->find($id);
 
         if (! $resource) {
@@ -67,7 +63,7 @@ class KontakApiController extends BaseApiController
             $resource->load('translations');
         }
 
-        return $this->successResponse($resource->fresh(['translations', 'detail', 'detail.translations']), ucfirst(class_basename($resource)).' created successfully', 201);
+        return $this->successResponse($resource->fresh(['translations', 'socialMedia', 'emails', 'phones']), ucfirst(class_basename($resource)).' created successfully', 201);
     }
 
     public function update(\Illuminate\Http\Request $request, $id)
@@ -92,6 +88,6 @@ class KontakApiController extends BaseApiController
             $resource->storeTranslations((array) $request->input('translations', []));
         }
 
-        return $this->successResponse($resource->fresh(['translations', 'detail', 'detail.translations']), ucfirst(class_basename($resource)).' updated successfully');
+        return $this->successResponse($resource->fresh(['translations', 'socialMedia', 'emails', 'phones']), ucfirst(class_basename($resource)).' updated successfully');
     }
 }

@@ -35,38 +35,6 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-input" placeholder="email@example.com">
-                    @error('email')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="telepon" class="form-label">Telepon</label>
-                    <input type="text" name="telepon" id="telepon" value="{{ old('telepon') }}" class="form-input" placeholder="021-1234-5678">
-                    @error('telepon')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="whatsapp" class="form-label">WhatsApp</label>
-                    <input type="text" name="whatsapp" id="whatsapp" value="{{ old('whatsapp') }}" class="form-input" placeholder="0812-3456-7890">
-                    @error('whatsapp')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="media_sosial" class="form-label">Media Sosial</label>
-                    <input type="text" name="media_sosial" id="media_sosial" value="{{ old('media_sosial') }}" class="form-input" placeholder="https://facebook.com/username">
-                    @error('media_sosial')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
                     <label for="latitude" class="form-label">Latitude</label>
                     <input type="number" step="any" name="latitude" id="latitude" value="{{ old('latitude') }}" class="form-input" placeholder="-6.2000000">
                     @error('latitude')

@@ -30,10 +30,9 @@ class ProyekController extends AdminBaseController
         'deskripsi_singkat' => 'required|string',
         'deskripsi' => 'required|string',
         'lokasi' => 'required|string|max:255',
-        'tujuan' => 'required|string',
-        'dampak' => 'required|string',
-        'kegiatan_utama' => 'required|string',
-        'capaian' => 'required|string',
+        'icon' => 'nullable|string|max:100',
+        'ruang_lingkup' => 'nullable|string|max:255',
+        'status_proyek' => 'nullable|string|max:100',
         'timeline' => 'required|string',
     ];
 

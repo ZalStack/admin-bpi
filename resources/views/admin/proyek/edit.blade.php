@@ -92,13 +92,12 @@
                     </div>
 
                     <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-                        <x-trans-textarea field="tujuan" label="Tujuan" :kode="$bahasa->kode" :required="$req" rows="3" placeholder="Tujuan dalam bahasa {{ $bahasa->nama }}" :item="$proyek"/>
-                        <x-trans-textarea field="dampak" label="Dampak" :kode="$bahasa->kode" :required="$req" rows="3" placeholder="Dampak dalam bahasa {{ $bahasa->nama }}" :item="$proyek"/>
-                        <x-trans-textarea field="kegiatan_utama" label="Kegiatan Utama" :kode="$bahasa->kode" :required="$req" rows="3" placeholder="Kegiatan utama dalam bahasa {{ $bahasa->nama }}" :item="$proyek"/>
+                        <x-trans-input field="icon" label="Icon" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: fa-film"/>
+                        <x-trans-input field="ruang_lingkup" label="Ruang Lingkup" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: Nasional & Internasional"/>
+                        <x-trans-input field="status_proyek" label="Status Proyek" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: Berjalan"/>
                     </div>
 
-                    <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-                        <x-trans-textarea field="capaian" label="Capaian" :kode="$bahasa->kode" :required="$req" rows="3" placeholder="Capaian dalam bahasa {{ $bahasa->nama }}" :item="$proyek"/>
+                    <div class="mt-4">
                         <x-trans-textarea field="timeline" label="Timeline" :kode="$bahasa->kode" :required="$req" rows="3" placeholder="Timeline dalam bahasa {{ $bahasa->nama }}" :item="$proyek"/>
                     </div>
                 </x-lang-panel>

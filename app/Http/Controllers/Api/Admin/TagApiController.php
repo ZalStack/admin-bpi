@@ -19,7 +19,7 @@ class TagApiController extends BaseApiController
     ];
 
     protected array $translatableRules = [
-        'nama' => 'required|string|max:255',
+        'tag' => 'required|string|max:255',
     ];
 
     public function store(Request $request)
@@ -32,8 +32,8 @@ class TagApiController extends BaseApiController
 
         $data = $this->neutralData($request);
         $defaultKode = Bahasa::defaultKode();
-        $defaultNama = (string) data_get($request->input('translations', []), "$defaultKode.nama", '');
-        $data['slug'] = $data['slug'] ?? Str::slug($defaultNama, '-').'-'.time();
+        $defaultTag = (string) data_get($request->input('translations', []), "$defaultKode.tag", '');
+        $data['slug'] = $data['slug'] ?? Str::slug($defaultTag, '-').'-'.time();
 
         $resource = $this->model::create($data);
         $resource->storeTranslations((array) $request->input('translations', []));

@@ -43,9 +43,6 @@
                     <thead class="thead">
                         <tr>
                             <th class="th">Judul</th>
-                            <th class="th hidden md:table-cell">Email</th>
-                            <th class="th hidden sm:table-cell">Telepon</th>
-                            <th class="th hidden lg:table-cell">WhatsApp</th>
                             <th class="th hidden md:table-cell">Status</th>
                             <th class="th text-right">Aksi</th>
                         </tr>
@@ -54,9 +51,6 @@
                         @foreach($items as $item)
                             <tr class="tr-hover">
                                 <td class="td font-medium text-gray-800">{{ Str::limit($item->translateField('judul'), 30) }}</td>
-                                <td class="td hidden md:table-cell text-sm text-gray-600">{{ $item->email ?? '-' }}</td>
-                                <td class="td hidden sm:table-cell text-sm text-gray-600">{{ $item->telepon ?? '-' }}</td>
-                                <td class="td hidden lg:table-cell text-sm text-gray-600">{{ $item->whatsapp ?? '-' }}</td>
                                 <td class="td hidden md:table-cell">
                                     <button onclick="toggleStatus('kontak', {{ $item->id }})" class="{{ $item->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
                                         <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
