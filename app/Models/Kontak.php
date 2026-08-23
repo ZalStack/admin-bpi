@@ -13,10 +13,6 @@ class Kontak extends Model
     protected $table = 'kontak';
 
     protected $fillable = [
-        'email',
-        'telepon',
-        'whatsapp',
-        'media_sosial',
         'latitude',
         'longitude',
         'status',
@@ -26,8 +22,18 @@ class Kontak extends Model
         'status' => 'boolean',
     ];
 
-    public function detail()
+    public function socialMedia()
     {
-        return $this->hasMany(KontakDetail::class, 'kontak_id');
+        return $this->hasMany(KontakSocialMedia::class, 'kontak_id');
+    }
+
+    public function emails()
+    {
+        return $this->hasMany(KontakEmail::class, 'kontak_id');
+    }
+
+    public function phones()
+    {
+        return $this->hasMany(KontakPhone::class, 'kontak_id');
     }
 }

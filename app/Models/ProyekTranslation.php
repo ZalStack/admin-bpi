@@ -19,10 +19,9 @@ class ProyekTranslation extends Model
         'deskripsi_singkat',
         'deskripsi',
         'lokasi',
-        'tujuan',
-        'dampak',
-        'kegiatan_utama',
-        'capaian',
+        'icon',
+        'ruang_lingkup',
+        'status_proyek',
         'timeline',
     ];
 }

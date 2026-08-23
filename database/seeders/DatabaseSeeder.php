@@ -41,14 +41,8 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
+        // Pastikan Anda sudah memiliki BahasaSeeder
         $this->call(BahasaSeeder::class);
-
-        /*
-        | Data konten di bawah memakai pola: field netral + 'translations'
-        | keyed per bahasa (id/en). Menambah bahasa baru (mis. jp) cukup
-        | menambah key pada translations — tanpa perubahan schema.
-        |--------------------------------------------------------------------------
-        */
 
         /*
         |--------------------------------------------------------------------------
@@ -78,11 +72,11 @@ class DatabaseSeeder extends Seeder
                 'translations' => [
                     'id' => [
                         'judul' => 'Menyatu dalam Ekosistem, Menggerakkan Sinema Nasional',
-                        'deskripsi' => 'BPI menghubungkan berbagai pemangku kepentingan dalam ekosistem perfilman Indonesia untuk membangun industri yang kuat dan berkelanjutan.',
+                        'deskripsi' => 'BPI menghubungkan lebih dari 50 asosiasi profesi dan seluruh insan kreatif perfilman Indonesia untuk bergerak bersama menuju industri yang inklusif, sehat, dan berdaya saing global.',
                     ],
                     'en' => [
                         'judul' => 'United in the Ecosystem, Driving National Cinema',
-                        'deskripsi' => 'BPI connects stakeholders across the Indonesian film ecosystem to build a strong and sustainable film industry.',
+                        'deskripsi' => 'BPI connects more than 50 professional associations and creative people in the Indonesian film industry to move together toward an inclusive, healthy, and globally competitive industry.',
                     ],
                 ],
             ],
@@ -120,11 +114,11 @@ class DatabaseSeeder extends Seeder
                 'translations' => [
                     'id' => [
                         'judul' => 'Merajut Sinergi, Meluaskan Jangkauan Proyeksi',
-                        'deskripsi' => 'BPI berkolaborasi dengan berbagai mitra strategis untuk memperkuat ekosistem perfilman Indonesia dan memperluas jangkauan industri ke tingkat nasional maupun internasional.',
+                        'deskripsi' => 'BPI menghubungkan lebih dari 50 asosiasi profesi dan seluruh insan kreatif perfilman Indonesia untuk bergerak bersama menuju industri yang inklusif, sehat, dan berdaya saing global.',
                     ],
                     'en' => [
                         'judul' => 'Building Synergy, Expanding Our Reach',
-                        'deskripsi' => 'BPI collaborates with strategic partners to strengthen the Indonesian film ecosystem and expand the industry nationally and internationally.',
+                        'deskripsi' => 'BPI connects more than 50 professional associations and creative people in the Indonesian film industry to move together toward an inclusive, healthy, and globally competitive industry.',
                     ],
                 ],
             ],

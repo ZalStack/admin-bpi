@@ -2,22 +2,20 @@
 
 namespace App\Models;
 
-use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KontakDetail extends Model
+class KontakSocialMedia extends Model
 {
-    use HasTranslations, HasFactory;
+    use HasFactory;
 
-    protected $table = 'kontak_detail';
+    protected $table = 'kontak_social_media';
 
     protected $fillable = [
         'kontak_id',
-        'icon',
-        'link_url',
-        'link_nama',
-        'handle',
+        'platform',
+        'username',
+        'url',
         'urutan',
         'status',
     ];
