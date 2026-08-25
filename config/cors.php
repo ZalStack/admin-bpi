@@ -21,10 +21,9 @@ return [
 
     // Daftar origin frontend yang diizinkan (pisahkan dengan koma).
     // Contoh: CORS_ALLOWED_ORIGINS="https://bpi.go.id,https://www.bpi.go.id"
-    // Kosong = hanya same-origin yang diizinkan.
-    'allowed_origins' => array_values(array_filter(
-        explode(',', (string) env('CORS_ALLOWED_ORIGINS', ''))
-    )),
+    'allowed_origins' => env('CORS_ALLOWED_ORIGINS')
+        ? array_values(array_filter(explode(',', (string) env('CORS_ALLOWED_ORIGINS'))))
+        : ['*'],
 
     'allowed_origins_patterns' => [],
 
