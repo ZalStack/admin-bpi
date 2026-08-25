@@ -35,32 +35,98 @@
                         <p class="px-2.5 pb-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#5876B0]">Content Manager</p>
                     </li>
 
-                    @foreach([
-                        ['label' => 'Banner', 'route' => 'admin.banner.index', 'active' => 'admin.banner.*'],
-                        ['label' => 'Beranda', 'route' => 'admin.beranda.index', 'active' => 'admin.beranda.*'],
-                        ['label' => 'Tentang', 'route' => 'admin.tentang.index', 'active' => 'admin.tentang.*'],
-                        ['label' => 'Tentang Poin', 'route' => 'admin.tentang-poin.index', 'active' => 'admin.tentang-poin.*'],
-                        ['label' => 'Mitra', 'route' => 'admin.mitra.index', 'active' => 'admin.mitra.*'],
-                        ['label' => 'Stakeholder', 'route' => 'admin.stakeholder.index', 'active' => 'admin.stakeholder.*'],
-                        ['label' => 'Program', 'route' => 'admin.program.index', 'active' => 'admin.program.*'],
-                        ['label' => 'Program Poin', 'route' => 'admin.program-poin.index', 'active' => 'admin.program-poin.*'],
-                        ['label' => 'Proyek', 'route' => 'admin.proyek.index', 'active' => 'admin.proyek.*'],
-                        ['label' => 'Berita', 'route' => 'admin.berita.index', 'active' => 'admin.berita.*'],
-                        ['label' => 'Tag', 'route' => 'admin.tag.index', 'active' => 'admin.tag.*'],
-                        ['label' => 'Struktur Organisasi', 'route' => 'admin.struktur.index', 'active' => 'admin.struktur.*'],
-                        ['label' => 'Kontak', 'route' => 'admin.kontak.index', 'active' => 'admin.kontak.*'],
-                        ['label' => 'Pesan Kontak', 'route' => 'admin.kontak-form.index', 'active' => 'admin.kontak-form.*'],
-                        ['label' => 'Menu', 'route' => 'admin.menu.index', 'active' => 'admin.menu.*'],
-                        ['label' => 'Footer', 'route' => 'admin.footer.index', 'active' => 'admin.footer.*'],
-                    ] as $item)
+                    @php
+                        $menuItems = [
+                            [
+                                'label' => 'Banner',
+                                'route' => 'admin.banner.index',
+                                'active' => 'admin.banner.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>'
+                            ],
+                            [
+                                'label' => 'Beranda',
+                                'route' => 'admin.beranda.index',
+                                'active' => 'admin.beranda.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>'
+                            ],
+                            [
+                                'label' => 'Tentang',
+                                'route' => 'admin.tentang.index',
+                                'active' => 'admin.tentang.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>'
+                            ],
+                            [
+                                'label' => 'Mitra',
+                                'route' => 'admin.mitra.index',
+                                'active' => ['admin.mitra.*', 'admin.kategori-mitra.*', 'admin.mitra-intro.*'],
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>'
+                            ],
+                            [
+                                'label' => 'Stakeholder',
+                                'route' => 'admin.stakeholder.index',
+                                'active' => 'admin.stakeholder.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>'
+                            ],
+                            [
+                                'label' => 'Program',
+                                'route' => 'admin.program.index',
+                                'active' => ['admin.program.*', 'admin.program-roadmap.*'],
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>'
+                            ],
+                            [
+                                'label' => 'Proyek',
+                                'route' => 'admin.proyek.index',
+                                'active' => 'admin.proyek.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>'
+                            ],
+                            [
+                                'label' => 'Berita',
+                                'route' => 'admin.berita.index',
+                                'active' => ['admin.berita.*', 'admin.kategori-berita.*', 'admin.tag.*'],
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>'
+                            ],
+                            [
+                                'label' => 'Struktur Organisasi',
+                                'route' => 'admin.struktur.index',
+                                'active' => 'admin.struktur.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>'
+                            ],
+                            [
+                                'label' => 'Kontak',
+                                'route' => 'admin.kontak.index',
+                                'active' => 'admin.kontak.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>'
+                            ],
+                            [
+                                'label' => 'Pesan Kontak',
+                                'route' => 'admin.kontak-form.index',
+                                'active' => 'admin.kontak-form.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>'
+                            ],
+                            [
+                                'label' => 'Menu',
+                                'route' => 'admin.menu.index',
+                                'active' => 'admin.menu.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>'
+                            ],
+                            [
+                                'label' => 'Footer',
+                                'route' => 'admin.footer.index',
+                                'active' => 'admin.footer.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 10h16"/>'
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach($menuItems as $item)
                         <li>
                             <a href="{{ route($item['route']) }}" @click="isOpen = false"
                                class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs($item['active']) ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
                                 @if(request()->routeIs($item['active']))
                                     <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
                                 @endif
-                                <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                                    <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
+                                <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    {!! $item['icon'] !!}
                                 </svg>
                                 <span class="ms-3 font-poppins">{{ $item['label'] }}</span>
                             </a>

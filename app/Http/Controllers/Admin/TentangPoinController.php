@@ -13,7 +13,7 @@ class TentangPoinController extends AdminBaseController
 
     protected string $routeName = 'admin.tentang-poin';
 
-    protected string $label = 'Tentang Poin';
+    protected string $label = 'Poin Visi & Misi';
 
     protected array $validationRules = [
         'tentang_id' => 'required|exists:tentang,id',
@@ -30,7 +30,7 @@ class TentangPoinController extends AdminBaseController
     protected function viewData(array $merge = []): array
     {
         return array_merge(parent::viewData(), [
-            'tentangs' => Tentang::orderBy('urutan')->get(),
+            'tentangs' => Tentang::whereIn('section', ['visi', 'misi'])->orderBy('urutan')->get(),
         ], $merge);
     }
 }

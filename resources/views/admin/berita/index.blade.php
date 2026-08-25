@@ -20,7 +20,28 @@
                 {{ $items->count() }} Data
             </div>
         </div>
-        <a href="{{ route('admin.berita.create') }}" class="btn-primary">Tambah Berita</a>
+        <div class="flex flex-wrap items-center gap-2.5">
+            <a href="{{ route('admin.kategori-berita.index') }}" class="inline-flex items-center gap-2 rounded-xl border border-[#132C5C]/20 bg-white px-4 py-2.5 text-xs font-bold text-[#132C5C] shadow-sm hover:bg-[#132C5C]/5 transition-all">
+                <svg class="w-4 h-4 text-[#132C5C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                Kelola Kategori Berita
+            </a>
+
+            <a href="{{ route('admin.tag.index') }}" class="inline-flex items-center gap-2 rounded-xl border border-[#132C5C]/20 bg-white px-4 py-2.5 text-xs font-bold text-[#132C5C] shadow-sm hover:bg-[#132C5C]/5 transition-all">
+                <svg class="w-4 h-4 text-[#132C5C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                </svg>
+                Kelola Tag Berita
+            </a>
+
+            <a href="{{ route('admin.berita.create') }}" class="btn-primary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Tambah Berita
+            </a>
+        </div>
     </div>
 
     @if($items->isEmpty())

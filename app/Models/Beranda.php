@@ -23,4 +23,13 @@ class Beranda extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    protected $appends = [
+        'gambar_url',
+    ];
+
+    public function getGambarUrlAttribute(): ?string
+    {
+        return $this->gambar ? asset('storage/beranda/' . $this->gambar) : null;
+    }
 }

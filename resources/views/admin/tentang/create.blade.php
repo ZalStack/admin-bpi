@@ -31,7 +31,7 @@
             <div class="input-group">
                 <div>
                     <label for="section" class="form-label">Section *</label>
-                    <input type="text" name="section" id="section" value="{{ old('section') }}" class="form-input" placeholder="cth: visi, misi, sejarah" required>
+                    <input type="text" name="section" id="section" value="{{ old('section') }}" class="form-input" placeholder="cth: visi, misi, hero" required>
                     @error('section')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -41,14 +41,6 @@
                     <label for="urutan" class="form-label">Urutan</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input">
                     @error('urutan')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="icon" class="form-label">Icon (Font Awesome class)</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="fa-solid fa-home">
-                    @error('icon')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>

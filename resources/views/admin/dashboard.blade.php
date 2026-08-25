@@ -33,12 +33,12 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
         @php
             $stats = [
-                ['label' => 'Total Banner', 'value' => $totalBanner ?? 0, 'color' => '#520A18', 'accent' => 'from-[#520A18] to-[#68001C]', 'iconColor' => '#E3DBAF', 'route' => 'admin.banner.index', 'icon' => '<path d="M2 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4Zm3 2a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2H5Zm0 4a1 1 0 0 0 0 2h10a1 1 0 0 0 0-2H5Zm0 4a1 1 0 0 0 0 2h8a1 1 0 0 0 0-2H5Z"/>'],
-                ['label' => 'Total Beranda', 'value' => $totalBeranda ?? 0, 'color' => '#132C5C', 'accent' => 'from-[#132C5C] to-[#2B4E94]', 'iconColor' => '#CAB988', 'route' => 'admin.beranda.index', 'icon' => '<path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 14a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-10a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 0-2h-2V7a1 1 0 0 0-1-1Z"/>'],
-                ['label' => 'Total Stakeholder', 'value' => $totalStakeholder ?? 0, 'color' => '#A85C66', 'accent' => 'from-[#A85C66] to-[#CC707C]', 'iconColor' => '#FFFFFF', 'route' => 'admin.stakeholder.index', 'icon' => '<path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>'],
-                ['label' => 'Total Program', 'value' => $totalProgram ?? 0, 'color' => '#97763A', 'accent' => 'from-[#97763A] to-[#B09861]', 'iconColor' => '#FFFFFF', 'route' => 'admin.program.index', 'icon' => '<path d="M9 1a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-1 1.07A6 6 0 0 0 3.07 8H8V2.07ZM10 2.07V8h4.93A6 6 0 0 0 10 2.07ZM2.07 10A6 6 0 0 0 8 17.93V10H2.07Zm9.93 0v7.93A6 6 0 0 0 17.93 10H12Z"/>'],
-                ['label' => 'Total Proyek', 'value' => $totalProyek ?? 0, 'color' => '#2B4E94', 'accent' => 'from-[#2B4E94] to-[#5876B0]', 'iconColor' => '#FFFFFF', 'route' => 'admin.proyek.index', 'icon' => '<path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0h8v12H6V4zm2 3a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H9a1 1 0 01-1-1V7z"/>'],
-                ['label' => 'Pengaturan Bahasa', 'value' => $totalBahasa ?? 0, 'color' => '#8C4254', 'accent' => 'from-[#E58C97] to-[#EBA9B0]', 'iconColor' => '#520A18', 'route' => 'admin.bahasa.index', 'icon' => '<path d="M9 1a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-1 1.07A6 6 0 0 0 3.07 8H8V2.07ZM10 2.07V8h4.93A6 6 0 0 0 10 2.07ZM2.07 10A6 6 0 0 0 8 17.93V10H2.07Zm9.93 0v7.93A6 6 0 0 0 17.93 10H12Z"/>'],
+                ['label' => 'Total Banner', 'value' => $totalBanner ?? 0, 'color' => '#520A18', 'accent' => 'from-[#520A18] to-[#68001C]', 'iconColor' => '#E3DBAF', 'route' => 'admin.banner.index', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>'],
+                ['label' => 'Total Beranda', 'value' => $totalBeranda ?? 0, 'color' => '#132C5C', 'accent' => 'from-[#132C5C] to-[#2B4E94]', 'iconColor' => '#CAB988', 'route' => 'admin.beranda.index', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>'],
+                ['label' => 'Total Stakeholder', 'value' => $totalStakeholder ?? 0, 'color' => '#A85C66', 'accent' => 'from-[#A85C66] to-[#CC707C]', 'iconColor' => '#FFFFFF', 'route' => 'admin.stakeholder.index', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>'],
+                ['label' => 'Total Program', 'value' => $totalProgram ?? 0, 'color' => '#97763A', 'accent' => 'from-[#97763A] to-[#B09861]', 'iconColor' => '#FFFFFF', 'route' => 'admin.program.index', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>'],
+                ['label' => 'Total Proyek', 'value' => $totalProyek ?? 0, 'color' => '#2B4E94', 'accent' => 'from-[#2B4E94] to-[#5876B0]', 'iconColor' => '#FFFFFF', 'route' => 'admin.proyek.index', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>'],
+                ['label' => 'Pengaturan Bahasa', 'value' => $totalBahasa ?? 0, 'color' => '#8C4254', 'accent' => 'from-[#E58C97] to-[#EBA9B0]', 'iconColor' => '#520A18', 'route' => 'admin.bahasa.index', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>'],
             ];
         @endphp
 
@@ -51,7 +51,7 @@
                         <p class="stat-value font-poppins mt-1" style="color: {{ $stat['color'] }}">{{ $stat['value'] }}</p>
                     </div>
                     <div class="flex-shrink-0 bg-gradient-to-br {{ $stat['accent'] }} p-3 rounded-xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-md">
-                        <svg class="w-6 h-6" style="color: {{ $stat['iconColor'] }}" fill="currentColor" viewBox="0 0 20 20">{!! $stat['icon'] !!}</svg>
+                        <svg class="w-6 h-6" style="color: {{ $stat['iconColor'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $stat['icon'] !!}</svg>
                     </div>
                 </div>
                 <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
@@ -190,9 +190,9 @@
                 <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                 <div class="flex items-center justify-between">
                     <span class="font-medium">Tambah Banner</span>
-                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15 group-hover:bg-white/20 group-hover:rotate-90 transition-all duration-300">
+                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                     </div>
                 </div>
@@ -203,9 +203,9 @@
                 <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                 <div class="flex items-center justify-between">
                     <span class="font-medium">Tambah Beranda</span>
-                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15 group-hover:bg-white/20 group-hover:rotate-90 transition-all duration-300">
+                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
                     </div>
                 </div>
@@ -216,9 +216,9 @@
                 <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                 <div class="flex items-center justify-between">
                     <span class="font-medium">Tambah Proyek</span>
-                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15 group-hover:bg-white/20 group-hover:rotate-90 transition-all duration-300">
+                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ring-1 ring-inset ring-white/15 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
                         </svg>
                     </div>
                 </div>

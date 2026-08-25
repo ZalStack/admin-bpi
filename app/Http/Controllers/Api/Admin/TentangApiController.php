@@ -14,25 +14,31 @@ class TentangApiController extends BaseApiController
 
     protected array $orderBy = ['urutan' => 'asc'];
 
-    protected array $validationRules = [
-        'section' => 'required|string|max:100',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'icon' => 'nullable|string|max:255',
-        'urutan' => 'nullable|integer',
-        'status' => 'boolean',
-    ];
+    public function getActive()
+    {
+        $resources = $this->model::query()
+            ->with([
+                'translations',
+                'poin' => fn ($q) => $q->where('status', true)->orderBy('urutan', 'asc'),
+                'poin.translations'
+            ])
+            ->where('status', true)
+            ->orderBy('urutan', 'asc')
+            ->get();
 
-    protected array $translatableRules = [
-        'judul' => 'required|string|max:255',
-        'subjudul' => 'nullable|string|max:255',
-        'deskripsi' => 'required|string',
-    ];
+        return $this->successResponse($resources);
+    }
 
     public function getBySection($section)
     {
         $resources = $this->model::query()
-            ->with(['translations', 'poin', 'poin.translations'])
+            ->with([
+                'translations',
+                'poin' => fn ($q) => $q->where('status', true)->orderBy('urutan', 'asc'),
+                'poin.translations'
+            ])
             ->where('section', $section)
+            ->where('status', true)
             ->orderBy('urutan', 'asc')
             ->get();
 

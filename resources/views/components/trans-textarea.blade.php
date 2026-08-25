@@ -19,7 +19,7 @@ $value = old($errorKey, $item?->translationFor($kode)?->{$field} ?? '');
         <span class="text-xs font-normal text-gray-400">({{ strtoupper($kode) }})</span>
     </label>
     <textarea name="translations[{{ $kode }}][{{ $field }}]" rows="{{ $rows }}"
-        placeholder="{{ $placeholder }}" @if ($required) required @endif class="form-textarea">{{ $value }}</textarea>
+        placeholder="{{ $placeholder }}" class="form-textarea">{{ $value }}</textarea>
     @error($errorKey)
         <p class="form-error">{{ $message }}</p>
     @enderror

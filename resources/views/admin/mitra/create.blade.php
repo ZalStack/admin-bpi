@@ -18,7 +18,7 @@
                 <span>Tambah</span>
             </nav>
             <h1 class="page-title">Tambah Mitra</h1>
-            <p class="page-subtitle">Tambahkan data mitra baru</p>
+            <p class="page-subtitle">Tambahkan data mitra baru beserta logo dan kategorinya</p>
         </div>
         <a href="{{ route('admin.mitra.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -28,15 +28,31 @@
         </a>
     </div>
 
+    @php
+        $initialLang = $bahasas->firstWhere('is_default', true)?->kode ?? $bahasas->first()?->kode;
+    @endphp
+
     <div class="form-card">
         <form action="{{ route('admin.mitra.store') }}" method="POST" enctype="multipart/form-data"
-            x-data="{ lang: @js($bahasas->first()?->kode) }">
+            x-data="{ 
+                lang: @js($initialLang),
+                selectedCategory: '{{ old('selected_kategori', $kategoris->first()?->slug ?? 'strategis') }}'
+            }">
             @csrf
 
             <div class="input-group">
                 <div>
-                    <label for="website" class="form-label">Website</label>
-                    <input type="text" name="website" id="website" value="{{ old('website') }}" class="form-input" placeholder="https://...">
+                    <label for="kategori_select" class="form-label">Kategori Mitra <span class="text-red-500">*</span></label>
+                    <select id="kategori_select" class="form-select" x-model="selectedCategory" required>
+                        @foreach($kategoris as $cat)
+                            <option value="{{ $cat->slug }}">{{ $cat->translateField('nama') ?: ucfirst($cat->slug) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label for="website" class="form-label">Website URL</label>
+                    <input type="url" name="website" id="website" value="{{ old('website') }}" class="form-input" placeholder="https://contoh-mitra.com">
                     @error('website')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -44,16 +60,17 @@
 
                 <div>
                     <label for="urutan" class="form-label">Urutan</label>
-                    <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input">
+                    <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input" min="0">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label for="status" class="form-label">Status</label>
+                    <label for="status" class="form-label">Status Tampil</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="hidden" name="status" value="0">
                             <input type="checkbox" name="status" value="1" checked class="form-checkbox">
                             <span class="text-sm font-medium text-gray-700">Aktif</span>
                         </label>
@@ -63,30 +80,32 @@
 
             <div class="divider"></div>
 
+            <!-- Multi-bahasa Nama Mitra -->
             <x-lang-tabs :bahasas="$bahasas"/>
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="nama" label="Nama" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Nama dalam bahasa {{ $bahasa->nama }}"/>
-                    <div class="mt-4">
-                        <x-trans-input field="kategori" label="Kategori" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Kategori dalam bahasa {{ $bahasa->nama }}"/>
-                    </div>
-                    <div class="mt-4">
-                        <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Deskripsi dalam bahasa {{ $bahasa->nama }}"/>
-                    </div>
-                    <div class="mt-4">
-                        <x-trans-textarea field="alamat" label="Alamat" :kode="$bahasa->kode" rows="2" placeholder="Alamat dalam bahasa {{ $bahasa->nama }}"/>
-                    </div>
+                    <!-- Hidden input to pass selected category for each language payload -->
+                    <input type="hidden" name="translations[{{ $bahasa->kode }}][kategori]" :value="selectedCategory">
+                    
+                    <x-trans-input 
+                        field="nama" 
+                        label="Nama Mitra" 
+                        :kode="$bahasa->kode" 
+                        :required="$bahasa->is_default" 
+                        placeholder="Nama mitra dalam bahasa {{ $bahasa->nama }}"
+                    />
                 </x-lang-panel>
             @endforeach
 
             <div class="divider"></div>
 
+            <!-- Upload Logo Mitra -->
             <div>
-                <label for="logo" class="form-label">Logo</label>
-                <img id="preview-logo" src="" alt="Preview" class="hidden mb-3 h-32 w-32 rounded-xl object-contain ring-1 ring-gray-200 bg-white">
-                <input type="file" name="logo" id="logo" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-logo')">
-                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
+                <label for="logo" class="form-label">Logo Mitra <span class="text-red-500">*</span></label>
+                <img id="preview-logo" src="" alt="Preview" class="hidden mb-3 h-28 w-44 rounded-xl object-contain ring-1 ring-gray-200 bg-white p-2">
+                <input type="file" name="logo" id="logo" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-logo')" required>
+                <p class="mt-1.5 text-xs text-gray-400">Format: PNG, JPG, WEBP, SVG. Maksimal 2MB.</p>
                 @error('logo')
                     <p class="form-error">{{ $message }}</p>
                 @enderror
@@ -99,7 +118,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
                     </svg>
-                    Simpan
+                    Simpan Mitra
                 </button>
                 <a href="{{ route('admin.mitra.index') }}" class="btn-outline">Batal</a>
             </div>

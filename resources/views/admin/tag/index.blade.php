@@ -11,21 +11,28 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
+                <a href="{{ route('admin.berita.index') }}">Berita</a>
+                <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
                 <span>Tag</span>
             </nav>
-            <h1 class="page-title">Tag</h1>
-            <p class="page-subtitle">Kelola tag untuk berita</p>
+            <h1 class="page-title">Tag Berita</h1>
+            <p class="page-subtitle">Kelola master tag topik untuk pengelompokan artikel berita</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#97763A] ring-1 ring-[#97763A]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#97763A]"></span>
                 {{ $items->count() }} Data
             </div>
         </div>
-        <a href="{{ route('admin.tag.create') }}" class="btn-primary">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            Tambah Tag
-        </a>
+        <div class="flex flex-wrap items-center gap-2">
+            <a href="{{ route('admin.tag.create') }}" class="btn-primary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Tambah Tag
+            </a>
+            <a href="{{ route('admin.berita.index') }}" class="btn-outline">Kembali ke Berita</a>
+        </div>
     </div>
 
     @if($items->isEmpty())

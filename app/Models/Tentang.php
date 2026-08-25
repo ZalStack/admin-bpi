@@ -24,6 +24,15 @@ class Tentang extends Model
         'status' => 'boolean',
     ];
 
+    protected $appends = [
+        'gambar_url',
+    ];
+
+    public function getGambarUrlAttribute(): ?string
+    {
+        return $this->gambar ? asset('storage/tentang/' . $this->gambar) : null;
+    }
+
     public function poin()
     {
         return $this->hasMany(TentangPoin::class, 'tentang_id');

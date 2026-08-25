@@ -7,12 +7,14 @@ use App\Http\Controllers\Api\Admin\BeritaApiController;
 use App\Http\Controllers\Api\Admin\BeritaGaleriApiController;
 use App\Http\Controllers\Api\Admin\DashboardApiController;
 use App\Http\Controllers\Api\Admin\FooterApiController;
+use App\Http\Controllers\Api\Admin\KategoriBeritaApiController;
 use App\Http\Controllers\Api\Admin\KontakApiController;
 use App\Http\Controllers\Api\Admin\KontakFormApiController;
 use App\Http\Controllers\Api\Admin\MenuApiController;
 use App\Http\Controllers\Api\Admin\MitraApiController;
 use App\Http\Controllers\Api\Admin\ProgramApiController;
 use App\Http\Controllers\Api\Admin\ProgramPoinApiController;
+use App\Http\Controllers\Api\Admin\ProgramRoadmapApiController;
 use App\Http\Controllers\Api\Admin\ProyekApiController;
 use App\Http\Controllers\Api\Admin\ProyekGaleriApiController;
 use App\Http\Controllers\Api\Admin\StakeholderApiController;
@@ -61,6 +63,7 @@ Route::prefix('admin/v1')
         Route::prefix('banner')->group(function () {
             Route::get('/', [BannerApiController::class, 'index']);
             Route::post('/', [BannerApiController::class, 'store']);
+            Route::get('/halaman/{halaman}', [BannerApiController::class, 'getByHalaman']);
             Route::patch('/{id}/toggle-status', [BannerApiController::class, 'toggleStatus']);
             Route::get('/{id}', [BannerApiController::class, 'show']);
             Route::put('/{id}', [BannerApiController::class, 'update']);
@@ -117,6 +120,8 @@ Route::prefix('admin/v1')
             Route::get('/', [MitraApiController::class, 'index']);
             Route::post('/', [MitraApiController::class, 'store']);
             Route::get('/active', [MitraApiController::class, 'getActive']);
+            Route::get('/intro', [MitraApiController::class, 'getIntro']);
+            Route::get('/kategori', [MitraApiController::class, 'getKategori']);
             Route::put('/update-urutan', [MitraApiController::class, 'updateUrutan']);
             Route::get('/kategori/{kategori}', [MitraApiController::class, 'getByKategori']);
             Route::patch('/{id}/toggle-status', [MitraApiController::class, 'toggleStatus']);
@@ -154,6 +159,7 @@ Route::prefix('admin/v1')
         });
 
         // ============================================
+        // ============================================
         // PROGRAM POIN
         // ============================================
         Route::prefix('program-poin')->group(function () {
@@ -164,6 +170,20 @@ Route::prefix('admin/v1')
             Route::get('/{id}', [ProgramPoinApiController::class, 'show']);
             Route::put('/{id}', [ProgramPoinApiController::class, 'update']);
             Route::delete('/{id}', [ProgramPoinApiController::class, 'destroy']);
+        });
+
+        // ============================================
+        // PROGRAM ROADMAP (PETA JALAN)
+        // ============================================
+        Route::prefix('program-roadmap')->group(function () {
+            Route::get('/', [ProgramRoadmapApiController::class, 'index']);
+            Route::post('/', [ProgramRoadmapApiController::class, 'store']);
+            Route::get('/active', [ProgramRoadmapApiController::class, 'getActive']);
+            Route::put('/update-urutan', [ProgramRoadmapApiController::class, 'updateUrutan']);
+            Route::patch('/{id}/toggle-status', [ProgramRoadmapApiController::class, 'toggleStatus']);
+            Route::get('/{id}', [ProgramRoadmapApiController::class, 'show']);
+            Route::put('/{id}', [ProgramRoadmapApiController::class, 'update']);
+            Route::delete('/{id}', [ProgramRoadmapApiController::class, 'destroy']);
         });
 
         // ============================================
@@ -194,6 +214,17 @@ Route::prefix('admin/v1')
             Route::get('/{id}', [ProyekGaleriApiController::class, 'show']);
             Route::put('/{id}', [ProyekGaleriApiController::class, 'update']);
             Route::delete('/{id}', [ProyekGaleriApiController::class, 'destroy']);
+        });
+
+        // ============================================
+        // KATEGORI BERITA
+        // ============================================
+        Route::prefix('kategori-berita')->group(function () {
+            Route::get('/', [KategoriBeritaApiController::class, 'index']);
+            Route::post('/', [KategoriBeritaApiController::class, 'store']);
+            Route::get('/{id}', [KategoriBeritaApiController::class, 'show']);
+            Route::put('/{id}', [KategoriBeritaApiController::class, 'update']);
+            Route::delete('/{id}', [KategoriBeritaApiController::class, 'destroy']);
         });
 
         // ============================================

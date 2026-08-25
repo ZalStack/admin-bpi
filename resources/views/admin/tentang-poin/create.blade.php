@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Tentang Poin')
+@section('title', 'Tambah Poin Visi / Misi')
 
 @section('content')
 <div class="form-page">
@@ -11,14 +11,14 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.tentang-poin.index') }}">Tentang Poin</a>
+                <a href="{{ route('admin.tentang-poin.index') }}">Poin Visi & Misi</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
                 <span>Tambah</span>
             </nav>
-            <h1 class="page-title">Tambah Tentang Poin</h1>
-            <p class="page-subtitle">Tambahkan poin tentang baru</p>
+            <h1 class="page-title">Tambah Poin Visi / Misi</h1>
+            <p class="page-subtitle">Tambahkan kartu pilar visi atau kartu misi baru untuk halaman Tentang</p>
         </div>
         <a href="{{ route('admin.tentang-poin.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -28,19 +28,33 @@
         </a>
     </div>
 
+    @php
+        $initialLang = $bahasas->firstWhere('is_default', true)?->kode ?? $bahasas->first()?->kode;
+        if ($errors->any()) {
+            foreach ($bahasas as $b) {
+                foreach ($errors->keys() as $key) {
+                    if (str_starts_with($key, "translations.{$b->kode}")) {
+                        $initialLang = $b->kode;
+                        break 2;
+                    }
+                }
+            }
+        }
+    @endphp
+
     <div class="form-card">
         <form action="{{ route('admin.tentang-poin.store') }}" method="POST"
-            x-data="{ lang: @js($bahasas->first()?->kode) }">
+            x-data="{ lang: @js($initialLang) }">
             @csrf
 
             <div class="input-group">
                 <div>
-                    <label for="tentang_id" class="form-label">Tentang <span class="text-red-500">*</span></label>
+                    <label for="tentang_id" class="form-label">Kategori Poin (Pilar Visi / Kartu Misi) <span class="text-red-500">*</span></label>
                     <select name="tentang_id" id="tentang_id" class="form-input" required>
-                        <option value="">Pilih Tentang</option>
+                        <option value="">-- Pilih Kategori --</option>
                         @foreach($tentangs as $tentang)
                             <option value="{{ $tentang->id }}" {{ old('tentang_id') == $tentang->id ? 'selected' : '' }}>
-                                {{ $tentang->translateField('section') ?: 'ID: '.$tentang->id }}
+                                {{ strtolower($tentang->section) === 'visi' ? 'Pilar Visi Kami' : (strtolower($tentang->section) === 'misi' ? 'Kartu Misi Kami' : ucfirst($tentang->section)) }}
                             </option>
                         @endforeach
                     </select>
@@ -50,8 +64,7 @@
                 </div>
 
                 <div>
-                    <label for="icon" class="form-label">Icon</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="Nama icon">
+                    <x-icon-picker name="icon" :value="old('icon', 'fa-solid fa-lightbulb')" label="Icon" />
                     @error('icon')
                         <p class="form-error">{{ $message }}</p>
                     @enderror

@@ -68,14 +68,6 @@
                 </div>
 
                 <div>
-                    <label for="telepon" class="form-label">Telepon</label>
-                    <input type="text" name="telepon" id="telepon" value="{{ old('telepon', $item->telepon) }}" class="form-input" placeholder="0812-3456-7890">
-                    @error('telepon')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
                     <label for="urutan" class="form-label">Urutan</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $item->urutan) }}" class="form-input" min="0">
                     @error('urutan')
@@ -101,9 +93,6 @@
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
                     <x-trans-input field="jabatan" label="Jabatan" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Jabatan dalam bahasa {{ $bahasa->nama }}"/>
-                    <div class="mt-4">
-                        <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" rows="3" :item="$item" placeholder="Deskripsi dalam bahasa {{ $bahasa->nama }}"/>
-                    </div>
                 </x-lang-panel>
             @endforeach
 

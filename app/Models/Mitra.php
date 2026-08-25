@@ -24,6 +24,15 @@ class Mitra extends Model
         'status' => 'boolean',
     ];
 
+    protected $appends = [
+        'logo_url',
+    ];
+
+    public function getLogoUrlAttribute(): ?string
+    {
+        return $this->logo ? asset('storage/mitra/' . $this->logo) : null;
+    }
+
     public function proyek(): BelongsToMany
     {
         return $this->belongsToMany(Proyek::class, 'proyek_mitra', 'mitra_id', 'proyek_id');

@@ -18,7 +18,7 @@
                 <span>Tambah</span>
             </nav>
             <h1 class="page-title">Tambah Data Beranda</h1>
-            <p class="page-subtitle">Tambahkan konten section baru pada halaman beranda</p>
+            <p class="page-subtitle">Pilih section beranda dan atur judul tampilan</p>
         </div>
         <a href="{{ route('admin.beranda.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,16 +29,22 @@
     </div>
 
     <div class="form-card">
-        <form action="{{ route('admin.beranda.store') }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('admin.beranda.store') }}" method="POST"
             x-data="{ lang: @js($bahasas->first()?->kode) }">
             @csrf
-
-            <x-lang-tabs :bahasas="$bahasas"/>
 
             <div class="input-group">
                 <div>
                     <label for="section" class="form-label">Section *</label>
-                    <input type="text" name="section" id="section" value="{{ old('section') }}" class="form-input" placeholder="cth: hero, tentang, visi" required>
+                    <select name="section" id="section" class="form-select" required>
+                        <option value="" disabled {{ old('section') ? '' : 'selected' }}>-- Pilih Section --</option>
+                        <option value="tentang" {{ old('section') == 'tentang' ? 'selected' : '' }}>Tentang</option>
+                        <option value="struktur" {{ old('section') == 'struktur' ? 'selected' : '' }}>Struktur</option>
+                        <option value="proyek" {{ old('section') == 'proyek' ? 'selected' : '' }}>Proyek</option>
+                        <option value="program" {{ old('section') == 'program' ? 'selected' : '' }}>Program</option>
+                        <option value="berita" {{ old('section') == 'berita' ? 'selected' : '' }}>Berita</option>
+                        <option value="mitra" {{ old('section') == 'mitra' ? 'selected' : '' }}>Mitra</option>
+                    </select>
                     @error('section')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -46,16 +52,8 @@
 
                 <div>
                     <label for="urutan" class="form-label">Urutan</label>
-                    <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input">
+                    <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input" min="0">
                     @error('urutan')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="icon" class="form-label">Icon (Font Awesome class)</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="fa-solid fa-home">
-                    @error('icon')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
@@ -64,7 +62,7 @@
                     <label for="status" class="form-label">Status</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" name="status" value="1" checked class="form-checkbox">
+                            <input type="checkbox" name="status" value="1" {{ old('status', '1') == '1' ? 'checked' : '' }} class="form-checkbox">
                             <span class="text-sm font-medium text-gray-700">Aktif</span>
                         </label>
                     </div>
@@ -73,26 +71,13 @@
 
             <div class="divider"></div>
 
+            <x-lang-tabs :bahasas="$bahasas"/>
+
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="judul" label="Judul" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Judul dalam bahasa {{ $bahasa->nama }}"/>
-                    <div class="mt-4">
-                        <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Deskripsi dalam bahasa {{ $bahasa->nama }}"/>
-                    </div>
+                    <x-trans-input field="judul" label="Judul Section" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Judul section dalam bahasa {{ $bahasa->nama }}"/>
                 </x-lang-panel>
             @endforeach
-
-            <div class="divider"></div>
-
-            <div>
-                <label for="gambar" class="form-label">Gambar</label>
-                <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
-                <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
-                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
-                @error('gambar')
-                    <p class="form-error">{{ $message }}</p>
-                @enderror
-            </div>
 
             <div class="divider"></div>
 
@@ -108,20 +93,4 @@
         </form>
     </div>
 </div>
-
-@push('scripts')
-<script>
-function previewImage(input, previewId) {
-    const preview = document.getElementById(previewId);
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            preview.src = e.target.result;
-            preview.classList.remove('hidden');
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-</script>
-@endpush
 @endsection

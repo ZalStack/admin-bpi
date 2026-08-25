@@ -15,18 +15,17 @@ class BerandaController extends AdminBaseController
     protected string $label = 'Data beranda';
 
     protected array $validationRules = [
-        'section' => 'required|string|max:100',
-        'icon' => 'nullable|string|max:255',
+        'section' => 'required|string|in:tentang,struktur,proyek,program,berita,mitra',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];
 
     protected array $translatableRules = [
         'judul' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
+        'deskripsi' => 'nullable|string',
     ];
 
-    protected ?string $imageField = 'gambar';
+    protected ?string $imageField = null;
 
-    protected ?string $imagePath = 'beranda';
+    protected ?string $imagePath = null;
 }

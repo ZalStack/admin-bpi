@@ -14,18 +14,26 @@
                 <span>Kontak</span>
             </nav>
             <h1 class="page-title">Kontak</h1>
-            <p class="page-subtitle">Kelola informasi kontak perusahaan</p>
-            <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#520A18] ring-1 ring-[#520A18]/10 shadow-sm">
-                <span class="h-1.5 w-1.5 rounded-full bg-[#520A18]"></span>
-                {{ $items->count() }} Data
+            <p class="page-subtitle">Kelola informasi kontak, media sosial, email, telepon, dan peta lokasi</p>
+            <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#132C5C] ring-1 ring-[#132C5C]/10 shadow-sm">
+                <span class="h-1.5 w-1.5 rounded-full bg-[#132C5C]"></span>
+                {{ $items->count() }} Data Kontak
             </div>
         </div>
-        <a href="{{ route('admin.kontak.create') }}" class="btn-primary">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            Tambah Kontak
-        </a>
+        <div class="flex flex-wrap items-center gap-2.5">
+            <a href="{{ route('admin.kontak-form.index') }}" class="inline-flex items-center gap-2 rounded-xl border border-[#132C5C]/20 bg-white px-4 py-2.5 text-xs font-bold text-[#132C5C] shadow-sm hover:bg-[#132C5C]/5 transition-all">
+                <svg class="w-4 h-4 text-[#132C5C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                Lihat Pesan Masuk
+            </a>
+            <a href="{{ route('admin.kontak.create') }}" class="btn-primary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Tambah Kontak
+            </a>
+        </div>
     </div>
 
     @if($items->isEmpty())
@@ -42,16 +50,56 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th class="th">Judul</th>
-                            <th class="th hidden md:table-cell">Status</th>
+                            <th class="th">Judul / Alamat</th>
+                            <th class="th hidden md:table-cell">Media Sosial</th>
+                            <th class="th hidden lg:table-cell">Email</th>
+                            <th class="th hidden sm:table-cell">Telepon / WA</th>
+                            <th class="th hidden sm:table-cell">Status</th>
                             <th class="th text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
                         @foreach($items as $item)
                             <tr class="tr-hover">
-                                <td class="td font-medium text-gray-800">{{ Str::limit($item->translateField('judul'), 30) }}</td>
+                                <td class="td font-medium text-gray-800">
+                                    <div class="font-semibold text-gray-900">{{ Str::limit($item->translateField('judul'), 35) }}</div>
+                                    <div class="text-xs text-gray-500 line-clamp-1 mt-0.5">{{ $item->translateField('alamat') ?? 'Koordinat: '.$item->latitude.', '.$item->longitude }}</div>
+                                </td>
                                 <td class="td hidden md:table-cell">
+                                    <div class="flex flex-wrap gap-1">
+                                        @forelse($item->social_media as $sm)
+                                            <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                                                {{ ucfirst($sm->platform) }}
+                                            </span>
+                                        @empty
+                                            <span class="text-xs text-gray-400 italic">-</span>
+                                        @endforelse
+                                    </div>
+                                </td>
+                                <td class="td hidden lg:table-cell">
+                                    <div class="flex flex-col gap-0.5">
+                                        @forelse($item->email as $em)
+                                            <span class="text-xs font-mono text-gray-600">{{ $em->email }}</span>
+                                        @empty
+                                            <span class="text-xs text-gray-400 italic">-</span>
+                                        @endforelse
+                                    </div>
+                                </td>
+                                <td class="td hidden sm:table-cell">
+                                    <div class="flex flex-col gap-0.5">
+                                        @forelse($item->phone as $ph)
+                                            <span class="text-xs font-mono text-gray-700 flex items-center gap-1">
+                                                @if(strtolower($ph->type) === 'whatsapp')
+                                                    <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                                                @endif
+                                                {{ $ph->number }}
+                                            </span>
+                                        @empty
+                                            <span class="text-xs text-gray-400 italic">-</span>
+                                        @endforelse
+                                    </div>
+                                </td>
+                                <td class="td hidden sm:table-cell">
                                     <button onclick="toggleStatus('kontak', {{ $item->id }})" class="{{ $item->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
                                         <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
                                         {{ $item->status ? 'Active' : 'Inactive' }}

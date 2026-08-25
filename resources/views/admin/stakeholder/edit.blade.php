@@ -36,8 +36,9 @@
 
             <div class="input-group">
                 <div>
-                    <label for="icon" class="form-label">Icon (Font Awesome class)</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon', $item->icon) }}" class="form-input" placeholder="fa-solid fa-user">
+                    <label for="icon" class="form-label">Icon Font Awesome <span class="text-xs font-normal text-gray-400">(Opsional / Alternatif jika tanpa upload gambar)</span></label>
+                    <input type="text" name="icon" id="icon" value="{{ old('icon', $item->icon) }}" class="form-input" placeholder="fa-solid fa-building">
+                    <p class="mt-1.5 text-xs text-gray-400">Contoh: <code>fa-solid fa-building</code>, <code>fa-solid fa-users</code>, <code>fa-solid fa-film</code>.</p>
                     @error('icon')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -78,16 +79,16 @@
             <div class="divider"></div>
 
             <div>
-                <label for="gambar" class="form-label">Gambar</label>
+                <label for="gambar" class="form-label">Logo / Gambar Asosiasi <span class="text-xs font-normal text-gray-400">(Prioritas Utama Tampilan)</span></label>
                 @if($item->gambar)
                     <div class="mb-3">
-                        <p class="mb-1.5 text-xs font-medium text-gray-500">Gambar saat ini:</p>
-                        <img src="{{ asset('storage/stakeholder/'.$item->gambar) }}" alt="stakeholder" class="h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
+                        <p class="mb-1.5 text-xs font-medium text-gray-500">Logo saat ini:</p>
+                        <img src="{{ asset('storage/stakeholder/'.$item->gambar) }}" alt="stakeholder" class="h-28 w-auto max-w-xs rounded-xl object-contain bg-white p-2 border border-gray-200 ring-1 ring-gray-100">
                     </div>
                 @endif
-                <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
+                <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-28 w-auto max-w-xs rounded-xl object-contain bg-white p-2 border border-gray-200">
                 <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
-                <p class="mt-1.5 text-xs text-gray-400">Kosongkan jika tidak ingin mengubah gambar.</p>
+                <p class="mt-1.5 text-xs text-gray-400">Kosongkan jika tidak ingin mengubah gambar. Format: JPG, PNG, WEBP, SVG. Maksimal 2MB.</p>
                 @error('gambar')
                     <p class="form-error">{{ $message }}</p>
                 @enderror

@@ -3,7 +3,20 @@
 @section('title', 'Galeri Berita')
 
 @section('content')
-<div>
+<div x-data="{
+    showModal: false,
+    activeImage: '',
+    activeJudul: '',
+    activeDeskripsi: '',
+    activeUrutan: 1,
+    openPreview(image, judul, deskripsi, urutan) {
+        this.activeImage = image;
+        this.activeJudul = judul || 'Galeri Foto';
+        this.activeDeskripsi = deskripsi || '';
+        this.activeUrutan = urutan;
+        this.showModal = true;
+    }
+}" @keydown.escape.window="showModal = false">
     <div class="page-header">
         <div>
             <nav class="breadcrumb">
@@ -18,14 +31,19 @@
                 <span>Galeri</span>
             </nav>
             <h1 class="page-title">Galeri Berita</h1>
-            <p class="page-subtitle">{{ $berita->translateField('judul') }}</p>
+            <p class="page-subtitle">Berita: <span class="font-semibold text-gray-700">{{ $berita->translateField('judul') }}</span></p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2B4E94] ring-1 ring-[#2B4E94]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#2B4E94]"></span>
-                {{ $items->count() }} Data
+                {{ $items->count() }} Foto Galeri
             </div>
         </div>
         <div class="flex flex-wrap gap-2">
-            <a href="{{ route('admin.berita.galeri.create', $berita->id) }}" class="btn-primary">Tambah Galeri</a>
+            <a href="{{ route('admin.berita.galeri.create', $berita->id) }}" class="btn-primary">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Tambah Galeri
+            </a>
             <a href="{{ route('admin.berita.index') }}" class="btn-outline">Kembali</a>
         </div>
     </div>
@@ -36,32 +54,73 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
             <h3 class="empty-title">Belum ada galeri untuk berita ini</h3>
-            <p class="empty-desc">Tambahkan gambar galeri untuk berita ini.</p>
+            <p class="empty-desc">Tambahkan gambar galeri pendukung artikel berita ini.</p>
         </div>
     @else
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             @foreach($items as $galeri)
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
-                    <div class="relative h-48 overflow-hidden">
+                @php
+                    $judulGaleri = $galeri->translateField('judul') ?? $galeri->translateField('caption') ?? 'Foto Dokumentasi';
+                    $deskripsiGaleri = $galeri->translateField('deskripsi') ?? '';
+                    $gambarUrl = $galeri->gambar ? asset('storage/berita/galeri/'.$galeri->gambar) : '';
+                @endphp
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between"
+                     title="{{ $judulGaleri }}">
+                    <!-- Image Card with Hover Overlay -->
+                    <div class="relative h-52 overflow-hidden bg-gray-100 cursor-pointer"
+                         @click="openPreview('{{ $gambarUrl }}', '{{ addslashes($judulGaleri) }}', '{{ addslashes($deskripsiGaleri) }}', {{ $galeri->urutan }})">
                         @if($galeri->gambar)
-                            <img src="{{ asset('storage/berita/galeri/'.$galeri->gambar) }}" alt="{{ $galeri->translateField('judul') ?? 'Galeri' }}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                            <img src="{{ $gambarUrl }}"
+                                 alt="{{ $judulGaleri }}"
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                         @else
-                            <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                            <div class="w-full h-full bg-gray-100 flex items-center justify-center">
                                 <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
                             </div>
                         @endif
-                        <div class="absolute top-2 right-2">
+
+                        <!-- Hover Overlay with Title and Zoom Icon -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3.5">
+                            <div class="flex justify-between items-start">
+                                <span class="flex h-6 px-2 items-center justify-center rounded-lg bg-black/50 text-white text-xs font-bold backdrop-blur-sm">#{{ $galeri->urutan }}</span>
+                                <span class="flex h-7 w-7 items-center justify-center rounded-full bg-white/30 text-white backdrop-blur-sm hover:bg-white hover:text-gray-900 transition-colors" title="Klik untuk memperbesar">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-white line-clamp-2 leading-snug drop-shadow-sm">{{ $judulGaleri }}</p>
+                                @if($deskripsiGaleri)
+                                    <p class="text-[11px] text-gray-200 line-clamp-1 mt-0.5 opacity-90">{{ $deskripsiGaleri }}</p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Urutan Badge default (if not hovered) -->
+                        <div class="absolute top-2 right-2 group-hover:opacity-0 transition-opacity">
                             <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-black/40 text-white text-xs font-bold backdrop-blur-sm">#{{ $galeri->urutan }}</span>
                         </div>
                     </div>
 
-                    <div class="p-4">
-                        <h3 class="font-semibold text-gray-800 font-poppins">{{ Str::limit($galeri->translateField('judul') ?? 'Galeri', 25) }}</h3>
-                        <p class="text-sm text-gray-500 font-poppins mt-1">{{ Str::limit($galeri->translateField('deskripsi') ?? '', 40) }}</p>
+                    <!-- Card Body -->
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 text-sm font-poppins line-clamp-1 group-hover:text-[#97763A] transition-colors"
+                                title="{{ $judulGaleri }}">
+                                {{ $judulGaleri }}
+                            </h3>
+                            @if($deskripsiGaleri)
+                                <p class="text-xs text-gray-500 font-poppins mt-1 line-clamp-2">{{ $deskripsiGaleri }}</p>
+                            @else
+                                <p class="text-xs text-gray-400 font-poppins mt-1 italic">Tidak ada deskripsi</p>
+                            @endif
+                        </div>
 
-                        <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                        <div class="flex items-center justify-between mt-3.5 pt-3 border-t border-gray-100">
                             <button onclick="toggleStatus('berita/{{ $berita->id }}/galeri', {{ $galeri->id }})" class="{{ $galeri->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
                                 <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
                                 {{ $galeri->status ? 'Active' : 'Inactive' }}
@@ -72,7 +131,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                     </svg>
                                 </a>
-                                <form action="{{ route('admin.berita.galeri.destroy', [$berita->id, $galeri->id]) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus galeri ini?')">
+                                <form action="{{ route('admin.berita.galeri.destroy', [$berita->id, $galeri->id]) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus foto galeri ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="icon-btn-delete !h-8 !w-8" title="Hapus">
@@ -88,6 +147,52 @@
             @endforeach
         </div>
     @endif
+
+    <!-- ================= LIGHTBOX / PREVIEW MODAL ================= -->
+    <div x-show="showModal"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md"
+         style="display: none;"
+         x-cloak>
+        <div class="relative w-full max-w-3xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-white/20"
+             @click.away="showModal = false"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-4 scale-95">
+
+            <!-- Close Button -->
+            <button @click="showModal = false" class="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/80 backdrop-blur-md transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Modal Image Container -->
+            <div class="relative max-h-[60vh] bg-slate-950 flex items-center justify-center overflow-hidden">
+                <img :src="activeImage" :alt="activeJudul" class="max-h-[60vh] w-full object-contain">
+                <div class="absolute bottom-3 left-4">
+                    <span class="px-2.5 py-1 rounded-lg bg-black/60 text-white text-xs font-semibold backdrop-blur-sm" x-text="`Urutan #${activeUrutan}`"></span>
+                </div>
+            </div>
+
+            <!-- Modal Caption / Info Container -->
+            <div class="p-6 sm:p-7 bg-white">
+                <h2 class="text-xl font-bold text-gray-900 font-poppins" x-text="activeJudul"></h2>
+                <p class="mt-2 text-sm text-gray-600 leading-relaxed font-poppins" x-text="activeDeskripsi || 'Tidak ada deskripsi tambahan untuk foto galeri ini.'"></p>
+                <div class="mt-5 flex justify-end">
+                    <button type="button" @click="showModal = false" class="btn-outline text-xs py-2 px-4">Tutup Preview</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('scripts')

@@ -23,6 +23,15 @@ class BeritaGaleri extends Model
         'status' => 'boolean',
     ];
 
+    protected $appends = [
+        'gambar_url',
+    ];
+
+    public function getGambarUrlAttribute(): ?string
+    {
+        return $this->gambar ? asset('storage/berita/galeri/' . $this->gambar) : null;
+    }
+
     public function berita()
     {
         return $this->belongsTo(Berita::class, 'berita_id');

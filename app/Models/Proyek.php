@@ -21,6 +21,15 @@ class Proyek extends Model
         'urutan',
     ];
 
+    protected $appends = [
+        'gambar_utama_url',
+    ];
+
+    public function getGambarUtamaUrlAttribute(): ?string
+    {
+        return $this->gambar_utama ? asset('storage/proyek/' . $this->gambar_utama) : null;
+    }
+
     public function galeri()
     {
         return $this->hasMany(ProyekGaleri::class, 'proyek_id');

@@ -30,7 +30,8 @@ class BeritaGaleriController extends AdminBaseController
     ];
 
     protected array $translatableRules = [
-        'caption' => 'nullable|string|max:255',
+        'judul' => 'nullable|string|max:255',
+        'deskripsi' => 'nullable|string',
     ];
 
     protected ?string $imageField = 'gambar';
@@ -56,9 +57,9 @@ class BeritaGaleriController extends AdminBaseController
     {
         $validated = $request->validate($this->buildValidationRules(false));
 
-        $item = $this->model->create(array_merge(
+        $item = $this->model::create(array_merge(
             ['berita_id' => $berita_id],
-            $this->neutralData($validated),
+            $this->neutralData($validated, $request),
             $this->uploadedImage($request)
         ));
 
@@ -85,7 +86,7 @@ class BeritaGaleriController extends AdminBaseController
         $validated = $request->validate($this->buildValidationRules(true));
 
         $item->update(array_merge(
-            $this->neutralData($validated),
+            $this->neutralData($validated, $request),
             $this->uploadedImage($request, $item)
         ));
 

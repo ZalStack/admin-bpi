@@ -12,7 +12,11 @@ use App\Http\Controllers\Admin\KontakController;
 use App\Http\Controllers\Admin\KontakFormController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MitraController;
+use App\Http\Controllers\Admin\MitraIntroController;
+use App\Http\Controllers\Admin\KategoriBeritaController;
+use App\Http\Controllers\Admin\KategoriMitraController;
 use App\Http\Controllers\Admin\ProgramController;
+use App\Http\Controllers\Admin\ProgramRoadmapController;
 use App\Http\Controllers\Admin\ProyekController;
 use App\Http\Controllers\Admin\ProyekGaleriController;
 use App\Http\Controllers\Admin\StakeholderController;
@@ -65,6 +69,10 @@ Route::middleware('auth')->group(function () {
             Route::resource('program', ProgramController::class);
             Route::post('/program/{id}/toggle-status', [ProgramController::class, 'toggleStatus'])->name('program.toggle-status');
 
+            // Program Roadmap
+            Route::resource('program-roadmap', ProgramRoadmapController::class);
+            Route::post('/program-roadmap/{id}/toggle-status', [ProgramRoadmapController::class, 'toggleStatus'])->name('program-roadmap.toggle-status');
+
             // Proyek
             Route::resource('proyek', ProyekController::class);
             Route::post('/proyek/{id}/toggle-status', [ProyekController::class, 'toggleStatus'])->name('proyek.toggle-status');
@@ -86,9 +94,19 @@ Route::middleware('auth')->group(function () {
             Route::resource('mitra', MitraController::class);
             Route::post('/mitra/{id}/toggle-status', [MitraController::class, 'toggleStatus'])->name('mitra.toggle-status');
 
+            // Kategori Mitra
+            Route::resource('kategori-mitra', KategoriMitraController::class);
+            Route::post('/kategori-mitra/{id}/toggle-status', [KategoriMitraController::class, 'toggleStatus'])->name('kategori-mitra.toggle-status');
+
+            // Mitra Intro
+            Route::resource('mitra-intro', MitraIntroController::class);
+
             // Berita
             Route::resource('berita', BeritaController::class);
             Route::post('/berita/{id}/toggle-status', [BeritaController::class, 'toggleStatus'])->name('berita.toggle-status');
+
+            // Kategori Berita
+            Route::resource('kategori-berita', KategoriBeritaController::class);
 
             // Berita Galeri
             Route::prefix('berita/{berita_id}/galeri')

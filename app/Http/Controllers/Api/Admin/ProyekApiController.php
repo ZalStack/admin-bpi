@@ -45,12 +45,41 @@ class ProyekApiController extends BaseApiController
         'timeline' => 'required|string',
     ];
 
-    protected array $withRelations = ['galeri', 'translations', 'mitra'];
+    protected array $withRelations = ['galeri', 'translations', 'mitra.translations'];
+
+    public function index()
+    {
+        $resources = $this->model::query()
+            ->with(['galeri', 'translations', 'mitra.translations'])
+            ->orderBy('urutan', 'asc')
+            ->get();
+
+        return $this->successResponse($resources->map(fn ($item) => $this->formatProyekList($item))->values());
+    }
+
+    public function getActive()
+    {
+        $resources = $this->model::query()
+            ->with(['galeri', 'translations', 'mitra.translations'])
+            ->where('status', 'published')
+            ->orderBy('urutan', 'asc')
+            ->get();
+
+        return $this->successResponse($resources->map(fn ($item) => $this->formatProyekList($item))->values());
+    }
 
     public function getBySlug($slug)
     {
         $resource = $this->model::query()
-            ->with(['galeri', 'translations', 'mitra'])
+            ->with([
+                'galeri' => fn ($q) => $q->with('translations')->orderBy('urutan', 'asc'),
+                'translations' => fn ($q) => $q->orderBy('id', 'asc'),
+                'translations.tujuan' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'translations.dampak_capaian' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'translations.kegiatan_utama' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'translations.linimasa_proyek' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'mitra' => fn ($q) => $q->orderBy('urutan', 'asc'),
+            ])
             ->where('slug', $slug)
             ->first();
 
@@ -58,7 +87,28 @@ class ProyekApiController extends BaseApiController
             return $this->notFoundResponse('Proyek not found');
         }
 
-        return $this->successResponse($resource);
+        return $this->successResponse($this->formatProyekDetail($resource));
+    }
+
+    public function show($id)
+    {
+        $resource = $this->model::query()
+            ->with([
+                'galeri' => fn ($q) => $q->with('translations')->orderBy('urutan', 'asc'),
+                'translations' => fn ($q) => $q->orderBy('id', 'asc'),
+                'translations.tujuan' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'translations.dampak_capaian' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'translations.kegiatan_utama' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'translations.linimasa_proyek' => fn ($q) => $q->orderBy('urutan', 'asc'),
+                'mitra' => fn ($q) => $q->orderBy('urutan', 'asc'),
+            ])
+            ->find($id);
+
+        if (! $resource) {
+            return $this->notFoundResponse('Proyek not found');
+        }
+
+        return $this->successResponse($this->formatProyekDetail($resource));
     }
 
     public function getByStatus($status)
@@ -68,25 +118,175 @@ class ProyekApiController extends BaseApiController
         }
 
         $resources = $this->model::query()
-            ->with(['galeri', 'translations', 'mitra'])
+            ->with(['galeri', 'translations', 'mitra.translations'])
             ->where('status', $status)
             ->orderBy('urutan', 'asc')
             ->get();
 
-        return $this->successResponse($resources);
+        return $this->successResponse($resources->map(fn ($item) => $this->formatProyekList($item))->values());
     }
 
     public function getByKategori($kategori)
     {
         $resources = $this->model::query()
-            ->with(['galeri', 'translations', 'mitra'])
+            ->with(['galeri', 'translations', 'mitra.translations'])
             ->whereHas('translations', function ($q) use ($kategori) {
                 $q->where('kategori', $kategori);
             })
             ->orderBy('urutan', 'asc')
             ->get();
 
-        return $this->successResponse($resources);
+        return $this->successResponse($resources->map(fn ($item) => $this->formatProyekList($item))->values());
+    }
+
+    protected function formatProyekList($proyek): array
+    {
+        return [
+            'id' => $proyek->id,
+            'slug' => $proyek->slug,
+            'gambar_utama' => $proyek->gambar_utama,
+            'gambar_utama_url' => $proyek->gambar_utama_url,
+            'tahun' => $proyek->tahun,
+            'status' => $proyek->status,
+            'urutan' => $proyek->urutan,
+            'galeri' => $proyek->galeri->map(function ($g) {
+                return [
+                    'id' => $g->id,
+                    'proyek_id' => $g->proyek_id,
+                    'gambar' => $g->gambar,
+                    'gambar_url' => $g->gambar_url,
+                    'urutan' => $g->urutan,
+                    'status' => (bool) $g->status,
+                ];
+            })->values()->all(),
+            'translations' => $proyek->translations->map(function ($t) {
+                return [
+                    'id' => $t->id,
+                    'proyek_id' => $t->proyek_id,
+                    'bahasa' => $t->bahasa,
+                    'judul' => $t->judul,
+                    'kategori' => $t->kategori,
+                    'deskripsi_singkat' => $t->deskripsi_singkat,
+                    'icon' => $t->icon,
+                ];
+            })->values()->all(),
+            'mitra' => $proyek->mitra->map(function ($m) {
+                $namaMitra = $m->translations->firstWhere('bahasa', app()->getLocale())?->nama
+                    ?? $m->translations->firstWhere('bahasa', 'id')?->nama
+                    ?? $m->translations->first()?->nama
+                    ?? '';
+                return [
+                    'id' => $m->id,
+                    'mitra' => $namaMitra,
+                    'logo' => $m->logo,
+                    'logo_url' => $m->logo_url,
+                    'website' => $m->website,
+                    'urutan' => $m->urutan,
+                    'status' => (bool) $m->status,
+                ];
+            })->values()->all(),
+        ];
+    }
+
+    protected function formatProyekDetail($proyek): array
+    {
+        return [
+            'id' => $proyek->id,
+            'slug' => $proyek->slug,
+            'gambar_utama' => $proyek->gambar_utama,
+            'gambar_utama_url' => $proyek->gambar_utama_url,
+            'tahun' => $proyek->tahun,
+            'status' => $proyek->status,
+            'urutan' => $proyek->urutan,
+            'created_at' => $proyek->created_at?->toISOString(),
+            'updated_at' => $proyek->updated_at?->toISOString(),
+            'galeri' => $proyek->galeri->map(function ($g) {
+                $trans = $g->translations->firstWhere('bahasa', app()->getLocale())
+                    ?? $g->translations->firstWhere('bahasa', 'id')
+                    ?? $g->translations->first();
+
+                return [
+                    'id' => $g->id,
+                    'proyek_id' => $g->proyek_id,
+                    'gambar' => $g->gambar,
+                    'gambar_url' => $g->gambar_url,
+                    'judul' => $trans?->judul,
+                    'deskripsi' => $trans?->deskripsi,
+                    'urutan' => $g->urutan,
+                    'status' => (bool) $g->status,
+                    'translations' => $g->translations->map(fn ($gt) => [
+                        'id' => $gt->id,
+                        'bahasa' => $gt->bahasa,
+                        'judul' => $gt->judul,
+                        'deskripsi' => $gt->deskripsi,
+                    ])->values()->all(),
+                    'created_at' => $g->created_at?->toISOString(),
+                    'updated_at' => $g->updated_at?->toISOString(),
+                ];
+            })->values()->all(),
+            'translations' => $proyek->translations->map(function ($t) {
+                return [
+                    'id' => $t->id,
+                    'proyek_id' => $t->proyek_id,
+                    'bahasa' => $t->bahasa,
+                    'judul' => $t->judul,
+                    'kategori' => $t->kategori,
+                    'deskripsi_singkat' => $t->deskripsi_singkat,
+                    'deskripsi' => $t->deskripsi,
+                    'lokasi' => $t->lokasi,
+                    'ruang_lingkup' => $t->ruang_lingkup,
+                    'status_proyek' => $t->status_proyek,
+                    'tujuan' => $t->tujuan->map(function ($item) {
+                        return [
+                            'id' => $item->id,
+                            'deskripsi' => $item->deskripsi,
+                            'icon' => $item->icon,
+                        ];
+                    })->values()->all(),
+                    'dampak_capaian' => $t->dampak_capaian->map(function ($item) {
+                        return [
+                            'id' => $item->id,
+                            'icon' => $item->icon,
+                            'total_capaian' => $item->total_capaian,
+                            'deskripsi' => $item->deskripsi,
+                        ];
+                    })->values()->all(),
+                    'kegiatan_utama' => $t->kegiatan_utama->map(function ($item) {
+                        return [
+                            'id' => $item->id,
+                            'deskripsi' => $item->deskripsi,
+                            'icon' => $item->icon,
+                        ];
+                    })->values()->all(),
+                    'linimasa_proyek' => $t->linimasa_proyek->map(function ($item) {
+                        return [
+                            'id' => $item->id,
+                            'tahun' => $item->tahun,
+                            'urutan' => $item->urutan,
+                            'deskripsi' => $item->deskripsi,
+                        ];
+                    })->values()->all(),
+                    'timeline' => $t->timeline,
+                    'created_at' => $t->created_at?->toISOString(),
+                    'updated_at' => $t->updated_at?->toISOString(),
+                ];
+            })->values()->all(),
+            'mitra' => $proyek->mitra->map(function ($m) {
+                $namaMitra = $m->translations->firstWhere('bahasa', app()->getLocale())?->nama
+                    ?? $m->translations->firstWhere('bahasa', 'id')?->nama
+                    ?? $m->translations->first()?->nama
+                    ?? '';
+                return [
+                    'id' => $m->id,
+                    'mitra' => $namaMitra,
+                    'logo' => $m->logo,
+                    'logo_url' => $m->logo_url,
+                    'website' => $m->website,
+                    'urutan' => $m->urutan,
+                    'status' => (bool) $m->status,
+                ];
+            })->values()->all(),
+        ];
     }
 
     public function store(Request $request)

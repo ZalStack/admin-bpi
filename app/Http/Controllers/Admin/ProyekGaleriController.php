@@ -57,9 +57,9 @@ class ProyekGaleriController extends AdminBaseController
     {
         $validated = $request->validate($this->buildValidationRules(false));
 
-        $item = $this->model->create(array_merge(
+        $item = $this->model::create(array_merge(
             ['proyek_id' => $proyek_id],
-            $this->neutralData($validated),
+            $this->neutralData($validated, $request),
             $this->uploadedImage($request)
         ));
 
@@ -86,7 +86,7 @@ class ProyekGaleriController extends AdminBaseController
         $validated = $request->validate($this->buildValidationRules(true));
 
         $item->update(array_merge(
-            $this->neutralData($validated),
+            $this->neutralData($validated, $request),
             $this->uploadedImage($request, $item)
         ));
 

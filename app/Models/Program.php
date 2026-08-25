@@ -23,6 +23,15 @@ class Program extends Model
         'status' => 'boolean',
     ];
 
+    protected $appends = [
+        'gambar_url',
+    ];
+
+    public function getGambarUrlAttribute(): ?string
+    {
+        return $this->gambar ? asset('storage/program/' . $this->gambar) : null;
+    }
+
     public function poin()
     {
         return $this->hasMany(ProgramPoin::class, 'program_id');

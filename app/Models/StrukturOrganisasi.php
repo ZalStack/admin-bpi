@@ -26,4 +26,13 @@ class StrukturOrganisasi extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    protected $appends = [
+        'foto_url',
+    ];
+
+    public function getFotoUrlAttribute(): ?string
+    {
+        return $this->foto ? asset('storage/struktur/' . $this->foto) : null;
+    }
 }

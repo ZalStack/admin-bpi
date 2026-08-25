@@ -23,6 +23,15 @@ class ProyekGaleri extends Model
         'status' => 'boolean',
     ];
 
+    protected $appends = [
+        'gambar_url',
+    ];
+
+    public function getGambarUrlAttribute(): ?string
+    {
+        return $this->gambar ? asset('storage/proyek/galeri/' . $this->gambar) : null;
+    }
+
     public function proyek()
     {
         return $this->belongsTo(Proyek::class, 'proyek_id');

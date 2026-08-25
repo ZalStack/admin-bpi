@@ -11,6 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Quill Rich Text Editor -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -62,11 +68,33 @@
                     </div>
                 @endif
 
+                @if ($errors->any())
+                    <div class="mb-6 rounded-2xl border border-rose-200 bg-rose-50/90 px-5 py-4 shadow-sm backdrop-blur">
+                        <div class="flex items-start gap-3">
+                            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold text-rose-800">Terdapat kesalahan pada formulir:</p>
+                                <ul class="mt-1.5 list-disc list-inside space-y-1 text-xs font-medium text-rose-700">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 @yield('content')
             </div>
         </main>
     </div>
     @livewireScripts
+    <!-- Quill Rich Text Editor JS -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     @stack('scripts')
 </body>
 </html>

@@ -19,14 +19,12 @@ class StrukturOrganisasiController extends AdminBaseController
         'linkedin' => 'nullable|string|max:255',
         'instagram' => 'nullable|string|max:255',
         'email' => 'nullable|email|max:255',
-        'telepon' => 'nullable|string|max:50',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];
 
     protected array $translatableRules = [
         'jabatan' => 'required|string|max:255',
-        'deskripsi' => 'nullable|string',
     ];
 
     protected ?string $imageField = 'foto';

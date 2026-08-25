@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Tentang Poin')
+@section('title', 'Edit Poin Visi / Misi')
 
 @section('content')
 <div class="form-page">
@@ -11,13 +11,13 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.tentang-poin.index') }}">Tentang Poin</a>
+                <a href="{{ route('admin.tentang-poin.index') }}">Poin Visi & Misi</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
                 <span>Edit</span>
             </nav>
-            <h1 class="page-title">Edit Tentang Poin</h1>
+            <h1 class="page-title">Edit Poin Visi / Misi</h1>
             <p class="page-subtitle">{{ $item->translateField('judul') }}</p>
         </div>
         <a href="{{ route('admin.tentang-poin.index') }}" class="btn-outline">
@@ -28,20 +28,34 @@
         </a>
     </div>
 
+    @php
+        $initialLang = $bahasas->firstWhere('is_default', true)?->kode ?? $bahasas->first()?->kode;
+        if ($errors->any()) {
+            foreach ($bahasas as $b) {
+                foreach ($errors->keys() as $key) {
+                    if (str_starts_with($key, "translations.{$b->kode}")) {
+                        $initialLang = $b->kode;
+                        break 2;
+                    }
+                }
+            }
+        }
+    @endphp
+
     <div class="form-card">
         <form action="{{ route('admin.tentang-poin.update', $item->id) }}" method="POST"
-            x-data="{ lang: @js($bahasas->first()?->kode) }">
+            x-data="{ lang: @js($initialLang) }">
             @csrf
             @method('PUT')
 
             <div class="input-group">
                 <div>
-                    <label for="tentang_id" class="form-label">Tentang <span class="text-red-500">*</span></label>
+                    <label for="tentang_id" class="form-label">Kategori Poin (Pilar Visi / Kartu Misi) <span class="text-red-500">*</span></label>
                     <select name="tentang_id" id="tentang_id" class="form-input" required>
-                        <option value="">Pilih Tentang</option>
+                        <option value="">-- Pilih Kategori --</option>
                         @foreach($tentangs as $tentang)
                             <option value="{{ $tentang->id }}" {{ old('tentang_id', $item->tentang_id) == $tentang->id ? 'selected' : '' }}>
-                                {{ $tentang->translateField('section') ?: 'ID: '.$tentang->id }}
+                                {{ strtolower($tentang->section) === 'visi' ? 'Pilar Visi Kami' : (strtolower($tentang->section) === 'misi' ? 'Kartu Misi Kami' : ucfirst($tentang->section)) }}
                             </option>
                         @endforeach
                     </select>
@@ -51,8 +65,7 @@
                 </div>
 
                 <div>
-                    <label for="icon" class="form-label">Icon</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon', $item->icon) }}" class="form-input" placeholder="Nama icon">
+                    <x-icon-picker name="icon" :value="old('icon', $item->icon)" label="Icon" />
                     @error('icon')
                         <p class="form-error">{{ $message }}</p>
                     @enderror

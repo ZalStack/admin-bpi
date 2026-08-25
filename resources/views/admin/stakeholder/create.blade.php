@@ -35,8 +35,9 @@
 
             <div class="input-group">
                 <div>
-                    <label for="icon" class="form-label">Icon (Font Awesome class)</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="fa-solid fa-user">
+                    <label for="icon" class="form-label">Icon Font Awesome <span class="text-xs font-normal text-gray-400">(Opsional / Alternatif jika tanpa upload gambar)</span></label>
+                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="fa-solid fa-building">
+                    <p class="mt-1.5 text-xs text-gray-400">Contoh: <code>fa-solid fa-building</code>, <code>fa-solid fa-users</code>, <code>fa-solid fa-film</code>.</p>
                     @error('icon')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -77,10 +78,10 @@
             <div class="divider"></div>
 
             <div>
-                <label for="gambar" class="form-label">Gambar</label>
-                <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
+                <label for="gambar" class="form-label">Logo / Gambar Asosiasi <span class="text-xs font-normal text-gray-400">(Prioritas Utama Tampilan)</span></label>
+                <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-36 w-auto max-w-xs rounded-xl object-contain bg-white p-2 border border-gray-200">
                 <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
-                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
+                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP, SVG. Maksimal 2MB. Jika diunggah, gambar akan tampil sebagai logo utama di landing page.</p>
                 @error('gambar')
                     <p class="form-error">{{ $message }}</p>
                 @enderror

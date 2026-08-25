@@ -7,14 +7,18 @@ use App\Models\Beranda;
 use App\Models\Berita;
 use App\Models\BeritaGaleri;
 use App\Models\Footer;
+use App\Models\KategoriBerita;
+use App\Models\KategoriMitra;
 use App\Models\Kontak;
 use App\Models\KontakEmail;
 use App\Models\KontakPhone;
 use App\Models\KontakSocialMedia;
 use App\Models\Menu;
 use App\Models\Mitra;
+use App\Models\MitraIntro;
 use App\Models\Program;
 use App\Models\ProgramPoin;
+use App\Models\ProgramRoadmap;
 use App\Models\Proyek;
 use App\Models\ProyekDampakCapaian;
 use App\Models\ProyekGaleri;
@@ -36,7 +40,7 @@ class DatabaseSeeder extends Seeder
     {
         /*
         |--------------------------------------------------------------------------
-        | ADMIN & MASTER DATA BAHASA
+        | 1. ADMIN USER & MASTER DATA BAHASA
         |--------------------------------------------------------------------------
         */
 
@@ -47,12 +51,11 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        // Pastikan Anda sudah memiliki BahasaSeeder
         $this->call(BahasaSeeder::class);
 
         /*
         |--------------------------------------------------------------------------
-        | BANNER HALAMAN
+        | 2. BANNER HALAMAN
         |--------------------------------------------------------------------------
         */
 
@@ -63,31 +66,33 @@ class DatabaseSeeder extends Seeder
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Menjaga, Memfokuskan, dan Mendorong Perfilman Indonesia',
-                        'deskripsi' => 'BPI menghubungkan lebih dari 50 asosiasi profesi dan seluruh insan kreatif perfilman Indonesia untuk bergerak bersama menuju industri yang inklusif, sehat, dan berdaya saing global.',
+                        'judul' => 'Menjelajah, Memfokuskan, dan Mendorong Perfilman Indonesia',
+                        'deskripsi' => 'BPI menghubungkan lebih dari 50 asosiasi profesi dan seluruh insan kreatif perfilman Indonesia untuk bergerak terarah menuju industri yang inklusif, sehat, dan berdaya saing global.',
                     ],
                     'en' => [
-                        'judul' => 'Strengthening, Focusing, and Advancing Indonesian Cinema',
+                        'judul' => 'Exploring, Focusing, and Driving Indonesian Cinema',
                         'deskripsi' => 'BPI connects more than 50 professional associations and creative people in the Indonesian film industry to move together toward an inclusive, healthy, and globally competitive industry.',
                     ],
                 ],
             ],
             [
                 'halaman' => 'stakeholders',
+                'gambar' => null,
                 'status' => true,
                 'translations' => [
                     'id' => [
                         'judul' => 'Menyatu dalam Ekosistem, Menggerakkan Sinema Nasional',
-                        'deskripsi' => 'BPI menghubungkan lebih dari 50 asosiasi profesi dan seluruh insan kreatif perfilman Indonesia untuk bergerak bersama menuju industri yang inklusif, sehat, dan berdaya saing global.',
+                        'deskripsi' => 'BPI menghubungkan pemangku kepentingan perfilman Indonesia untuk saling bersinergi dan berkolaborasi dalam memajukan industri perfilman nasional.',
                     ],
                     'en' => [
                         'judul' => 'United in the Ecosystem, Driving National Cinema',
-                        'deskripsi' => 'BPI connects more than 50 professional associations and creative people in the Indonesian film industry to move together toward an inclusive, healthy, and globally competitive industry.',
+                        'deskripsi' => 'BPI connects Indonesian film stakeholders to synergize and collaborate in advancing the national film industry.',
                     ],
                 ],
             ],
             [
                 'halaman' => 'program',
+                'gambar' => null,
                 'status' => true,
                 'translations' => [
                     'id' => [
@@ -102,11 +107,12 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'halaman' => 'proyek',
+                'gambar' => null,
                 'status' => true,
                 'translations' => [
                     'id' => [
                         'judul' => 'Memproyeksikan Inovasi dan Masa Depan Sinema',
-                        'deskripsi' => 'Rekam jejak proyek strategis dan inisiatif BPI yang dirancang untuk membuka peluang baru, merangkul teknologi, serta memperkuat infrastruktur perfilman nasional.',
+                        'deskripsi' => 'Rekam jejak proyek strategis dan riset BPI yang dirancang untuk membuka peluang baru, merangkul teknologi, serta memperkuat infrastruktur perfilman nasional.',
                     ],
                     'en' => [
                         'judul' => 'Projecting Innovation and the Future of Cinema',
@@ -116,57 +122,61 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'halaman' => 'mitra',
+                'gambar' => null,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Merajut Sinergi, Meluaskan Jangkauan Proyeksi',
-                        'deskripsi' => 'BPI menghubungkan lebih dari 50 asosiasi profesi dan seluruh insan kreatif perfilman Indonesia untuk bergerak bersama menuju industri yang inklusif, sehat, dan berdaya saing global.',
+                        'judul' => 'Merajut Strategi, Meluaskan Jangkauan Proyeksi',
+                        'deskripsi' => 'Memperkuat jejaring kemitraan strategis lintas sektor guna menghidupkan iklim usaha yang adil, terbuka, dan kondusif bagi pertumbuhan investasi perfilman.',
                     ],
                     'en' => [
-                        'judul' => 'Building Synergy, Expanding Our Reach',
-                        'deskripsi' => 'BPI connects more than 50 professional associations and creative people in the Indonesian film industry to move together toward an inclusive, healthy, and globally competitive industry.',
+                        'judul' => 'Weaving Strategy, Expanding Projection Horizons',
+                        'deskripsi' => 'Strengthening cross-sector strategic partnerships to cultivate a fair, open, and conducive business climate for film investment growth.',
                     ],
                 ],
             ],
             [
                 'halaman' => 'berita',
+                'gambar' => null,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Denyut Pergerakan dan Kabar Terkini Perfilman',
-                        'deskripsi' => 'Informasi terbaru mengenai dinamika, kebijakan, perkembangan industri, serta berbagai kegiatan perfilman Indonesia.',
+                        'judul' => 'Warta Terkini, Gagasan dan Dinamika Sinema',
+                        'deskripsi' => 'Pusat informasi resmi BPI seputar kabar industri, laporan riset, rilis pers, artikel analisis, dan liputan agenda perfilman nasional serta global.',
                     ],
                     'en' => [
-                        'judul' => 'The Pulse and Latest News of Indonesian Cinema',
-                        'deskripsi' => 'The latest information on dynamics, policies, industry developments, and activities in Indonesian cinema.',
+                        'judul' => 'Latest News, Ideas and Cinema Dynamics',
+                        'deskripsi' => 'Official BPI information center for industry news, research reports, press releases, analytical articles, and coverage of national and global film agendas.',
                     ],
                 ],
             ],
             [
                 'halaman' => 'tentang',
+                'gambar' => null,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Lensa Penggerak dan Akselerator Sinema Indonesia',
-                        'deskripsi' => 'BPI hadir untuk memfokuskan, memperkuat, dan menggerakkan ekosistem perfilman Indonesia menuju industri yang sehat, inklusif, dan berkelanjutan.',
+                        'judul' => 'Menjadi Poros Penggerak Ekosistem Perfilman Indonesia',
+                        'deskripsi' => 'Membangun ekosistem perfilman nasional yang berdaya saing global, inklusif, dan berkelanjutan melalui kolaborasi multipihak yang terintegrasi.',
                     ],
                     'en' => [
-                        'judul' => 'The Lens Driving and Accelerating Indonesian Cinema',
-                        'deskripsi' => 'BPI exists to focus, strengthen, and drive the Indonesian film ecosystem toward a healthy, inclusive, and sustainable industry.',
+                        'judul' => 'The Driving Pivot of the Indonesian Film Ecosystem',
+                        'deskripsi' => 'Building a globally competitive, inclusive, and sustainable national film ecosystem through integrated multi-stakeholder collaboration.',
                     ],
                 ],
             ],
             [
                 'halaman' => 'kontak',
+                'gambar' => null,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Terhubung, Berkolaborasi, dan Bergerak Bersama Sinema Indonesia',
-                        'deskripsi' => 'BPI membuka ruang dialog dan kolaborasi bagi seluruh insan, organisasi, komunitas, dan mitra perfilman Indonesia.',
+                        'judul' => 'Membangun Jejaring, Menguatkan Kolaborasi',
+                        'deskripsi' => 'Pintu komunikasi terbuka bagi produser, sineas, akademisi, asosiasi, dan seluruh pemangku kepentingan untuk berkontribusi bagi masa depan perfilman tanah air.',
                     ],
                     'en' => [
-                        'judul' => 'Connect, Collaborate, and Move Together with Indonesian Cinema',
-                        'deskripsi' => 'BPI opens opportunities for dialogue and collaboration with people, organizations, communities, and partners in Indonesian cinema.',
+                        'judul' => 'Building Networks, Strengthening Collaboration',
+                        'deskripsi' => 'Open door for communication with producers, filmmakers, academics, associations, and all stakeholders to contribute to the future of Indonesian cinema.',
                     ],
                 ],
             ],
@@ -174,7 +184,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | BERANDA
+        | 3. BERANDA (HOME SECTIONS)
         |--------------------------------------------------------------------------
         */
 
@@ -198,95 +208,102 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'section' => 'tentang',
+                'gambar' => null,
+                'icon' => null,
                 'urutan' => 2,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Membangun Masa Depan Sinema Nasional',
+                        'judul' => 'TENTANG KAMI',
                         'deskripsi' => 'Badan Perfilman Indonesia (BPI) hadir sebagai wadah strategis yang menghubungkan berbagai pemangku kepentingan perfilman untuk membangun ekosistem industri yang sehat, inklusif, dan berkelanjutan.',
                     ],
                     'en' => [
-                        'judul' => 'Building the Future of National Cinema',
+                        'judul' => 'ABOUT US',
                         'deskripsi' => 'Badan Perfilman Indonesia (BPI) serves as a strategic platform connecting stakeholders in the film industry to build a healthy, inclusive, and sustainable ecosystem.',
                     ],
                 ],
             ],
             [
                 'section' => 'struktur',
+                'gambar' => null,
                 'icon' => 'fa-solid fa-users',
                 'urutan' => 3,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Struktur Organisasi',
+                        'judul' => 'STRUKTUR ORGANISASI',
                         'deskripsi' => 'BPI didukung oleh insan perfilman dari berbagai latar belakang profesi yang bekerja bersama untuk memajukan ekosistem perfilman Indonesia.',
                     ],
                     'en' => [
-                        'judul' => 'Organizational Structure',
+                        'judul' => 'ORGANIZATIONAL STRUCTURE',
                         'deskripsi' => 'BPI is supported by film industry professionals from diverse backgrounds who work together to advance the Indonesian film ecosystem.',
                     ],
                 ],
             ],
             [
                 'section' => 'proyek',
+                'gambar' => null,
                 'icon' => 'fa-solid fa-film',
                 'urutan' => 4,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Proyek Kolaborasi',
+                        'judul' => 'PROYEK KOLABORASI',
                         'deskripsi' => 'Berbagai proyek strategis BPI bersama mitra dan stakeholder untuk menciptakan dampak nyata bagi industri perfilman.',
                     ],
                     'en' => [
-                        'judul' => 'Collaborative Projects',
+                        'judul' => 'COLLABORATIVE PROJECTS',
                         'deskripsi' => 'Strategic BPI projects with partners and stakeholders to create meaningful impact for the film industry.',
                     ],
                 ],
             ],
             [
                 'section' => 'program',
+                'gambar' => null,
                 'icon' => 'fa-solid fa-chart-line',
                 'urutan' => 5,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Program Strategis',
+                        'judul' => 'PROGRAM STRATEGIS',
                         'deskripsi' => 'Program strategis untuk memperkuat fondasi, meningkatkan kapasitas, memperluas kolaborasi, dan menciptakan dampak berkelanjutan.',
                     ],
                     'en' => [
-                        'judul' => 'Strategic Programs',
+                        'judul' => 'STRATEGIC PROGRAMS',
                         'deskripsi' => 'Strategic programs designed to strengthen foundations, improve capacity, expand collaboration, and create sustainable impact.',
                     ],
                 ],
             ],
             [
                 'section' => 'berita',
+                'gambar' => null,
                 'icon' => 'fa-solid fa-newspaper',
                 'urutan' => 6,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Artikel & Berita',
+                        'judul' => 'ARTIKEL & BERITA',
                         'deskripsi' => 'Ikuti perkembangan terbaru mengenai kebijakan, kegiatan, program, dan dinamika industri perfilman Indonesia.',
                     ],
                     'en' => [
-                        'judul' => 'Articles & News',
+                        'judul' => 'ARTICLES & NEWS',
                         'deskripsi' => 'Follow the latest developments in policies, activities, programs, and dynamics of the Indonesian film industry.',
                     ],
                 ],
             ],
             [
                 'section' => 'mitra',
+                'gambar' => null,
                 'icon' => 'fa-solid fa-handshake',
                 'urutan' => 7,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Mitra Kami',
+                        'judul' => 'MITRA KAMI',
                         'deskripsi' => 'Bersama mitra strategis, internasional, industri, dan komunitas untuk memperkuat ekosistem perfilman Indonesia.',
                     ],
                     'en' => [
-                        'judul' => 'Our Partners',
+                        'judul' => 'OUR PARTNERS',
                         'deskripsi' => 'Together with strategic, international, industry, and community partners to strengthen the Indonesian film ecosystem.',
                     ],
                 ],
@@ -295,7 +312,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | STAKEHOLDER
+        | 4. STAKEHOLDER
         |--------------------------------------------------------------------------
         */
 
@@ -312,6 +329,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-clapperboard',
+                'gambar' => null,
                 'urutan' => 2,
                 'status' => true,
                 'translations' => [
@@ -321,6 +339,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-film',
+                'gambar' => null,
                 'urutan' => 3,
                 'status' => true,
                 'translations' => [
@@ -330,6 +349,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-users',
+                'gambar' => null,
                 'urutan' => 4,
                 'status' => true,
                 'translations' => [
@@ -339,6 +359,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-people-group',
+                'gambar' => null,
                 'urutan' => 5,
                 'status' => true,
                 'translations' => [
@@ -348,6 +369,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-school',
+                'gambar' => null,
                 'urutan' => 6,
                 'status' => true,
                 'translations' => [
@@ -357,6 +379,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-building',
+                'gambar' => null,
                 'urutan' => 7,
                 'status' => true,
                 'translations' => [
@@ -366,6 +389,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-briefcase',
+                'gambar' => null,
                 'urutan' => 8,
                 'status' => true,
                 'translations' => [
@@ -375,6 +399,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-building',
+                'gambar' => null,
                 'urutan' => 9,
                 'status' => true,
                 'translations' => [
@@ -384,6 +409,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-ticket',
+                'gambar' => null,
                 'urutan' => 10,
                 'status' => true,
                 'translations' => [
@@ -393,6 +419,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-newspaper',
+                'gambar' => null,
                 'urutan' => 11,
                 'status' => true,
                 'translations' => [
@@ -402,6 +429,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-users',
+                'gambar' => null,
                 'urutan' => 12,
                 'status' => true,
                 'translations' => [
@@ -413,7 +441,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | PROGRAM STRATEGIS
+        | 5. PROGRAM STRATEGIS
         |--------------------------------------------------------------------------
         */
 
@@ -430,6 +458,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-globe',
+                'gambar' => null,
                 'urutan' => 2,
                 'status' => true,
                 'translations' => [
@@ -439,6 +468,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-graduation-cap',
+                'gambar' => null,
                 'urutan' => 3,
                 'status' => true,
                 'translations' => [
@@ -448,6 +478,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'icon' => 'fa-solid fa-building',
+                'gambar' => null,
                 'urutan' => 4,
                 'status' => true,
                 'translations' => [
@@ -459,32 +490,28 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | PROGRAM POIN (Sub-items per Program)
+        | 6. PROGRAM POIN (Sub-items per Program)
         |--------------------------------------------------------------------------
         */
 
         $programs = Program::all();
 
         $programPoinData = [
-            // Pembiayaan (program_id 1)
             1 => [
                 ['icon' => 'fa-solid fa-coins', 'urutan' => 1, 'judul_id' => 'Dana Pembiayaan Produktif', 'judul_en' => 'Productive Financing Fund', 'deskripsi_id' => 'Akses pendanaan bagi produksi film Indonesia.', 'deskripsi_en' => 'Access to funding for Indonesian film production.'],
                 ['icon' => 'fa-solid fa-hand-holding-dollar', 'urutan' => 2, 'judul_id' => 'Insentif Fiskal', 'judul_en' => 'Fiscal Incentives', 'deskripsi_id' => 'Kemudahan pajak dan insentif bagi pelaku industri.', 'deskripsi_en' => 'Tax facilities and incentives for industry players.'],
                 ['icon' => 'fa-solid fa-piggy-bank', 'urutan' => 3, 'judul_id' => 'Skema Co-Financing', 'judul_en' => 'Co-Financing Scheme', 'deskripsi_id' => 'Kerja sama pendanaan bersama mitra dan investor.', 'deskripsi_en' => 'Joint funding collaboration with partners and investors.'],
             ],
-            // Pasar Global (program_id 2)
             2 => [
                 ['icon' => 'fa-solid fa-earth-americas', 'urutan' => 1, 'judul_id' => 'Promosi Internasional', 'judul_en' => 'International Promotion', 'deskripsi_id' => 'Pemasaran film Indonesia di pasar global.', 'deskripsi_en' => 'Marketing Indonesian films in global markets.'],
                 ['icon' => 'fa-solid fa-handshake', 'urutan' => 2, 'judul_id' => 'Kemitraan Strategis', 'judul_en' => 'Strategic Partnerships', 'deskripsi_id' => 'Jaringan kerja sama dengan lembaga perfilman dunia.', 'deskripsi_en' => 'Collaboration network with world film institutions.'],
                 ['icon' => 'fa-solid fa-ticket', 'urutan' => 3, 'judul_id' => 'Festival & Market', 'judul_en' => 'Festivals & Markets', 'deskripsi_id' => 'Partisipasi aktif dalam festival dan market internasional.', 'deskripsi_en' => 'Active participation in international festivals and markets.'],
             ],
-            // Pengembangan Talenta (program_id 3)
             3 => [
                 ['icon' => 'fa-solid fa-graduation-cap', 'urutan' => 1, 'judul_id' => 'Program Pendidikan', 'judul_en' => 'Education Programs', 'deskripsi_id' => 'Pelatihan dan workshop untuk talenta perfilman.', 'deskripsi_en' => 'Training and workshops for film talent.'],
                 ['icon' => 'fa-solid fa-users', 'urutan' => 2, 'judul_id' => 'Mentoring & Residensi', 'judul_en' => 'Mentoring & Residency', 'deskripsi_id' => 'Pendampingan dan program residensi sineas muda.', 'deskripsi_en' => 'Mentoring and residency programs for young filmmakers.'],
                 ['icon' => 'fa-solid fa-earth-asia', 'urutan' => 3, 'judul_id' => 'Mobilitas Talenta', 'judul_en' => 'Talent Mobility', 'deskripsi_id' => 'Pertukaran dan kolaborasi lintas negara.', 'deskripsi_en' => 'Cross-border talent exchange and collaboration.'],
             ],
-            // Infrastruktur (program_id 4)
             4 => [
                 ['icon' => 'fa-solid fa-building', 'urutan' => 1, 'judul_id' => 'Sarana Produksi', 'judul_en' => 'Production Facilities', 'deskripsi_id' => 'Pengembangan studio dan fasilitas produksi.', 'deskripsi_en' => 'Development of studios and production facilities.'],
                 ['icon' => 'fa-solid fa-microchip', 'urutan' => 2, 'judul_id' => 'Teknologi Digital', 'judul_en' => 'Digital Technology', 'deskripsi_id' => 'Penerapan teknologi terkini dalam produksi film.', 'deskripsi_en' => 'Implementation of latest technology in film production.'],
@@ -516,7 +543,132 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | PROYEK
+        | 7. PROGRAM ROADMAP (PETA JALAN)
+        |--------------------------------------------------------------------------
+        */
+
+        $this->seedMany(ProgramRoadmap::class, [
+            [
+                'tahun' => '2025',
+                'gambar' => null,
+                'icon' => 'fa-solid fa-puzzle-piece',
+                'urutan' => 1,
+                'status' => true,
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Fondasi & Konsolidasi',
+                        'deskripsi' => 'Memperkuat fondasi dan konsolidasi ekosistem perfilman nasional',
+                        'items' => [
+                            'Pemetaan & Riset Industri',
+                            'Penguatan Kebijakan & Regulasi',
+                            'Peningkatan Kapasitas SDM',
+                            'Konsolidasi Data & Sistem',
+                        ],
+                    ],
+                    'en' => [
+                        'judul' => 'Foundation & Consolidation',
+                        'deskripsi' => 'Strengthening the foundation and consolidating the national film ecosystem',
+                        'items' => [
+                            'Industry Mapping & Research',
+                            'Policy & Regulatory Strengthening',
+                            'HR Capacity Building',
+                            'Data & System Consolidation',
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'tahun' => '2026',
+                'gambar' => null,
+                'icon' => 'fa-solid fa-film',
+                'urutan' => 2,
+                'status' => true,
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Akselerasi & Produksi',
+                        'deskripsi' => 'Mendorong akselerasi produksi film berkualitas dan beragam',
+                        'items' => [
+                            'Peningkatan Produksi Film',
+                            'Pendanaan & Insentif',
+                            'Penguatan Rantai Produksi',
+                            'Distribusi Nasional',
+                        ],
+                    ],
+                    'en' => [
+                        'judul' => 'Acceleration & Production',
+                        'deskripsi' => 'Accelerating the production of high-quality and diverse films',
+                        'items' => [
+                            'Increasing Film Production',
+                            'Funding & Incentives',
+                            'Strengthening Production Chains',
+                            'National Distribution',
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'tahun' => '2027',
+                'gambar' => null,
+                'icon' => 'fa-solid fa-earth-americas',
+                'urutan' => 3,
+                'status' => true,
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Ekspansi & Kolaborasi',
+                        'deskripsi' => 'Memperluas kolaborasi dan penetrasi pasar global',
+                        'items' => [
+                            'Partisipasi Global',
+                            'Co-production Internasional',
+                            'Promosi & Branding Global',
+                            'Ekspor Konten',
+                        ],
+                    ],
+                    'en' => [
+                        'judul' => 'Expansion & Collaboration',
+                        'deskripsi' => 'Expanding international collaboration and global market penetration',
+                        'items' => [
+                            'Global Participation',
+                            'International Co-production',
+                            'Global Branding & Promotion',
+                            'Content Export',
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'tahun' => '2028',
+                'gambar' => null,
+                'icon' => 'fa-solid fa-chart-line',
+                'urutan' => 4,
+                'status' => true,
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Keberlanjutan & Dampak',
+                        'deskripsi' => 'Mewujudkan industri film yang berkelanjutan dan berdampak',
+                        'items' => [
+                            'Keberlanjutan Pembiayaan',
+                            'Inovasi & Teknologi',
+                            'Dampak Sosial & Ekonomi',
+                            'Evaluasi & Penguatan Ekosistem',
+                        ],
+                    ],
+                    'en' => [
+                        'judul' => 'Sustainability & Impact',
+                        'deskripsi' => 'Achieving a sustainable and impactful film industry',
+                        'items' => [
+                            'Financing Sustainability',
+                            'Innovation & Technology',
+                            'Social & Economic Impact',
+                            'Ecosystem Evaluation & Strengthening',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | 8. PROYEK
         |--------------------------------------------------------------------------
         */
 
@@ -554,6 +706,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'indonesia-film-festival-network',
+                'gambar_utama' => null,
                 'tahun' => '2023 - Sekarang',
                 'status' => 'published',
                 'urutan' => 2,
@@ -584,6 +737,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'co-production-indonesia',
+                'gambar_utama' => null,
                 'tahun' => '2025 - Sekarang',
                 'status' => 'published',
                 'urutan' => 3,
@@ -614,6 +768,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'digital-cinema-innovation-hub',
+                'gambar_utama' => null,
                 'tahun' => '2025 - Sekarang',
                 'status' => 'published',
                 'urutan' => 4,
@@ -644,6 +799,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'film-heritage-restoration',
+                'gambar_utama' => null,
                 'tahun' => '2024 - Sekarang',
                 'status' => 'published',
                 'urutan' => 5,
@@ -674,6 +830,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'green-production-initiative',
+                'gambar_utama' => null,
                 'tahun' => '2025 - Sekarang',
                 'status' => 'published',
                 'urutan' => 6,
@@ -704,6 +861,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'talent-mobility-program',
+                'gambar_utama' => null,
                 'tahun' => '2025 - Sekarang',
                 'status' => 'published',
                 'urutan' => 7,
@@ -734,6 +892,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'film-literacy-movement',
+                'gambar_utama' => null,
                 'tahun' => '2025 - Sekarang',
                 'status' => 'published',
                 'urutan' => 8,
@@ -766,7 +925,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | GALERI PROYEK
+        | 9. GALERI PROYEK
         |--------------------------------------------------------------------------
         */
 
@@ -776,7 +935,7 @@ class DatabaseSeeder extends Seeder
 
             ProyekGaleri::create([
                 'proyek_id' => $project->id,
-                'gambar' => 'placeholder_proyek.jpg',
+                'gambar' => 'placeholder_proyek_'.$project->id.'.jpg',
                 'urutan' => 1,
                 'status' => true,
             ])->storeTranslations([
@@ -793,13 +952,12 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | PROYEK SUB-TABLES (tujuan, dampak_capaian, kegiatan_utama, linimasa)
-        | Linked per-translation (proyek_translations_id)
+        | 10. PROYEK SUB-TABLES (tujuan, dampak, kegiatan, linimasa)
         |--------------------------------------------------------------------------
         */
 
         $proyekSubData = [
-            1 => [ // BPI Film Market
+            1 => [
                 'tujuan_id' => [
                     'Mempertemukan pelaku industri film untuk membangun jejaring dan kolaborasi.',
                     'Mendorong pendanaan dan distribusi film Indonesia.',
@@ -851,14 +1009,12 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $defaultSubData = $proyekSubData[1];
+
         foreach ($projects as $idx => $project) {
             $translations = $project->translations()->get();
             foreach ($translations as $trans) {
-                $data = $proyekSubData[$idx + 1] ?? null;
-                if (! $data) {
-                    continue;
-                }
-
+                $data = $proyekSubData[$idx + 1] ?? $defaultSubData;
                 $isId = $trans->bahasa === 'id';
 
                 foreach (($isId ? $data['tujuan_id'] : $data['tujuan_en']) as $i => $deskripsi) {
@@ -908,27 +1064,88 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | MITRA
+        | 11. KATEGORI MITRA & MITRA INTRO
+        |--------------------------------------------------------------------------
+        */
+
+        $this->seedMany(KategoriMitra::class, [
+            [
+                'slug' => 'strategis',
+                'urutan' => 1,
+                'status' => true,
+                'translations' => [
+                    'id' => ['nama' => 'Strategis'],
+                    'en' => ['nama' => 'Strategic'],
+                ],
+            ],
+            [
+                'slug' => 'internasional',
+                'urutan' => 2,
+                'status' => true,
+                'translations' => [
+                    'id' => ['nama' => 'Internasional'],
+                    'en' => ['nama' => 'International'],
+                ],
+            ],
+            [
+                'slug' => 'industri',
+                'urutan' => 3,
+                'status' => true,
+                'translations' => [
+                    'id' => ['nama' => 'Industri'],
+                    'en' => ['nama' => 'Industry'],
+                ],
+            ],
+            [
+                'slug' => 'komunitas',
+                'urutan' => 4,
+                'status' => true,
+                'translations' => [
+                    'id' => ['nama' => 'Komunitas'],
+                    'en' => ['nama' => 'Community'],
+                ],
+            ],
+        ]);
+
+        $this->seedMany(MitraIntro::class, [
+            [
+                'gambar' => null,
+                'urutan' => 1,
+                'status' => true,
+                'translations' => [
+                    'id' => [
+                        'judul' => 'MITRA STRATEGIS',
+                        'subjudul' => 'Merajut Strategi, Meluaskan Jangkauan Proyeksi',
+                        'deskripsi' => 'Memperkuat jejaring kemitraan strategis lintas sektor guna menghidupkan iklim usaha yang adil, terbuka, dan kondusif bagi pertumbuhan investasi perfilman.',
+                    ],
+                    'en' => [
+                        'judul' => 'STRATEGIC PARTNERS',
+                        'subjudul' => 'Weaving Strategy, Expanding Projection Horizons',
+                        'deskripsi' => 'Strengthening cross-sector strategic partnerships to cultivate a fair, open, and conducive business climate for film investment growth.',
+                    ],
+                ],
+            ],
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | 12. MITRA
         |--------------------------------------------------------------------------
         */
 
         $mitras = [
-            // STRATEGIS
             ['nama_id' => 'Kementerian Kebudayaan', 'nama_en' => 'Ministry of Culture', 'kategori_id' => 'Strategis', 'kategori_en' => 'Strategic', 'deskripsi_id' => 'Mitra strategis dalam pengembangan kebijakan kebudayaan dan perfilman.', 'deskripsi_en' => 'Strategic partner in cultural and film policy development.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 1],
             ['nama_id' => 'Badan Ekonomi Kreatif', 'nama_en' => 'Creative Economy Agency', 'kategori_id' => 'Strategis', 'kategori_en' => 'Strategic', 'deskripsi_id' => 'Mitra dalam pengembangan ekonomi kreatif dan industri perfilman.', 'deskripsi_en' => 'Partner in creative economy and film industry development.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 2],
             ['nama_id' => 'Badan Perfilman Indonesia', 'nama_en' => 'Indonesian Film Board', 'kategori_id' => 'Strategis', 'kategori_en' => 'Strategic', 'deskripsi_id' => 'Lembaga yang memperkuat koordinasi dan pengembangan ekosistem perfilman nasional.', 'deskripsi_en' => 'An organization strengthening coordination and development of the national film ecosystem.', 'alamat_id' => 'Jakarta, Indonesia', 'alamat_en' => 'Jakarta, Indonesia', 'urutan' => 3],
             ['nama_id' => 'Kementerian Pendidikan', 'nama_en' => 'Ministry of Education', 'kategori_id' => 'Strategis', 'kategori_en' => 'Strategic', 'deskripsi_id' => 'Mitra dalam pengembangan pendidikan dan sumber daya manusia perfilman.', 'deskripsi_en' => 'Partner in education and film industry talent development.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 4],
-            // INTERNASIONAL
             ['nama_id' => 'European Film Agencies', 'nama_en' => 'European Film Agencies', 'kategori_id' => 'Internasional', 'kategori_en' => 'International', 'deskripsi_id' => 'Mitra internasional untuk pengembangan dan kolaborasi perfilman.', 'deskripsi_en' => 'International partner for film development and collaboration.', 'alamat_id' => 'Eropa', 'alamat_en' => 'Europe', 'urutan' => 5],
             ['nama_id' => 'Asian Film Network', 'nama_en' => 'Asian Film Network', 'kategori_id' => 'Internasional', 'kategori_en' => 'International', 'deskripsi_id' => 'Jaringan kolaborasi perfilman Asia.', 'deskripsi_en' => 'Asian film collaboration network.', 'alamat_id' => 'Asia', 'alamat_en' => 'Asia', 'urutan' => 6],
             ['nama_id' => 'Tokyo International Film Festival', 'nama_en' => 'Tokyo International Film Festival', 'kategori_id' => 'Internasional', 'kategori_en' => 'International', 'deskripsi_id' => 'Festival film internasional untuk memperluas jejaring dan promosi film Indonesia.', 'deskripsi_en' => 'International film festival supporting networking and promotion of Indonesian films.', 'alamat_id' => 'Tokyo, Jepang', 'alamat_en' => 'Tokyo, Japan', 'urutan' => 7],
             ['nama_id' => 'Cine Foundation', 'nama_en' => 'Cine Foundation', 'kategori_id' => 'Internasional', 'kategori_en' => 'International', 'deskripsi_id' => 'Mitra pengembangan dan pelestarian sinema internasional.', 'deskripsi_en' => 'International partner for cinema development and preservation.', 'alamat_id' => 'Internasional', 'alamat_en' => 'International', 'urutan' => 8],
-            // INDUSTRI
             ['nama_id' => 'Co-Production Network', 'nama_en' => 'Co-Production Network', 'kategori_id' => 'Industri', 'kategori_en' => 'Industry', 'deskripsi_id' => 'Jaringan pelaku industri untuk kerja sama produksi film.', 'deskripsi_en' => 'Industry network supporting film production collaboration.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 9],
             ['nama_id' => 'Cinema Indonesia', 'nama_en' => 'Cinema Indonesia', 'kategori_id' => 'Industri', 'kategori_en' => 'Industry', 'deskripsi_id' => 'Mitra dalam pengembangan dan distribusi perfilman nasional.', 'deskripsi_en' => 'Partner in national film development and distribution.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 10],
             ['nama_id' => 'PT Kreasi Film Nusantara', 'nama_en' => 'PT Kreasi Film Nusantara', 'kategori_id' => 'Industri', 'kategori_en' => 'Industry', 'deskripsi_id' => 'Perusahaan produksi yang mendukung pengembangan karya film Indonesia.', 'deskripsi_en' => 'Production company supporting the development of Indonesian film works.', 'alamat_id' => 'Jakarta, Indonesia', 'alamat_en' => 'Jakarta, Indonesia', 'urutan' => 11],
             ['nama_id' => 'Industri Perfilman', 'nama_en' => 'Film Industry', 'kategori_id' => 'Industri', 'kategori_en' => 'Industry', 'deskripsi_id' => 'Mitra dari berbagai sektor yang mendukung rantai nilai industri perfilman.', 'deskripsi_en' => 'Partners from various sectors supporting the film industry value chain.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 12],
-            // KOMUNITAS
             ['nama_id' => 'Asosiasi Film Indonesia', 'nama_en' => 'Indonesian Film Association', 'kategori_id' => 'Komunitas', 'kategori_en' => 'Community', 'deskripsi_id' => 'Komunitas profesional yang mendukung perkembangan perfilman Indonesia.', 'deskripsi_en' => 'Professional community supporting the development of Indonesian cinema.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 13],
             ['nama_id' => 'Film Festival Network', 'nama_en' => 'Film Festival Network', 'kategori_id' => 'Komunitas', 'kategori_en' => 'Community', 'deskripsi_id' => 'Jaringan komunitas festival film Indonesia.', 'deskripsi_en' => 'Indonesian film festival community network.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 14],
             ['nama_id' => 'Komunitas Film Nusantara', 'nama_en' => 'Nusantara Film Community', 'kategori_id' => 'Komunitas', 'kategori_en' => 'Community', 'deskripsi_id' => 'Komunitas film yang mendorong kreativitas dan apresiasi masyarakat.', 'deskripsi_en' => 'Film community promoting creativity and public appreciation.', 'alamat_id' => 'Indonesia', 'alamat_en' => 'Indonesia', 'urutan' => 15],
@@ -959,7 +1176,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | RELASI PROYEK - MITRA
+        | 13. RELASI PROYEK - MITRA
         |--------------------------------------------------------------------------
         */
 
@@ -982,193 +1199,45 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | BERITA
+        | 14. KATEGORI BERITA & TAGS
         |--------------------------------------------------------------------------
         */
 
-        $news = $this->seedMany(Berita::class, [
+        $this->seedMany(KategoriBerita::class, [
             [
-                'slug' => 'rapat-koordinasi-nasional-bpi-menetapkan-fokus-utama-tahun-depan',
-                'penulis' => 'BPI',
-                'tanggal_publikasi' => '2026-08-12',
-                'status' => 'published',
                 'translations' => [
-                    'id' => [
-                        'judul' => 'Rapat Koordinasi Nasional BPI Menetapkan Fokus Utama Tahun Depan',
-                        'ringkasan' => 'BPI menyelenggarakan rapat koordinasi nasional untuk menetapkan fokus utama pengembangan perfilman Indonesia.',
-                        'isi' => 'BPI menyelenggarakan Rapat Koordinasi Nasional sebagai bagian dari upaya memperkuat koordinasi dan kolaborasi antar pemangku kepentingan perfilman Indonesia. Pertemuan ini membahas strategi, program, dan prioritas pengembangan industri perfilman untuk periode mendatang.',
-                        'kategori' => 'Event',
-                        'kutipan' => 'Kolaborasi merupakan fondasi penting untuk membangun ekosistem perfilman Indonesia yang kuat.',
-                    ],
-                    'en' => [
-                        'judul' => 'BPI National Coordination Meeting Sets Main Focus for Next Year',
-                        'ringkasan' => 'BPI held a national coordination meeting to establish the main focus for the development of Indonesian cinema.',
-                        'isi' => 'BPI held a National Coordination Meeting as part of its efforts to strengthen coordination and collaboration among Indonesian film industry stakeholders. The meeting discussed strategies, programs, and priorities for the development of the film industry.',
-                        'kategori' => 'Event',
-                        'kutipan' => 'Collaboration is an important foundation for building a strong Indonesian film ecosystem.',
-                    ],
+                    'id' => ['judul' => 'Berita', 'slug' => 'berita'],
+                    'en' => ['judul' => 'News', 'slug' => 'news'],
                 ],
             ],
             [
-                'slug' => 'penguatan-ekosistem-perfilman-indonesia',
-                'penulis' => 'BPI',
-                'tanggal_publikasi' => '2026-08-10',
-                'status' => 'published',
                 'translations' => [
-                    'id' => [
-                        'judul' => 'Penguatan Ekosistem Perfilman Indonesia',
-                        'ringkasan' => 'BPI terus mendorong kolaborasi antar pelaku industri untuk memperkuat ekosistem perfilman nasional.',
-                        'isi' => 'Penguatan ekosistem menjadi salah satu fokus utama BPI melalui kolaborasi antara pemerintah, asosiasi profesi, komunitas, pelaku industri, dan masyarakat.',
-                        'kategori' => 'Berita',
-                        'kutipan' => 'Ekosistem yang kuat lahir dari kolaborasi yang berkelanjutan.',
-                    ],
-                    'en' => [
-                        'judul' => 'Strengthening the Indonesian Film Ecosystem',
-                        'ringkasan' => 'BPI continues to encourage collaboration among industry players to strengthen the national film ecosystem.',
-                        'isi' => 'Strengthening the ecosystem is one of BPI main focuses through collaboration between government, professional associations, communities, industry players, and the public.',
-                        'kategori' => 'News',
-                        'kutipan' => 'A strong ecosystem is built through sustainable collaboration.',
-                    ],
+                    'id' => ['judul' => 'Industri', 'slug' => 'industri'],
+                    'en' => ['judul' => 'Industry', 'slug' => 'industry'],
                 ],
             ],
             [
-                'slug' => 'kolaborasi-film-indonesia-menuju-pasar-global',
-                'penulis' => 'BPI',
-                'tanggal_publikasi' => '2026-08-08',
-                'status' => 'published',
                 'translations' => [
-                    'id' => [
-                        'judul' => 'Kolaborasi Film Indonesia Menuju Pasar Global',
-                        'ringkasan' => 'Kolaborasi internasional membuka peluang baru bagi karya dan talenta perfilman Indonesia.',
-                        'isi' => 'BPI mendorong peningkatan kolaborasi internasional untuk membuka akses terhadap pasar, pendanaan, jaringan, dan pengembangan talenta perfilman Indonesia.',
-                        'kategori' => 'Opini',
-                        'kutipan' => 'Film Indonesia memiliki potensi besar untuk berkembang di tingkat global.',
-                    ],
-                    'en' => [
-                        'judul' => 'Indonesian Film Collaboration Towards the Global Market',
-                        'ringkasan' => 'International collaboration creates new opportunities for Indonesian films and talent.',
-                        'isi' => 'BPI encourages increased international collaboration to provide access to markets, financing, networks, and talent development opportunities.',
-                        'kategori' => 'Opinion',
-                        'kutipan' => 'Indonesian films have great potential to grow in the global market.',
-                    ],
+                    'id' => ['judul' => 'Event', 'slug' => 'event'],
+                    'en' => ['judul' => 'Events', 'slug' => 'events'],
                 ],
             ],
             [
-                'slug' => 'pengembangan-talenta-perfilman',
-                'penulis' => 'BPI',
-                'tanggal_publikasi' => '2026-08-05',
-                'status' => 'published',
                 'translations' => [
-                    'id' => [
-                        'judul' => 'Pengembangan Talenta Perfilman Indonesia',
-                        'ringkasan' => 'Pengembangan talenta menjadi bagian penting dalam membangun masa depan industri perfilman.',
-                        'isi' => 'BPI berkomitmen untuk mendukung peningkatan kompetensi dan mobilitas talenta melalui program pendidikan, pelatihan, residensi, dan kolaborasi.',
-                        'kategori' => 'Industri',
-                        'kutipan' => 'Talenta merupakan fondasi utama kemajuan industri kreatif.',
-                    ],
-                    'en' => [
-                        'judul' => 'Developing Indonesian Film Talent',
-                        'ringkasan' => 'Talent development is an important part of building the future of the film industry.',
-                        'isi' => 'BPI is committed to improving talent competency and mobility through education, training, residency, and collaboration programs.',
-                        'kategori' => 'Industry',
-                        'kutipan' => 'Talent is the main foundation of creative industry development.',
-                    ],
+                    'id' => ['judul' => 'Opini', 'slug' => 'opini'],
+                    'en' => ['judul' => 'Opinion', 'slug' => 'opinion'],
                 ],
             ],
             [
-                'slug' => 'transformasi-digital-industri-film',
-                'penulis' => 'BPI',
-                'tanggal_publikasi' => '2026-08-02',
-                'status' => 'published',
                 'translations' => [
-                    'id' => [
-                        'judul' => 'Transformasi Digital Industri Film',
-                        'ringkasan' => 'Teknologi membuka ruang baru untuk inovasi dan pengembangan industri perfilman.',
-                        'isi' => 'Transformasi digital menjadi peluang penting bagi industri perfilman Indonesia untuk meningkatkan efisiensi, kreativitas, distribusi, dan akses terhadap penonton.',
-                        'kategori' => 'Teknologi',
-                        'kutipan' => 'Teknologi dan kreativitas harus berjalan bersama untuk menciptakan masa depan sinema.',
-                    ],
-                    'en' => [
-                        'judul' => 'Digital Transformation of the Film Industry',
-                        'ringkasan' => 'Technology opens new opportunities for innovation and development in the film industry.',
-                        'isi' => 'Digital transformation is an important opportunity for Indonesian cinema to improve efficiency, creativity, distribution, and audience access.',
-                        'kategori' => 'Technology',
-                        'kutipan' => 'Technology and creativity must work together to create the future of cinema.',
-                    ],
-                ],
-            ],
-            [
-                'slug' => 'pelestarian-warisan-film-indonesia',
-                'penulis' => 'BPI',
-                'tanggal_publikasi' => '2026-07-28',
-                'status' => 'published',
-                'translations' => [
-                    'id' => [
-                        'judul' => 'Pelestarian Warisan Film Indonesia',
-                        'ringkasan' => 'Pelestarian arsip film menjadi bagian penting dalam menjaga sejarah dan identitas budaya bangsa.',
-                        'isi' => 'BPI mendukung berbagai upaya pelestarian, digitalisasi, dan restorasi karya film Indonesia agar dapat dinikmati oleh generasi mendatang.',
-                        'kategori' => 'Budaya',
-                        'kutipan' => 'Warisan film merupakan bagian dari memori dan identitas bangsa.',
-                    ],
-                    'en' => [
-                        'judul' => 'Preserving Indonesian Film Heritage',
-                        'ringkasan' => 'Film archive preservation is essential to maintaining the nation cultural history and identity.',
-                        'isi' => 'BPI supports preservation, digitization, and restoration efforts so Indonesian films can be enjoyed by future generations.',
-                        'kategori' => 'Culture',
-                        'kutipan' => 'Film heritage is part of the memory and identity of a nation.',
-                    ],
-                ],
-            ],
-            [
-                'slug' => 'menuju-industri-film-yang-berkelanjutan',
-                'penulis' => 'BPI',
-                'tanggal_publikasi' => '2026-07-25',
-                'status' => 'published',
-                'translations' => [
-                    'id' => [
-                        'judul' => 'Menuju Industri Film yang Berkelanjutan',
-                        'ringkasan' => 'BPI mendorong praktik industri yang inklusif, sehat, dan berkelanjutan.',
-                        'isi' => 'Keberlanjutan industri perfilman membutuhkan kolaborasi jangka panjang, tata kelola yang baik, pengembangan talenta, inovasi, dan perhatian terhadap lingkungan.',
-                        'kategori' => 'Industri',
-                        'kutipan' => 'Industri yang sehat adalah industri yang mampu tumbuh bersama seluruh ekosistemnya.',
-                    ],
-                    'en' => [
-                        'judul' => 'Towards a Sustainable Film Industry',
-                        'ringkasan' => 'BPI promotes an inclusive, healthy, and sustainable film industry.',
-                        'isi' => 'A sustainable film industry requires long-term collaboration, good governance, talent development, innovation, and environmental awareness.',
-                        'kategori' => 'Industry',
-                        'kutipan' => 'A healthy industry is one that grows together with its entire ecosystem.',
-                    ],
+                    'id' => ['judul' => 'Umum', 'slug' => 'umum'],
+                    'en' => ['judul' => 'General', 'slug' => 'general'],
                 ],
             ],
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | GALERI BERITA
-        |--------------------------------------------------------------------------
-        */
-
-        foreach ($news as $berita) {
-            BeritaGaleri::create([
-                'berita_id' => $berita->id,
-                'gambar' => 'placeholder_berita_'.$berita->id.'.jpg',
-                'urutan' => 1,
-                'status' => true,
-            ])->storeTranslations([
-                'id' => ['caption' => 'Dokumentasi '.$berita->translateField('judul', 'id')],
-                'en' => ['caption' => 'Documentation of '.$berita->translateField('judul', 'en')],
-            ]);
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | TAGS
-        |--------------------------------------------------------------------------
-        */
-
         $tagsData = [
-            ['slug' => 'profilman-indonesia', 'nama_id' => 'Profilman Indonesia', 'nama_en' => 'Indonesian Cinema'],
+            ['slug' => 'perfilman-indonesia', 'nama_id' => 'Perfilman Indonesia', 'nama_en' => 'Indonesian Cinema'],
             ['slug' => 'kebijakan-budaya', 'nama_id' => 'Kebijakan Budaya', 'nama_en' => 'Cultural Policy'],
             ['slug' => 'ekonomi-kreatif', 'nama_id' => 'Ekonomi Kreatif', 'nama_en' => 'Creative Economy'],
             ['slug' => 'teknologi-film', 'nama_id' => 'Teknologi Film', 'nama_en' => 'Film Technology'],
@@ -1193,7 +1262,198 @@ class DatabaseSeeder extends Seeder
             $tags[] = $tag;
         }
 
-        // Relasi Berita - Tag
+        /*
+        |--------------------------------------------------------------------------
+        | 15. BERITA
+        |--------------------------------------------------------------------------
+        */
+
+        $news = $this->seedMany(Berita::class, [
+            [
+                'slug' => 'rapat-koordinasi-nasional-bpi-menetapkan-fokus-utama-tahun-depan',
+                'penulis' => 'Humas BPI',
+                'tanggal_publikasi' => '2026-08-12',
+                'status' => 'published',
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Rapat Koordinasi Nasional BPI Menetapkan Fokus Utama Tahun Depan',
+                        'ringkasan' => 'BPI menyelenggarakan rapat koordinasi nasional untuk menetapkan fokus utama pengembangan perfilman Indonesia.',
+                        'isi' => '<p>Badan Perfilman Indonesia (BPI) menyelenggarakan <strong>Rapat Koordinasi Nasional (Rakornas)</strong> sebagai bagian integral dari upaya memperkuat konsolidasi dan sinergi antar pemangku kepentingan industri perfilman nasional.</p><p>Pertemuan strategis ini dihadiri oleh perwakilan asosiasi profesi, kementerian terkait, institusi pendidikan, serta praktisi industri untuk merumuskan agenda aksi bersama.</p><blockquote>"Kolaborasi lintas sektor merupakan fondasi utama dalam membangun industri perfilman yang tangguh, inklusif, dan berdaya saing global."</blockquote><p>Beberapa poin kesepakatan penting mencakup optimalisasi skema pendanaan kreatif, penguatan perlindungan HAKI bagi sineas, serta perluasan akses distribusi konten lokal ke festival dan pasar film dunia.</p>',
+                        'kategori' => 'Event',
+                        'kutipan' => 'Kolaborasi merupakan fondasi penting untuk membangun ekosistem perfilman Indonesia yang kuat.',
+                    ],
+                    'en' => [
+                        'judul' => 'BPI National Coordination Meeting Sets Main Focus for Next Year',
+                        'ringkasan' => 'BPI held a national coordination meeting to establish the main focus for the development of Indonesian cinema.',
+                        'isi' => '<p>The Indonesian Film Board (BPI) convened its <strong>National Coordination Meeting</strong> to reinforce consolidation and synergy among national film stakeholders.</p><p>This strategic forum brought together professional associations, ministries, academic institutions, and industry veterans to draft a unified action agenda.</p><blockquote>"Cross-sector collaboration forms the cornerstone of a resilient, inclusive, and globally competitive cinema ecosystem."</blockquote><p>Key highlights include optimizing creative financing schemes, safeguarding intellectual property rights, and expanding market access for local films worldwide.</p>',
+                        'kategori' => 'Events',
+                        'kutipan' => 'Collaboration is an important foundation for building a strong Indonesian film ecosystem.',
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'penguatan-ekosistem-perfilman-indonesia',
+                'penulis' => 'Tim Riset BPI',
+                'tanggal_publikasi' => '2026-08-10',
+                'status' => 'published',
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Penguatan Ekosistem Perfilman Indonesia',
+                        'ringkasan' => 'BPI terus mendorong kolaborasi antar pelaku industri untuk memperkuat ekosistem perfilman nasional.',
+                        'isi' => '<p>Penguatan ekosistem perfilman nasional menjadi prioritas utama BPI melalui integrasi rantai produksi dari hulu ke hilir.</p><p>Melalui riset berkelanjutan dan pemetaan talenta, BPI memastikan standarisasi kompetensi profesi perfilman semakin terakreditasi secara profesional.</p>',
+                        'kategori' => 'Berita',
+                        'kutipan' => 'Ekosistem yang kuat lahir dari kolaborasi yang berkelanjutan.',
+                    ],
+                    'en' => [
+                        'judul' => 'Strengthening the Indonesian Film Ecosystem',
+                        'ringkasan' => 'BPI continues to encourage collaboration among industry players to strengthen the national film ecosystem.',
+                        'isi' => '<p>Strengthening the national film ecosystem remains BPI top priority through the end-to-end integration of the production chain.</p><p>Through continuous research and talent mapping, BPI ensures professional standards and accreditation across film occupations.</p>',
+                        'kategori' => 'News',
+                        'kutipan' => 'A strong ecosystem is built through sustainable collaboration.',
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'kolaborasi-film-indonesia-menuju-pasar-global',
+                'penulis' => 'Bidang Hubungan Internasional',
+                'tanggal_publikasi' => '2026-08-08',
+                'status' => 'published',
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Kolaborasi Film Indonesia Menuju Pasar Global',
+                        'ringkasan' => 'Kolaborasi internasional membuka peluang baru bagi karya dan talenta perfilman Indonesia.',
+                        'isi' => '<p>BPI terus memperluas keikutsertaan delegasi film Indonesia di berbagai bursa film bergengsi dunia seperti Cannes, Berlinale, Busan, dan TIFF.</p><p>Peluang skema pendanaan bersama (co-production) memberikan ruang belajar teknologi produksi modern sekaligus mendistribusikan narasi budaya Indonesia ke hadapan audiens global.</p>',
+                        'kategori' => 'Opini',
+                        'kutipan' => 'Film Indonesia memiliki potensi besar untuk berkembang di tingkat global.',
+                    ],
+                    'en' => [
+                        'judul' => 'Indonesian Film Collaboration Towards the Global Market',
+                        'ringkasan' => 'International collaboration creates new opportunities for Indonesian films and talent.',
+                        'isi' => '<p>BPI continues to expand the presence of Indonesian film delegations across prestigious world film markets including Cannes, Berlinale, Busan, and TIFF.</p><p>Co-production opportunities provide technical transfer while showcasing Indonesian cultural narratives to global audiences.</p>',
+                        'kategori' => 'Opinion',
+                        'kutipan' => 'Indonesian films have great potential to grow in the global market.',
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'pengembangan-talenta-perfilman',
+                'penulis' => 'Sekretariat BPI',
+                'tanggal_publikasi' => '2026-08-05',
+                'status' => 'published',
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Pengembangan Talenta Perfilman Indonesia',
+                        'ringkasan' => 'Pengembangan talenta menjadi bagian penting dalam membangun masa depan industri perfilman.',
+                        'isi' => '<p>Program residensi, inkubasi skenario, dan lokakarya tata sinematografi secara berkala diselenggarakan di berbagai sentra kreatif daerah.</p><p>Inisiatif ini dirancang agar talenta-talenta muda dari seluruh pelosok Nusantara mendapatkan akses bimbingan langsung dari praktisi perfilman senior terkemuka.</p>',
+                        'kategori' => 'Industri',
+                        'kutipan' => 'Talenta merupakan fondasi utama kemajuan industri kreatif.',
+                    ],
+                    'en' => [
+                        'judul' => 'Developing Indonesian Film Talent',
+                        'ringkasan' => 'Talent development is an important part of building the future of the film industry.',
+                        'isi' => '<p>Residency programs, script incubations, and cinematography workshops are regularly conducted across regional creative hubs.</p><p>This initiative ensures that young filmmakers across the archipelago gain direct mentorship from distinguished senior professionals.</p>',
+                        'kategori' => 'Industry',
+                        'kutipan' => 'Talent is the main foundation of creative industry development.',
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'transformasi-digital-industri-film',
+                'penulis' => 'Komite Teknologi & Inovasi',
+                'tanggal_publikasi' => '2026-08-02',
+                'status' => 'published',
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Transformasi Digital Industri Film',
+                        'ringkasan' => 'Teknologi membuka ruang baru untuk inovasi dan pengembangan industri perfilman.',
+                        'isi' => '<p>Adopsi virtual production, tata suara berbasis objek, serta sistem manajemen aset digital mempercepat proses pascaproduksi secara signifikan.</p><p>BPI mendukung adopsi teknologi tepat guna agar efisiensi anggaran dan mutu estetika karya film tetap bersaing dengan standar produksi internasional.</p>',
+                        'kategori' => 'Industri',
+                        'kutipan' => 'Teknologi dan kreativitas harus berjalan bersama untuk menciptakan masa depan sinema.',
+                    ],
+                    'en' => [
+                        'judul' => 'Digital Transformation of the Film Industry',
+                        'ringkasan' => 'Technology opens new opportunities for innovation and development in the film industry.',
+                        'isi' => '<p>The adoption of virtual production, object-based audio, and digital asset management systems accelerates post-production workflows significantly.</p><p>BPI supports practical technology adoption to ensure cost efficiency and world-class aesthetic excellence.</p>',
+                        'kategori' => 'Industry',
+                        'kutipan' => 'Technology and creativity must work together to create the future of cinema.',
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'pelestarian-warisan-film-indonesia',
+                'penulis' => 'Komite Arsip & Warisan Budaya',
+                'tanggal_publikasi' => '2026-07-28',
+                'status' => 'published',
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Pelestarian Warisan Film Indonesia',
+                        'ringkasan' => 'Pelestarian arsip film menjadi bagian penting dalam menjaga sejarah dan identitas budaya bangsa.',
+                        'isi' => '<p>Digitalisasi seluloid 35mm klasik Indonesia terus diakselerasi melalui kerja sama laboratorium arsip nasional dan mitra preservasi.</p><p>Karya-karya bersejarah ini kemudian direstorasi hingga resolusi 4K untuk diputar kembali dalam program retrospeksi edukatif di berbagai kampus dan ruang budaya.</p>',
+                        'kategori' => 'Umum',
+                        'kutipan' => 'Warisan film merupakan bagian dari memori dan identitas bangsa.',
+                    ],
+                    'en' => [
+                        'judul' => 'Preserving Indonesian Film Heritage',
+                        'ringkasan' => 'Film archive preservation is essential to maintaining the nation cultural history and identity.',
+                        'isi' => '<p>Digitization of classic Indonesian 35mm film reels is being accelerated in collaboration with national archive labs and preservation partners.</p><p>These historic masterworks are restored up to 4K resolution for educational retrospectives in cultural institutions.</p>',
+                        'kategori' => 'General',
+                        'kutipan' => 'Film heritage is part of the memory and identity of a nation.',
+                    ],
+                ],
+            ],
+            [
+                'slug' => 'menuju-industri-film-yang-berkelanjutan',
+                'penulis' => 'Humas BPI',
+                'tanggal_publikasi' => '2026-07-25',
+                'status' => 'published',
+                'translations' => [
+                    'id' => [
+                        'judul' => 'Menuju Industri Film yang Berkelanjutan',
+                        'ringkasan' => 'BPI mendorong praktik industri yang inklusif, sehat, dan berkelanjutan.',
+                        'isi' => '<p>Penerapan protokol keselamatan kerja di lokasi syuting (safety protocol) serta panduan syuting ramah lingkungan (green shooting) mulai diadvokasikan sebagai standar industri.</p><p>BPI percaya bahwa keberlanjutan industri hanya dapat tercapai apabila kesejahteraan para pekerja kreatif dijamin dengan adil.</p>',
+                        'kategori' => 'Industri',
+                        'kutipan' => 'Industri yang sehat adalah industri yang mampu tumbuh bersama seluruh ekosistemnya.',
+                    ],
+                    'en' => [
+                        'judul' => 'Towards a Sustainable Film Industry',
+                        'ringkasan' => 'BPI promotes an inclusive, healthy, and sustainable film industry.',
+                        'isi' => '<p>On-set safety guidelines and eco-friendly green production protocols are actively advocated as nationwide industry standards.</p><p>BPI believes true industry sustainability relies on equitable welfare for all creative professionals.</p>',
+                        'kategori' => 'Industry',
+                        'kutipan' => 'A healthy industry is one that grows together with its entire ecosystem.',
+                    ],
+                ],
+            ],
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | 16. GALERI BERITA & TAG SYNC
+        |--------------------------------------------------------------------------
+        */
+
+        foreach ($news as $berita) {
+            $judulId = $berita->translateField('judul', 'id');
+            $judulEn = $berita->translateField('judul', 'en');
+
+            BeritaGaleri::create([
+                'berita_id' => $berita->id,
+                'gambar' => 'placeholder_berita_'.$berita->id.'.jpg',
+                'urutan' => 1,
+                'status' => true,
+            ])->storeTranslations([
+                'id' => [
+                    'caption' => 'Dokumentasi '.$judulId,
+                    'judul' => 'Dokumentasi '.$judulId,
+                    'deskripsi' => 'Dokumentasi resmi liputan kegiatan '.$judulId.'.',
+                ],
+                'en' => [
+                    'caption' => 'Documentation of '.$judulEn,
+                    'judul' => 'Documentation of '.$judulEn,
+                    'deskripsi' => 'Official coverage documentation of '.$judulEn.'.',
+                ],
+            ]);
+        }
+
         $beritaTagMap = [
             1 => [0, 1, 5],
             2 => [0, 2],
@@ -1213,50 +1473,52 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | TENTANG
+        | 17. TENTANG & TENTANG POIN (Intro, Visi, Misi)
         |--------------------------------------------------------------------------
         */
 
         $this->seedMany(Tentang::class, [
             [
-                'section' => 'hero',
+                'section' => 'intro',
                 'gambar' => null,
                 'icon' => null,
                 'urutan' => 1,
                 'status' => true,
                 'translations' => [
                     'id' => [
-                        'judul' => 'Membangun Masa Depan Sinema Nasional',
-                        'subjudul' => 'Badan Perfilman Indonesia',
-                        'deskripsi' => 'BPI hadir sebagai wadah strategis yang menghubungkan berbagai pemangku kepentingan untuk membangun ekosistem perfilman Indonesia yang sehat, inklusif, dan berkelanjutan.',
+                        'judul' => 'TENTANG KAMI',
+                        'subjudul' => 'Membangun Masa Depan Sinema Nasional',
+                        'deskripsi' => "Badan Perfilman Indonesia (BPI) berdiri sebagai institusi utama yang mendorong kemajuan struktural dan kreatif industri film nasional.\n\nKami mengorkestrasi ekosistem terpadu yang menghubungkan pembuat konten, asosiasi, dan pasar global untuk memastikan sinema Indonesia mencapai potensi tertingginya di panggung dunia.",
                     ],
                     'en' => [
-                        'judul' => 'Building the Future of National Cinema',
-                        'subjudul' => 'Indonesian Film Board',
-                        'deskripsi' => 'BPI serves as a strategic platform connecting stakeholders to build a healthy, inclusive, and sustainable Indonesian film ecosystem.',
+                        'judul' => 'ABOUT US',
+                        'subjudul' => 'Building the Future of National Cinema',
+                        'deskripsi' => "Badan Perfilman Indonesia (BPI) stands as the primary institution driving structural and creative advancement of national cinema.\n\nWe orchestrate an integrated ecosystem connecting content creators, associations, and global markets to ensure Indonesian cinema reaches its highest potential on the world stage.",
                     ],
                 ],
             ],
             [
                 'section' => 'visi',
+                'gambar' => null,
                 'icon' => 'fa-solid fa-eye',
                 'urutan' => 2,
                 'status' => true,
                 'translations' => [
                     'id' => [
                         'judul' => 'Visi Kami',
-                        'subjudul' => 'Menjadi institusi yang menghubungkan film Indonesia yang unggul dan kompetitif dengan semangat kebangsaan dan budaya.',
+                        'subjudul' => 'Menjadi poros penggerak utama ekosistem perfilman Indonesia yang unggul, inklusif, dan berdaya saing global.',
                         'deskripsi' => 'Mewujudkan ekosistem perfilman Indonesia yang kuat, inklusif, profesional, kreatif, dan mampu bersaing di tingkat global.',
                     ],
                     'en' => [
                         'judul' => 'Our Vision',
-                        'subjudul' => 'To become an institution connecting excellent and competitive Indonesian cinema with national spirit and culture.',
+                        'subjudul' => 'To become the primary driving force of an excellent, inclusive, and globally competitive Indonesian film ecosystem.',
                         'deskripsi' => 'Building a strong, inclusive, professional, creative, and globally competitive Indonesian film ecosystem.',
                     ],
                 ],
             ],
             [
                 'section' => 'misi',
+                'gambar' => null,
                 'icon' => 'fa-solid fa-bullseye',
                 'urutan' => 3,
                 'status' => true,
@@ -1273,44 +1535,18 @@ class DatabaseSeeder extends Seeder
                     ],
                 ],
             ],
-            [
-                'section' => 'nilai',
-                'icon' => 'fa-solid fa-star',
-                'urutan' => 4,
-                'status' => true,
-                'translations' => [
-                    'id' => [
-                        'judul' => 'Nilai Kami',
-                        'subjudul' => 'Kolaborasi, profesionalisme, inovasi, inklusivitas, dan keberlanjutan.',
-                        'deskripsi' => 'Nilai-nilai tersebut menjadi dasar BPI dalam menjalankan peran sebagai penggerak dan penghubung ekosistem perfilman nasional.',
-                    ],
-                    'en' => [
-                        'judul' => 'Our Values',
-                        'subjudul' => 'Collaboration, professionalism, innovation, inclusivity, and sustainability.',
-                        'deskripsi' => 'These values guide BPI in its role as a driver and connector of the national film ecosystem.',
-                    ],
-                ],
-            ],
         ]);
-
-        /*
-        |--------------------------------------------------------------------------
-        | TENTANG POIN (Visi & Misi Sub-items)
-        |--------------------------------------------------------------------------
-        */
 
         $tentang = Tentang::all();
 
         $tentangPoinData = [
-            // Visi (tentang_id 2)
-            2 => [
+            2 => [ // Visi
                 ['icon' => 'fa-solid fa-globe', 'urutan' => 1, 'judul_id' => 'Keunggulan Global', 'judul_en' => 'Global Excellence', 'deskripsi_id' => 'Membangun ekosistem perfilman yang mampu bersaing di tingkat internasional.', 'deskripsi_en' => 'Building a film ecosystem capable of competing at the international level.'],
                 ['icon' => 'fa-solid fa-users', 'urutan' => 2, 'judul_id' => 'Inklusivitas', 'judul_en' => 'Inclusivity', 'deskripsi_id' => 'Menjamin partisipasi seluruh pemangku kepentingan tanpa diskriminasi.', 'deskripsi_en' => 'Ensuring participation of all stakeholders without discrimination.'],
                 ['icon' => 'fa-solid fa-lightbulb', 'urutan' => 3, 'judul_id' => 'Inovasi Kreatif', 'judul_en' => 'Creative Innovation', 'deskripsi_id' => 'Mendorong inovasi dalam karya dan proses produksi perfilman.', 'deskripsi_en' => 'Encouraging innovation in filmmaking works and production processes.'],
                 ['icon' => 'fa-solid fa-leaf', 'urutan' => 4, 'judul_id' => 'Keberlanjutan', 'judul_en' => 'Sustainability', 'deskripsi_id' => 'Memastikan pertumbuhan industri yang berkelanjutan dan bertanggung jawab.', 'deskripsi_en' => 'Ensuring sustainable and responsible industry growth.'],
             ],
-            // Misi (tentang_id 3)
-            3 => [
+            3 => [ // Misi
                 ['icon' => 'fa-solid fa-graduation-cap', 'urutan' => 1, 'judul_id' => 'Pengembangan SDM', 'judul_en' => 'Human Resource Development', 'deskripsi_id' => 'Meningkatkan kompetensi dan kapasitas talenta perfilman Indonesia melalui pendidikan, pelatihan, dan pengembangan profesional.', 'deskripsi_en' => 'Improving the competency and capacity of Indonesian film talent through education, training, and professional development.'],
                 ['icon' => 'fa-solid fa-earth-americas', 'urutan' => 2, 'judul_id' => 'Promosi Internasional', 'judul_en' => 'International Promotion', 'deskripsi_id' => 'Memperluas jangkauan dan apresiasi film Indonesia di pasar global melalui promosi, festival, dan kemitraan strategis.', 'deskripsi_en' => 'Expanding the reach and appreciation of Indonesian films in global markets through promotion, festivals, and strategic partnerships.'],
                 ['icon' => 'fa-solid fa-gavel', 'urutan' => 3, 'judul_id' => 'Advokasi Kebijakan', 'judul_en' => 'Policy Advocacy', 'deskripsi_id' => 'Mendorong kebijakan yang mendukung pertumbuhan, perlindungan, dan keberlanjutan industri perfilman Indonesia.', 'deskripsi_en' => 'Advocating policies that support the growth, protection, and sustainability of the Indonesian film industry.'],
@@ -1342,148 +1578,164 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | STRUKTUR ORGANISASI
+        | 18. STRUKTUR ORGANISASI
         |--------------------------------------------------------------------------
         */
 
         $this->seedMany(StrukturOrganisasi::class, [
             [
-                'nama' => 'Nama Pengurus 1',
+                'nama' => 'Gunawan Paggaru',
                 'foto' => null,
-                'linkedin' => null,
-                'instagram' => null,
-                'email' => null,
-                'telepon' => null,
+                'linkedin' => 'https://linkedin.com/in/gunawanpaggaru',
+                'instagram' => 'https://instagram.com/gunawanpaggaru',
+                'email' => 'ketua@bpi.or.id',
                 'urutan' => 1,
                 'status' => true,
                 'translations' => [
-                    'id' => ['jabatan' => 'Ketua', 'deskripsi' => 'Memimpin arah strategis dan koordinasi organisasi BPI.'],
-                    'en' => ['jabatan' => 'Chairperson', 'deskripsi' => 'Leads the strategic direction and organizational coordination of BPI.'],
+                    'id' => ['jabatan' => 'Ketua Umum BPI'],
+                    'en' => ['jabatan' => 'President of BPI'],
                 ],
             ],
             [
-                'nama' => 'Nama Pengurus 2',
+                'nama' => 'Celerina Judisari',
+                'foto' => null,
+                'linkedin' => 'https://linkedin.com/in/celerinajudisari',
+                'instagram' => 'https://instagram.com/celerinajudisari',
+                'email' => 'wakil.ketua@bpi.or.id',
                 'urutan' => 2,
                 'status' => true,
                 'translations' => [
-                    'id' => ['jabatan' => 'Wakil Ketua', 'deskripsi' => 'Mendukung koordinasi dan pelaksanaan program strategis BPI.'],
-                    'en' => ['jabatan' => 'Vice Chairperson', 'deskripsi' => 'Supports coordination and implementation of BPI strategic programs.'],
+                    'id' => ['jabatan' => 'Wakil Ketua Umum'],
+                    'en' => ['jabatan' => 'Vice President'],
                 ],
             ],
             [
-                'nama' => 'Nama Pengurus 3',
+                'nama' => 'Vivian Idris',
+                'foto' => null,
+                'linkedin' => 'https://linkedin.com/in/vivianidris',
+                'instagram' => 'https://instagram.com/vivianidris',
+                'email' => 'sekretaris@bpi.or.id',
                 'urutan' => 3,
                 'status' => true,
                 'translations' => [
-                    'id' => ['jabatan' => 'Sekretaris', 'deskripsi' => 'Mengelola administrasi dan koordinasi internal organisasi.'],
-                    'en' => ['jabatan' => 'Secretary', 'deskripsi' => 'Manages administration and internal organizational coordination.'],
+                    'id' => ['jabatan' => 'Sekretaris Jenderal'],
+                    'en' => ['jabatan' => 'Secretary General'],
                 ],
             ],
             [
-                'nama' => 'Nama Pengurus 4',
+                'nama' => 'Pandu Birantoro',
+                'foto' => null,
+                'linkedin' => 'https://linkedin.com/in/pandubirantoro',
+                'instagram' => 'https://instagram.com/pandubirantoro',
+                'email' => 'bendahara@bpi.or.id',
                 'urutan' => 4,
                 'status' => true,
                 'translations' => [
-                    'id' => ['jabatan' => 'Bendahara', 'deskripsi' => 'Mengelola administrasi dan tata kelola keuangan organisasi.'],
-                    'en' => ['jabatan' => 'Treasurer', 'deskripsi' => 'Manages financial administration and governance.'],
+                    'id' => ['jabatan' => 'Bendahara Umum'],
+                    'en' => ['jabatan' => 'Treasurer'],
                 ],
             ],
             [
-                'nama' => 'Nama Pengurus 5',
+                'nama' => 'Linda Gozali',
+                'foto' => null,
+                'linkedin' => 'https://linkedin.com/in/lindagozali',
+                'instagram' => 'https://instagram.com/lindagozali',
+                'email' => 'festival@bpi.or.id',
                 'urutan' => 5,
                 'status' => true,
                 'translations' => [
-                    'id' => ['jabatan' => 'Koordinator Program', 'deskripsi' => 'Mengkoordinasikan program dan inisiatif strategis BPI.'],
-                    'en' => ['jabatan' => 'Program Coordinator', 'deskripsi' => 'Coordinates BPI strategic programs and initiatives.'],
+                    'id' => ['jabatan' => 'Ketua Bidang Festival & Hubungan Luar Negeri'],
+                    'en' => ['jabatan' => 'Head of Festivals & International Relations'],
+                ],
+            ],
+            [
+                'nama' => 'Agustinus Sitorus',
+                'foto' => null,
+                'linkedin' => 'https://linkedin.com/in/agustinussitorus',
+                'instagram' => 'https://instagram.com/agustinussitorus',
+                'email' => 'advokasi@bpi.or.id',
+                'urutan' => 6,
+                'status' => true,
+                'translations' => [
+                    'id' => ['jabatan' => 'Ketua Bidang Advokasi & Regulasi'],
+                    'en' => ['jabatan' => 'Head of Advocacy & Regulations'],
                 ],
             ],
         ]);
 
         /*
         |--------------------------------------------------------------------------
-        | KONTAK
+        | 19. KONTAK & REPEATERS (Medsos, Email, Telepon)
         |--------------------------------------------------------------------------
         */
 
-        Kontak::create([
+        $kontak = Kontak::create([
             'latitude' => -6.2500000,
             'longitude' => 106.8500000,
             'status' => true,
-        ])->storeTranslations([
+        ]);
+
+        $kontak->storeTranslations([
             'id' => [
-                'judul' => 'Hubungi Kami',
-                'deskripsi' => 'Mari terhubung dan berkolaborasi untuk memajukan perfilman Indonesia.',
-                'alamat' => 'Gedung Film, Jl. M.T. Haryono Kav. 47-48, Jakarta Selatan 12770',
+                'judul' => 'HUBUNGI KAMI',
             ],
             'en' => [
-                'judul' => 'Contact Us',
-                'deskripsi' => 'Let us connect and collaborate to advance Indonesian cinema.',
-                'alamat' => 'Film Building, Jl. M.T. Haryono Kav. 47-48, South Jakarta 12770',
+                'judul' => 'CONTACT US',
             ],
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | KONTAK SOCIAL MEDIA, EMAIL, PHONE
-        |--------------------------------------------------------------------------
-        */
+        $socialMediaData = [
+            ['platform' => 'instagram', 'username' => '@bpi.indonesia', 'url' => 'https://instagram.com/bpi.indonesia', 'urutan' => 1],
+            ['platform' => 'youtube', 'username' => 'bpitv', 'url' => 'https://youtube.com/@bpitv', 'urutan' => 2],
+            ['platform' => 'facebook', 'username' => 'bpindonesia', 'url' => 'https://facebook.com/bpindonesia', 'urutan' => 3],
+            ['platform' => 'linkedin', 'username' => 'bpiindonesia', 'url' => 'https://linkedin.com/company/bpiindonesia', 'urutan' => 4],
+        ];
 
-        $kontak = Kontak::first();
+        foreach ($socialMediaData as $sm) {
+            KontakSocialMedia::create([
+                'kontak_id' => $kontak->id,
+                'platform' => $sm['platform'],
+                'username' => $sm['username'],
+                'url' => $sm['url'],
+                'urutan' => $sm['urutan'],
+                'status' => true,
+            ]);
+        }
 
-        if ($kontak) {
-            $socialMediaData = [
-                ['platform' => 'instagram', 'username' => '@bpi.indonesia', 'url' => 'https://instagram.com/bpi.indonesia', 'urutan' => 1],
-                ['platform' => 'youtube', 'username' => 'bpitv', 'url' => 'https://youtube.com/@bpitv', 'urutan' => 2],
-                ['platform' => 'facebook', 'username' => 'bpindonesia', 'url' => 'https://facebook.com/bpindonesia', 'urutan' => 3],
-                ['platform' => 'linkedin', 'username' => 'bpiindonesia', 'url' => 'https://linkedin.com/company/bpiindonesia', 'urutan' => 4],
-            ];
+        $emailData = [
+            ['email' => 'info@bpi.or.id', 'description' => 'Respon cepat untuk pertanyaan resmi dan kerjasama.', 'url' => 'mailto:info@bpi.or.id', 'urutan' => 1],
+        ];
 
-            foreach ($socialMediaData as $sm) {
-                KontakSocialMedia::create([
-                    'kontak_id' => $kontak->id,
-                    'platform' => $sm['platform'],
-                    'username' => $sm['username'],
-                    'url' => $sm['url'],
-                    'urutan' => $sm['urutan'],
-                    'status' => true,
-                ]);
-            }
+        foreach ($emailData as $em) {
+            KontakEmail::create([
+                'kontak_id' => $kontak->id,
+                'email' => $em['email'],
+                'description' => $em['description'],
+                'url' => $em['url'],
+                'urutan' => $em['urutan'],
+                'status' => true,
+            ]);
+        }
 
-            $emailData = [
-                ['email' => 'info@bpi.or.id', 'description' => 'Respon cepat untuk pertanyaan resmi dan kerjasama.', 'url' => 'mailto:info@bpi.or.id', 'urutan' => 1],
-            ];
+        $phoneData = [
+            ['number' => '+62 878 3992 0990', 'type' => 'whatsapp', 'url' => 'https://wa.me/6287839920990', 'urutan' => 1],
+            ['number' => '+62 878 3991 0991', 'type' => 'phone', 'url' => 'tel:+6287839910991', 'urutan' => 2],
+        ];
 
-            foreach ($emailData as $em) {
-                KontakEmail::create([
-                    'kontak_id' => $kontak->id,
-                    'email' => $em['email'],
-                    'description' => $em['description'],
-                    'url' => $em['url'],
-                    'urutan' => $em['urutan'],
-                    'status' => true,
-                ]);
-            }
-
-            $phoneData = [
-                ['number' => '+62 878 3992 0990', 'type' => 'whatsapp', 'url' => 'https://wa.me/6287839920990', 'urutan' => 1],
-                ['number' => '+62 878 3991 0991', 'type' => 'whatsapp', 'url' => 'https://wa.me/6287839910991', 'urutan' => 2],
-            ];
-
-            foreach ($phoneData as $ph) {
-                KontakPhone::create([
-                    'kontak_id' => $kontak->id,
-                    'number' => $ph['number'],
-                    'type' => $ph['type'],
-                    'url' => $ph['url'],
-                    'urutan' => $ph['urutan'],
-                    'status' => true,
-                ]);
-            }
+        foreach ($phoneData as $ph) {
+            KontakPhone::create([
+                'kontak_id' => $kontak->id,
+                'number' => $ph['number'],
+                'type' => $ph['type'],
+                'url' => $ph['url'],
+                'urutan' => $ph['urutan'],
+                'status' => true,
+            ]);
         }
 
         /*
         |--------------------------------------------------------------------------
-        | MENU
+        | 20. MENU
         |--------------------------------------------------------------------------
         */
 
@@ -1495,6 +1747,7 @@ class DatabaseSeeder extends Seeder
             ['slug' => 'mitra', 'url' => '/mitra', 'urutan' => 5, 'nama_id' => 'Mitra', 'nama_en' => 'Partners'],
             ['slug' => 'berita', 'url' => '/berita', 'urutan' => 6, 'nama_id' => 'Berita', 'nama_en' => 'News'],
             ['slug' => 'tentang', 'url' => '/tentang', 'urutan' => 7, 'nama_id' => 'Tentang', 'nama_en' => 'About'],
+            ['slug' => 'kontak', 'url' => '/kontak', 'urutan' => 8, 'nama_id' => 'Kontak', 'nama_en' => 'Contact'],
         ];
 
         foreach ($menus as $menu) {
@@ -1511,7 +1764,7 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | FOOTER
+        | 21. FOOTER
         |--------------------------------------------------------------------------
         */
 

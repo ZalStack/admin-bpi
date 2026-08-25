@@ -19,7 +19,7 @@ $value = old($errorKey, $item?->translationFor($kode)?->{$field} ?? '');
         <span class="text-xs font-normal text-gray-400">({{ strtoupper($kode) }})</span>
     </label>
     <input type="{{ $type }}" name="translations[{{ $kode }}][{{ $field }}]" value="{{ $value }}"
-        placeholder="{{ $placeholder }}" @if ($required) required @endif class="form-input">
+        placeholder="{{ $placeholder }}" class="form-input">
     @error($errorKey)
         <p class="form-error">{{ $message }}</p>
     @enderror

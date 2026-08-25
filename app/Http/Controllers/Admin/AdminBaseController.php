@@ -52,8 +52,14 @@ abstract class AdminBaseController extends Controller
 
     public function index()
     {
+        $instance = new $this->model;
+        $orderCol = $this->indexOrderColumn;
+        if (! \Illuminate\Support\Facades\Schema::hasColumn($instance->getTable(), $orderCol)) {
+            $orderCol = $instance->getKeyName() ?? 'id';
+        }
+
         $items = $this->model::query()
-            ->orderBy($this->indexOrderColumn, $this->indexOrderDirection)
+            ->orderBy($orderCol, $this->indexOrderDirection)
             ->get();
 
         return view($this->viewPrefix.'.index', $this->viewData(['items' => $items]));
@@ -69,7 +75,7 @@ abstract class AdminBaseController extends Controller
         $validated = $request->validate($this->buildValidationRules(false));
 
         $item = $this->model::create(array_merge(
-            $this->neutralData($validated),
+            $this->neutralData($validated, $request),
             $this->extraData($request, true),
             $this->uploadedImage($request)
         ));
@@ -96,7 +102,7 @@ abstract class AdminBaseController extends Controller
         $validated = $request->validate($this->buildValidationRules(true));
 
         $item->update(array_merge(
-            $this->neutralData($validated),
+            $this->neutralData($validated, $request),
             $this->extraData($request, false),
             $this->uploadedImage($request, $item)
         ));
@@ -216,12 +222,19 @@ abstract class AdminBaseController extends Controller
     /**
      * Buang translations & file dari payload field netral.
      */
-    protected function neutralData(array $validated): array
+    protected function neutralData(array $validated, ?Request $request = null): array
     {
         unset($validated['translations']);
 
         if ($this->imageField) {
             unset($validated[$this->imageField]);
+        }
+
+        if ($request && (array_key_exists('status', $this->validationRules) || array_key_exists('status', $this->updateValidationRules))) {
+            $rule = (string) ($this->validationRules['status'] ?? $this->updateValidationRules['status'] ?? '');
+            if (str_contains($rule, 'boolean')) {
+                $validated['status'] = $request->boolean('status');
+            }
         }
 
         return $validated;

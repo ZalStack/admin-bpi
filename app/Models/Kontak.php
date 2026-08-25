@@ -22,18 +22,33 @@ class Kontak extends Model
         'status' => 'boolean',
     ];
 
+    public function social_media()
+    {
+        return $this->hasMany(KontakSocialMedia::class, 'kontak_id')->orderBy('urutan');
+    }
+
     public function socialMedia()
     {
-        return $this->hasMany(KontakSocialMedia::class, 'kontak_id');
+        return $this->social_media();
+    }
+
+    public function email()
+    {
+        return $this->hasMany(KontakEmail::class, 'kontak_id')->orderBy('urutan');
     }
 
     public function emails()
     {
-        return $this->hasMany(KontakEmail::class, 'kontak_id');
+        return $this->email();
+    }
+
+    public function phone()
+    {
+        return $this->hasMany(KontakPhone::class, 'kontak_id')->orderBy('urutan');
     }
 
     public function phones()
     {
-        return $this->hasMany(KontakPhone::class, 'kontak_id');
+        return $this->phone();
     }
 }

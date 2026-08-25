@@ -22,4 +22,19 @@ class BannerApiController extends BaseApiController
         'judul' => 'required|string|max:255',
         'deskripsi' => 'required|string',
     ];
+
+    public function getByHalaman($halaman)
+    {
+        $resource = $this->model::query()
+            ->with($this->withRelations)
+            ->where('halaman', $halaman)
+            ->where('status', true)
+            ->first();
+
+        if (! $resource) {
+            return $this->notFoundResponse("Banner for halaman '{$halaman}' not found");
+        }
+
+        return $this->successResponse($resource);
+    }
 }

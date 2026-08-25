@@ -14,6 +14,8 @@ class BeritaGaleriTranslation extends Model
     protected $fillable = [
         'berita_galeri_id',
         'bahasa',
+        'judul',
+        'deskripsi',
         'caption',
     ];
 }

@@ -24,6 +24,15 @@ class Berita extends Model
         'tanggal_publikasi' => 'date:Y-m-d',
     ];
 
+    protected $appends = [
+        'gambar_utama_url',
+    ];
+
+    public function getGambarUtamaUrlAttribute(): ?string
+    {
+        return $this->gambar_utama ? asset('storage/berita/' . $this->gambar_utama) : null;
+    }
+
     public function galeri()
     {
         return $this->hasMany(BeritaGaleri::class, 'berita_id');
@@ -31,6 +40,6 @@ class Berita extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'berita_tag', 'berita_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'berita_tag', 'berita_id', 'tag_id')->withPivot('id');
     }
 }

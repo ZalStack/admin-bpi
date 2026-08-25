@@ -22,7 +22,7 @@
                 <span>Edit</span>
             </nav>
             <h1 class="page-title">Edit Galeri</h1>
-            <p class="page-subtitle">Proyek: {{ $berita->translateField('judul') }}</p>
+            <p class="page-subtitle">Berita: {{ $berita->translateField('judul') }}</p>
         </div>
         <a href="{{ route('admin.berita.galeri.index', $berita->id) }}" class="btn-outline">Kembali</a>
     </div>

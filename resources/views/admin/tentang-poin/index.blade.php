@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tentang Poin')
+@section('title', 'Poin Visi & Misi')
 
 @section('content')
 <div>
@@ -11,10 +11,10 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Tentang Poin</span>
+                <span>Poin Visi & Misi</span>
             </nav>
-            <h1 class="page-title">Tentang Poin</h1>
-            <p class="page-subtitle">Kelola poin-poin tentang</p>
+            <h1 class="page-title">Poin Visi & Misi</h1>
+            <p class="page-subtitle">Kelola kartu pilar Visi dan kartu Misi yang tampil di halaman Tentang ({{ strtoupper(\App\Models\Bahasa::defaultKode()) }} ditampilkan)</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#97763A] ring-1 ring-[#97763A]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#97763A]"></span>
                 {{ $items->count() }} Data
@@ -24,7 +24,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Tambah Poin
+            Tambah Poin Visi / Misi
         </a>
     </div>
 
@@ -33,8 +33,8 @@
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <h3 class="empty-title">Belum ada data poin</h3>
-            <p class="empty-desc">Mulai dengan menambahkan poin baru.</p>
+            <h3 class="empty-title">Belum ada data poin visi & misi</h3>
+            <p class="empty-desc">Mulai dengan menambahkan poin pilar visi atau misi baru.</p>
         </div>
     @else
         <div class="table-container">
@@ -42,9 +42,9 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
+                            <th class="th">Kategori</th>
                             <th class="th">Urutan</th>
                             <th class="th">Judul</th>
-                            <th class="th hidden md:table-cell">Tentang</th>
                             <th class="th hidden md:table-cell">Icon</th>
                             <th class="th hidden md:table-cell">Status</th>
                             <th class="th text-right">Aksi</th>
@@ -53,12 +53,18 @@
                     <tbody class="tbody">
                         @foreach($items as $item)
                             <tr class="tr-hover">
-                                <td class="td text-sm text-gray-500">{{ $item->urutan }}</td>
-                                <td class="td font-medium text-gray-800">{{ Str::limit($item->translateField('judul'), 30) }}</td>
-                                <td class="td hidden md:table-cell">
-                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">{{ $item->tentang?->translateField('section') ?: '-' }}</span>
+                                <td class="td">
+                                    @if(strtolower($item->tentang?->section) === 'visi')
+                                        <span class="inline-flex items-center rounded-lg bg-[#244E96]/[0.12] px-2.5 py-1 text-xs font-bold text-[#244E96]">Pilar Visi</span>
+                                    @elseif(strtolower($item->tentang?->section) === 'misi')
+                                        <span class="inline-flex items-center rounded-lg bg-[#775A19]/[0.12] px-2.5 py-1 text-xs font-bold text-[#775A19]">Kartu Misi</span>
+                                    @else
+                                        <span class="inline-flex items-center rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-600">{{ $item->tentang?->section ?: '-' }}</span>
+                                    @endif
                                 </td>
-                                <td class="td hidden md:table-cell text-sm text-gray-500">{{ $item->icon ?: '-' }}</td>
+                                <td class="td text-sm text-gray-500 font-bold">{{ $item->urutan }}</td>
+                                <td class="td font-medium text-gray-800">{{ Str::limit($item->translateField('judul'), 35) }}</td>
+                                <td class="td hidden md:table-cell text-sm text-gray-500 font-mono text-xs">{{ $item->icon ?: '-' }}</td>
                                 <td class="td hidden md:table-cell">
                                     <button onclick="toggleStatus('tentang-poin', {{ $item->id }})" class="{{ $item->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
                                         <span class="h-1.5 w-1.5 rounded-full bg-current"></span>

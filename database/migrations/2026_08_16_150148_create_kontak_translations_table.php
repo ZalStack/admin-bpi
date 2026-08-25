@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('kontak_id')->constrained('kontak')->cascadeOnDelete();
             $table->string('bahasa', 5);
             $table->string('judul', 255);
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->text('alamat')->nullable();
             $table->timestamps();
 
