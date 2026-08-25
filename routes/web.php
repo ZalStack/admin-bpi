@@ -173,6 +173,37 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/api-documentation', [ApiDocumentationController::class, 'index'])
         ->name('admin.api-documentation.index');
 
+    // Tool Maintenance Server (Akses via browser jika server hosting tidak memiliki terminal / SSH)
+    Route::get('/admin/maintenance/storage-link', function () {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('storage:link');
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Symlink storage berhasil dibuat: ' . \Illuminate\Support\Facades\Artisan::output()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    })->name('admin.maintenance.storage-link');
+
+    Route::get('/admin/maintenance/clear-cache', function () {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Cache aplikasi berhasil dibersihkan: ' . \Illuminate\Support\Facades\Artisan::output()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    })->name('admin.maintenance.clear-cache');
+
 });
 
 // Redirect root to login
