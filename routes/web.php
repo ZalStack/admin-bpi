@@ -49,8 +49,11 @@ Route::middleware('auth')->group(function () {
     // Language switcher
     Route::get('/switch-lang/{locale}', [BahasaController::class, 'switchLang'])->name('switch.lang');
 
-    // Admin routes
-    Route::prefix('admin')
+    // =========================================================================
+    // Super Admin & Admin routes (semua content management kecuali berita)
+    // =========================================================================
+    Route::middleware('role:super_admin|admin')
+        ->prefix('admin')
         ->name('admin.')
         ->group(function () {
             // Banner
@@ -72,6 +75,10 @@ Route::middleware('auth')->group(function () {
             // Program Roadmap
             Route::resource('program-roadmap', ProgramRoadmapController::class);
             Route::post('/program-roadmap/{id}/toggle-status', [ProgramRoadmapController::class, 'toggleStatus'])->name('program-roadmap.toggle-status');
+
+            // Program Poin
+            Route::resource('program-poin', ProgramPoinController::class);
+            Route::post('/program-poin/{id}/toggle-status', [ProgramPoinController::class, 'toggleStatus'])->name('program-poin.toggle-status');
 
             // Proyek
             Route::resource('proyek', ProyekController::class);
@@ -101,26 +108,6 @@ Route::middleware('auth')->group(function () {
             // Mitra Intro
             Route::resource('mitra-intro', MitraIntroController::class);
 
-            // Berita
-            Route::resource('berita', BeritaController::class);
-            Route::post('/berita/{id}/toggle-status', [BeritaController::class, 'toggleStatus'])->name('berita.toggle-status');
-
-            // Kategori Berita
-            Route::resource('kategori-berita', KategoriBeritaController::class);
-
-            // Berita Galeri
-            Route::prefix('berita/{berita_id}/galeri')
-                ->name('berita.galeri.')
-                ->group(function () {
-                    Route::get('/', [BeritaGaleriController::class, 'index'])->name('index');
-                    Route::get('/create', [BeritaGaleriController::class, 'create'])->name('create');
-                    Route::post('/', [BeritaGaleriController::class, 'store'])->name('store');
-                    Route::get('/{id}/edit', [BeritaGaleriController::class, 'edit'])->name('edit');
-                    Route::put('/{id}', [BeritaGaleriController::class, 'update'])->name('update');
-                    Route::delete('/{id}', [BeritaGaleriController::class, 'destroy'])->name('destroy');
-                    Route::post('/{id}/toggle-status', [BeritaGaleriController::class, 'toggleStatus'])->name('toggle-status');
-                });
-
             // Tentang
             Route::resource('tentang', TentangController::class);
             Route::post('/tentang/{id}/toggle-status', [TentangController::class, 'toggleStatus'])->name('tentang.toggle-status');
@@ -129,23 +116,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('tentang-poin', TentangPoinController::class);
             Route::post('/tentang-poin/{id}/toggle-status', [TentangPoinController::class, 'toggleStatus'])->name('tentang-poin.toggle-status');
 
-            // Program Poin
-            Route::resource('program-poin', ProgramPoinController::class);
-            Route::post('/program-poin/{id}/toggle-status', [ProgramPoinController::class, 'toggleStatus'])->name('program-poin.toggle-status');
-
-            // Tag
-            Route::resource('tag', TagController::class);
-            Route::post('/tag/{id}/toggle-status', [TagController::class, 'toggleStatus'])->name('tag.toggle-status');
-
-            // Bahasa
-            Route::get('bahasa', [BahasaController::class, 'index'])->name('bahasa.index');
-            Route::post('bahasa', [BahasaController::class, 'store'])->name('bahasa.store');
-            Route::put('bahasa/{kode}', [BahasaController::class, 'update'])->name('bahasa.update');
-            Route::patch('bahasa/{kode}/set-default', [BahasaController::class, 'setDefault'])->name('bahasa.set-default');
-            Route::patch('bahasa/{kode}/toggle-status', [BahasaController::class, 'toggleStatus'])->name('bahasa.toggle-status');
-            Route::delete('bahasa/{kode}', [BahasaController::class, 'destroy'])->name('bahasa.destroy');
-
-            // Tambahkan di dalam group admin routes
             // Struktur Organisasi
             Route::resource('struktur', StrukturOrganisasiController::class);
             Route::post('/struktur/{id}/toggle-status', [StrukturOrganisasiController::class, 'toggleStatus'])->name('struktur.toggle-status');
@@ -167,43 +137,90 @@ Route::middleware('auth')->group(function () {
             // Footer
             Route::resource('footer', FooterController::class);
             Route::post('/footer/{id}/toggle-status', [FooterController::class, 'toggleStatus'])->name('footer.toggle-status');
+
+            // Bahasa
+            Route::get('bahasa', [BahasaController::class, 'index'])->name('bahasa.index');
+            Route::post('bahasa', [BahasaController::class, 'store'])->name('bahasa.store');
+            Route::put('bahasa/{kode}', [BahasaController::class, 'update'])->name('bahasa.update');
+            Route::patch('bahasa/{kode}/set-default', [BahasaController::class, 'setDefault'])->name('bahasa.set-default');
+            Route::patch('bahasa/{kode}/toggle-status', [BahasaController::class, 'toggleStatus'])->name('bahasa.toggle-status');
+            Route::delete('bahasa/{kode}', [BahasaController::class, 'destroy'])->name('bahasa.destroy');
         });
 
-    // Dokumentasi API hanya untuk admin yang login
-    Route::get('/admin/api-documentation', [ApiDocumentationController::class, 'index'])
-        ->name('admin.api-documentation.index');
+    // =========================================================================
+    // Berita routes — Super Admin, Admin & Editor
+    // =========================================================================
+    Route::middleware('role:super_admin|admin|editor')
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+            // Berita
+            Route::resource('berita', BeritaController::class);
+            Route::post('/berita/{id}/toggle-status', [BeritaController::class, 'toggleStatus'])->name('berita.toggle-status');
 
-    // Tool Maintenance Server (Akses via browser jika server hosting tidak memiliki terminal / SSH)
-    Route::get('/admin/maintenance/storage-link', function () {
-        try {
-            \Illuminate\Support\Facades\Artisan::call('storage:link');
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Symlink storage berhasil dibuat: ' . \Illuminate\Support\Facades\Artisan::output()
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
-    })->name('admin.maintenance.storage-link');
+            // Kategori Berita
+            Route::resource('kategori-berita', KategoriBeritaController::class);
 
-    Route::get('/admin/maintenance/clear-cache', function () {
-        try {
-            \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Cache aplikasi berhasil dibersihkan: ' . \Illuminate\Support\Facades\Artisan::output()
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
-    })->name('admin.maintenance.clear-cache');
+            // Berita Galeri
+            Route::prefix('berita/{berita_id}/galeri')
+                ->name('berita.galeri.')
+                ->group(function () {
+                    Route::get('/', [BeritaGaleriController::class, 'index'])->name('index');
+                    Route::get('/create', [BeritaGaleriController::class, 'create'])->name('create');
+                    Route::post('/', [BeritaGaleriController::class, 'store'])->name('store');
+                    Route::get('/{id}/edit', [BeritaGaleriController::class, 'edit'])->name('edit');
+                    Route::put('/{id}', [BeritaGaleriController::class, 'update'])->name('update');
+                    Route::delete('/{id}', [BeritaGaleriController::class, 'destroy'])->name('destroy');
+                    Route::post('/{id}/toggle-status', [BeritaGaleriController::class, 'toggleStatus'])->name('toggle-status');
+                });
 
+            // Tag
+            Route::resource('tag', TagController::class);
+            Route::post('/tag/{id}/toggle-status', [TagController::class, 'toggleStatus'])->name('tag.toggle-status');
+        });
+
+    // =========================================================================
+    // Super Admin only routes
+    // =========================================================================
+    Route::middleware('role:super_admin')
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+            // API Documentation
+            Route::get('api-documentation', [ApiDocumentationController::class, 'index'])
+                ->name('api-documentation.index');
+
+            // Maintenance routes
+            Route::get('maintenance/storage-link', function () {
+                try {
+                    \Illuminate\Support\Facades\Artisan::call('storage:link');
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Symlink storage berhasil dibuat: ' . \Illuminate\Support\Facades\Artisan::output()
+                    ]);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => $e->getMessage()
+                    ], 500);
+                }
+            })->name('maintenance.storage-link');
+
+            Route::get('maintenance/clear-cache', function () {
+                try {
+                    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Cache aplikasi berhasil dibersihkan: ' . \Illuminate\Support\Facades\Artisan::output()
+                    ]);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => $e->getMessage()
+                    ], 500);
+                }
+            })->name('maintenance.clear-cache');
+        });
 });
 
 // Redirect root to login

@@ -30,7 +30,10 @@
                         </a>
                     </li>
 
-                    <!-- Group: Content -->
+                    {{-- ================================================================== --}}
+                    {{-- Content Manager — Super Admin & Admin --}}
+                    {{-- ================================================================== --}}
+                    @role('super_admin|admin')
                     <li class="pt-4">
                         <p class="px-2.5 pb-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#5876B0]">Content Manager</p>
                     </li>
@@ -78,12 +81,6 @@
                                 'route' => 'admin.proyek.index',
                                 'active' => 'admin.proyek.*',
                                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>'
-                            ],
-                            [
-                                'label' => 'Berita',
-                                'route' => 'admin.berita.index',
-                                'active' => ['admin.berita.*', 'admin.kategori-berita.*', 'admin.tag.*'],
-                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>'
                             ],
                             [
                                 'label' => 'Struktur Organisasi',
@@ -147,9 +144,49 @@
                             <span class="ms-3 font-poppins">Pengaturan Bahasa</span>
                         </a>
                     </li>
+                    @endrole
+
+                    {{-- ================================================================== --}}
+                    {{-- Berita — Super Admin, Admin & Editor --}}
+                    {{-- ================================================================== --}}
+                    @role('super_admin|admin|editor')
+                    @if(! Auth::user()->hasAnyRole(['super_admin', 'admin']))
+                    <li class="pt-4">
+                        <p class="px-2.5 pb-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#5876B0]">Content Manager</p>
+                    </li>
+                    @endif
+
+                    @php
+                        $beritaItems = [
+                            [
+                                'label' => 'Berita',
+                                'route' => 'admin.berita.index',
+                                'active' => ['admin.berita.*', 'admin.kategori-berita.*', 'admin.tag.*'],
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>'
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach($beritaItems as $item)
+                        <li>
+                            <a href="{{ route($item['route']) }}" @click="isOpen = false"
+                               class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs($item['active']) ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
+                                @if(request()->routeIs($item['active']))
+                                    <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
+                                @endif
+                                <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    {!! $item['icon'] !!}
+                                </svg>
+                                <span class="ms-3 font-poppins">{{ $item['label'] }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                    @endrole
+
                     @endauth
 
-                    <!-- API Documentation -->
+                    <!-- API Documentation — Super Admin only -->
+                    @role('super_admin')
                     <li>
                         <a href="{{ route('admin.api-documentation.index') }}" @click="isOpen = false"
                            class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs('admin.api-documentation.*') ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
@@ -162,6 +199,7 @@
                             <span class="ms-3 font-poppins">API Documentation</span>
                         </a>
                     </li>
+                    @endrole
 
                     @auth
                     <!-- Group: Account -->
@@ -217,7 +255,17 @@
                     </div>
                     <div class="min-w-0">
                         <p class="truncate text-sm font-semibold text-white">{{ Auth::user()->name }}</p>
-                        <p class="truncate text-xs text-[#5876B0]">Administrator</p>
+                        <p class="truncate text-xs text-[#5876B0]">
+                            @if(Auth::user()->hasRole('super_admin'))
+                                Super Admin
+                            @elseif(Auth::user()->hasRole('admin'))
+                                Admin
+                            @elseif(Auth::user()->hasRole('editor'))
+                                Editor
+                            @else
+                                User
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
