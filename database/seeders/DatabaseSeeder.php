@@ -190,27 +190,10 @@ class DatabaseSeeder extends Seeder
 
         $this->seedMany(Beranda::class, [
             [
-                'section' => 'hero',
-                'gambar' => null,
-                'icon' => null,
-                'urutan' => 1,
-                'status' => true,
-                'translations' => [
-                    'id' => [
-                        'judul' => 'Menjaga, Memfokuskan, dan Mendorong Perfilman Indonesia',
-                        'deskripsi' => 'BPI menghubungkan lebih dari 50 asosiasi profesi dan seluruh insan kreatif perfilman Indonesia untuk bergerak bersama menuju industri yang inklusif, sehat, dan berdaya saing global.',
-                    ],
-                    'en' => [
-                        'judul' => 'Strengthening, Focusing, and Advancing Indonesian Cinema',
-                        'deskripsi' => 'BPI connects more than 50 professional associations and creative people in the Indonesian film industry to move together toward an inclusive, healthy, and globally competitive industry.',
-                    ],
-                ],
-            ],
-            [
                 'section' => 'tentang',
                 'gambar' => null,
                 'icon' => null,
-                'urutan' => 2,
+                'urutan' => 1,
                 'status' => true,
                 'translations' => [
                     'id' => [
@@ -227,7 +210,7 @@ class DatabaseSeeder extends Seeder
                 'section' => 'struktur',
                 'gambar' => null,
                 'icon' => 'fa-solid fa-users',
-                'urutan' => 3,
+                'urutan' => 2,
                 'status' => true,
                 'translations' => [
                     'id' => [
@@ -244,7 +227,7 @@ class DatabaseSeeder extends Seeder
                 'section' => 'proyek',
                 'gambar' => null,
                 'icon' => 'fa-solid fa-film',
-                'urutan' => 4,
+                'urutan' => 3,
                 'status' => true,
                 'translations' => [
                     'id' => [
@@ -261,7 +244,7 @@ class DatabaseSeeder extends Seeder
                 'section' => 'program',
                 'gambar' => null,
                 'icon' => 'fa-solid fa-chart-line',
-                'urutan' => 5,
+                'urutan' => 4,
                 'status' => true,
                 'translations' => [
                     'id' => [
@@ -278,7 +261,7 @@ class DatabaseSeeder extends Seeder
                 'section' => 'berita',
                 'gambar' => null,
                 'icon' => 'fa-solid fa-newspaper',
-                'urutan' => 6,
+                'urutan' => 5,
                 'status' => true,
                 'translations' => [
                     'id' => [
@@ -295,7 +278,7 @@ class DatabaseSeeder extends Seeder
                 'section' => 'mitra',
                 'gambar' => null,
                 'icon' => 'fa-solid fa-handshake',
-                'urutan' => 7,
+                'urutan' => 6,
                 'status' => true,
                 'translations' => [
                     'id' => [

@@ -47,7 +47,7 @@ class ApiDocumentationController extends Controller
                     ['method' => 'POST', 'path' => 'beranda', 'desc' => 'Membuat konten beranda baru'],
                     ['method' => 'GET', 'path' => 'beranda/active', 'desc' => 'Konten beranda dengan status aktif'],
                     ['method' => 'PUT', 'path' => 'beranda/update-urutan', 'desc' => 'Update urutan tampil konten beranda'],
-                    ['method' => 'GET', 'path' => 'beranda/section/{section}', 'desc' => 'Konten beranda berdasarkan section (hero, about, dll.)'],
+                    ['method' => 'GET', 'path' => 'beranda/section/{section}', 'desc' => 'Konten beranda berdasarkan section (tentang, struktur, dll.)'],
                     ['method' => 'GET', 'path' => 'beranda/{id}', 'desc' => 'Detail konten beranda berdasarkan ID'],
                     ['method' => 'PUT', 'path' => 'beranda/{id}', 'desc' => 'Memperbarui konten beranda'],
                     ['method' => 'PATCH', 'path' => 'beranda/{id}/toggle-status', 'desc' => 'Aktif / nonaktifkan konten beranda'],
