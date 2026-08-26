@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 
 trait CrudOperationsTrait
@@ -11,7 +13,7 @@ trait CrudOperationsTrait
     /**
      * Get all resources
      */
-    protected function getAll(string $model, array $with = [], array $orderBy = ['created_at' => 'desc'])
+    protected function getAll(string $model, array $with = [], array $orderBy = ['created_at' => 'desc']): JsonResponse
     {
         $query = $model::query();
 
@@ -24,6 +26,50 @@ trait CrudOperationsTrait
         }
 
         return $this->successResponse($query->get());
+    }
+
+    /**
+     * Get all resources with pagination support.
+     * Supports ?page=1&per_page=15 query parameters.
+     */
+    protected function getAllPaginated(string $model, array $with = [], array $orderBy = ['created_at' => 'desc'], ?int $defaultPerPage = 15): JsonResponse
+    {
+        $query = $model::query();
+
+        if (! empty($with)) {
+            $query->with($with);
+        }
+
+        foreach ($orderBy as $column => $direction) {
+            $query->orderBy($column, $direction);
+        }
+
+        $perPage = (int) request()->input('per_page', $defaultPerPage);
+        $perPage = max(1, min($perPage, 100));
+
+        $paginator = $query->paginate($perPage);
+
+        return $this->successResponse([
+            'items' => $paginator->items(),
+            'pagination' => [
+                'total' => $paginator->total(),
+                'per_page' => $paginator->perPage(),
+                'current_page' => $paginator->currentPage(),
+                'last_page' => $paginator->lastPage(),
+                'has_more_pages' => $paginator->hasMorePages(),
+            ],
+        ]);
+    }
+
+    /**
+     * Get cached query result. Perfect for list endpoints that don't change frequently.
+     * Cache is automatically invalidated when data is modified.
+     */
+    protected function getCachedQuery(string $cacheKey, callable $callback, int $ttl = 300): JsonResponse
+    {
+        $data = cache()->remember($cacheKey, $ttl, $callback);
+
+        return $this->successResponse($data);
     }
 
     /**

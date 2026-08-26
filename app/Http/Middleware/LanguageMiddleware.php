@@ -14,8 +14,8 @@ class LanguageMiddleware
     {
         $locale = Session::get('locale');
 
-        if (! $locale || ! Bahasa::query()->where('kode', $locale)->where('aktif', true)->exists()) {
-            $locale = Bahasa::defaultKode();
+        if (! $locale || ! Bahasa::isValidKodeCached($locale)) {
+            $locale = Bahasa::defaultKodeCached();
             Session::put('locale', $locale);
         }
 
