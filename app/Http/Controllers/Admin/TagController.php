@@ -12,6 +12,8 @@ class TagController extends AdminBaseController
 
     protected string $routeName = 'admin.tag';
 
+    protected string $label = 'Tag';
+
     protected string $indexOrderColumn = 'id';
 
     protected string $indexOrderDirection = 'asc';
