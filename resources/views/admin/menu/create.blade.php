@@ -30,20 +30,63 @@
 
     <div class="form-card">
         <form action="{{ route('admin.menu.store') }}" method="POST"
-            x-data="{ lang: @js($bahasas->first()?->kode) }">
+            x-data="{ 
+                lang: @js($bahasas->first()?->kode),
+                selectedPage: '{{ old('selected_page', '') }}',
+                url: '{{ old('url', '') }}',
+                isCustom: false,
+                init() {
+                    const presets = ['/', '/stakeholders', '/program', '/proyek', '/mitra', '/berita', '/tentang', '/kontak'];
+                    if (this.url && !presets.includes(this.url)) {
+                        this.selectedPage = 'custom';
+                        this.isCustom = true;
+                    } else if (this.url) {
+                        this.selectedPage = this.url;
+                    }
+                },
+                onSelectPage() {
+                    if (this.selectedPage === 'custom') {
+                        this.isCustom = true;
+                        this.url = '';
+                    } else {
+                        this.isCustom = false;
+                        this.url = this.selectedPage;
+                    }
+                }
+            }">
             @csrf
 
-            <div class="input-group">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="url" class="form-label">URL</label>
-                    <input type="text" name="url" id="url" value="{{ old('url') }}" class="form-input" placeholder="/tentang">
-                    @error('url')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
+                    <label for="page_preset" class="form-label">Pilih Halaman Website *</label>
+                    <select id="page_preset" x-model="selectedPage" @change="onSelectPage()" class="form-select">
+                        <option value="" disabled selected>-- Pilih Halaman Website --</option>
+                        <option value="/">🏠 Beranda ( / )</option>
+                        <option value="/stakeholders">👥 Stakeholders ( /stakeholders )</option>
+                        <option value="/program">📊 Program Strategis ( /program )</option>
+                        <option value="/proyek">🎬 Proyek Kolaborasi ( /proyek )</option>
+                        <option value="/mitra">🤝 Mitra ( /mitra )</option>
+                        <option value="/berita">📰 Artikel & Berita ( /berita )</option>
+                        <option value="/tentang">🏛️ Tentang Kami ( /tentang )</option>
+                        <option value="/kontak">📞 Hubungi Kami ( /kontak )</option>
+                        <option value="custom">🔗 Link Kustom / URL Eksternal...</option>
+                    </select>
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan</label>
+                    <label for="url" class="form-label">Data URL Link *</label>
+                    <input type="text" name="url" id="url" x-model="url" :readonly="!isCustom && selectedPage !== ''" class="form-input" :class="{'bg-gray-100 cursor-not-allowed text-gray-600': !isCustom && selectedPage !== '', 'bg-white': isCustom}" placeholder="/halaman-kustom atau https://..." required>
+                    @error('url')
+                        <p class="form-error">{{ $message }}</p>
+                    @enderror
+                    <p class="mt-1 text-xs text-gray-400" x-show="!isCustom && selectedPage !== ''">✅ URL otomatis terisi dan terkunci sesuai halaman website.</p>
+                    <p class="mt-1 text-xs text-amber-600 font-medium" x-show="isCustom">⚠️ Masukkan relative path (misal: /halaman-baru) atau link web luar (misal: https://...).</p>
+                </div>
+            </div>
+
+            <div class="input-group mt-4">
+                <div>
+                    <label for="urutan" class="form-label">Urutan Tampil</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input" min="0">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>

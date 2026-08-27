@@ -36,7 +36,17 @@
             <div class="input-group">
                 <div>
                     <label for="halaman" class="form-label">Halaman *</label>
-                    <input type="text" name="halaman" id="halaman" value="{{ old('halaman') }}" class="form-input" placeholder="cth: Beranda" required>
+                    <select name="halaman" id="halaman" class="form-select" required>
+                        <option value="" disabled {{ old('halaman') ? '' : 'selected' }}>-- Pilih Halaman Website --</option>
+                        <option value="home" {{ old('halaman') == 'home' ? 'selected' : '' }}>🏠 Beranda (home)</option>
+                        <option value="stakeholders" {{ old('halaman') == 'stakeholders' ? 'selected' : '' }}>👥 Stakeholders (stakeholders)</option>
+                        <option value="program" {{ old('halaman') == 'program' ? 'selected' : '' }}>📊 Program Strategis (program)</option>
+                        <option value="proyek" {{ old('halaman') == 'proyek' ? 'selected' : '' }}>🎬 Proyek Kolaborasi (proyek)</option>
+                        <option value="mitra" {{ old('halaman') == 'mitra' ? 'selected' : '' }}>🤝 Mitra (mitra)</option>
+                        <option value="berita" {{ old('halaman') == 'berita' ? 'selected' : '' }}>📰 Artikel & Berita (berita)</option>
+                        <option value="tentang" {{ old('halaman') == 'tentang' ? 'selected' : '' }}>🏛️ Tentang Kami (tentang)</option>
+                        <option value="kontak" {{ old('halaman') == 'kontak' ? 'selected' : '' }}>📞 Hubungi Kami (kontak)</option>
+                    </select>
                     @error('halaman')
                         <p class="form-error">{{ $message }}</p>
                     @enderror

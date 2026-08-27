@@ -50,10 +50,25 @@
                         </tr>
                     </thead>
                     <tbody class="tbody">
+                        @php
+                            $halamanLabels = [
+                                'home' => 'Beranda',
+                                'stakeholders' => 'Stakeholders',
+                                'program' => 'Program Strategis',
+                                'proyek' => 'Proyek Kolaborasi',
+                                'mitra' => 'Mitra',
+                                'berita' => 'Artikel & Berita',
+                                'tentang' => 'Tentang Kami',
+                                'kontak' => 'Hubungi Kami',
+                            ];
+                        @endphp
                         @foreach($items as $item)
                             <tr class="tr-hover">
                                 <td class="td">
-                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">{{ $item->halaman }}</span>
+                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">
+                                        {{ $halamanLabels[$item->halaman] ?? ucfirst($item->halaman) }}
+                                        <span class="ml-1 text-[10px] text-gray-400 font-normal">({{ $item->halaman }})</span>
+                                    </span>
                                 </td>
                                 <td class="td hidden md:table-cell font-medium text-gray-800">{{ Str::limit($item->translateField('judul'), 30) }}</td>
                                 <td class="td hidden lg:table-cell">
