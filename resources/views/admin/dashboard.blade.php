@@ -157,7 +157,6 @@
                         <div class="flex items-center justify-between gap-3 rounded-xl border border-gray-100 bg-gray-50/60 p-3 transition-colors hover:bg-[#2B4E94]/[0.04]">
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium text-gray-800 font-poppins text-sm truncate">{{ Str::limit($proyek->translateField('judul'), 25) }}</p>
-                                <p class="text-xs text-gray-500 font-poppins truncate mt-0.5">{{ $proyek->translateField('kategori') }}</p>
                             </div>
                             <div class="flex items-center gap-2 flex-shrink-0">
                                 <span class="{{ $proyek->status == 'published' ? 'badge-published' : 'badge-draft' }}">{{ $proyek->status == 'published' ? 'Published' : 'Draft' }}</span>

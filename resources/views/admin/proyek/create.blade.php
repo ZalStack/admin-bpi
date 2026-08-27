@@ -239,10 +239,9 @@ $icons = [
                     $req = $bahasa->is_default;
                 @endphp
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-6">
-                    <!-- Judul & Kategori -->
+                    <!-- Judul -->
                     <div class="input-group">
                         <x-trans-input field="judul" label="Judul Proyek" :kode="$bahasa->kode" :required="$req" placeholder="cth: BPI Film Market"/>
-                        <x-trans-input field="kategori" label="Kategori Proyek" :kode="$bahasa->kode" :required="$req" placeholder="cth: Pasar Film"/>
                     </div>
 
                     <!-- Deskripsi Singkat & Lengkap -->

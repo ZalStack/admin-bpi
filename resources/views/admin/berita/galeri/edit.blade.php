@@ -36,9 +36,15 @@
             <div>
                 <label for="gambar" class="form-label">Gambar</label>
                 @if($galeri->gambar)
-                    <div class="mb-3">
+                    <div class="mb-3" x-data="{ deleting: false }">
                         <p class="mb-1.5 text-xs font-medium text-gray-500">Gambar saat ini:</p>
-                        <img src="{{ asset('storage/berita/galeri/'.$galeri->gambar) }}" alt="galeri" class="h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
+                        <div class="flex items-start gap-3">
+                            <img id="current-gambar" src="{{ asset('storage/berita/galeri/'.$galeri->gambar) }}" alt="galeri" class="h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
+                            <button type="button" @click="if(!confirm('Yakin ingin menghapus gambar ini?')) return; deleting=true; fetch('{{ route('admin.image.delete') }}',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-TOKEN':'{{ csrf_token() }}','Accept':'application/json'},body:JSON.stringify({model:'BeritaGaleri',id:{{ $galeri->id }},field:'gambar'})}).then(r=>r.json()).then(d=>{if(d.success){document.getElementById('current-gambar').style.display='none';this.style.display='none';}else{alert(d.message);deleting=false;}}).catch(()=>{alert('Terjadi kesalahan.');deleting=false;})" class="shrink-0 mt-2 inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100 transition-colors" :disabled="deleting">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                <span x-text="deleting ? 'Menghapus...' : 'Hapus Gambar'"></span>
+                            </button>
+                        </div>
                     </div>
                 @endif
                 <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">

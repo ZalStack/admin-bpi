@@ -24,7 +24,7 @@ class Navbar extends Component
             Session::put('locale', $locale);
             $this->currentLocale = $locale;
 
-            return redirect()->route('dashboard');
+            $this->redirect(route('dashboard'));
         }
     }
 

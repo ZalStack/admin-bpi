@@ -120,7 +120,7 @@ $icons = [
                     const newId = 'new_' + Date.now();
                     const translations = {};
                     @foreach($bahasas as $b)
-                        translations['{{ $b->kode }}'] = { judul: '', deskripsi: '' };
+                        translations['{{ $b->kode }}'] = { judul: '' };
                     @endforeach
                     this.poinList.push({
                         id: newId,
@@ -242,10 +242,6 @@ $icons = [
                                     <div>
                                         <label class="form-label text-xs">Judul Sub-Poin ({{ $bahasa->nama }}) <span class="text-rose-500">*</span></label>
                                         <input type="text" :name="`poin[${poin.id}][translations][{{ $bahasa->kode }}][judul]`" x-model="poin.translations['{{ $bahasa->kode }}'].judul" class="form-input text-xs py-2 bg-white" placeholder="cth: Penguatan Skema Insentif" required>
-                                    </div>
-                                    <div>
-                                        <label class="form-label text-xs">Deskripsi Singkat ({{ $bahasa->nama }})</label>
-                                        <input type="text" :name="`poin[${poin.id}][translations][{{ $bahasa->kode }}][deskripsi]`" x-model="poin.translations['{{ $bahasa->kode }}'].deskripsi" class="form-input text-xs py-2 bg-white" placeholder="cth: Fasilitasi insentif fiskal dan non-fiskal perfilman">
                                     </div>
                                 </div>
                             @endforeach

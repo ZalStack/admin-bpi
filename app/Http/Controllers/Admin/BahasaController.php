@@ -28,6 +28,7 @@ class BahasaController extends Controller
         ]);
 
         Bahasa::create($validated + ['is_default' => false]);
+        Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
             ->with('success', "Bahasa '{$validated['nama']}' berhasil ditambahkan");
@@ -48,6 +49,7 @@ class BahasaController extends Controller
         ]);
 
         $bahasa->update($validated);
+        Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
             ->with('success', 'Bahasa berhasil diupdate');
@@ -61,6 +63,7 @@ class BahasaController extends Controller
         $bahasa->update(['is_default' => true, 'aktif' => true]);
 
         Session::put('locale', $bahasa->kode);
+        Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
             ->with('success', "'{$bahasa->nama}' sekarang menjadi bahasa default");
@@ -79,6 +82,7 @@ class BahasaController extends Controller
 
         $bahasa->aktif = ! $bahasa->aktif;
         $bahasa->save();
+        Bahasa::clearCache();
 
         return response()->json(['success' => true]);
     }
@@ -94,6 +98,7 @@ class BahasaController extends Controller
 
         // Semua translations untuk bahasa ini ikut terhapus via FK cascade.
         $bahasa->delete();
+        Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
             ->with('success', "Bahasa '{$bahasa->nama}' beserta semua terjemahannya berhasil dihapus");

@@ -145,6 +145,9 @@ Route::middleware('auth')->group(function () {
             Route::patch('bahasa/{kode}/set-default', [BahasaController::class, 'setDefault'])->name('bahasa.set-default');
             Route::patch('bahasa/{kode}/toggle-status', [BahasaController::class, 'toggleStatus'])->name('bahasa.toggle-status');
             Route::delete('bahasa/{kode}', [BahasaController::class, 'destroy'])->name('bahasa.destroy');
+
+            // Image Delete
+            Route::post('image-delete', [\App\Http\Controllers\Admin\BannerController::class, 'deleteImage'])->name('image.delete');
         });
 
     // =========================================================================

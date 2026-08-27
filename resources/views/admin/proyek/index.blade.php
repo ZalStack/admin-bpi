@@ -44,7 +44,6 @@
                         <tr>
                             <th class="th">#</th>
                             <th class="th">Judul</th>
-                            <th class="th hidden md:table-cell">Kategori</th>
                             <th class="th hidden lg:table-cell">Gambar</th>
                             <th class="th hidden sm:table-cell">Status</th>
                             <th class="th text-right">Aksi</th>
@@ -55,9 +54,6 @@
                             <tr class="tr-hover">
                                 <td class="td text-gray-500">{{ $index + 1 }}</td>
                                 <td class="td font-medium text-gray-900">{{ Str::limit($item->translateField('judul'), 25) }}</td>
-                                <td class="td text-gray-500 hidden md:table-cell">
-                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">{{ Str::limit($item->translateField('kategori'), 15) }}</span>
-                                </td>
                                 <td class="td hidden lg:table-cell">
                                     @if($item->gambar_utama)
                                         <img src="{{ asset('storage/proyek/'.$item->gambar_utama) }}" alt="proyek" class="thumb" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">

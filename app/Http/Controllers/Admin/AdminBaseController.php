@@ -277,6 +277,63 @@ abstract class AdminBaseController extends Controller
     }
 
     /**
+     * AJAX: Hapus gambar dari record tanpa menghapus record itu sendiri.
+     */
+    public function deleteImage(Request $request)
+    {
+        $request->validate([
+            'model' => 'required|string',
+            'id' => 'required|integer',
+            'field' => 'required|string',
+        ]);
+
+        $modelClass = 'App\\Models\\' . $request->input('model');
+        if (! class_exists($modelClass)) {
+            return response()->json(['success' => false, 'message' => 'Model tidak ditemukan.'], 404);
+        }
+
+        $item = $modelClass::find($request->input('id'));
+        if (! $item) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
+        }
+
+        $field = $request->input('field');
+        $filename = $item->{$field} ?? null;
+
+        if (! $filename) {
+            return response()->json(['success' => false, 'message' => 'Tidak ada gambar untuk dihapus.'], 404);
+        }
+
+        $imagePathMap = [
+            'BannerHalaman' => 'banners',
+            'Berita' => 'berita',
+            'BeritaGaleri' => 'berita/galeri',
+            'Mitra' => 'mitra',
+            'MitraIntro' => 'mitra',
+            'Program' => 'program',
+            'ProgramRoadmap' => 'program',
+            'Proyek' => 'proyek',
+            'ProyekGaleri' => 'proyek/galeri',
+            'Stakeholder' => 'stakeholder',
+            'StrukturOrganisasi' => 'struktur',
+            'Tentang' => 'tentang',
+            'Beranda' => 'beranda',
+        ];
+
+        $modelBasename = class_basename($modelClass);
+        $imagePath = $imagePathMap[$modelBasename] ?? null;
+
+        if ($imagePath) {
+            Storage::disk('public')->delete($imagePath . '/' . $filename);
+        }
+
+        $item->{$field} = null;
+        $item->save();
+
+        return response()->json(['success' => true, 'message' => 'Gambar berhasil dihapus.']);
+    }
+
+    /**
      * Data bawaan untuk semua view: daftar bahasa aktif.
      */
     protected function viewData(array $merge = []): array

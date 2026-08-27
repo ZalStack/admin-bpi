@@ -40,4 +40,24 @@ class MitraIntroController extends AdminBaseController
 
         return redirect()->route('admin.mitra-intro.edit', $intro->id);
     }
+
+    public function update(Request $request, $id)
+    {
+        $item = $this->model::query()->findOrFail($id);
+
+        $validated = $request->validate($this->buildValidationRules(true));
+
+        $item->update(array_merge(
+            $this->neutralData($validated, $request),
+            $this->extraData($request, false),
+            $this->uploadedImage($request, $item)
+        ));
+
+        if ($this->usesTranslations() && $request->has('translations')) {
+            $item->storeTranslations((array) $request->input('translations', []));
+        }
+
+        return redirect()->route($this->routeName.'.edit', $item->id)
+            ->with('success', $this->label.' berhasil diupdate');
+    }
 }

@@ -35,7 +35,6 @@ class ProyekApiController extends BaseApiController
 
     protected array $translatableRules = [
         'judul' => 'required|string|max:255',
-        'kategori' => 'required|string|max:255',
         'deskripsi_singkat' => 'required|string',
         'deskripsi' => 'required|string',
         'lokasi' => 'required|string|max:255',
@@ -165,7 +164,6 @@ class ProyekApiController extends BaseApiController
                     'proyek_id' => $t->proyek_id,
                     'bahasa' => $t->bahasa,
                     'judul' => $t->judul,
-                    'kategori' => $t->kategori,
                     'deskripsi_singkat' => $t->deskripsi_singkat,
                     'icon' => $t->icon,
                 ];
@@ -230,7 +228,6 @@ class ProyekApiController extends BaseApiController
                     'proyek_id' => $t->proyek_id,
                     'bahasa' => $t->bahasa,
                     'judul' => $t->judul,
-                    'kategori' => $t->kategori,
                     'deskripsi_singkat' => $t->deskripsi_singkat,
                     'deskripsi' => $t->deskripsi,
                     'lokasi' => $t->lokasi,

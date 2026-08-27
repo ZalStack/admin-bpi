@@ -108,9 +108,9 @@ $icons = [
                     return this.iconList.filter(item => {
                         const matchCategory = this.activeCategory === 'all' || item.category === this.activeCategory;
                         const query = this.searchQuery.toLowerCase().trim();
-                        const matchSearch = !query || 
-                            item.name.toLowerCase().includes(query) || 
-                            item.code.toLowerCase().includes(query) || 
+                        const matchSearch = !query ||
+                            item.name.toLowerCase().includes(query) ||
+                            item.code.toLowerCase().includes(query) ||
                             item.tags.toLowerCase().includes(query);
                         return matchCategory && matchSearch;
                     });
@@ -122,7 +122,6 @@ $icons = [
                         $t = $p->translations->firstWhere('bahasa', $b->kode);
                         $transMap[$b->kode] = [
                             'judul' => $t?->judul ?? '',
-                            'deskripsi' => $t?->deskripsi ?? ''
                         ];
                     }
                     return [
@@ -137,7 +136,7 @@ $icons = [
                     const newId = 'new_' + Date.now();
                     const translations = {};
                     @foreach($bahasas as $b)
-                        translations['{{ $b->kode }}'] = { judul: '', deskripsi: '' };
+                        translations['{{ $b->kode }}'] = { judul: '' };
                     @endforeach
                     this.poinList.push({
                         id: newId,
@@ -196,6 +195,31 @@ $icons = [
                     <x-trans-textarea field="deskripsi" label="Deskripsi Pengantar" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" rows="3" placeholder="Deskripsi ringkas mengenai pilar program ini..."/>
                 </x-lang-panel>
             @endforeach
+
+            <div class="divider"></div>
+
+            <!-- Optional Image Upload -->
+            <div>
+                <label for="gambar" class="form-label">Gambar / Thumbnail Program <span class="text-xs text-gray-400 font-normal">(Opsional)</span></label>
+                @if($item->gambar)
+                    <div class="mb-3" x-data="{ deleting: false }">
+                        <p class="mb-1.5 text-xs font-medium text-gray-500">Gambar saat ini:</p>
+                        <div class="flex items-start gap-3">
+                            <img id="current-gambar" src="{{ asset('storage/program/'.$item->gambar) }}" alt="program" class="h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
+                            <button type="button" @click="if(!confirm('Yakin ingin menghapus gambar ini?')) return; deleting=true; fetch('{{ route('admin.image.delete') }}',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-TOKEN':'{{ csrf_token() }}','Accept':'application/json'},body:JSON.stringify({model:'Program',id:{{ $item->id }},field:'gambar'})}).then(r=>r.json()).then(d=>{if(d.success){document.getElementById('current-gambar').style.display='none';this.style.display='none';}else{alert(d.message);deleting=false;}}).catch(()=>{alert('Terjadi kesalahan.');deleting=false;})" class="shrink-0 mt-2 inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100 transition-colors" :disabled="deleting">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                <span x-text="deleting ? 'Menghapus...' : 'Hapus Gambar'"></span>
+                            </button>
+                        </div>
+                    </div>
+                @endif
+                <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
+                <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
+                <p class="mt-1.5 text-xs text-gray-400">Kosongkan jika tidak ingin mengubah gambar. Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
+                @error('gambar')
+                    <p class="form-error">{{ $message }}</p>
+                @enderror
+            </div>
 
             <div class="divider"></div>
 
@@ -266,10 +290,6 @@ $icons = [
                                         <label class="form-label text-xs">Judul Sub-Poin ({{ $bahasa->nama }}) <span class="text-rose-500">*</span></label>
                                         <input type="text" :name="`poin[${poin.id}][translations][{{ $bahasa->kode }}][judul]`" x-model="poin.translations['{{ $bahasa->kode }}'].judul" class="form-input text-xs py-2 bg-white" placeholder="cth: Penguatan Skema Insentif" required>
                                     </div>
-                                    <div>
-                                        <label class="form-label text-xs">Deskripsi Singkat ({{ $bahasa->nama }})</label>
-                                        <input type="text" :name="`poin[${poin.id}][translations][{{ $bahasa->kode }}][deskripsi]`" x-model="poin.translations['{{ $bahasa->kode }}'].deskripsi" class="form-input text-xs py-2 bg-white" placeholder="cth: Fasilitasi insentif fiskal dan non-fiskal perfilman">
-                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -303,7 +323,7 @@ $icons = [
 
         <div @click.away="showIconPicker = false"
              class="flex max-h-[85vh] w-full max-w-3xl flex-col rounded-3xl bg-white shadow-2xl overflow-hidden border border-gray-100 animate-in fade-in zoom-in duration-200">
-            
+
             <!-- Modal Header -->
             <div class="flex items-center justify-between border-b border-gray-100 px-6 py-4 bg-gradient-to-r from-gray-50 to-white">
                 <div class="flex items-center gap-3">
