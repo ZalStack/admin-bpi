@@ -34,6 +34,40 @@ class TentangController extends AdminBaseController
 
     protected ?string $imagePath = 'tentang';
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate($this->buildValidationRules(false));
+
+        $item = $this->model::create(array_merge(
+            $this->neutralData($validated, $request),
+            $this->extraData($request, true),
+            $this->uploadedImage($request)
+        ));
+
+        if ($this->usesTranslations() && $request->has('translations')) {
+            $item->storeTranslations((array) $request->input('translations', []));
+        }
+
+        // Handle points for visi / misi on creation
+        if (in_array($item->section, ['visi', 'misi']) && $request->has('poin')) {
+            foreach ($request->input('poin', []) as $poinData) {
+                $poin = TentangPoin::create([
+                    'tentang_id' => $item->id,
+                    'icon' => $poinData['icon'] ?? null,
+                    'urutan' => $poinData['urutan'] ?? 0,
+                    'status' => !empty($poinData['status']),
+                ]);
+
+                if ($poin && !empty($poinData['translations'])) {
+                    $poin->storeTranslations($poinData['translations']);
+                }
+            }
+        }
+
+        return redirect()->route($this->routeName.'.index')
+            ->with('success', $this->label.' berhasil ditambahkan');
+    }
+
     public function edit($id)
     {
         $item = $this->model::query()
