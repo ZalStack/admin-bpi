@@ -31,7 +31,12 @@
             <div class="input-group">
                 <div>
                     <label for="section" class="form-label">Section *</label>
-                    <input type="text" name="section" id="section" value="{{ old('section') }}" class="form-input" placeholder="cth: visi, misi, hero" required>
+                    <select name="section" id="section" class="form-select" required>
+                        <option value="" disabled {{ old('section') ? '' : 'selected' }}>-- Pilih Section Tentang --</option>
+                        <option value="intro" {{ old('section') == 'intro' ? 'selected' : '' }}>📜 Pengantar / Profil BPI (intro)</option>
+                        <option value="visi" {{ old('section') == 'visi' ? 'selected' : '' }}>🎯 Visi BPI (visi)</option>
+                        <option value="misi" {{ old('section') == 'misi' ? 'selected' : '' }}>🚀 Misi BPI (misi)</option>
+                    </select>
                     @error('section')
                         <p class="form-error">{{ $message }}</p>
                     @enderror

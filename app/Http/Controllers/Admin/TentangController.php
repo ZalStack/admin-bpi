@@ -17,7 +17,7 @@ class TentangController extends AdminBaseController
     protected string $label = 'Data tentang';
 
     protected array $validationRules = [
-        'section' => 'required|string|in:intro,visi,misi,struktur',
+        'section' => 'required|string|in:intro,visi,misi',
         'icon' => 'nullable|string|max:255',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',

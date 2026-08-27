@@ -50,10 +50,20 @@
                         </tr>
                     </thead>
                     <tbody class="tbody">
+                        @php
+                            $tentangLabels = [
+                                'intro' => 'Pengantar / Profil',
+                                'visi' => 'Visi BPI',
+                                'misi' => 'Misi BPI',
+                            ];
+                        @endphp
                         @foreach($items as $item)
                             <tr class="tr-hover">
                                 <td class="td">
-                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A] uppercase">{{ $item->section }}</span>
+                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">
+                                        {{ $tentangLabels[$item->section] ?? ucfirst($item->section) }}
+                                        <span class="ml-1 text-[10px] text-gray-400 font-normal">({{ $item->section }})</span>
+                                    </span>
                                 </td>
                                 <td class="td">
                                     <div class="font-medium text-gray-800">{{ $item->translateField('judul') ?? '-' }}</div>
