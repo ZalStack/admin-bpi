@@ -36,12 +36,7 @@
 
             <div class="input-group">
                 <div>
-                    <label for="icon" class="form-label">Icon Font Awesome <span class="text-xs font-normal text-gray-400">(Opsional / Alternatif jika tanpa upload gambar)</span></label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon', $item->icon) }}" class="form-input" placeholder="fa-solid fa-building">
-                    <p class="mt-1.5 text-xs text-gray-400">Contoh: <code>fa-solid fa-building</code>, <code>fa-solid fa-users</code>, <code>fa-solid fa-film</code>.</p>
-                    @error('icon')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
+                    <x-icon-picker name="icon" :value="old('icon', $item->icon)" label="Icon Stakeholder" />
                 </div>
 
                 <div>

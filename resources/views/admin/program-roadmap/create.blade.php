@@ -57,12 +57,7 @@
                 </div>
 
                 <div>
-                    <label for="icon" class="form-label">Icon Font Awesome <span class="text-xs text-gray-400 font-normal">(Opsional)</span></label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="fa-solid fa-puzzle-piece">
-                    <p class="mt-1 text-xs text-gray-400">Contoh: <code>fa-solid fa-puzzle-piece</code>, <code>fa-solid fa-film</code>, <code>fa-solid fa-earth-americas</code>, <code>fa-solid fa-chart-line</code>.</p>
-                    @error('icon')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
+                    <x-icon-picker name="icon" :value="old('icon', 'fa-solid fa-puzzle-piece')" label="Icon Peta Jalan" />
                 </div>
 
                 <div>
