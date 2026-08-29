@@ -269,7 +269,7 @@ $icons = [
                     </div>
 
                     <div>
-                        <x-rich-editor field="deskripsi" label="Full Project Description" :kode="$bahasa->kode" :required="$req" height="220px" placeholder="Detailed explanation of the project..."/>
+                        <x-trans-textarea field="deskripsi" label="Deskripsi Lengkap Proyek" :kode="$bahasa->kode" :required="$req" rows="5" placeholder="Penjelasan mendalam mengenai proyek..."/>
                     </div>
 
                     <!-- Meta Informasi Proyek -->
