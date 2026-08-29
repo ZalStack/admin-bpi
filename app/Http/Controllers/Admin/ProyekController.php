@@ -29,7 +29,6 @@ class ProyekController extends AdminBaseController
 
     protected array $translatableRules = [
         'judul' => 'required|string|max:255',
-        'kategori' => 'nullable|string|max:255',
         'deskripsi_singkat' => 'required|string',
         'deskripsi' => 'required|string',
         'lokasi' => 'required|string|max:255',
