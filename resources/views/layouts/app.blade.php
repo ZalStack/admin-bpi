@@ -6,6 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Panel BPI - @yield('title', 'Dashboard')</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-bpi.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo-bpi.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-bpi.png') }}">
+
     <!-- Font Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
