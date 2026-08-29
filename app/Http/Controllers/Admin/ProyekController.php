@@ -29,6 +29,7 @@ class ProyekController extends AdminBaseController
 
     protected array $translatableRules = [
         'judul' => 'required|string|max:255',
+        'kategori' => 'nullable|string|max:255',
         'deskripsi_singkat' => 'required|string',
         'deskripsi' => 'required|string',
         'lokasi' => 'required|string|max:255',
@@ -124,10 +125,11 @@ class ProyekController extends AdminBaseController
                 ['bahasa' => $kode],
                 [
                     'judul' => $transData['judul'] ?? '',
+                    'kategori' => $transData['kategori'] ?? '',
                     'deskripsi_singkat' => $transData['deskripsi_singkat'] ?? '',
                     'deskripsi' => $transData['deskripsi'] ?? '',
                     'lokasi' => $transData['lokasi'] ?? '',
-                    'icon' => $transData['icon'] ?? 'fa-film',
+                    'icon' => !empty($transData['icon']) ? $transData['icon'] : 'fa-solid fa-film',
                     'ruang_lingkup' => $transData['ruang_lingkup'] ?? '',
                     'status_proyek' => $transData['status_proyek'] ?? '',
                     'timeline' => $transData['timeline'] ?? '',

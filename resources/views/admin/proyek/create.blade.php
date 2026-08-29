@@ -84,11 +84,26 @@ $icons = [
                 lang: @js($bahasas->first()?->kode),
                 showIconPicker: false,
                 activeItemForIcon: null,
+                activeMetaLang: null,
                 searchQuery: '',
                 activeCategory: 'all',
                 iconList: @js($icons),
+                metaIcons: {
+                    @foreach($bahasas as $b)
+                        '{{ $b->kode }}': '{{ old('translations.'.$b->kode.'.icon', 'fa-solid fa-film') }}',
+                    @endforeach
+                },
+
+                openMetaIconModal(kode) {
+                    this.activeMetaLang = kode;
+                    this.activeItemForIcon = { icon: this.metaIcons[kode] };
+                    this.searchQuery = '';
+                    this.activeCategory = 'all';
+                    this.showIconPicker = true;
+                },
 
                 openIconModal(item) {
+                    this.activeMetaLang = null;
                     this.activeItemForIcon = item;
                     this.searchQuery = '';
                     this.activeCategory = 'all';
@@ -96,10 +111,14 @@ $icons = [
                 },
 
                 selectIcon(code) {
-                    if (this.activeItemForIcon) {
+                    if (this.activeMetaLang) {
+                        this.metaIcons[this.activeMetaLang] = code;
+                        this.activeMetaLang = null;
+                    } else if (this.activeItemForIcon) {
                         this.activeItemForIcon.icon = code;
                     }
                     this.showIconPicker = false;
+                    this.activeItemForIcon = null;
                 },
 
                 get filteredIcons() {
@@ -239,9 +258,10 @@ $icons = [
                     $req = $bahasa->is_default;
                 @endphp
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-6">
-                    <!-- Judul -->
+                    <!-- Judul & Kategori -->
                     <div class="input-group">
-                        <x-trans-input field="judul" label="Project Title" :kode="$bahasa->kode" :required="$req" placeholder="e.g.: BPI Film Market"/>
+                        <x-trans-input field="judul" label="Judul Proyek" :kode="$bahasa->kode" :required="$req" placeholder="cth: BPI Film Market"/>
+                        <x-trans-input field="kategori" label="Kategori Proyek" :kode="$bahasa->kode" placeholder="cth: Pasar Film / Inisiatif Strategis"/>
                     </div>
 
                     <!-- Deskripsi Singkat & Lengkap -->
@@ -258,7 +278,24 @@ $icons = [
                         <x-trans-input field="lokasi" label="Location" :kode="$bahasa->kode" :required="$req" placeholder="e.g.: Jakarta, Indonesia"/>
                         <x-trans-input field="ruang_lingkup" label="Scope" :kode="$bahasa->kode" placeholder="e.g.: National & International"/>
                         <x-trans-input field="status_proyek" label="Project Status" :kode="$bahasa->kode" placeholder="e.g.: Ongoing"/>
-                        <x-trans-input field="icon" label="Icon Font Awesome" :kode="$bahasa->kode" placeholder="e.g.: fa-solid fa-film"/>
+                        <div>
+                            <label class="form-label text-xs">Icon Proyek (Font Awesome)</label>
+                            <div class="flex items-center gap-2">
+                                <div class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-[#132C5C] shadow-sm">
+                                    <template x-if="metaIcons['{{ $bahasa->kode }}']">
+                                        <i :class="metaIcons['{{ $bahasa->kode }}']" class="text-sm"></i>
+                                    </template>
+                                    <template x-if="!metaIcons['{{ $bahasa->kode }}']">
+                                        <i class="fa-solid fa-icons text-sm text-gray-300"></i>
+                                    </template>
+                                </div>
+                                <input type="text" name="translations[{{ $bahasa->kode }}][icon]" x-model="metaIcons['{{ $bahasa->kode }}']" class="form-input text-xs py-2 bg-white flex-1 font-mono" placeholder="Pilih icon...">
+                                <button type="button" @click="openMetaIconModal('{{ $bahasa->kode }}')" class="inline-flex h-[38px] items-center gap-1 rounded-xl bg-[#132C5C] px-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#0E2043] transition-all cursor-pointer shrink-0">
+                                    <i class="fa-solid fa-shapes text-xs text-[#E3DBAF]"></i>
+                                    <span>Pilih</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div>

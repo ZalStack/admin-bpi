@@ -92,11 +92,30 @@ $icons = [
                 lang: @js($bahasas->first()?->kode),
                 showIconPicker: false,
                 activeItemForIcon: null,
+                activeMetaLang: null,
                 searchQuery: '',
                 activeCategory: 'all',
                 iconList: @js($icons),
+                metaIcons: {
+                    @foreach($bahasas as $b)
+                        @php
+                            $tTrans = $proyek->translations->firstWhere('bahasa', $b->kode);
+                            $tIcon = $tTrans?->icon ?: 'fa-solid fa-film';
+                        @endphp
+                        '{{ $b->kode }}': '{{ old('translations.'.$b->kode.'.icon', $tIcon) }}',
+                    @endforeach
+                },
+
+                openMetaIconModal(kode) {
+                    this.activeMetaLang = kode;
+                    this.activeItemForIcon = { icon: this.metaIcons[kode] };
+                    this.searchQuery = '';
+                    this.activeCategory = 'all';
+                    this.showIconPicker = true;
+                },
 
                 openIconModal(item) {
+                    this.activeMetaLang = null;
                     this.activeItemForIcon = item;
                     this.searchQuery = '';
                     this.activeCategory = 'all';
@@ -104,10 +123,14 @@ $icons = [
                 },
 
                 selectIcon(code) {
-                    if (this.activeItemForIcon) {
+                    if (this.activeMetaLang) {
+                        this.metaIcons[this.activeMetaLang] = code;
+                        this.activeMetaLang = null;
+                    } else if (this.activeItemForIcon) {
                         this.activeItemForIcon.icon = code;
                     }
                     this.showIconPicker = false;
+                    this.activeItemForIcon = null;
                 },
 
                 get filteredIcons() {
