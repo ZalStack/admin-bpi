@@ -17,20 +17,19 @@
                 </svg>
                 <span>Edit</span>
             </nav>
-            <h1 class="page-title">Edit Homepage Section</h1>
-            <p class="page-subtitle">Set display title, position order, and active status for section <strong>{{ ucfirst($item->section) }}</strong></p>
+            <h1 class="page-title">Edit Section Beranda</h1>
+            <p class="page-subtitle">Atur urutan posisi dan status tampil untuk section <strong>{{ ucfirst($item->section) }}</strong></p>
         </div>
         <a href="{{ route('admin.beranda.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Back
+            Kembali
         </a>
     </div>
 
     <div class="form-card">
-        <form action="{{ route('admin.beranda.update', $item->id) }}" method="POST"
-            x-data="{ lang: @js($bahasas->first()?->kode) }">
+        <form action="{{ route('admin.beranda.update', $item->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -38,16 +37,16 @@
 
             <div class="input-group">
                 <div>
-                    <label class="form-label">Section</label>
+                    <label class="form-label">Nama Section</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-200 bg-gray-100 px-3.5">
-                        <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.15] px-2.5 py-1 text-xs font-bold text-[#97763A] uppercase">
+                        <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.15] px-2.5 py-1 text-xs font-bold text-[#97763A] uppercase font-mono">
                             {{ $item->section }}
                         </span>
                     </div>
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Display Order (Position)</label>
+                    <label for="urutan" class="form-label">Urutan Posisi</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $item->urutan) }}" class="form-input" min="1" required>
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -55,26 +54,16 @@
                 </div>
 
                 <div>
-                    <label for="status" class="form-label">Display Status</label>
+                    <label for="status" class="form-label">Status Tampil</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="hidden" name="status" value="0">
                             <input type="checkbox" name="status" value="1" {{ old('status', $item->status) ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Show on Landing Page</span>
+                            <span class="text-sm font-medium text-gray-700">Tampilkan di Beranda</span>
                         </label>
                     </div>
                 </div>
             </div>
-
-            <div class="divider"></div>
-
-            <x-lang-tabs :bahasas="$bahasas"/>
-
-            @foreach ($bahasas as $bahasa)
-                <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="judul" label="Section Title" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Section title in language {{ $bahasa->nama }}"/>
-                </x-lang-panel>
-            @endforeach
 
             <div class="divider"></div>
 

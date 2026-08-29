@@ -14,17 +14,17 @@
                 <span>Homepage</span>
             </nav>
             <h1 class="page-title">Homepage</h1>
-            <p class="page-subtitle">Manage section titles, display order, and active status on the homepage</p>
+            <p class="page-subtitle">Kelola urutan tampil dan status aktif/tidak aktif section pada halaman beranda</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#132C5C] ring-1 ring-[#132C5C]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#132C5C]"></span>
-                {{ $items->count() }} Registered Sections
+                {{ $items->count() }} Section Terdaftar
             </div>
         </div>
         <a href="{{ route('admin.beranda.create') }}" class="btn-primary">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Add Section
+            Tambah Section
         </a>
     </div>
 
@@ -33,8 +33,8 @@
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            <h3 class="empty-title">No homepage section data yet</h3>
-            <p class="empty-desc">Homepage section data has not been initialized.</p>
+            <h3 class="empty-title">Belum ada section beranda</h3>
+            <p class="empty-desc">Data section halaman beranda belum diinisialisasi.</p>
         </div>
     @else
         <div class="table-container">
@@ -42,20 +42,31 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th class="th">Section</th>
-                            <th class="th">Section Title</th>
-                            <th class="th text-center">Display Order</th>
-                            <th class="th text-center">Display Status</th>
-                            <th class="th text-right">Action</th>
+                            <th class="th">Nama Section</th>
+                            <th class="th text-center">Urutan Tampil</th>
+                            <th class="th text-center">Status Tampil</th>
+                            <th class="th text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
+                        @php
+                            $sectionLabels = [
+                                'tentang' => 'Tentang Kami',
+                                'struktur' => 'Struktur Organisasi',
+                                'proyek' => 'Proyek Kolaboratif',
+                                'program' => 'Program Strategis',
+                                'berita' => 'Artikel & Berita',
+                                'mitra' => 'Mitra Kerjasama',
+                            ];
+                        @endphp
                         @foreach($items as $item)
                             <tr class="tr-hover">
                                 <td class="td">
-                                    <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A] uppercase">{{ $item->section }}</span>
+                                    <div class="flex items-center gap-2.5">
+                                        <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A] uppercase font-mono">{{ $item->section }}</span>
+                                        <span class="text-sm font-semibold text-gray-800">{{ $sectionLabels[$item->section] ?? ucfirst($item->section) }}</span>
+                                    </div>
                                 </td>
-                                <td class="td font-medium text-gray-800">{{ $item->translateField('judul') ?? '-' }}</td>
                                 <td class="td text-center">
                                     <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 text-sm font-bold text-gray-700">{{ $item->urutan }}</span>
                                 </td>

@@ -21,7 +21,7 @@ class BerandaController extends AdminBaseController
     ];
 
     protected array $translatableRules = [
-        'judul' => 'required|string|max:255',
+        'judul' => 'nullable|string|max:255',
         'deskripsi' => 'nullable|string',
     ];
 
