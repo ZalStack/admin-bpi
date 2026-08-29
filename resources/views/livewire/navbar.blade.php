@@ -21,13 +21,13 @@
 
             <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                 <!-- Language Switcher -->
-                <div class="hidden sm:flex items-center gap-1 rounded-xl bg-black/20 p-1 ring-1 ring-inset ring-white/10">
+                {{-- <div class="hidden sm:flex items-center gap-1 rounded-xl bg-black/20 p-1 ring-1 ring-inset ring-white/10">
                     @foreach ($languages as $language)
                         <button wire:click="switchLanguage('{{ $language->kode }}')" class="px-2.5 sm:px-3 py-1 text-xs sm:text-sm rounded-lg transition-all font-poppins {{ $currentLocale == $language->kode ? 'bg-[#E3DBAF] text-[#520A18] font-semibold shadow-sm' : 'text-white/80 hover:text-white hover:bg-white/10' }}">
                             {{ strtoupper($language->kode) }}
                         </button>
                     @endforeach
-                </div>
+                </div> --}}
 
                 <!-- User Menu -->
                 @auth
