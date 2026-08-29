@@ -33,7 +33,7 @@ class Bahasa extends Model
     public static function defaultKode(): string
     {
         return static::query()->where('is_default', true)->value('kode')
-            ?? config('app.fallback_locale', 'id');
+            ?? config('app.fallback_locale', 'en');
     }
 
     /**
@@ -44,7 +44,7 @@ class Bahasa extends Model
     {
         return Cache::remember('bahasa_default_kode', 3600, function () {
             return static::query()->where('is_default', true)->value('kode')
-                ?? config('app.fallback_locale', 'id');
+                ?? config('app.fallback_locale', 'en');
         });
     }
 

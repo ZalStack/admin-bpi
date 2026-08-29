@@ -34,7 +34,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Set default language
-            $locale = Session::get('locale', 'id');
+            $locale = Session::get('locale', 'en');
             App::setLocale($locale);
 
             return redirect()->intended('/dashboard')
