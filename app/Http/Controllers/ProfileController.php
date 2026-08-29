@@ -29,7 +29,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('success', 'Profil berhasil diperbarui');
+        return Redirect::route('profile.edit')->with('success', 'Profile updated successfully');
     }
 
     public function updatePassword(Request $request): RedirectResponse
@@ -43,7 +43,7 @@ class ProfileController extends Controller
             'password' => $validated['password'],
         ]);
 
-        return back()->with('success', 'Password berhasil diperbarui');
+        return back()->with('success', 'Password updated successfully');
     }
 
     public function destroy(Request $request): RedirectResponse

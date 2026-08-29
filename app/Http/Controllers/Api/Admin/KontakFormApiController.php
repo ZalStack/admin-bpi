@@ -23,7 +23,7 @@ class KontakFormApiController extends BaseApiController
         // Honeypot anti-bot: field tersembunyi 'website' harus kosong.
         // Jika terisi, tolak diam-diam agar bot tidak mencoba lagi.
         if ($request->filled('website')) {
-            return $this->successResponse(null, 'Pesan berhasil dikirim');
+            return $this->successResponse(null, 'Message sent successfully');
         }
 
         $validator = validator($request->all(), $this->validationRules);

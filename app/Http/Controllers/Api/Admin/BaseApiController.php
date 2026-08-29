@@ -117,7 +117,7 @@ class BaseApiController extends Controller
         return function (string $attribute, mixed $value, Closure $fail) {
             foreach (array_keys((array) $value) as $kode) {
                 if (! Bahasa::query()->where('kode', $kode)->exists()) {
-                    $fail("Bahasa '{$kode}' tidak terdaftar pada tabel bahasa.");
+                    $fail("Language '{$kode}' is not registered in the languages table.");
                 }
             }
         };

@@ -86,7 +86,7 @@ class ProgramController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function update(Request $request, $id)
@@ -119,7 +119,7 @@ class ProgramController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 
     protected function saveProgramPoints(Program $program, array $points): void

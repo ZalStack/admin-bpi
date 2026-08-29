@@ -27,7 +27,7 @@ class KontakFormController extends Controller
         $form->delete();
 
         return redirect()->route('admin.kontak-form.index')
-            ->with('success', 'Pesan berhasil dihapus');
+            ->with('success', 'Message deleted successfully');
     }
 
     public function updateStatus($id, $status)

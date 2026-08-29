@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Struktur Organisasi')
+@section('title', 'Add Organizational Structure')
 
 @section('content')
 <div class="form-page">
@@ -11,20 +11,20 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.struktur.index') }}">Struktur Organisasi</a>
+                <a href="{{ route('admin.struktur.index') }}">Organizational Structure</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Tambah</span>
+                <span>Add</span>
             </nav>
-            <h1 class="page-title">Tambah Anggota</h1>
-            <p class="page-subtitle">Tambahkan anggota baru ke struktur organisasi</p>
+            <h1 class="page-title">Add Member</h1>
+            <p class="page-subtitle">Add a new member to the organizational structure</p>
         </div>
         <a href="{{ route('admin.struktur.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -34,8 +34,8 @@
             @csrf
 
             <div>
-                <label for="nama" class="form-label">Nama Lengkap *</label>
-                <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-input" placeholder="Nama lengkap" required>
+                <label for="nama" class="form-label">Full Name *</label>
+                <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-input" placeholder="Full name" required>
                 @error('nama')
                     <p class="form-error">{{ $message }}</p>
                 @enderror
@@ -67,7 +67,7 @@
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan</label>
+                    <label for="urutan" class="form-label">Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input" min="0">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -79,7 +79,7 @@
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" checked class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -91,17 +91,17 @@
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="jabatan" label="Jabatan" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Jabatan dalam bahasa {{ $bahasa->nama }}"/>
+                    <x-trans-input field="jabatan" label="Position" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Position in language {{ $bahasa->nama }}"/>
                 </x-lang-panel>
             @endforeach
 
             <div class="divider"></div>
 
             <div>
-                <label for="foto" class="form-label">Foto</label>
+                <label for="foto" class="form-label">Photo</label>
                 <img id="preview-foto" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
                 <input type="file" name="foto" id="foto" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-foto')">
-                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
+                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Max 2MB.</p>
                 @error('foto')
                     <p class="form-error">{{ $message }}</p>
                 @enderror
@@ -114,9 +114,9 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
                     </svg>
-                    Simpan
+                    Save
                 </button>
-                <a href="{{ route('admin.struktur.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.struktur.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

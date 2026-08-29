@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Mitra')
+@section('title', 'Add Partner')
 
 @section('content')
 <div class="form-page">
@@ -11,20 +11,20 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.mitra.index') }}">Mitra</a>
+                <a href="{{ route('admin.mitra.index') }}">Partners</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Tambah</span>
+                <span>Add</span>
             </nav>
-            <h1 class="page-title">Tambah Mitra</h1>
-            <p class="page-subtitle">Tambahkan data mitra baru beserta logo dan kategorinya</p>
+            <h1 class="page-title">Add Partner</h1>
+            <p class="page-subtitle">Add new partner data with logo and category</p>
         </div>
         <a href="{{ route('admin.mitra.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -42,7 +42,7 @@
 
             <div class="input-group">
                 <div>
-                    <label for="kategori_select" class="form-label">Kategori Mitra <span class="text-red-500">*</span></label>
+                    <label for="kategori_select" class="form-label">Partner Category <span class="text-red-500">*</span></label>
                     <select id="kategori_select" class="form-select" x-model="selectedCategory" required>
                         @foreach($kategoris as $cat)
                             <option value="{{ $cat->slug }}">{{ $cat->translateField('nama') ?: ucfirst($cat->slug) }}</option>
@@ -67,12 +67,12 @@
                 </div>
 
                 <div>
-                    <label for="status" class="form-label">Status Tampil</label>
+                    <label for="status" class="form-label">Display Status</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="hidden" name="status" value="0">
                             <input type="checkbox" name="status" value="1" checked class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -90,10 +90,10 @@
                     
                     <x-trans-input 
                         field="nama" 
-                        label="Nama Mitra" 
+                        label="Partner Name" 
                         :kode="$bahasa->kode" 
                         :required="$bahasa->is_default" 
-                        placeholder="Nama mitra dalam bahasa {{ $bahasa->nama }}"
+                        placeholder="Partner name in language {{ $bahasa->nama }}"
                     />
                 </x-lang-panel>
             @endforeach
@@ -102,10 +102,10 @@
 
             <!-- Upload Logo Mitra -->
             <div>
-                <label for="logo" class="form-label">Logo Mitra <span class="text-red-500">*</span></label>
+                <label for="logo" class="form-label">Partner Logo <span class="text-red-500">*</span></label>
                 <img id="preview-logo" src="" alt="Preview" class="hidden mb-3 h-28 w-44 rounded-xl object-contain ring-1 ring-gray-200 bg-white p-2">
                 <input type="file" name="logo" id="logo" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-logo')" required>
-                <p class="mt-1.5 text-xs text-gray-400">Format: PNG, JPG, WEBP, SVG. Maksimal 2MB.</p>
+                <p class="mt-1.5 text-xs text-gray-400">Format: PNG, JPG, WEBP, SVG. Max 2MB.</p>
                 @error('logo')
                     <p class="form-error">{{ $message }}</p>
                 @enderror
@@ -118,9 +118,9 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
                     </svg>
-                    Simpan Mitra
+                    Save Partner
                 </button>
-                <a href="{{ route('admin.mitra.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.mitra.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

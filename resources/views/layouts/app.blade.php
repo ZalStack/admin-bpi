@@ -77,7 +77,7 @@
                                 </svg>
                             </div>
                             <div class="flex-1">
-                                <p class="text-sm font-semibold text-rose-800">Terdapat kesalahan pada formulir:</p>
+                                <p class="text-sm font-semibold text-rose-800">There are errors in the form:</p>
                                 <ul class="mt-1.5 list-disc list-inside space-y-1 text-xs font-medium text-rose-700">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>

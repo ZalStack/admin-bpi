@@ -15,7 +15,7 @@ class ProyekGaleriController extends AdminBaseController
 
     protected string $routeName = 'admin.proyek.galeri';
 
-    protected string $label = 'Galeri proyek';
+    protected string $label = 'Project Gallery';
 
     protected array $validationRules = [
         'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -68,7 +68,7 @@ class ProyekGaleriController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index', $proyek_id)
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function edit($proyek_id = null, $id = null)
@@ -95,7 +95,7 @@ class ProyekGaleriController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index', $proyek_id)
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 
     public function destroy($proyek_id = null, $id = null)
@@ -109,6 +109,6 @@ class ProyekGaleriController extends AdminBaseController
         $item->delete();
 
         return redirect()->route($this->routeName.'.index', $proyek_id)
-            ->with('success', $this->label.' berhasil dihapus');
+            ->with('success', $this->label.' deleted successfully');
     }
 }

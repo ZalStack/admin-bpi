@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Program Poin')
+@section('title', 'Edit Program Point')
 
 @section('content')
 <div class="form-page">
@@ -11,20 +11,20 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.program-poin.index') }}">Program Poin</a>
+                <a href="{{ route('admin.program-poin.index') }}">Program Points</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
                 <span>Edit</span>
             </nav>
-            <h1 class="page-title">Edit Program Poin</h1>
+            <h1 class="page-title">Edit Program Point</h1>
             <p class="page-subtitle">{{ $item->translateField('judul') }}</p>
         </div>
         <a href="{{ route('admin.program-poin.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -38,7 +38,7 @@
                 <div>
                     <label for="program_id" class="form-label">Program <span class="text-red-500">*</span></label>
                     <select name="program_id" id="program_id" class="form-input" required>
-                        <option value="">Pilih Program</option>
+                        <option value="">Select Program</option>
                         @foreach($programs as $program)
                             <option value="{{ $program->id }}" {{ old('program_id', $item->program_id) == $program->id ? 'selected' : '' }}>
                                 {{ $program->translateField('nama') ?: 'ID: '.$program->id }}
@@ -59,7 +59,7 @@
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan</label>
+                    <label for="urutan" class="form-label">Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $item->urutan) }}" class="form-input">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -71,7 +71,7 @@
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" {{ old('status', $item->status) ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -83,9 +83,9 @@
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="judul" label="Judul" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Judul dalam bahasa {{ $bahasa->nama }}"/>
+                    <x-trans-input field="judul" label="Title" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Title in language {{ $bahasa->nama }}"/>
                     <div class="mt-4">
-                        <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" rows="3" :item="$item" placeholder="Deskripsi dalam bahasa {{ $bahasa->nama }}"/>
+                        <x-trans-textarea field="deskripsi" label="Description" :kode="$bahasa->kode" rows="3" :item="$item" placeholder="Description in language {{ $bahasa->nama }}"/>
                     </div>
                 </x-lang-panel>
             @endforeach
@@ -99,7 +99,7 @@
                     </svg>
                     Update
                 </button>
-                <a href="{{ route('admin.program-poin.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.program-poin.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

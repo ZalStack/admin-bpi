@@ -15,7 +15,7 @@ class MitraController extends AdminBaseController
 
     protected string $routeName = 'admin.mitra';
 
-    protected string $label = 'Mitra';
+    protected string $label = 'Partner';
 
     protected array $validationRules = [
         'website' => 'nullable|string|max:255',

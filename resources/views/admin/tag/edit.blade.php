@@ -24,7 +24,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -37,7 +37,7 @@
             <div class="input-group">
                 <div>
                     <label for="slug" class="form-label">Slug</label>
-                    <input type="text" name="slug" id="slug" value="{{ old('slug', $item->slug) }}" class="form-input" placeholder="Otomatis dari tag jika kosong">
+                    <input type="text" name="slug" id="slug" value="{{ old('slug', $item->slug) }}" class="form-input" placeholder="Auto-generated from tag if empty">
                     @error('slug')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -48,7 +48,7 @@
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" {{ old('status', $item->status) ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="tag" label="Tag" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Tag dalam bahasa {{ $bahasa->nama }}"/>
+                    <x-trans-input field="tag" label="Tag" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Tag in {{ $bahasa->nama }}"/>
                 </x-lang-panel>
             @endforeach
 
@@ -73,7 +73,7 @@
                     </svg>
                     Update
                 </button>
-                <a href="{{ route('admin.tag.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.tag.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

@@ -1,56 +1,56 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Tentang')
+@section('title', 'Add About')
 
 @section('content')
 @php
 $icons = [
-    // Perfilman & Media
-    ['code' => 'fa-solid fa-clapperboard', 'name' => 'Papan Film / Clapperboard', 'category' => 'film', 'tags' => 'film movie clapperboard bioskop sinema syuting'],
-    ['code' => 'fa-solid fa-video', 'name' => 'Kamera Video', 'category' => 'film', 'tags' => 'video camera rekaman syuting movie'],
-    ['code' => 'fa-solid fa-film', 'name' => 'Rol Film', 'category' => 'film', 'tags' => 'film movie roll sinema bioskop'],
-    ['code' => 'fa-solid fa-camera', 'name' => 'Kamera Foto', 'category' => 'film', 'tags' => 'kamera foto photo gambar picture'],
-    ['code' => 'fa-solid fa-tv', 'name' => 'Televisi / Layar', 'category' => 'film', 'tags' => 'tv televisi layar screen monitor'],
-    ['code' => 'fa-solid fa-play', 'name' => 'Tombol Play', 'category' => 'film', 'tags' => 'play putar video tonton'],
-    ['code' => 'fa-solid fa-headphones', 'name' => 'Audio / Headphone', 'category' => 'film', 'tags' => 'audio suara headphone musik sound'],
-    ['code' => 'fa-solid fa-photo-film', 'name' => 'Media Perfilman', 'category' => 'film', 'tags' => 'media film galeri foto'],
+    // Filmmaking & Media
+    ['code' => 'fa-solid fa-clapperboard', 'name' => 'Film Board / Clapperboard', 'category' => 'film', 'tags' => 'film movie clapperboard cinema shoot'],
+    ['code' => 'fa-solid fa-video', 'name' => 'Video Camera', 'category' => 'film', 'tags' => 'video camera recording shoot movie'],
+    ['code' => 'fa-solid fa-film', 'name' => 'Film Roll', 'category' => 'film', 'tags' => 'film movie roll cinema'],
+    ['code' => 'fa-solid fa-camera', 'name' => 'Photo Camera', 'category' => 'film', 'tags' => 'camera photo image picture'],
+    ['code' => 'fa-solid fa-tv', 'name' => 'Television / Screen', 'category' => 'film', 'tags' => 'tv television screen monitor'],
+    ['code' => 'fa-solid fa-play', 'name' => 'Play Button', 'category' => 'film', 'tags' => 'play video watch'],
+    ['code' => 'fa-solid fa-headphones', 'name' => 'Audio / Headphone', 'category' => 'film', 'tags' => 'audio sound headphone music'],
+    ['code' => 'fa-solid fa-photo-film', 'name' => 'Filmmaking Media', 'category' => 'film', 'tags' => 'media film photo gallery'],
 
-    // Inovasi & Ide Kreatif
-    ['code' => 'fa-solid fa-lightbulb', 'name' => 'Lampu Ide & Inovasi', 'category' => 'inovasi', 'tags' => 'lampu ide inovasi kreatif pikiran solusi gagas'],
-    ['code' => 'fa-solid fa-sparkles', 'name' => 'Kreativitas / Bintang', 'category' => 'inovasi', 'tags' => 'bintang kilau kreatif unggul prestasi inovasi'],
-    ['code' => 'fa-solid fa-rocket', 'name' => 'Roket & Akselerasi', 'category' => 'inovasi', 'tags' => 'roket cepat akselerasi luncur terbang maju'],
-    ['code' => 'fa-solid fa-star', 'name' => 'Bintang / Nilai Utama', 'category' => 'inovasi', 'tags' => 'bintang star favorit utama nilai rating'],
-    ['code' => 'fa-solid fa-leaf', 'name' => 'Daun & Keberlanjutan', 'category' => 'inovasi', 'tags' => 'daun eco green hijau lingkungan lestari keberlanjutan sustainability'],
-    ['code' => 'fa-solid fa-puzzle-piece', 'name' => 'Puzzle / Kolaborasi', 'category' => 'inovasi', 'tags' => 'puzzle bagian integrasi sinergi solusi'],
+    // Innovation & Creative Ideas
+    ['code' => 'fa-solid fa-lightbulb', 'name' => 'Idea & Innovation Light', 'category' => 'inovasi', 'tags' => 'idea innovation creative solution'],
+    ['code' => 'fa-solid fa-sparkles', 'name' => 'Creativity / Star', 'category' => 'inovasi', 'tags' => 'star sparkle creative excellence achievement innovation'],
+    ['code' => 'fa-solid fa-rocket', 'name' => 'Rocket & Acceleration', 'category' => 'inovasi', 'tags' => 'rocket fast acceleration launch fly forward'],
+    ['code' => 'fa-solid fa-star', 'name' => 'Star / Core Value', 'category' => 'inovasi', 'tags' => 'star favorite core value rating'],
+    ['code' => 'fa-solid fa-leaf', 'name' => 'Leaf & Sustainability', 'category' => 'inovasi', 'tags' => 'leaf eco green environment sustainability'],
+    ['code' => 'fa-solid fa-puzzle-piece', 'name' => 'Puzzle / Collaboration', 'category' => 'inovasi', 'tags' => 'puzzle part integration synergy solution'],
 
-    // SDM & Komunitas
-    ['code' => 'fa-solid fa-users', 'name' => 'Komunitas / Asosiasi', 'category' => 'sdm', 'tags' => 'orang orang-banyak users sdm komunitas asosiasi sineas kelompok masyarakat'],
-    ['code' => 'fa-solid fa-user-group', 'name' => 'Grup / Tim Kerja', 'category' => 'sdm', 'tags' => 'grup tim kerja anggota organisasi squad'],
-    ['code' => 'fa-solid fa-handshake', 'name' => 'Kemitraan & Kerjasama', 'category' => 'sdm', 'tags' => 'jabat tangan handshake mitra partner kerjasama kolaborasi sinergi'],
-    ['code' => 'fa-solid fa-hand-holding-heart', 'name' => 'Apresiasi & Dukungan', 'category' => 'sdm', 'tags' => 'hati peduli kasih apresiasi sosial bantuan support'],
-    ['code' => 'fa-solid fa-heart', 'name' => 'Passion & Semangat', 'category' => 'sdm', 'tags' => 'hati suka cinta passion minat'],
+    // HR & Community
+    ['code' => 'fa-solid fa-users', 'name' => 'Community / Association', 'category' => 'sdm', 'tags' => 'people users community association group'],
+    ['code' => 'fa-solid fa-user-group', 'name' => 'Group / Team', 'category' => 'sdm', 'tags' => 'group team member organization squad'],
+    ['code' => 'fa-solid fa-handshake', 'name' => 'Partnership & Cooperation', 'category' => 'sdm', 'tags' => 'handshake partner cooperation collaboration synergy'],
+    ['code' => 'fa-solid fa-hand-holding-heart', 'name' => 'Appreciation & Support', 'category' => 'sdm', 'tags' => 'heart care appreciation social support'],
+    ['code' => 'fa-solid fa-heart', 'name' => 'Passion & Spirit', 'category' => 'sdm', 'tags' => 'heart love passion interest'],
 
-    // Pendidikan & Sertifikasi
-    ['code' => 'fa-solid fa-graduation-cap', 'name' => 'Toga & Pendidikan SDM', 'category' => 'edukasi', 'tags' => 'toga wisuda sekolah kuliah pendidikan edukasi pelatihan sertifikasi sdm gelar'],
-    ['code' => 'fa-solid fa-book-open', 'name' => 'Buku / Riset & Kajian', 'category' => 'edukasi', 'tags' => 'buku baca riset penelitian ilmu pengetahuan studi arsip'],
-    ['code' => 'fa-solid fa-award', 'name' => 'Penghargaan & Festival', 'category' => 'edukasi', 'tags' => 'piala medali award juara apresiasi festival nominasi'],
-    ['code' => 'fa-solid fa-certificate', 'name' => 'Sertifikasi Profesi', 'category' => 'edukasi', 'tags' => 'sertifikat izin lisensi standar kelayakan'],
+    // Education & Certification
+    ['code' => 'fa-solid fa-graduation-cap', 'name' => 'Toga & HR Education', 'category' => 'edukasi', 'tags' => 'toga graduation school university education training certification degree'],
+    ['code' => 'fa-solid fa-book-open', 'name' => 'Book / Research & Study', 'category' => 'edukasi', 'tags' => 'book reading research knowledge study archive'],
+    ['code' => 'fa-solid fa-award', 'name' => 'Award & Festival', 'category' => 'edukasi', 'tags' => 'trophy medal award appreciation festival nomination'],
+    ['code' => 'fa-solid fa-certificate', 'name' => 'Professional Certification', 'category' => 'edukasi', 'tags' => 'certificate license standard qualification'],
 
-    // Hukum & Regulasi
-    ['code' => 'fa-solid fa-gavel', 'name' => 'Palu Sidang & Regulasi', 'category' => 'hukum', 'tags' => 'palu sidang hukum advokasi regulasi kebijakan undang-undang aturan'],
-    ['code' => 'fa-solid fa-scale-balanced', 'name' => 'Timbangan Keadilan', 'category' => 'hukum', 'tags' => 'timbangan hukum adil regulasi hak kekayaan cipta'],
-    ['code' => 'fa-solid fa-shield-halved', 'name' => 'Perlindungan & Hak Cipta', 'category' => 'hukum', 'tags' => 'tameng perisai lindung aman proteksi hak cipta security'],
-    ['code' => 'fa-solid fa-file-lines', 'name' => 'Dokumen & Kebijakan', 'category' => 'hukum', 'tags' => 'dokumen surat kertas naskah kebijakan berkas'],
+    // Law & Regulation
+    ['code' => 'fa-solid fa-gavel', 'name' => 'Court Gavel & Regulation', 'category' => 'hukum', 'tags' => 'gavel court law advocacy regulation policy law rules'],
+    ['code' => 'fa-solid fa-scale-balanced', 'name' => 'Scales of Justice', 'category' => 'hukum', 'tags' => 'scales law justice regulation copyright'],
+    ['code' => 'fa-solid fa-shield-halved', 'name' => 'Protection & Copyright', 'category' => 'hukum', 'tags' => 'shield protect security copyright'],
+    ['code' => 'fa-solid fa-file-lines', 'name' => 'Document & Policy', 'category' => 'hukum', 'tags' => 'document paper policy file'],
 
-    // Bisnis, Finansial & Global
-    ['code' => 'fa-solid fa-globe', 'name' => 'Pasar Global / Internasional', 'category' => 'global', 'tags' => 'dunia bola bumi global internasional luar negeri ekspor pasar'],
-    ['code' => 'fa-solid fa-bullseye', 'name' => 'Target & Sasaran', 'category' => 'global', 'tags' => 'target panah sasaran capaian tujuan roadmap misi'],
-    ['code' => 'fa-solid fa-chart-line', 'name' => 'Pertumbuhan Industri', 'category' => 'global', 'tags' => 'grafik naik tumbuh ekonomi bisnis tren perkembangan'],
-    ['code' => 'fa-solid fa-building-columns', 'name' => 'Institusi / Kelembagaan', 'category' => 'global', 'tags' => 'gedung pilar bank lembaga kementerian bpi institusi pemerintah'],
-    ['code' => 'fa-solid fa-money-bill-wave', 'name' => 'Pembiayaan & Investasi', 'category' => 'global', 'tags' => 'uang kas dana modal pembiayaan investasi bill funding'],
-    ['code' => 'fa-solid fa-coins', 'name' => 'Koin / Finansial', 'category' => 'global', 'tags' => 'koin uang modal finasial dana'],
-    ['code' => 'fa-solid fa-wallet', 'name' => 'Dompet / Anggaran', 'category' => 'global', 'tags' => 'dompet wallet anggaran budget kas'],
-    ['code' => 'fa-solid fa-briefcase', 'name' => 'Bisnis & Profesionalisme', 'category' => 'global', 'tags' => 'tas koper kerja bisnis industri profesi komersial'],
+    // Business, Finance & Global
+    ['code' => 'fa-solid fa-globe', 'name' => 'Global / International Market', 'category' => 'global', 'tags' => 'world globe international export market'],
+    ['code' => 'fa-solid fa-bullseye', 'name' => 'Target & Goals', 'category' => 'global', 'tags' => 'target goal achievement roadmap mission'],
+    ['code' => 'fa-solid fa-chart-line', 'name' => 'Industry Growth', 'category' => 'global', 'tags' => 'graph growth economy business trend development'],
+    ['code' => 'fa-solid fa-building-columns', 'name' => 'Institution / Organization', 'category' => 'global', 'tags' => 'building pillar bank institution ministry government'],
+    ['code' => 'fa-solid fa-money-bill-wave', 'name' => 'Financing & Investment', 'category' => 'global', 'tags' => 'money cash fund capital financing investment bill funding'],
+    ['code' => 'fa-solid fa-coins', 'name' => 'Coins / Finance', 'category' => 'global', 'tags' => 'coin money capital finance fund'],
+    ['code' => 'fa-solid fa-wallet', 'name' => 'Wallet / Budget', 'category' => 'global', 'tags' => 'wallet budget cash'],
+    ['code' => 'fa-solid fa-briefcase', 'name' => 'Business & Professionalism', 'category' => 'global', 'tags' => 'briefcase work business industry profession commercial'],
 ];
 @endphp
 
@@ -62,16 +62,16 @@ $icons = [
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.tentang.index') }}">Tentang</a>
+                <a href="{{ route('admin.tentang.index') }}">About</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Tambah</span>
+                <span>Add</span>
             </nav>
-            <h1 class="page-title">Tambah Data Tentang</h1>
-            <p class="page-subtitle">Tambahkan section baru pada halaman tentang</p>
+            <h1 class="page-title">Add About Data</h1>
+            <p class="page-subtitle">Add a new section on the about page</p>
         </div>
-        <a href="{{ route('admin.tentang.index') }}" class="btn-outline">Kembali</a>
+        <a href="{{ route('admin.tentang.index') }}" class="btn-outline">Back</a>
     </div>
 
     <div class="form-card">
@@ -119,10 +119,10 @@ $icons = [
                 <div>
                     <label for="section" class="form-label">Section *</label>
                     <select name="section" id="section" x-model="section" class="form-select" required>
-                        <option value="" disabled {{ old('section') ? '' : 'selected' }}>-- Pilih Section Tentang --</option>
-                        <option value="intro" {{ old('section') == 'intro' ? 'selected' : '' }}>📜 Pengantar / Profil BPI (intro)</option>
-                        <option value="visi" {{ old('section') == 'visi' ? 'selected' : '' }}>🎯 Visi BPI (visi)</option>
-                        <option value="misi" {{ old('section') == 'misi' ? 'selected' : '' }}>🚀 Misi BPI (misi)</option>
+                        <option value="" disabled {{ old('section') ? '' : 'selected' }}>-- Select About Section --</option>
+                        <option value="intro" {{ old('section') == 'intro' ? 'selected' : '' }}>📜 Introduction / BPI Profile (intro)</option>
+                        <option value="visi" {{ old('section') == 'visi' ? 'selected' : '' }}>🎯 BPI Vision (visi)</option>
+                        <option value="misi" {{ old('section') == 'misi' ? 'selected' : '' }}>🚀 BPI Mission (misi)</option>
                     </select>
                     @error('section')
                         <p class="form-error">{{ $message }}</p>
@@ -130,7 +130,7 @@ $icons = [
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan Tampil (Posisi)</label>
+                    <label for="urutan" class="form-label">Display Order (Position)</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 1) }}" class="form-input" min="1" required>
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -138,11 +138,11 @@ $icons = [
                 </div>
 
                 <div>
-                    <label for="status" class="form-label">Status Tampil</label>
+                    <label for="status" class="form-label">Display Status</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" checked class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Tampilkan di Landing Page</span>
+                            <span class="text-sm font-medium text-gray-700">Show on Landing Page</span>
                         </label>
                     </div>
                 </div>
@@ -154,15 +154,15 @@ $icons = [
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <!-- Dynamic Input Fields based on Section -->
+            <!-- Dynamic Input Fields based on Section -->
                     <template x-if="section === 'intro' || section === ''">
                         <div>
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                <x-trans-input field="judul" label="Judul Section (Badge)" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="cth: Tentang Kami"/>
-                                <x-trans-input field="subjudul" label="Subjudul / Headline Utama" :kode="$bahasa->kode" placeholder="cth: Membangun Masa Depan Sinema Nasional"/>
+                                <x-trans-input field="judul" label="Section Title (Badge)" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: About Us"/>
+                                <x-trans-input field="subjudul" label="Subtitle / Main Headline" :kode="$bahasa->kode" placeholder="e.g.: Building the Future of National Cinema"/>
                             </div>
                             <div class="mt-4">
-                                <x-trans-textarea field="deskripsi" label="Deskripsi Lengkap" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Deskripsi pengenalan dalam bahasa {{ $bahasa->nama }}"/>
+                                <x-trans-textarea field="deskripsi" label="Full Description" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Introduction description in language {{ $bahasa->nama }}"/>
                             </div>
                         </div>
                     </template>
@@ -170,31 +170,31 @@ $icons = [
                     <template x-if="section === 'visi' || section === 'misi'">
                         <div>
                             <div>
-                                <x-trans-input field="judul" label="Judul Section" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="cth: Visi Kami / Misi Kami"/>
+                                <x-trans-input field="judul" label="Section Title" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Our Vision / Our Mission"/>
                             </div>
                             <div class="mt-4">
-                                <x-trans-textarea field="deskripsi" label="Deskripsi Narasi Visi / Misi" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Deskripsi narasi dalam bahasa {{ $bahasa->nama }}"/>
+                                <x-trans-textarea field="deskripsi" label="Vision / Mission Narrative Description" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Narrative description in language {{ $bahasa->nama }}"/>
                             </div>
                         </div>
                     </template>
                 </x-lang-panel>
             @endforeach
 
-            <!-- Foto Utama Section (Hanya untuk intro) -->
+            <!-- Main Section Photo (Intro only) -->
             <div x-show="section === 'intro' || section === ''" class="transition-all">
                 <div class="divider"></div>
                 <div>
-                    <label for="gambar" class="form-label">Foto / Gambar Section Utama</label>
+                    <label for="gambar" class="form-label">Main Section Photo / Image</label>
                     <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200 shadow-sm">
                     <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
-                    <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
+                    <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Max 2MB.</p>
                     @error('gambar')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
 
-            <!-- EMBEDDED POIN VISI / MISI -->
+            <!-- EMBEDDED VISION / MISSION POINTS -->
             <div x-show="section === 'visi' || section === 'misi'" class="transition-all">
                 <div class="divider"></div>
 
@@ -205,10 +205,10 @@ $icons = [
                                 <svg class="w-5 h-5 text-[#97763A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                 </svg>
-                                <span x-text="section === 'visi' ? 'Poin Pilar Visi (Pilar Utama)' : 'Poin Kartu Misi (Kartu Misi)'"></span>
+                                <span x-text="section === 'visi' ? 'Vision Pillar Points (Main Pillar)' : 'Mission Card Points (Mission Card)'"></span>
                             </h3>
                             <p class="text-xs text-gray-500 mt-0.5">
-                                Kelola kartu pilar / kartu misi yang tampil di dalam seksi pada landing page.
+                                Manage pillar cards / mission cards displayed in the section on the landing page.
                             </p>
                         </div>
                         <button type="button" 
@@ -229,7 +229,7 @@ $icons = [
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
-                            Tambah Poin
+Add Point
                         </button>
                     </div>
 
@@ -248,14 +248,14 @@ $icons = [
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                         </svg>
-                                        Hapus
+                                        Delete
                                     </button>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                                     <!-- Icon Picker Field -->
                                     <div>
-                                        <label class="form-label text-xs">Icon Poin</label>
+                                        <label class="form-label text-xs">Point Icon</label>
                                         <div class="flex items-center gap-2">
                                             <div class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-gray-50 text-[#132C5C] shadow-sm">
                                                 <template x-if="poin.icon">
@@ -266,26 +266,26 @@ $icons = [
                                                 </template>
                                             </div>
                                             <div class="relative flex-1">
-                                                <input type="text" :name="'poin[' + poin.id + '][icon]'" x-model="poin.icon" class="form-input text-xs font-mono" placeholder="Pilih icon...">
+                                                <input type="text" :name="'poin[' + poin.id + '][icon]'" x-model="poin.icon" class="form-input text-xs font-mono" placeholder="Select icon...">
                                             </div>
                                             <button type="button" @click="openIconModal(poin)" class="inline-flex h-[42px] items-center gap-1.5 rounded-xl bg-[#132C5C] px-3 text-xs font-bold text-white shadow-sm hover:bg-[#0E2043] transition-all cursor-pointer shrink-0">
                                                 <i class="fa-solid fa-shapes text-xs text-[#E3DBAF]"></i>
-                                                <span>Pilih</span>
+                                                <span>Select</span>
                                             </button>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label class="form-label text-xs">Urutan</label>
+                                        <label class="form-label text-xs">Order</label>
                                         <input type="number" :name="'poin[' + poin.id + '][urutan]'" x-model="poin.urutan" class="form-input text-xs h-[42px]" min="1">
                                     </div>
 
                                     <div>
-                                        <label class="form-label text-xs">Status Poin</label>
+                                        <label class="form-label text-xs">Point Status</label>
                                         <div class="flex h-[42px] items-center rounded-xl border border-gray-200 bg-gray-50 px-3">
                                             <label class="flex items-center gap-2 cursor-pointer text-xs">
                                                 <input type="checkbox" :name="'poin[' + poin.id + '][status]'" value="1" :checked="poin.status" @change="poin.status = $event.target.checked" class="form-checkbox">
-                                                <span class="font-medium text-gray-700">Aktif</span>
+                                                <span class="font-medium text-gray-700">Active</span>
                                             </label>
                                         </div>
                                     </div>
@@ -296,7 +296,7 @@ $icons = [
                                     @foreach($bahasas as $b)
                                         <div x-show="lang === '{{ $b->kode }}'" class="space-y-3">
                                             <div>
-                                                <label class="form-label text-xs">Judul Poin ({{ $b->nama }})</label>
+                                                <label class="form-label text-xs">Point Title ({{ $b->nama }})</label>
                                                 <input type="text" 
                                                     :name="'poin[' + poin.id + '][translations][{{ $b->kode }}][judul]'" 
                                                     :value="poin.translations?.['{{ $b->kode }}']?.judul || ''"
@@ -306,11 +306,11 @@ $icons = [
                                                         poin.translations['{{ $b->kode }}'].judul = $event.target.value;
                                                     "
                                                     class="form-input text-xs" 
-                                                    placeholder="Judul poin {{ $b->nama }}" 
+                                                    placeholder="Point title {{ $b->nama }}" 
                                                     {{ $b->is_default ? 'required' : '' }}>
                                             </div>
                                             <div>
-                                                <label class="form-label text-xs">Deskripsi Poin ({{ $b->nama }})</label>
+                                                <label class="form-label text-xs">Point Description ({{ $b->nama }})</label>
                                                 <textarea 
                                                     :name="'poin[' + poin.id + '][translations][{{ $b->kode }}][deskripsi]'" 
                                                     :value="poin.translations?.['{{ $b->kode }}']?.deskripsi || ''"
@@ -321,7 +321,7 @@ $icons = [
                                                     "
                                                     rows="2" 
                                                     class="form-input text-xs" 
-                                                    placeholder="Deskripsi ringkas poin {{ $b->nama }}"></textarea>
+                                                    placeholder="Brief point description {{ $b->nama }}"></textarea>
                                             </div>
                                         </div>
                                     @endforeach
@@ -333,8 +333,8 @@ $icons = [
                             <svg class="mx-auto h-8 w-8 text-gray-300 mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                             </svg>
-                            <p class="text-xs text-gray-500 font-medium">Belum ada poin ditambahkan.</p>
-                            <p class="text-[11px] text-gray-400">Klik tombol "Tambah Poin" di atas untuk menambahkan pilar / kartu.</p>
+                            <p class="text-xs text-gray-500 font-medium">No points added yet.</p>
+                            <p class="text-[11px] text-gray-400">Click the "Add Point" button above to add a pillar / card.</p>
                         </div>
                     </div>
                 </div>
@@ -343,8 +343,8 @@ $icons = [
             <div class="divider"></div>
 
             <div class="flex flex-wrap items-center gap-3">
-                <button type="submit" class="btn-primary">Simpan</button>
-                <a href="{{ route('admin.tentang.index') }}" class="btn-outline">Batal</a>
+                <button type="submit" class="btn-primary">Save</button>
+                <a href="{{ route('admin.tentang.index') }}" class="btn-outline">Cancel</a>
             </div>
 
                 <!-- MODAL VISUAL ICON PICKER -->
@@ -369,8 +369,8 @@ $icons = [
                         <i class="fa-solid fa-icons text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-gray-900">Pilih Icon Secara Visual</h3>
-                        <p class="text-xs text-gray-500">Klik icon di bawah untuk memasukkannya ke kartu poin</p>
+                        <h3 class="text-base font-bold text-gray-900">Select Icon Visually</h3>
+                        <p class="text-xs text-gray-500">Click an icon below to insert it into the point card</p>
                     </div>
                 </div>
                 <button type="button" @click="showIconPicker = false" class="rounded-xl p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-pointer">
@@ -384,7 +384,7 @@ $icons = [
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
                     <input type="text" x-model="searchQuery"
-                           placeholder="Cari icon... (contoh: film, kamera, orang, lampu, hukum, toga, dunia, target, roket, uang)"
+                           placeholder="Search icons... (e.g.: film, camera, people, light, law, toga, globe, target, rocket, money)"
                            class="w-full rounded-2xl border border-gray-200 bg-gray-50/70 py-2.5 pl-11 pr-4 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#132C5C] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#132C5C]/10 transition-all">
                     <button type="button" x-show="searchQuery" @click="searchQuery = ''" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">
                         <i class="fa-solid fa-circle-xmark"></i>
@@ -396,37 +396,37 @@ $icons = [
                     <button type="button" @click="activeCategory = 'all'"
                         :class="activeCategory === 'all' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        Semua Icon
+                        All Icons
                     </button>
                     <button type="button" @click="activeCategory = 'film'"
                         :class="activeCategory === 'film' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        🎬 Perfilman
+                        🎬 Filmmaking
                     </button>
                     <button type="button" @click="activeCategory = 'inovasi'"
                         :class="activeCategory === 'inovasi' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        💡 Inovasi
+                        💡 Innovation
                     </button>
                     <button type="button" @click="activeCategory = 'sdm'"
                         :class="activeCategory === 'sdm' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        👥 SDM & Mitra
+                        👥 HR & Partners
                     </button>
                     <button type="button" @click="activeCategory = 'edukasi'"
                         :class="activeCategory === 'edukasi' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        🎓 Edukasi
+                        🎓 Education
                     </button>
                     <button type="button" @click="activeCategory = 'hukum'"
                         :class="activeCategory === 'hukum' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        ⚖️ Regulasi
+                        ⚖️ Regulation
                     </button>
                     <button type="button" @click="activeCategory = 'global'"
                         :class="activeCategory === 'global' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        🌐 Global & Bisnis
+                        🌐 Global & Business
                     </button>
                 </div>
             </div>
@@ -451,15 +451,15 @@ $icons = [
                 <!-- Empty State -->
                 <div x-show="filteredIcons.length === 0" class="py-12 text-center">
                     <i class="fa-solid fa-magnifying-glass text-3xl text-gray-300 mb-2"></i>
-                    <p class="text-xs font-medium text-gray-500">Tidak ada icon yang cocok dengan pencarian Anda.</p>
+                    <p class="text-xs font-medium text-gray-500">No icons match your search.</p>
                 </div>
             </div>
 
             <!-- Modal Footer -->
             <div class="border-t border-gray-100 px-6 py-3 bg-gray-50 flex items-center justify-between text-xs text-gray-500">
-                <span>Icon terpilih: <strong class="text-gray-800 font-mono" x-text="activePoinForIcon?.icon || 'Belum dipilih'"></strong></span>
+                <span>Selected icon: <strong class="text-gray-800 font-mono" x-text="activePoinForIcon?.icon || 'Not yet selected'"></strong></span>
                 <button type="button" @click="showIconPicker = false" class="rounded-xl px-4 py-2 font-semibold text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer">
-                    Tutup
+                    Close
                 </button>
             </div>
         </div>

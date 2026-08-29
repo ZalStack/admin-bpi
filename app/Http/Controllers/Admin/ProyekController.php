@@ -18,7 +18,7 @@ class ProyekController extends AdminBaseController
 
     protected string $routeName = 'admin.proyek';
 
-    protected string $label = 'Proyek';
+    protected string $label = 'Project';
 
     protected array $validationRules = [
         'tahun' => 'required|string|max:20',
@@ -90,7 +90,7 @@ class ProyekController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function update(Request $request, $id)
@@ -114,7 +114,7 @@ class ProyekController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 
     protected function saveProjectTranslations(Proyek $proyek, array $translations): void

@@ -13,7 +13,7 @@ class ProgramPoinController extends AdminBaseController
 
     protected string $routeName = 'admin.program-poin';
 
-    protected string $label = 'Program Poin';
+    protected string $label = 'Program Points';
 
     protected array $validationRules = [
         'program_id' => 'required|exists:program,id',

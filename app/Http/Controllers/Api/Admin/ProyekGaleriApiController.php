@@ -45,7 +45,7 @@ class ProyekGaleriApiController extends BaseApiController
         }
 
         if (! $request->hasFile('gambar')) {
-            return $this->errorResponse('Gambar wajib diunggah', 422);
+            return $this->errorResponse('Image is required', 422);
         }
 
         $data = $this->neutralData($request);

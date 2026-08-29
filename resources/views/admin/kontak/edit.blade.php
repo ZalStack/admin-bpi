@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Kontak')
+@section('title', 'Edit Contact')
 
 @section('content')
 <div class="form-page">
@@ -11,20 +11,20 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.kontak.index') }}">Kontak</a>
+                <a href="{{ route('admin.kontak.index') }}">Contact</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
                 <span>Edit</span>
             </nav>
-            <h1 class="page-title">Edit Kontak</h1>
-            <p class="page-subtitle">{{ $item->translateField('judul') ?? 'Informasi Kontak Organisasi' }}</p>
+            <h1 class="page-title">Edit Contact</h1>
+            <p class="page-subtitle">{{ $item->translateField('judul') ?? 'Organization Contact Information' }}</p>
         </div>
         <a href="{{ route('admin.kontak.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -91,7 +91,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-                1. Lokasi & Koordinat Peta
+                1. Location & Map Coordinates
             </h3>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -116,7 +116,7 @@
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" {{ old('status', $item->status) ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -130,13 +130,13 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
                     </svg>
-                    2. Media Sosial
+                    2. Social Media
                 </h3>
                 <button type="button" @click="addSocialMedia()" class="btn-outline text-xs py-1.5 px-3">
-                    + Tambah Akun Medsos
+                    + Add Social Media Account
                 </button>
             </div>
-            <p class="text-xs text-gray-500 mt-1 mb-3">Daftar media sosial resmi organisasi (Instagram, YouTube, Facebook, LinkedIn, TikTok, dll.)</p>
+            <p class="text-xs text-gray-500 mt-1 mb-3">List of official organization social media (Instagram, YouTube, Facebook, LinkedIn, TikTok, etc.)</p>
 
             <div class="space-y-3">
                 <template x-for="(sm, idx) in socialMedia" :key="idx">
@@ -155,14 +155,14 @@
                         </div>
                         <div class="w-full md:w-56 shrink-0">
                             <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Username / Handle</label>
-                            <input type="text" :name="`social_media[${idx}][username]`" x-model="sm.username" class="form-input text-xs py-2 bg-white" placeholder="cth: @bpi.indonesia" required>
+                            <input type="text" :name="`social_media[${idx}][username]`" x-model="sm.username" class="form-input text-xs py-2 bg-white" placeholder="e.g.: @bpi.indonesia" required>
                         </div>
                         <div class="flex-1 w-full">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">URL Profil (Opsional, otomatis bila kosong)</label>
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Profile URL (Optional, auto-generated if empty)</label>
                             <input type="text" :name="`social_media[${idx}][url]`" x-model="sm.url" class="form-input text-xs py-2 bg-white" placeholder="https://instagram.com/bpi.indonesia">
                         </div>
                         <div class="self-end md:self-center pt-2 md:pt-4">
-                            <button type="button" @click="removeSocialMedia(idx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors" title="Hapus">
+                            <button type="button" @click="removeSocialMedia(idx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors" title="Delete">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                             </button>
                         </div>
@@ -178,31 +178,31 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
-                    3. Alamat Email
+                    3. Email Address
                 </h3>
                 <button type="button" @click="addEmail()" class="btn-outline text-xs py-1.5 px-3">
-                    + Tambah Email
+                    + Add Email
                 </button>
             </div>
-            <p class="text-xs text-gray-500 mt-1 mb-3">Daftar email resmi untuk korespondensi dan pertanyaan.</p>
+            <p class="text-xs text-gray-500 mt-1 mb-3">Official email list for correspondence and inquiries.</p>
 
             <div class="space-y-3">
                 <template x-for="(em, idx) in emails" :key="idx">
                     <div class="p-3.5 rounded-2xl border border-gray-200 bg-gray-50/70 flex flex-col md:flex-row items-start md:items-center gap-3">
                         <div class="w-full md:w-60 shrink-0">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Alamat Email</label>
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Email Address</label>
                             <input type="email" :name="`email[${idx}][email]`" x-model="em.email" class="form-input text-xs py-2 bg-white" placeholder="info@bpi.or.id" required>
                         </div>
                         <div class="flex-1 w-full">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Deskripsi / Peruntukan</label>
-                            <input type="text" :name="`email[${idx}][description]`" x-model="em.description" class="form-input text-xs py-2 bg-white" placeholder="Respon cepat untuk pertanyaan resmi dan kerjasama.">
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Description / Purpose</label>
+                            <input type="text" :name="`email[${idx}][description]`" x-model="em.description" class="form-input text-xs py-2 bg-white" placeholder="Quick response for official inquiries and collaboration.">
                         </div>
                         <div class="w-full md:w-56 shrink-0">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">URL Mailto (Opsional)</label>
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Mailto URL (Optional)</label>
                             <input type="text" :name="`email[${idx}][url]`" x-model="em.url" class="form-input text-xs py-2 bg-white" placeholder="mailto:info@bpi.or.id">
                         </div>
                         <div class="self-end md:self-center pt-2 md:pt-4">
-                            <button type="button" @click="removeEmail(idx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors" title="Hapus">
+                            <button type="button" @click="removeEmail(idx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors" title="Delete">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                             </button>
                         </div>
@@ -218,36 +218,36 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
-                    4. Nomor Telepon & WhatsApp
+                    4. Phone Number & WhatsApp
                 </h3>
                 <button type="button" @click="addPhone()" class="btn-outline text-xs py-1.5 px-3">
-                    + Tambah Nomor
+                    + Add Number
                 </button>
             </div>
-            <p class="text-xs text-gray-500 mt-1 mb-3">Nomor kontak telepon atau WhatsApp hotline.</p>
+            <p class="text-xs text-gray-500 mt-1 mb-3">Contact phone number or WhatsApp hotline.</p>
 
             <div class="space-y-3">
                 <template x-for="(ph, idx) in phones" :key="idx">
                     <div class="p-3.5 rounded-2xl border border-gray-200 bg-gray-50/70 flex flex-col md:flex-row items-start md:items-center gap-3">
                         <div class="w-full md:w-56 shrink-0">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Nomor Kontak</label>
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Contact Number</label>
                             <input type="text" :name="`phone[${idx}][number]`" x-model="ph.number" class="form-input text-xs py-2 bg-white" placeholder="+62 878 3992 0990" required>
                         </div>
                         <div class="w-full md:w-44 shrink-0">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Tipe</label>
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Type</label>
                             <select :name="`phone[${idx}][type]`" x-model="ph.type" class="form-select text-xs py-2 bg-white">
                                 <option value="whatsapp">WhatsApp</option>
-                                <option value="phone">Telepon Kantor</option>
+                                <option value="phone">Office Phone</option>
                                 <option value="hotline">Hotline</option>
                                 <option value="fax">Fax</option>
                             </select>
                         </div>
                         <div class="flex-1 w-full">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">URL Click-to-Action (Opsional, otomatis bila kosong)</label>
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Click-to-Action URL (Optional, auto-generated if empty)</label>
                             <input type="text" :name="`phone[${idx}][url]`" x-model="ph.url" class="form-input text-xs py-2 bg-white" placeholder="https://wa.me/6287839920990">
                         </div>
                         <div class="self-end md:self-center pt-2 md:pt-4">
-                            <button type="button" @click="removePhone(idx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors" title="Hapus">
+                            <button type="button" @click="removePhone(idx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors" title="Delete">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                             </button>
                         </div>
@@ -262,7 +262,7 @@
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
                 </svg>
-                5. Judul Halaman Kontak (Multibahasa)
+                5. Contact Page Title (Multilingual)
             </h3>
 
             <x-lang-tabs :bahasas="$bahasas"/>
@@ -272,7 +272,7 @@
                     $req = $bahasa->is_default;
                 @endphp
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-4">
-                    <x-trans-input field="judul" label="Judul Halaman Kontak" :kode="$bahasa->kode" :required="$req" :item="$item" placeholder="cth: Hubungi Kami / Contact Us"/>
+                    <x-trans-input field="judul" label="Contact Page Title" :kode="$bahasa->kode" :required="$req" :item="$item" placeholder="e.g.: Contact Us"/>
                 </x-lang-panel>
             @endforeach
 
@@ -283,9 +283,9 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                     </svg>
-                    Update Kontak
+                    Update Contact
                 </button>
-                <a href="{{ route('admin.kontak.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.kontak.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

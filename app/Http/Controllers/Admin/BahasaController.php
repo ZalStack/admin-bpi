@@ -31,7 +31,7 @@ class BahasaController extends Controller
         Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
-            ->with('success', "Bahasa '{$validated['nama']}' berhasil ditambahkan");
+            ->with('success', "Language '{$validated['nama']}' added successfully");
     }
 
     public function update(Request $request, $kode)
@@ -40,7 +40,7 @@ class BahasaController extends Controller
 
         if ($bahasa->is_default && ! $request->boolean('aktif')) {
             return redirect()->route('admin.bahasa.index')
-                ->with('error', 'Bahasa default tidak dapat dinonaktifkan.');
+                ->with('error', 'Default language cannot be deactivated.');
         }
 
         $validated = $request->validate([
@@ -52,7 +52,7 @@ class BahasaController extends Controller
         Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
-            ->with('success', 'Bahasa berhasil diupdate');
+            ->with('success', 'Language updated successfully');
     }
 
     public function setDefault($kode)
@@ -66,7 +66,7 @@ class BahasaController extends Controller
         Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
-            ->with('success', "'{$bahasa->nama}' sekarang menjadi bahasa default");
+            ->with('success', "'{$bahasa->nama}' is now the default language");
     }
 
     public function toggleStatus($kode)
@@ -76,7 +76,7 @@ class BahasaController extends Controller
         if ($bahasa->is_default) {
             return response()->json([
                 'success' => false,
-                'message' => 'Bahasa default tidak dapat dinonaktifkan.',
+                'message' => 'Default language cannot be deactivated.',
             ], 422);
         }
 
@@ -93,7 +93,7 @@ class BahasaController extends Controller
 
         if ($bahasa->is_default) {
             return redirect()->route('admin.bahasa.index')
-                ->with('error', 'Bahasa default tidak dapat dihapus. Pindahkan default terlebih dahulu.');
+                ->with('error', 'Default language cannot be deleted. Please set another language as default first.');
         }
 
         // Semua translations untuk bahasa ini ikut terhapus via FK cascade.
@@ -101,7 +101,7 @@ class BahasaController extends Controller
         Bahasa::clearCache();
 
         return redirect()->route('admin.bahasa.index')
-            ->with('success', "Bahasa '{$bahasa->nama}' beserta semua terjemahannya berhasil dihapus");
+            ->with('success', "Language '{$bahasa->nama}' and all its translations deleted successfully");
     }
 
     public function switchLang($locale)

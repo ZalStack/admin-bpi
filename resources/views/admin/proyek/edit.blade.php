@@ -1,56 +1,56 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Proyek')
+@section('title', 'Edit Project')
 
 @section('content')
 @php
 $icons = [
-    // Perfilman & Media
-    ['code' => 'fa-solid fa-clapperboard', 'name' => 'Papan Film / Clapperboard', 'category' => 'film', 'tags' => 'film movie clapperboard bioskop sinema syuting'],
-    ['code' => 'fa-solid fa-video', 'name' => 'Kamera Video', 'category' => 'film', 'tags' => 'video camera rekaman syuting movie'],
-    ['code' => 'fa-solid fa-film', 'name' => 'Rol Film', 'category' => 'film', 'tags' => 'film movie roll sinema bioskop'],
-    ['code' => 'fa-solid fa-camera', 'name' => 'Kamera Foto', 'category' => 'film', 'tags' => 'kamera foto photo gambar picture'],
-    ['code' => 'fa-solid fa-tv', 'name' => 'Televisi / Layar', 'category' => 'film', 'tags' => 'tv televisi layar screen monitor'],
-    ['code' => 'fa-solid fa-play', 'name' => 'Tombol Play', 'category' => 'film', 'tags' => 'play putar video tonton'],
-    ['code' => 'fa-solid fa-headphones', 'name' => 'Audio / Headphone', 'category' => 'film', 'tags' => 'audio suara headphone musik sound'],
-    ['code' => 'fa-solid fa-photo-film', 'name' => 'Media Perfilman', 'category' => 'film', 'tags' => 'media film galeri foto'],
+    // Film & Media
+    ['code' => 'fa-solid fa-clapperboard', 'name' => 'Film Board / Clapperboard', 'category' => 'film', 'tags' => 'film movie clapperboard cinema shooting'],
+    ['code' => 'fa-solid fa-video', 'name' => 'Video Camera', 'category' => 'film', 'tags' => 'video camera recording shooting movie'],
+    ['code' => 'fa-solid fa-film', 'name' => 'Film Roll', 'category' => 'film', 'tags' => 'film movie roll cinema'],
+    ['code' => 'fa-solid fa-camera', 'name' => 'Photo Camera', 'category' => 'film', 'tags' => 'camera photo image picture'],
+    ['code' => 'fa-solid fa-tv', 'name' => 'Television / Screen', 'category' => 'film', 'tags' => 'tv television screen monitor'],
+    ['code' => 'fa-solid fa-play', 'name' => 'Play Button', 'category' => 'film', 'tags' => 'play video watch'],
+    ['code' => 'fa-solid fa-headphones', 'name' => 'Audio / Headphone', 'category' => 'film', 'tags' => 'audio sound headphone music'],
+    ['code' => 'fa-solid fa-photo-film', 'name' => 'Film Media', 'category' => 'film', 'tags' => 'media film gallery photo'],
 
-    // Inovasi & Ide Kreatif
-    ['code' => 'fa-solid fa-lightbulb', 'name' => 'Lampu Ide & Inovasi', 'category' => 'inovasi', 'tags' => 'lampu ide inovasi kreatif pikiran solusi gagas'],
-    ['code' => 'fa-solid fa-sparkles', 'name' => 'Kreativitas / Bintang', 'category' => 'inovasi', 'tags' => 'bintang kilau kreatif unggul prestasi inovasi'],
-    ['code' => 'fa-solid fa-rocket', 'name' => 'Roket & Akselerasi', 'category' => 'inovasi', 'tags' => 'roket cepat akselerasi luncur terbang maju'],
-    ['code' => 'fa-solid fa-star', 'name' => 'Bintang / Nilai Utama', 'category' => 'inovasi', 'tags' => 'bintang star favorit utama nilai rating'],
-    ['code' => 'fa-solid fa-leaf', 'name' => 'Daun & Keberlanjutan', 'category' => 'inovasi', 'tags' => 'daun eco green hijau lingkungan lestari keberlanjutan sustainability'],
-    ['code' => 'fa-solid fa-puzzle-piece', 'name' => 'Puzzle / Kolaborasi', 'category' => 'inovasi', 'tags' => 'puzzle bagian integrasi sinergi solusi'],
+    // Innovation & Creative Ideas
+    ['code' => 'fa-solid fa-lightbulb', 'name' => 'Idea & Innovation Lamp', 'category' => 'inovasi', 'tags' => 'idea innovation creative solution'],
+    ['code' => 'fa-solid fa-sparkles', 'name' => 'Creativity / Stars', 'category' => 'inovasi', 'tags' => 'stars sparkle creative achievement innovation'],
+    ['code' => 'fa-solid fa-rocket', 'name' => 'Rocket & Acceleration', 'category' => 'inovasi', 'tags' => 'rocket fast acceleration launch fly progress'],
+    ['code' => 'fa-solid fa-star', 'name' => 'Star / Core Value', 'category' => 'inovasi', 'tags' => 'star favorite main value rating'],
+    ['code' => 'fa-solid fa-leaf', 'name' => 'Leaf & Sustainability', 'category' => 'inovasi', 'tags' => 'leaf eco green environment sustainability'],
+    ['code' => 'fa-solid fa-puzzle-piece', 'name' => 'Puzzle / Collaboration', 'category' => 'inovasi', 'tags' => 'puzzle part integration synergy solution'],
 
-    // SDM & Komunitas
-    ['code' => 'fa-solid fa-users', 'name' => 'Komunitas / Asosiasi', 'category' => 'sdm', 'tags' => 'orang orang-banyak users sdm komunitas asosiasi sineas kelompok masyarakat'],
-    ['code' => 'fa-solid fa-user-group', 'name' => 'Grup / Tim Kerja', 'category' => 'sdm', 'tags' => 'grup tim kerja anggota organisasi squad'],
-    ['code' => 'fa-solid fa-handshake', 'name' => 'Kemitraan & Kerjasama', 'category' => 'sdm', 'tags' => 'jabat tangan handshake mitra partner kerjasama kolaborasi sinergi'],
-    ['code' => 'fa-solid fa-hand-holding-heart', 'name' => 'Apresiasi & Dukungan', 'category' => 'sdm', 'tags' => 'hati peduli kasih apresiasi sosial bantuan support'],
-    ['code' => 'fa-solid fa-heart', 'name' => 'Passion & Semangat', 'category' => 'sdm', 'tags' => 'hati suka cinta passion minat'],
+    // HR & Community
+    ['code' => 'fa-solid fa-users', 'name' => 'Community / Association', 'category' => 'sdm', 'tags' => 'people users community association filmmakers group'],
+    ['code' => 'fa-solid fa-user-group', 'name' => 'Group / Team', 'category' => 'sdm', 'tags' => 'group team members organization squad'],
+    ['code' => 'fa-solid fa-handshake', 'name' => 'Partnership & Cooperation', 'category' => 'sdm', 'tags' => 'handshake partner cooperation collaboration synergy'],
+    ['code' => 'fa-solid fa-hand-holding-heart', 'name' => 'Appreciation & Support', 'category' => 'sdm', 'tags' => 'heart care appreciation social support'],
+    ['code' => 'fa-solid fa-heart', 'name' => 'Passion & Spirit', 'category' => 'sdm', 'tags' => 'heart love passion interest'],
 
-    // Pendidikan & Sertifikasi
-    ['code' => 'fa-solid fa-graduation-cap', 'name' => 'Toga & Pendidikan SDM', 'category' => 'edukasi', 'tags' => 'toga wisuda sekolah kuliah pendidikan edukasi pelatihan sertifikasi sdm gelar'],
-    ['code' => 'fa-solid fa-book-open', 'name' => 'Buku / Riset & Kajian', 'category' => 'edukasi', 'tags' => 'buku baca riset penelitian ilmu pengetahuan studi arsip'],
-    ['code' => 'fa-solid fa-award', 'name' => 'Penghargaan & Festival', 'category' => 'edukasi', 'tags' => 'piala medali award juara apresiasi festival nominasi'],
-    ['code' => 'fa-solid fa-certificate', 'name' => 'Sertifikasi Profesi', 'category' => 'edukasi', 'tags' => 'sertifikat izin lisensi standar kelayakan'],
+    // Education & Certification
+    ['code' => 'fa-solid fa-graduation-cap', 'name' => 'Graduation & HR Education', 'category' => 'edukasi', 'tags' => 'graduation school college education training certification degree'],
+    ['code' => 'fa-solid fa-book-open', 'name' => 'Book / Research & Study', 'category' => 'edukasi', 'tags' => 'book read research science study archive'],
+    ['code' => 'fa-solid fa-award', 'name' => 'Award & Festival', 'category' => 'edukasi', 'tags' => 'trophy medal award winner appreciation festival nomination'],
+    ['code' => 'fa-solid fa-certificate', 'name' => 'Professional Certification', 'category' => 'edukasi', 'tags' => 'certificate permit license standards'],
 
-    // Hukum & Regulasi
-    ['code' => 'fa-solid fa-gavel', 'name' => 'Palu Sidang & Regulasi', 'category' => 'hukum', 'tags' => 'palu sidang hukum advokasi regulasi kebijakan undang-undang aturan'],
-    ['code' => 'fa-solid fa-scale-balanced', 'name' => 'Timbangan Keadilan', 'category' => 'hukum', 'tags' => 'timbangan hukum adil regulasi hak kekayaan cipta'],
-    ['code' => 'fa-solid fa-shield-halved', 'name' => 'Perlindungan & Hak Cipta', 'category' => 'hukum', 'tags' => 'tameng perisai lindung aman proteksi hak cipta security'],
-    ['code' => 'fa-solid fa-file-lines', 'name' => 'Dokumen & Kebijakan', 'category' => 'hukum', 'tags' => 'dokumen surat kertas naskah kebijakan berkas'],
+    // Law & Regulation
+    ['code' => 'fa-solid fa-gavel', 'name' => 'Gavel & Regulation', 'category' => 'hukum', 'tags' => 'gavel trial law advocacy regulation policy law rules'],
+    ['code' => 'fa-solid fa-scale-balanced', 'name' => 'Scale of Justice', 'category' => 'hukum', 'tags' => 'scale law fair regulation copyright'],
+    ['code' => 'fa-solid fa-shield-halved', 'name' => 'Protection & Copyright', 'category' => 'hukum', 'tags' => 'shield protection security copyright'],
+    ['code' => 'fa-solid fa-file-lines', 'name' => 'Document & Policy', 'category' => 'hukum', 'tags' => 'document letter paper manuscript policy file'],
 
-    // Bisnis, Finansial & Global
-    ['code' => 'fa-solid fa-globe', 'name' => 'Pasar Global / Internasional', 'category' => 'global', 'tags' => 'dunia bola bumi global internasional luar negeri ekspor pasar'],
-    ['code' => 'fa-solid fa-bullseye', 'name' => 'Target & Sasaran', 'category' => 'global', 'tags' => 'target panah sasaran capaian tujuan roadmap misi'],
-    ['code' => 'fa-solid fa-chart-line', 'name' => 'Pertumbuhan Industri', 'category' => 'global', 'tags' => 'grafik naik tumbuh ekonomi bisnis tren perkembangan'],
-    ['code' => 'fa-solid fa-building-columns', 'name' => 'Institusi / Kelembagaan', 'category' => 'global', 'tags' => 'gedung pilar bank lembaga kementerian bpi institusi pemerintah'],
-    ['code' => 'fa-solid fa-money-bill-wave', 'name' => 'Pembiayaan & Investasi', 'category' => 'global', 'tags' => 'uang kas dana modal pembiayaan investasi bill funding'],
-    ['code' => 'fa-solid fa-coins', 'name' => 'Koin / Finansial', 'category' => 'global', 'tags' => 'koin uang modal finasial dana'],
-    ['code' => 'fa-solid fa-wallet', 'name' => 'Dompet / Anggaran', 'category' => 'global', 'tags' => 'dompet wallet anggaran budget kas'],
-    ['code' => 'fa-solid fa-briefcase', 'name' => 'Bisnis & Profesionalisme', 'category' => 'global', 'tags' => 'tas koper kerja bisnis industri profesi komersial'],
+    // Business, Finance & Global
+    ['code' => 'fa-solid fa-globe', 'name' => 'Global / International Market', 'category' => 'global', 'tags' => 'world globe global international export market'],
+    ['code' => 'fa-solid fa-bullseye', 'name' => 'Target & Goals', 'category' => 'global', 'tags' => 'target arrow goals achievement mission roadmap'],
+    ['code' => 'fa-solid fa-chart-line', 'name' => 'Industry Growth', 'category' => 'global', 'tags' => 'chart graph growth economy business trend development'],
+    ['code' => 'fa-solid fa-building-columns', 'name' => 'Institution / Organization', 'category' => 'global', 'tags' => 'building institution government ministry bpi'],
+    ['code' => 'fa-solid fa-money-bill-wave', 'name' => 'Funding & Investment', 'category' => 'global', 'tags' => 'money cash fund capital funding investment bill'],
+    ['code' => 'fa-solid fa-coins', 'name' => 'Coins / Finance', 'category' => 'global', 'tags' => 'coins money capital finance fund'],
+    ['code' => 'fa-solid fa-wallet', 'name' => 'Wallet / Budget', 'category' => 'global', 'tags' => 'wallet budget cash'],
+    ['code' => 'fa-solid fa-briefcase', 'name' => 'Business & Professionalism', 'category' => 'global', 'tags' => 'briefcase work business industry profession commercial'],
 ];
 @endphp
 <div class="form-page">
@@ -61,13 +61,13 @@ $icons = [
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.proyek.index') }}">Proyek</a>
+                <a href="{{ route('admin.proyek.index') }}">Projects</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
                 <span>Edit</span>
             </nav>
-            <h1 class="page-title">Edit Proyek</h1>
+            <h1 class="page-title">Edit Project</h1>
             <p class="page-subtitle">{{ $proyek->translateField('judul') }}</p>
         </div>
         <div class="flex items-center gap-2">
@@ -75,13 +75,13 @@ $icons = [
                 <svg class="w-4 h-4 text-[#97763A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
-                Kelola Galeri Foto ({{ $proyek->galeri->count() }})
+                Manage Photo Gallery ({{ $proyek->galeri->count() }})
             </a>
             <a href="{{ route('admin.proyek.index') }}" class="btn-outline">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
-                Kembali
+                Back
             </a>
         </div>
     </div>
@@ -178,20 +178,20 @@ $icons = [
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                1. Tahun, Status & Gambar Utama
+                1. Year, Status & Main Image
             </h3>
 
             <div class="input-group">
                 <div>
-                    <label for="tahun" class="form-label">Tahun / Periode <span class="text-rose-500">*</span></label>
-                    <input type="text" name="tahun" id="tahun" value="{{ old('tahun', $proyek->tahun) }}" class="form-input" placeholder="cth: 2024 - Sekarang" required>
+                    <label for="tahun" class="form-label">Year / Period <span class="text-rose-500">*</span></label>
+                    <input type="text" name="tahun" id="tahun" value="{{ old('tahun', $proyek->tahun) }}" class="form-input" placeholder="e.g.: 2024 - Present" required>
                     @error('tahun')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label for="status" class="form-label">Status Publikasi</label>
+                    <label for="status" class="form-label">Publication Status</label>
                     <select name="status" id="status" class="form-select">
                         <option value="published" {{ old('status', $proyek->status) == 'published' ? 'selected' : '' }}>Published</option>
                         <option value="draft" {{ old('status', $proyek->status) == 'draft' ? 'selected' : '' }}>Draft</option>
@@ -203,7 +203,7 @@ $icons = [
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan Tampil</label>
+                    <label for="urutan" class="form-label">Display Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $proyek->urutan) }}" class="form-input" min="1">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -213,22 +213,22 @@ $icons = [
 
             <!-- Gambar Utama -->
             <div class="mt-4">
-                <label for="gambar_utama" class="form-label">Gambar Utama / Cover Proyek</label>
+                <label for="gambar_utama" class="form-label">Main Image / Project Cover</label>
                 @if($proyek->gambar_utama)
                     <div class="mb-3" x-data="{ deleting: false }">
-                        <p class="mb-1.5 text-xs font-medium text-gray-500">Gambar saat ini:</p>
+                        <p class="mb-1.5 text-xs font-medium text-gray-500">Current image:</p>
                         <div class="flex items-start gap-3">
                             <img id="current-gambar_utama" src="{{ asset('storage/proyek/'.$proyek->gambar_utama) }}" alt="proyek" class="h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
-                            <button type="button" @click="if(!confirm('Yakin ingin menghapus gambar ini?')) return; deleting=true; fetch('{{ route('admin.image.delete') }}',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-TOKEN':'{{ csrf_token() }}','Accept':'application/json'},body:JSON.stringify({model:'Proyek',id:{{ $proyek->id }},field:'gambar_utama'})}).then(r=>r.json()).then(d=>{if(d.success){document.getElementById('current-gambar_utama').style.display='none';this.style.display='none';}else{alert(d.message);deleting=false;}}).catch(()=>{alert('Terjadi kesalahan.');deleting=false;})" class="shrink-0 mt-2 inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100 transition-colors" :disabled="deleting">
+                            <button type="button" @click="if(!confirm('Are you sure you want to delete this image?')) return; deleting=true; fetch('{{ route('admin.image.delete') }}',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-TOKEN':'{{ csrf_token() }}','Accept':'application/json'},body:JSON.stringify({model:'Proyek',id:{{ $proyek->id }},field:'gambar_utama'})}).then(r=>r.json()).then(d=>{if(d.success){document.getElementById('current-gambar_utama').style.display='none';this.style.display='none';}else{alert(d.message);deleting=false;}}).catch(()=>{alert('An error occurred.');deleting=false;})" class="shrink-0 mt-2 inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100 transition-colors" :disabled="deleting">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                <span x-text="deleting ? 'Menghapus...' : 'Hapus Gambar'"></span>
+                                <span x-text="deleting ? 'Deleting...' : 'Delete Image'"></span>
                             </button>
                         </div>
                     </div>
                 @endif
                 <img id="preview-gambar-utama" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
                 <input type="file" name="gambar_utama" id="gambar_utama" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar-utama')">
-                <p class="mt-1.5 text-xs text-gray-400">Kosongkan jika tidak ingin mengubah gambar utama. Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
+                <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the main image. Format: JPG, PNG, WEBP. Maximum 2MB.</p>
                 @error('gambar_utama')
                     <p class="form-error">{{ $message }}</p>
                 @enderror
@@ -241,11 +241,11 @@ $icons = [
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
-                2. Mitra Terlibat / Kolaborator
+                2. Partners / Collaborators
             </h3>
 
             <div class="rounded-2xl border border-gray-200 bg-gray-50/60 p-4">
-                <p class="text-xs text-gray-500 mb-3">Centang mitra-mitra yang berkolaborasi dalam proyek ini:</p>
+                <p class="text-xs text-gray-500 mb-3">Check the partners that collaborate in this project:</p>
                 @php
                     $selectedMitraIds = $proyek->mitra->pluck('id')->all();
                 @endphp
@@ -261,7 +261,7 @@ $icons = [
                             </div>
                         </label>
                     @empty
-                        <p class="text-xs text-gray-400 italic">Belum ada data mitra.</p>
+                        <p class="text-xs text-gray-400 italic">No partner data yet.</p>
                     @endforelse
                 </div>
             </div>
@@ -273,7 +273,7 @@ $icons = [
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
                 </svg>
-                3. Detail Konten Multibahasa
+                3. Multilingual Content Details
             </h3>
 
             <x-lang-tabs :bahasas="$bahasas"/>
@@ -285,39 +285,39 @@ $icons = [
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-6">
                     <!-- Judul -->
                     <div class="input-group">
-                        <x-trans-input field="judul" label="Judul Proyek" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="cth: BPI Film Market"/>
+                        <x-trans-input field="judul" label="Project Title" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="e.g.: BPI Film Market"/>
                     </div>
 
                     <!-- Deskripsi Singkat & Lengkap -->
                     <div>
-                        <x-trans-textarea field="deskripsi_singkat" label="Deskripsi Singkat" :kode="$bahasa->kode" :required="$req" :item="$proyek" rows="2" placeholder="Ringkasan 1-2 kalimat untuk kartu proyek"/>
+                        <x-trans-textarea field="deskripsi_singkat" label="Short Description" :kode="$bahasa->kode" :required="$req" :item="$proyek" rows="2" placeholder="1-2 sentence summary for project card"/>
                     </div>
 
                     <div>
-                        <x-rich-editor field="deskripsi" label="Deskripsi Lengkap Proyek" :kode="$bahasa->kode" :required="$req" :item="$proyek" height="220px" placeholder="Penjelasan mendalam mengenai proyek..."/>
+                        <x-rich-editor field="deskripsi" label="Full Project Description" :kode="$bahasa->kode" :required="$req" :item="$proyek" height="220px" placeholder="Detailed explanation of the project..."/>
                     </div>
 
                     <!-- Meta Informasi Proyek -->
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-                        <x-trans-input field="lokasi" label="Lokasi" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="cth: Jakarta, Indonesia"/>
-                        <x-trans-input field="ruang_lingkup" label="Ruang Lingkup" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: Nasional & Internasional"/>
-                        <x-trans-input field="status_proyek" label="Status Proyek" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: Berjalan"/>
-                        <x-trans-input field="icon" label="Icon Font Awesome" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: fa-solid fa-film"/>
+                        <x-trans-input field="lokasi" label="Location" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="e.g.: Jakarta, Indonesia"/>
+                        <x-trans-input field="ruang_lingkup" label="Scope" :kode="$bahasa->kode" :item="$proyek" placeholder="e.g.: National & International"/>
+                        <x-trans-input field="status_proyek" label="Project Status" :kode="$bahasa->kode" :item="$proyek" placeholder="e.g.: Ongoing"/>
+                        <x-trans-input field="icon" label="Icon Font Awesome" :kode="$bahasa->kode" :item="$proyek" placeholder="e.g.: fa-solid fa-film"/>
                     </div>
 
                     <div>
-                        <x-trans-input field="timeline" label="Timeline Ringkas" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="cth: 2022 - Sekarang"/>
+                        <x-trans-input field="timeline" label="Brief Timeline" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="e.g.: 2022 - Present"/>
                     </div>
 
                     <!-- SUB-SECTION A: TUJUAN PROYEK -->
                     <div class="rounded-2xl border border-gray-200 bg-gray-50/70 p-4 sm:p-5">
                         <div class="flex items-center justify-between mb-3">
                             <div>
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">🎯 Tujuan Proyek ({{ $bahasa->nama }})</h4>
-                                <p class="text-xs text-gray-500">Poin-poin tujuan strategis dari proyek ini.</p>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">🎯 Project Objectives ({{ $bahasa->nama }})</h4>
+                                <p class="text-xs text-gray-500">Strategic objective points of this project.</p>
                             </div>
                             <button type="button" @click="addTujuan('{{ $bahasa->kode }}')" class="btn-outline text-xs py-1.5 px-3">
-                                + Tambah Tujuan
+                                + Add Objective
                             </button>
                         </div>
                         <div class="space-y-2.5">
@@ -327,13 +327,13 @@ $icons = [
                                         <template x-if="tItem.icon"><i :class="tItem.icon" class="text-sm"></i></template>
                                         <template x-if="!tItem.icon"><i class="fa-solid fa-icons text-sm text-gray-300"></i></template>
                                     </div>
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][tujuan][${tIdx}][icon]`" x-model="tItem.icon" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-mono" placeholder="Pilih icon...">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][tujuan][${tIdx}][icon]`" x-model="tItem.icon" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-mono" placeholder="Select icon...">
                                     <button type="button" @click="openIconModal(tItem)" class="inline-flex h-[38px] items-center gap-1 rounded-xl bg-[#132C5C] px-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#0E2043] transition-all cursor-pointer shrink-0">
                                         <i class="fa-solid fa-shapes text-xs text-[#E3DBAF]"></i>
-                                        <span>Pilih</span>
+                                        <span>Select</span>
                                     </button>
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][tujuan][${tIdx}][deskripsi]`" x-model="tItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="Deskripsi tujuan...">
-                                    <button type="button" @click="removeTujuan('{{ $bahasa->kode }}', tIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Hapus">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][tujuan][${tIdx}][deskripsi]`" x-model="tItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="Objective description...">
+                                    <button type="button" @click="removeTujuan('{{ $bahasa->kode }}', tIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Delete">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                     </button>
                                 </div>
@@ -345,11 +345,11 @@ $icons = [
                     <div class="rounded-2xl border border-gray-200 bg-gray-50/70 p-4 sm:p-5">
                         <div class="flex items-center justify-between mb-3">
                             <div>
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">📊 Dampak & Capaian ({{ $bahasa->nama }})</h4>
-                                <p class="text-xs text-gray-500">Statistik metrik dan capaian proyek (cth: 1.250+ Peserta).</p>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">📊 Impact & Achievements ({{ $bahasa->nama }})</h4>
+                                <p class="text-xs text-gray-500">Project metrics and achievements statistics (e.g.: 1,250+ Participants).</p>
                             </div>
                             <button type="button" @click="addDampak('{{ $bahasa->kode }}')" class="btn-outline text-xs py-1.5 px-3">
-                                + Tambah Capaian
+                                + Add Achievement
                             </button>
                         </div>
                         <div class="space-y-2.5">
@@ -359,14 +359,14 @@ $icons = [
                                         <template x-if="dItem.icon"><i :class="dItem.icon" class="text-sm"></i></template>
                                         <template x-if="!dItem.icon"><i class="fa-solid fa-icons text-sm text-gray-300"></i></template>
                                     </div>
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][dampak_capaian][${dIdx}][icon]`" x-model="dItem.icon" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-mono" placeholder="Pilih icon...">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][dampak_capaian][${dIdx}][icon]`" x-model="dItem.icon" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-mono" placeholder="Select icon...">
                                     <button type="button" @click="openIconModal(dItem)" class="inline-flex h-[38px] items-center gap-1 rounded-xl bg-[#132C5C] px-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#0E2043] transition-all cursor-pointer shrink-0">
                                         <i class="fa-solid fa-shapes text-xs text-[#E3DBAF]"></i>
-                                        <span>Pilih</span>
+                                        <span>Select</span>
                                     </button>
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][dampak_capaian][${dIdx}][total_capaian]`" x-model="dItem.total_capaian" class="form-input w-28 text-xs py-2 bg-white shrink-0 font-bold" placeholder="cth: 1.250+">
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][dampak_capaian][${dIdx}][deskripsi]`" x-model="dItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="Deskripsi capaian...">
-                                    <button type="button" @click="removeDampak('{{ $bahasa->kode }}', dIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Hapus">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][dampak_capaian][${dIdx}][total_capaian]`" x-model="dItem.total_capaian" class="form-input w-28 text-xs py-2 bg-white shrink-0 font-bold" placeholder="e.g.: 1,250+">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][dampak_capaian][${dIdx}][deskripsi]`" x-model="dItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="Achievement description...">
+                                    <button type="button" @click="removeDampak('{{ $bahasa->kode }}', dIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Delete">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                     </button>
                                 </div>
@@ -378,11 +378,11 @@ $icons = [
                     <div class="rounded-2xl border border-gray-200 bg-gray-50/70 p-4 sm:p-5">
                         <div class="flex items-center justify-between mb-3">
                             <div>
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">⚡ Kegiatan Utama ({{ $bahasa->nama }})</h4>
-                                <p class="text-xs text-gray-500">Aktivitas dan format program yang diselenggarakan.</p>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">⚡ Main Activities ({{ $bahasa->nama }})</h4>
+                                <p class="text-xs text-gray-500">Activities and program formats organized.</p>
                             </div>
                             <button type="button" @click="addKegiatan('{{ $bahasa->kode }}')" class="btn-outline text-xs py-1.5 px-3">
-                                + Tambah Kegiatan
+                                + Add Activity
                             </button>
                         </div>
                         <div class="space-y-2.5">
@@ -392,13 +392,13 @@ $icons = [
                                         <template x-if="kItem.icon"><i :class="kItem.icon" class="text-sm"></i></template>
                                         <template x-if="!kItem.icon"><i class="fa-solid fa-icons text-sm text-gray-300"></i></template>
                                     </div>
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][kegiatan_utama][${kIdx}][icon]`" x-model="kItem.icon" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-mono" placeholder="Pilih icon...">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][kegiatan_utama][${kIdx}][icon]`" x-model="kItem.icon" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-mono" placeholder="Select icon...">
                                     <button type="button" @click="openIconModal(kItem)" class="inline-flex h-[38px] items-center gap-1 rounded-xl bg-[#132C5C] px-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#0E2043] transition-all cursor-pointer shrink-0">
                                         <i class="fa-solid fa-shapes text-xs text-[#E3DBAF]"></i>
-                                        <span>Pilih</span>
+                                        <span>Select</span>
                                     </button>
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][kegiatan_utama][${kIdx}][deskripsi]`" x-model="kItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="cth: Sesi Pitching Proyek">
-                                    <button type="button" @click="removeKegiatan('{{ $bahasa->kode }}', kIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Hapus">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][kegiatan_utama][${kIdx}][deskripsi]`" x-model="kItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="e.g.: Project Pitching Session">
+                                    <button type="button" @click="removeKegiatan('{{ $bahasa->kode }}', kIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Delete">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                     </button>
                                 </div>
@@ -410,19 +410,19 @@ $icons = [
                     <div class="rounded-2xl border border-gray-200 bg-gray-50/70 p-4 sm:p-5">
                         <div class="flex items-center justify-between mb-3">
                             <div>
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">📅 Linimasa / Tahapan Proyek ({{ $bahasa->nama }})</h4>
-                                <p class="text-xs text-gray-500">Jejak langkah perkembangan proyek dari tahun ke tahun.</p>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-800">📅 Timeline / Project Stages ({{ $bahasa->nama }})</h4>
+                                <p class="text-xs text-gray-500">Project development milestones from year to year.</p>
                             </div>
                             <button type="button" @click="addLinimasa('{{ $bahasa->kode }}')" class="btn-outline text-xs py-1.5 px-3">
-                                + Tambah Linimasa
+                                + Add Timeline Entry
                             </button>
                         </div>
                         <div class="space-y-2.5">
                             <template x-for="(lItem, lIdx) in linimasa['{{ $bahasa->kode }}']" :key="lIdx">
                                 <div class="flex items-center gap-2">
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][linimasa_proyek][${lIdx}][tahun]`" x-model="lItem.tahun" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-bold" placeholder="cth: 2022">
-                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][linimasa_proyek][${lIdx}][deskripsi]`" x-model="lItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="Deskripsi capaian linimasa...">
-                                    <button type="button" @click="removeLinimasa('{{ $bahasa->kode }}', lIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Hapus">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][linimasa_proyek][${lIdx}][tahun]`" x-model="lItem.tahun" class="form-input w-36 text-xs py-2 bg-white shrink-0 font-bold" placeholder="e.g.: 2022">
+                                    <input type="text" :name="`translations[{{ $bahasa->kode }}][linimasa_proyek][${lIdx}][deskripsi]`" x-model="lItem.deskripsi" class="form-input text-xs py-2 bg-white" placeholder="Timeline achievement description...">
+                                    <button type="button" @click="removeLinimasa('{{ $bahasa->kode }}', lIdx)" class="p-2 text-gray-400 hover:text-rose-600 rounded-lg hover:bg-rose-50" title="Delete">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                     </button>
                                 </div>
@@ -439,9 +439,9 @@ $icons = [
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
                     </svg>
-                    Update Proyek
+                    Update Project
                 </button>
-                <a href="{{ route('admin.proyek.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.proyek.index') }}" class="btn-outline">Cancel</a>
             </div>
             <!-- MODAL VISUAL ICON PICKER -->
     <div x-show="showIconPicker"
@@ -465,8 +465,8 @@ $icons = [
                         <i class="fa-solid fa-icons text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-gray-900">Pilih Icon Secara Visual</h3>
-                        <p class="text-xs text-gray-500">Klik icon di bawah untuk memasukkannya ke formulir</p>
+                        <h3 class="text-base font-bold text-gray-900">Select Icon Visually</h3>
+                        <p class="text-xs text-gray-500">Click an icon below to insert it into the form</p>
                     </div>
                 </div>
                 <button type="button" @click="showIconPicker = false" class="rounded-xl p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-pointer">
@@ -480,7 +480,7 @@ $icons = [
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
                     <input type="text" x-model="searchQuery"
-                           placeholder="Cari icon... (contoh: film, kamera, orang, lampu, hukum, toga, dunia, target, roket, uang)"
+                           placeholder="Search icons... (e.g.: film, camera, people, lamp, law, graduation, globe, target, rocket, money)"
                            class="w-full rounded-2xl border border-gray-200 bg-gray-50/70 py-2.5 pl-11 pr-4 text-xs font-medium text-gray-800 placeholder-gray-400 focus:border-[#132C5C] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#132C5C]/10 transition-all">
                     <button type="button" x-show="searchQuery" @click="searchQuery = ''" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">
                         <i class="fa-solid fa-circle-xmark"></i>
@@ -492,37 +492,37 @@ $icons = [
                     <button type="button" @click="activeCategory = 'all'"
                         :class="activeCategory === 'all' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        Semua Icon
+                        All Icons
                     </button>
                     <button type="button" @click="activeCategory = 'film'"
                         :class="activeCategory === 'film' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        🎬 Perfilman
+                        🎬 Filmmaking
                     </button>
                     <button type="button" @click="activeCategory = 'inovasi'"
                         :class="activeCategory === 'inovasi' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        💡 Inovasi
+                        💡 Innovation
                     </button>
                     <button type="button" @click="activeCategory = 'sdm'"
                         :class="activeCategory === 'sdm' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        👥 SDM & Mitra
+                        👥 HR & Partners
                     </button>
                     <button type="button" @click="activeCategory = 'edukasi'"
                         :class="activeCategory === 'edukasi' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        🎓 Edukasi
+                        🎓 Education
                     </button>
                     <button type="button" @click="activeCategory = 'hukum'"
                         :class="activeCategory === 'hukum' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        ⚖️ Regulasi
+                        ⚖️ Regulation
                     </button>
                     <button type="button" @click="activeCategory = 'global'"
                         :class="activeCategory === 'global' ? 'bg-[#132C5C] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                         class="rounded-xl px-3 py-1.5 font-medium transition-colors cursor-pointer">
-                        🌐 Global & Bisnis
+                        🌐 Global & Business
                     </button>
                 </div>
             </div>
@@ -547,15 +547,15 @@ $icons = [
                 <!-- Empty State -->
                 <div x-show="filteredIcons.length === 0" class="py-12 text-center">
                     <i class="fa-solid fa-magnifying-glass text-3xl text-gray-300 mb-2"></i>
-                    <p class="text-xs font-medium text-gray-500">Tidak ada icon yang cocok dengan pencarian Anda.</p>
+                    <p class="text-xs font-medium text-gray-500">No icons match your search.</p>
                 </div>
             </div>
 
             <!-- Modal Footer -->
             <div class="border-t border-gray-100 px-6 py-3 bg-gray-50 flex items-center justify-between text-xs text-gray-500">
-                <span>Icon terpilih: <strong class="text-gray-800 font-mono" x-text="activeItemForIcon?.icon || 'Belum dipilih'"></strong></span>
+                <span>Selected icon: <strong class="text-gray-800 font-mono" x-text="activeItemForIcon?.icon || 'Not selected'"></strong></span>
                 <button type="button" @click="showIconPicker = false" class="rounded-xl px-4 py-2 font-semibold text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer">
-                    Tutup
+                    Close
                 </button>
             </div>
         </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Proyek')
+@section('title', 'Projects')
 
 @section('content')
 <div>
@@ -11,10 +11,10 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Proyek</span>
+                <span>Projects</span>
             </nav>
-            <h1 class="page-title">Proyek</h1>
-            <p class="page-subtitle">Kelola proyek dan galerinya ({{ strtoupper(\App\Models\Bahasa::defaultKode()) }} ditampilkan)</p>
+            <h1 class="page-title">Projects</h1>
+            <p class="page-subtitle">Manage projects and their galleries ({{ strtoupper(\App\Models\Bahasa::defaultKode()) }} displayed)</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2B4E94] ring-1 ring-[#2B4E94]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#2B4E94]"></span>
                 {{ $items->count() }} Data
@@ -24,7 +24,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Tambah Proyek
+            Add Project
         </a>
     </div>
 
@@ -33,8 +33,8 @@
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
             </svg>
-            <h3 class="empty-title">Belum ada data proyek</h3>
-            <p class="empty-desc">Mulai dengan menambahkan proyek baru.</p>
+            <h3 class="empty-title">No project data yet</h3>
+            <p class="empty-desc">Start by adding a new project.</p>
         </div>
     @else
         <div class="table-container">
@@ -43,10 +43,10 @@
                     <thead class="thead">
                         <tr>
                             <th class="th">#</th>
-                            <th class="th">Judul</th>
-                            <th class="th hidden lg:table-cell">Gambar</th>
+                            <th class="th">Title</th>
+                            <th class="th hidden lg:table-cell">Image</th>
                             <th class="th hidden sm:table-cell">Status</th>
-                            <th class="th text-right">Aksi</th>
+                            <th class="th text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
@@ -72,7 +72,7 @@
                                 </td>
                                 <td class="td text-right">
                                     <div class="flex items-center justify-end gap-1.5">
-                                        <a href="{{ route('admin.proyek.galeri.index', $item->id) }}" class="icon-btn-gold" title="Galeri">
+                                        <a href="{{ route('admin.proyek.galeri.index', $item->id) }}" class="icon-btn-gold" title="Gallery">
                                             <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                                             </svg>
@@ -82,10 +82,10 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.proyek.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.proyek.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this data?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="icon-btn-delete" title="Hapus">
+                                            <button type="submit" class="icon-btn-delete" title="Delete">
                                                 <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                 </svg>

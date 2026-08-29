@@ -85,7 +85,7 @@ abstract class AdminBaseController extends Controller
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function edit($id)
@@ -112,7 +112,7 @@ abstract class AdminBaseController extends Controller
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 
     public function destroy($id)
@@ -130,7 +130,7 @@ abstract class AdminBaseController extends Controller
         $item->delete();
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil dihapus');
+            ->with('success', $this->label.' deleted successfully');
     }
 
     public function toggleStatus($id)
@@ -203,7 +203,7 @@ abstract class AdminBaseController extends Controller
         return function (string $attribute, mixed $value, Closure $fail) {
             foreach (array_keys((array) $value) as $kode) {
                 if (! Bahasa::query()->where('kode', $kode)->exists()) {
-                    $fail("Bahasa '{$kode}' tidak terdaftar pada tabel bahasa.");
+                    $fail("Language '{$kode}' is not registered in the languages table.");
                 }
             }
         };
@@ -289,19 +289,19 @@ abstract class AdminBaseController extends Controller
 
         $modelClass = 'App\\Models\\' . $request->input('model');
         if (! class_exists($modelClass)) {
-            return response()->json(['success' => false, 'message' => 'Model tidak ditemukan.'], 404);
+            return response()->json(['success' => false, 'message' => 'Model not found.'], 404);
         }
 
         $item = $modelClass::find($request->input('id'));
         if (! $item) {
-            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.'], 404);
+            return response()->json(['success' => false, 'message' => 'Data not found.'], 404);
         }
 
         $field = $request->input('field');
         $filename = $item->{$field} ?? null;
 
         if (! $filename) {
-            return response()->json(['success' => false, 'message' => 'Tidak ada gambar untuk dihapus.'], 404);
+            return response()->json(['success' => false, 'message' => 'No image to delete.'], 404);
         }
 
         $imagePathMap = [
@@ -330,7 +330,7 @@ abstract class AdminBaseController extends Controller
         $item->{$field} = null;
         $item->save();
 
-        return response()->json(['success' => true, 'message' => 'Gambar berhasil dihapus.']);
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully.']);
     }
 
     /**

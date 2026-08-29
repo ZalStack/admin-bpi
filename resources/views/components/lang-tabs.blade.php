@@ -22,7 +22,7 @@
                 <span class="rounded bg-[#E3DBAF] px-1.5 py-0.5 text-[10px] font-semibold text-[#520A18]">Default</span>
             @endif
             @if ($hasTabError)
-                <span class="inline-block h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white" title="Terdapat error pada bahasa ini"></span>
+                <span class="inline-block h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white" title="There is an error in this language"></span>
             @endif
         </button>
     @endforeach

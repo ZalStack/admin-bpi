@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Kategori Berita')
+@section('title', 'Add News Category')
 
 @section('content')
 <div class="form-page">
@@ -11,24 +11,24 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.berita.index') }}">Berita</a>
+                <a href="{{ route('admin.berita.index') }}">News</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.kategori-berita.index') }}">Kategori</a>
+                <a href="{{ route('admin.kategori-berita.index') }}">Category</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Tambah</span>
+                <span>Add</span>
             </nav>
-            <h1 class="page-title">Tambah Kategori Berita</h1>
-            <p class="page-subtitle">Tambahkan kategori berita baru dengan judul multibahasa</p>
+            <h1 class="page-title">Add News Category</h1>
+            <p class="page-subtitle">Add a new news category with multilingual titles</p>
         </div>
         <a href="{{ route('admin.kategori-berita.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -41,7 +41,7 @@
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                 </svg>
-                Konten Multibahasa
+                Multilingual Content
             </h3>
 
             <x-lang-tabs :bahasas="$bahasas"/>
@@ -51,8 +51,8 @@
                     $req = $bahasa->is_default;
                 @endphp
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-4">
-                    <x-trans-input field="judul" label="Judul Kategori" :kode="$bahasa->kode" :required="$req" placeholder="{{ $req ? 'cth: Industri / Festival' : 'e.g: Industry / Festival' }}"/>
-                    <x-trans-input field="slug" label="Slug (Opsional, otomatis dari judul)" :kode="$bahasa->kode" placeholder="{{ $req ? 'cth: industri' : 'e.g: industry' }}"/>
+                    <x-trans-input field="judul" label="Category Title" :kode="$bahasa->kode" :required="$req" placeholder="{{ $req ? 'e.g.: Industry / Festival' : 'e.g.: Industry / Festival' }}"/>
+                    <x-trans-input field="slug" label="Slug (Optional, auto-generated from title)" :kode="$bahasa->kode" placeholder="{{ $req ? 'e.g.: industry' : 'e.g.: industry' }}"/>
                 </x-lang-panel>
             @endforeach
 
@@ -63,9 +63,9 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
                     </svg>
-                    Simpan Kategori
+                    Save Category
                 </button>
-                <a href="{{ route('admin.kategori-berita.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.kategori-berita.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

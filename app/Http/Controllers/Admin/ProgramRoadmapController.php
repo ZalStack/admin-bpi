@@ -14,7 +14,7 @@ class ProgramRoadmapController extends AdminBaseController
 
     protected string $routeName = 'admin.program-roadmap';
 
-    protected string $label = 'Peta Jalan';
+    protected string $label = 'Roadmap';
 
     protected array $validationRules = [
         'tahun' => 'required|string|max:50',
@@ -64,7 +64,7 @@ class ProgramRoadmapController extends AdminBaseController
         }
 
         return redirect()->route('admin.program.index')
-            ->with('success', 'Peta Jalan berhasil ditambahkan');
+            ->with('success', 'Roadmap added successfully');
     }
 
     public function update(Request $request, $id)
@@ -84,7 +84,7 @@ class ProgramRoadmapController extends AdminBaseController
         }
 
         return redirect()->route('admin.program.index')
-            ->with('success', 'Peta Jalan berhasil diupdate');
+            ->with('success', 'Roadmap updated successfully');
     }
 
     public function destroy($id)
@@ -93,7 +93,7 @@ class ProgramRoadmapController extends AdminBaseController
         $item->delete();
 
         return redirect()->route('admin.program.index')
-            ->with('success', 'Peta Jalan berhasil dihapus');
+            ->with('success', 'Roadmap deleted successfully');
     }
 
     protected function saveRoadmapTranslations(ProgramRoadmap $roadmap, array $translations): void

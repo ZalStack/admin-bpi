@@ -24,7 +24,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -37,7 +37,7 @@
             <div class="input-group">
                 <div>
                     <label for="section" class="form-label">Section *</label>
-                    <input type="text" name="section" id="section" value="{{ old('section', $item->section) }}" class="form-input" placeholder="cth: tentang, informasi, jaringan" required>
+                    <input type="text" name="section" id="section" value="{{ old('section', $item->section) }}" class="form-input" placeholder="e.g.: about, information, network" required>
                     @error('section')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -45,7 +45,7 @@
 
                 <div>
                     <label for="link_url" class="form-label">Link URL</label>
-                    <input type="text" name="link_url" id="link_url" value="{{ old('link_url', $item->link_url) }}" class="form-input" placeholder="https://example.com atau /halaman">
+                    <input type="text" name="link_url" id="link_url" value="{{ old('link_url', $item->link_url) }}" class="form-input" placeholder="https://example.com or /page">
                     @error('link_url')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -60,7 +60,7 @@
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan</label>
+                    <label for="urutan" class="form-label">Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $item->urutan) }}" class="form-input" min="0">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -72,7 +72,7 @@
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" {{ $item->status ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -84,11 +84,11 @@
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="judul" label="Judul" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Judul dalam bahasa {{ $bahasa->nama }}"/>
+                    <x-trans-input field="judul" label="Title" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Title in language {{ $bahasa->nama }}"/>
                     <div class="mt-4">
-                        <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" rows="3" :item="$item" placeholder="Deskripsi dalam bahasa {{ $bahasa->nama }}"/>
+                        <x-trans-textarea field="deskripsi" label="Description" :kode="$bahasa->kode" rows="3" :item="$item" placeholder="Description in language {{ $bahasa->nama }}"/>
                     </div>
-                    <x-trans-input field="link_nama" label="Link Nama" :kode="$bahasa->kode" :item="$item" placeholder="Link nama dalam bahasa {{ $bahasa->nama }}"/>
+                    <x-trans-input field="link_nama" label="Link Name" :kode="$bahasa->kode" :item="$item" placeholder="Link name in language {{ $bahasa->nama }}"/>
                 </x-lang-panel>
             @endforeach
 
@@ -101,7 +101,7 @@
                     </svg>
                     Update
                 </button>
-                <a href="{{ route('admin.footer.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.footer.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

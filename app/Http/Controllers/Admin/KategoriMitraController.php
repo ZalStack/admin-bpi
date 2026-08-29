@@ -15,7 +15,7 @@ class KategoriMitraController extends AdminBaseController
 
     protected string $routeName = 'admin.kategori-mitra';
 
-    protected string $label = 'Kategori Mitra';
+    protected string $label = 'Partner Category';
 
     protected array $validationRules = [
         'slug' => 'nullable|string|max:100',

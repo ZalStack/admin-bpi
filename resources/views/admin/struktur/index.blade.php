@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Struktur Organisasi')
+@section('title', 'Organizational Structure')
 
 @section('content')
 <div>
@@ -11,10 +11,10 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Struktur Organisasi</span>
+                <span>Organizational Structure</span>
             </nav>
-            <h1 class="page-title">Struktur Organisasi</h1>
-            <p class="page-subtitle">Kelola struktur organisasi perusahaan</p>
+            <h1 class="page-title">Organizational Structure</h1>
+            <p class="page-subtitle">Manage company organizational structure</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#520A18] ring-1 ring-[#520A18]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#520A18]"></span>
                 {{ $items->count() }} Data
@@ -24,7 +24,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Tambah Anggota
+            Add Member
         </a>
     </div>
 
@@ -33,8 +33,8 @@
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
-            <h3 class="empty-title">Belum ada anggota</h3>
-            <p class="empty-desc">Tambahkan anggota struktur organisasi.</p>
+            <h3 class="empty-title">No members yet</h3>
+            <p class="empty-desc">Add organizational structure members.</p>
         </div>
     @else
         <div class="table-container">
@@ -42,12 +42,12 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th class="th">Foto</th>
-                            <th class="th">Nama</th>
-                            <th class="th hidden md:table-cell">Jabatan</th>
-                            <th class="th hidden sm:table-cell">Urutan</th>
+                            <th class="th">Photo</th>
+                            <th class="th">Name</th>
+                            <th class="th hidden md:table-cell">Position</th>
+                            <th class="th hidden sm:table-cell">Order</th>
                             <th class="th hidden md:table-cell">Status</th>
-                            <th class="th text-right">Aksi</th>
+                            <th class="th text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
@@ -83,10 +83,10 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.struktur.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.struktur.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this data?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="icon-btn-delete" title="Hapus">
+                                            <button type="submit" class="icon-btn-delete" title="Delete">
                                                 <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                 </svg>

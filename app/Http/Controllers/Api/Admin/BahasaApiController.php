@@ -55,7 +55,7 @@ class BahasaApiController extends BaseApiController
 
         $bahasa = Bahasa::create($data);
 
-        return $this->successResponse($bahasa, 'Bahasa created successfully', 201);
+        return $this->successResponse($bahasa, 'Language created successfully', 201);
     }
 
     public function show($kode)
@@ -63,7 +63,7 @@ class BahasaApiController extends BaseApiController
         $bahasa = Bahasa::find($kode);
 
         if (! $bahasa) {
-            return $this->notFoundResponse('Bahasa not found');
+            return $this->notFoundResponse('Language not found');
         }
 
         return $this->successResponse($bahasa);
@@ -78,7 +78,7 @@ class BahasaApiController extends BaseApiController
         $bahasa = Bahasa::find($kode);
 
         if (! $bahasa) {
-            return $this->notFoundResponse('Bahasa not found');
+            return $this->notFoundResponse('Language not found');
         }
 
         $validator = validator($request->all(), [
@@ -100,14 +100,14 @@ class BahasaApiController extends BaseApiController
 
         if ($request->has('aktif')) {
             if (! $request->boolean('aktif') && $bahasa->is_default) {
-                return $this->errorResponse('Bahasa default tidak dapat dinonaktifkan', 422);
+                return $this->errorResponse('Default language cannot be deactivated', 422);
             }
             $bahasa->aktif = $request->boolean('aktif');
         }
 
         $bahasa->save();
 
-        return $this->successResponse($bahasa, 'Bahasa updated successfully');
+        return $this->successResponse($bahasa, 'Language updated successfully');
     }
 
     /**
@@ -119,16 +119,16 @@ class BahasaApiController extends BaseApiController
         $bahasa = Bahasa::find($kode);
 
         if (! $bahasa) {
-            return $this->notFoundResponse('Bahasa not found');
+            return $this->notFoundResponse('Language not found');
         }
 
         if ($bahasa->is_default) {
-            return $this->errorResponse('Bahasa default tidak dapat dihapus. Jadikan bahasa lain sebagai default terlebih dahulu.', 422);
+            return $this->errorResponse('Default language cannot be deleted. Please set another language as default first.', 422);
         }
 
         $bahasa->delete();
 
-        return $this->successResponse(null, 'Bahasa deleted successfully');
+        return $this->successResponse(null, 'Language deleted successfully');
     }
 
     public function toggleStatus($kode)
@@ -140,7 +140,7 @@ class BahasaApiController extends BaseApiController
         }
 
         if ($bahasa->is_default && $bahasa->aktif) {
-            return $this->errorResponse('Bahasa default tidak dapat dinonaktifkan', 422);
+            return $this->errorResponse('Default language cannot be deactivated', 422);
         }
 
         $bahasa->aktif = ! $bahasa->aktif;
@@ -189,7 +189,7 @@ class BahasaApiController extends BaseApiController
         $bahasa = Bahasa::find($kode);
 
         if (! $bahasa) {
-            return $this->notFoundResponse('Bahasa not found');
+            return $this->notFoundResponse('Language not found');
         }
 
         Bahasa::query()->update(['is_default' => false]);

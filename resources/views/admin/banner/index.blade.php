@@ -13,8 +13,8 @@
                 </svg>
                 <span>Banner</span>
             </nav>
-            <h1 class="page-title">Banner Halaman</h1>
-            <p class="page-subtitle">Kelola banner untuk setiap halaman</p>
+            <h1 class="page-title">Page Banners</h1>
+            <p class="page-subtitle">Manage banners for each page</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#132C5C] ring-1 ring-[#132C5C]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#132C5C]"></span>
                 {{ $items->count() }} Data
@@ -24,7 +24,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Tambah Banner
+            Add Banner
         </a>
     </div>
 
@@ -33,8 +33,8 @@
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
-            <h3 class="empty-title">Belum ada banner</h3>
-            <p class="empty-desc">Mulai dengan menambahkan banner baru.</p>
+            <h3 class="empty-title">No banners yet</h3>
+            <p class="empty-desc">Start by adding a new banner.</p>
         </div>
     @else
         <div class="table-container">
@@ -42,24 +42,24 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th class="th">Halaman</th>
-                            <th class="th hidden md:table-cell">Judul</th>
-                            <th class="th hidden lg:table-cell">Gambar</th>
+                            <th class="th">Page</th>
+                            <th class="th hidden md:table-cell">Title</th>
+                            <th class="th hidden lg:table-cell">Image</th>
                             <th class="th hidden md:table-cell">Status</th>
-                            <th class="th text-right">Aksi</th>
+                            <th class="th text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
                         @php
                             $halamanLabels = [
-                                'home' => 'Beranda',
+                                'home' => 'Homepage',
                                 'stakeholders' => 'Stakeholders',
-                                'program' => 'Program Strategis',
-                                'proyek' => 'Proyek Kolaborasi',
-                                'mitra' => 'Mitra',
-                                'berita' => 'Artikel & Berita',
-                                'tentang' => 'Tentang Kami',
-                                'kontak' => 'Hubungi Kami',
+                                'program' => 'Strategic Programs',
+                                'proyek' => 'Collaboration Projects',
+                                'mitra' => 'Partners',
+                                'berita' => 'Articles & News',
+                                'tentang' => 'About Us',
+                                'kontak' => 'Contact Us',
                             ];
                         @endphp
                         @foreach($items as $item)
@@ -94,7 +94,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.banner.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.banner.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this data?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="icon-btn-delete" title="Hapus">

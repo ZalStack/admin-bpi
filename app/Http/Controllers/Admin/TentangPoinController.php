@@ -13,7 +13,7 @@ class TentangPoinController extends AdminBaseController
 
     protected string $routeName = 'admin.tentang-poin';
 
-    protected string $label = 'Poin Visi & Misi';
+    protected string $label = 'Vision & Mission Points';
 
     protected array $validationRules = [
         'tentang_id' => 'required|exists:tentang,id',

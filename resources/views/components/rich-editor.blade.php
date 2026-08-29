@@ -3,7 +3,7 @@
     'label',
     'kode',
     'required' => false,
-    'placeholder' => 'Tulis konten lengkap...',
+    'placeholder' => 'Write full content...',
     'item' => null,
     'height' => '240px',
 ])

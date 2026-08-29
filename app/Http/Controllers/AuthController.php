@@ -38,11 +38,11 @@ class AuthController extends Controller
             App::setLocale($locale);
 
             return redirect()->intended('/dashboard')
-                ->with('success', 'Selamat datang kembali, '.Auth::user()->name.'!');
+                ->with('success', 'Welcome back, '.Auth::user()->name.'!');
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password yang Anda masukkan salah.',
+            'email' => 'The email or password you entered is incorrect.',
         ])->onlyInput('email');
     }
 
@@ -57,7 +57,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login')
-            ->with('success', 'Anda telah berhasil logout.');
+            ->with('success', 'You have been logged out successfully.');
     }
 
     /**

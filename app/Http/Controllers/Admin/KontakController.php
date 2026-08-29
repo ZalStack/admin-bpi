@@ -13,7 +13,7 @@ class KontakController extends AdminBaseController
 
     protected string $routeName = 'admin.kontak';
 
-    protected string $label = 'Kontak';
+    protected string $label = 'Contact';
 
     protected string $indexOrderColumn = 'id';
 
@@ -76,7 +76,7 @@ class KontakController extends AdminBaseController
         $this->syncKontakRelations($item, $request);
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function update(Request $request, $id)
@@ -98,7 +98,7 @@ class KontakController extends AdminBaseController
         $this->syncKontakRelations($item, $request);
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 
     protected function syncKontakRelations(Kontak $item, Request $request): void

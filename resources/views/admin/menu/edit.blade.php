@@ -24,7 +24,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -58,35 +58,35 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="page_preset" class="form-label">Pilih Halaman Website *</label>
+                    <label for="page_preset" class="form-label">Select Website Page *</label>
                     <select id="page_preset" x-model="selectedPage" @change="onSelectPage()" class="form-select">
-                        <option value="" disabled>-- Pilih Halaman Website --</option>
-                        <option value="/">🏠 Beranda ( / )</option>
+                        <option value="" disabled>-- Select Website Page --</option>
+                        <option value="/">🏠 Home ( / )</option>
                         <option value="/stakeholders">👥 Stakeholders ( /stakeholders )</option>
-                        <option value="/program">📊 Program Strategis ( /program )</option>
-                        <option value="/proyek">🎬 Proyek Kolaborasi ( /proyek )</option>
-                        <option value="/mitra">🤝 Mitra ( /mitra )</option>
-                        <option value="/berita">📰 Artikel & Berita ( /berita )</option>
-                        <option value="/tentang">🏛️ Tentang Kami ( /tentang )</option>
-                        <option value="/kontak">📞 Hubungi Kami ( /kontak )</option>
-                        <option value="custom">🔗 Link Kustom / URL Eksternal...</option>
+                        <option value="/program">📊 Strategic Programs ( /program )</option>
+                        <option value="/proyek">🎬 Collaboration Projects ( /proyek )</option>
+                        <option value="/mitra">🤝 Partners ( /mitra )</option>
+                        <option value="/berita">📰 Articles & News ( /berita )</option>
+                        <option value="/tentang">🏛️ About Us ( /tentang )</option>
+                        <option value="/kontak">📞 Contact Us ( /kontak )</option>
+                        <option value="custom">🔗 Custom Link / External URL...</option>
                     </select>
                 </div>
 
                 <div>
-                    <label for="url" class="form-label">Data URL Link *</label>
-                    <input type="text" name="url" id="url" x-model="url" :readonly="!isCustom && selectedPage !== 'custom'" class="form-input" :class="{'bg-gray-100 cursor-not-allowed text-gray-600': !isCustom && selectedPage !== 'custom', 'bg-white': isCustom}" placeholder="/halaman-kustom atau https://..." required>
+                    <label for="url" class="form-label">URL Link Data *</label>
+                    <input type="text" name="url" id="url" x-model="url" :readonly="!isCustom && selectedPage !== 'custom'" class="form-input" :class="{'bg-gray-100 cursor-not-allowed text-gray-600': !isCustom && selectedPage !== 'custom', 'bg-white': isCustom}" placeholder="/custom-page or https://..." required>
                     @error('url')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
-                    <p class="mt-1 text-xs text-gray-400" x-show="!isCustom && selectedPage !== 'custom'">✅ URL otomatis terisi dan terkunci sesuai halaman website.</p>
-                    <p class="mt-1 text-xs text-amber-600 font-medium" x-show="isCustom || selectedPage === 'custom'">⚠️ Masukkan relative path (misal: /halaman-baru) atau link web luar (misal: https://...).</p>
+                    <p class="mt-1 text-xs text-gray-400" x-show="!isCustom && selectedPage !== 'custom'">✅ URL is automatically filled and locked based on the website page.</p>
+                    <p class="mt-1 text-xs text-amber-600 font-medium" x-show="isCustom || selectedPage === 'custom'">⚠️ Enter a relative path (e.g., /new-page) or an external link (e.g., https://...).</p>
                 </div>
             </div>
 
             <div class="input-group mt-4">
                 <div>
-                    <label for="urutan" class="form-label">Urutan Tampil</label>
+                    <label for="urutan" class="form-label">Display Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $item->urutan) }}" class="form-input" min="0">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -98,7 +98,7 @@
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" {{ $item->status ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="nama" label="Nama Menu" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Nama dalam bahasa {{ $bahasa->nama }}"/>
+                    <x-trans-input field="nama" label="Menu Name" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Name in language {{ $bahasa->nama }}"/>
                 </x-lang-panel>
             @endforeach
 
@@ -123,7 +123,7 @@
                     </svg>
                     Update
                 </button>
-                <a href="{{ route('admin.menu.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.menu.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

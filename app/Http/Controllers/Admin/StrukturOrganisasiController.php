@@ -12,7 +12,7 @@ class StrukturOrganisasiController extends AdminBaseController
 
     protected string $routeName = 'admin.struktur';
 
-    protected string $label = 'Struktur organisasi';
+    protected string $label = 'Organizational Structure';
 
     protected array $validationRules = [
         'nama' => 'required|string|max:255',

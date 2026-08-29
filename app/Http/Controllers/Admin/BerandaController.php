@@ -12,7 +12,7 @@ class BerandaController extends AdminBaseController
 
     protected string $routeName = 'admin.beranda';
 
-    protected string $label = 'Data beranda';
+    protected string $label = 'Homepage Data';
 
     protected array $validationRules = [
         'section' => 'required|string|in:tentang,struktur,proyek,program,berita,mitra',

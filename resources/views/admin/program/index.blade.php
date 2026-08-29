@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Program & Peta Jalan')
+@section('title', 'Programs & Roadmap')
 
 @section('content')
 <div class="space-y-10">
@@ -14,16 +14,16 @@
                 </svg>
                 <span>Program</span>
             </nav>
-            <h1 class="page-title">Program & Peta Jalan</h1>
-            <p class="page-subtitle">Kelola pilar program strategis, sub-poin program, dan peta jalan 4 tahun ke depan</p>
+            <h1 class="page-title">Programs & Roadmap</h1>
+            <p class="page-subtitle">Manage strategic program pillars, sub-program points, and 4-year roadmap</p>
             <div class="mt-3 flex flex-wrap items-center gap-2">
                 <span class="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#97763A] ring-1 ring-[#97763A]/10 shadow-sm">
                     <span class="h-1.5 w-1.5 rounded-full bg-[#97763A]"></span>
-                    {{ $items->count() }} Program Pilar
+                    {{ $items->count() }} Program Pillars
                 </span>
                 <span class="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#244E96] ring-1 ring-[#244E96]/10 shadow-sm">
                     <span class="h-1.5 w-1.5 rounded-full bg-[#244E96]"></span>
-                    {{ $roadmaps->count() }} Peta Jalan (Roadmap)
+                    {{ $roadmaps->count() }} Roadmap
                 </span>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
-                Tambah Program
+                Add Program
             </a>
         </div>
     </div>
@@ -48,8 +48,8 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                 </div>
                 <div>
-                    <h2 class="text-lg font-bold text-gray-900">1. Pilar Program Strategis</h2>
-                    <p class="text-xs text-gray-500">Daftar pilar program beserta sub-poinnya (dikelola langsung di form edit program)</p>
+                    <h2 class="text-lg font-bold text-gray-900">1. Strategic Program Pillars</h2>
+                    <p class="text-xs text-gray-500">List of program pillars with their sub-points (managed directly in the program edit form)</p>
                 </div>
             </div>
         </div>
@@ -59,8 +59,8 @@
                 <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
-                <h3 class="empty-title">Belum ada data program</h3>
-                <p class="empty-desc">Mulai dengan menambahkan program pilar baru.</p>
+                <h3 class="empty-title">No program data yet</h3>
+                <p class="empty-desc">Start by adding a new program pillar.</p>
             </div>
         @else
             <div class="table-container">
@@ -68,12 +68,12 @@
                     <table class="table">
                         <thead class="thead">
                             <tr>
-                                <th class="th">Icon / Gambar</th>
-                                <th class="th">Judul Program</th>
-                                <th class="th">Sub-Poin Program</th>
-                                <th class="th hidden sm:table-cell">Urutan</th>
+                                <th class="th">Icon / Image</th>
+                                <th class="th">Program Title</th>
+                                <th class="th">Sub-Program Points</th>
+                                <th class="th hidden sm:table-cell">Order</th>
                                 <th class="th hidden md:table-cell">Status</th>
-                                <th class="th text-right">Aksi</th>
+                                <th class="th text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody class="tbody">
@@ -103,19 +103,19 @@
                                             <div class="flex flex-col gap-1 max-w-xs">
                                                 <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#97763A]">
                                                     <span class="h-1.5 w-1.5 rounded-full bg-[#97763A]"></span>
-                                                    {{ $item->poin->count() }} Poin Terdaftar:
+                                                    {{ $item->poin->count() }} Registered Points:
                                                 </span>
                                                 <ul class="text-[11px] text-gray-600 list-disc list-inside space-y-0.5">
                                                     @foreach($item->poin->take(3) as $p)
                                                         <li class="truncate">{{ $p->translateField('judul') }}</li>
                                                     @endforeach
                                                     @if($item->poin->count() > 3)
-                                                        <li class="text-gray-400 italic">+{{ $item->poin->count() - 3 }} poin lainnya</li>
+                                                        <li class="text-gray-400 italic">+{{ $item->poin->count() - 3 }} more points</li>
                                                     @endif
                                                 </ul>
                                             </div>
                                         @else
-                                            <span class="text-xs text-gray-400 italic">Belum ada poin</span>
+                                            <span class="text-xs text-gray-400 italic">No points yet</span>
                                         @endif
                                     </td>
                                     <td class="td hidden sm:table-cell">
@@ -129,15 +129,15 @@
                                     </td>
                                     <td class="td text-right">
                                         <div class="flex items-center justify-end gap-1.5">
-                                            <a href="{{ route('admin.program.edit', $item->id) }}" class="icon-btn-edit" title="Edit Program & Poin">
+                                            <a href="{{ route('admin.program.edit', $item->id) }}" class="icon-btn-edit" title="Edit Program & Points">
                                                 <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                                 </svg>
                                             </a>
-                                            <form action="{{ route('admin.program.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus program ini beserta seluruh poinnya?')">
+                                            <form action="{{ route('admin.program.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this program and all its points?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="icon-btn-delete" title="Hapus">
+                                                <button type="submit" class="icon-btn-delete" title="Delete">
                                                     <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                     </svg>
@@ -164,14 +164,14 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 </div>
                 <div>
-                    <h2 class="text-lg font-bold text-gray-900">2. Peta Jalan 4 Tahun (Roadmap)</h2>
-                    <p class="text-xs text-gray-500">Rencana strategis tahapan capaian ekosistem perfilman nasional per tahun</p>
+                    <h2 class="text-lg font-bold text-gray-900">2. 4-Year Roadmap</h2>
+                    <p class="text-xs text-gray-500">Strategic plan for annual stages of the national film ecosystem</p>
                 </div>
             </div>
 
             <a href="{{ route('admin.program-roadmap.create') }}" class="inline-flex items-center gap-1.5 rounded-xl bg-[#244E96] px-3.5 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#1b3d79] transition-all">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                Tambah Peta Jalan
+                Add Roadmap
             </a>
         </div>
 
@@ -180,8 +180,8 @@
                 <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
-                <h3 class="empty-title">Belum ada data peta jalan</h3>
-                <p class="empty-desc">Tambahkan peta jalan 4 tahun untuk ditampilkan di landing page.</p>
+                <h3 class="empty-title">No roadmap data yet</h3>
+                <p class="empty-desc">Add a 4-year roadmap to display on the landing page.</p>
             </div>
         @else
             <div class="table-container">
@@ -189,12 +189,12 @@
                     <table class="table">
                         <thead class="thead">
                             <tr>
-                                <th class="th">Tahun</th>
-                                <th class="th">Tema / Judul</th>
-                                <th class="th">Poin Capaian Tahunan</th>
-                                <th class="th hidden sm:table-cell">Urutan</th>
+                                <th class="th">Year</th>
+                                <th class="th">Theme / Title</th>
+                                <th class="th">Annual Achievement Points</th>
+                                <th class="th hidden sm:table-cell">Order</th>
                                 <th class="th hidden md:table-cell">Status</th>
-                                <th class="th text-right">Aksi</th>
+                                <th class="th text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody class="tbody">
@@ -224,7 +224,7 @@
                                                 @endforeach
                                             </div>
                                         @else
-                                            <span class="text-xs text-gray-400 italic">Belum ada poin</span>
+                                            <span class="text-xs text-gray-400 italic">No points yet</span>
                                         @endif
                                     </td>
                                     <td class="td hidden sm:table-cell">
@@ -238,15 +238,15 @@
                                     </td>
                                     <td class="td text-right">
                                         <div class="flex items-center justify-end gap-1.5">
-                                            <a href="{{ route('admin.program-roadmap.edit', $r->id) }}" class="icon-btn-edit" title="Edit Peta Jalan">
+                                            <a href="{{ route('admin.program-roadmap.edit', $r->id) }}" class="icon-btn-edit" title="Edit Roadmap">
                                                 <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                                 </svg>
                                             </a>
-                                            <form action="{{ route('admin.program-roadmap.destroy', $r->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus peta jalan tahun {{ $r->tahun }} ini?')">
+                                            <form action="{{ route('admin.program-roadmap.destroy', $r->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this year\'s roadmap?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="icon-btn-delete" title="Hapus">
+                                                <button type="submit" class="icon-btn-delete" title="Delete">
                                                     <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                     </svg>

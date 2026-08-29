@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pengaturan Bahasa')
+@section('title', 'Language Settings')
 
 @section('content')
 <div>
@@ -11,10 +11,10 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Pengaturan Bahasa</span>
+                <span>Language Settings</span>
             </nav>
-            <h1 class="page-title">Pengaturan Bahasa</h1>
-            <p class="page-subtitle">Kelola daftar bahasa yang tersedia pada website</p>
+            <h1 class="page-title">Language Settings</h1>
+            <p class="page-subtitle">Manage languages available on the website</p>
         </div>
     </div>
 
@@ -36,10 +36,10 @@
                     <table class="table" x-data="{ editing: null }">
                         <thead class="thead">
                             <tr>
-                                <th class="th">Kode</th>
-                                <th class="th">Nama</th>
+                                <th class="th">Code</th>
+                                <th class="th">Name</th>
                                 <th class="th hidden sm:table-cell">Status</th>
-                                <th class="th text-right">Aksi</th>
+                                <th class="th text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody class="tbody">
@@ -55,9 +55,9 @@
                                         @endif
                                     </td>
                                     <td class="td hidden sm:table-cell">
-                                        <button onclick="toggleBahasa('{{ $bahasa->kode }}')" class="{{ $bahasa->aktif ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer" {{ $bahasa->is_default ? 'disabled title="Bahasa default tidak dapat dinonaktifkan"' : '' }}>
+                                        <button onclick="toggleBahasa('{{ $bahasa->kode }}')" class="{{ $bahasa->aktif ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer" {{ $bahasa->is_default ? 'disabled title="The default language cannot be deactivated or deleted"' : '' }}>
                                             <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
-                                            {{ $bahasa->aktif ? 'Aktif' : 'Nonaktif' }}
+                                            {{ $bahasa->aktif ? 'Active' : 'Inactive' }}
                                         </button>
                                     </td>
                                     <td class="td text-right">
@@ -66,7 +66,7 @@
                                                 <form action="{{ route('admin.bahasa.set-default', $bahasa->kode) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="icon-btn-gold !h-8 !w-8" title="Jadikan Default">
+                                                    <button type="submit" class="icon-btn-gold !h-8 !w-8" title="Set as Default">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                                                         </svg>
@@ -79,10 +79,10 @@
                                                 </svg>
                                             </button>
                                             @unless ($bahasa->is_default)
-                                                <form action="{{ route('admin.bahasa.destroy', $bahasa->kode) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus bahasa ini? Semua terjemahan dalam bahasa ini akan ikut terhapus.')">
+                                                <form action="{{ route('admin.bahasa.destroy', $bahasa->kode) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this language? All translations in this language will also be deleted.')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="icon-btn-delete !h-8 !w-8" title="Hapus">
+                                                    <button type="submit" class="icon-btn-delete !h-8 !w-8" title="Delete">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                         </svg>
@@ -98,7 +98,7 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="flex-1 min-w-[200px]">
-                                                <label class="form-label">Nama Bahasa *</label>
+                                                <label class="form-label">Language Name *</label>
                                                 <input type="text" name="nama" value="{{ old('nama', $bahasa->nama) }}" class="form-input" required>
                                                 @error('nama')
                                                     <p class="form-error">{{ $message }}</p>
@@ -107,10 +107,10 @@
                                             <label class="flex h-[46px] items-center gap-2 cursor-pointer">
                                                 <input type="hidden" name="aktif" value="0">
                                                 <input type="checkbox" name="aktif" value="1" {{ old('aktif', $bahasa->aktif) ? 'checked' : '' }} class="form-checkbox" {{ $bahasa->is_default ? 'checked disabled' : '' }}>
-                                                <span class="text-sm font-medium text-gray-700">Aktif</span>
+                                                <span class="text-sm font-medium text-gray-700">Active</span>
                                             </label>
-                                            <button type="submit" class="btn-primary">Simpan</button>
-                                            <button type="button" class="btn-outline" @click="editing = null">Batal</button>
+                                            <button type="submit" class="btn-primary">Save</button>
+                                            <button type="button" class="btn-outline" @click="editing = null">Cancel</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -127,24 +127,24 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
-                    Tambah Bahasa
+                    Add Language
                 </h3>
 
                 <form action="{{ route('admin.bahasa.store') }}" method="POST">
                     @csrf
 
                     <div class="mb-4">
-                        <label for="kode" class="form-label">Kode *</label>
-                        <input type="text" name="kode" id="kode" value="{{ old('kode') }}" class="form-input font-mono uppercase" placeholder="cth: jp" maxlength="5" required>
-                        <p class="mt-1.5 text-xs text-gray-400">Kode ISO 2-5 karakter, cth: id, en, jp.</p>
+                        <label for="kode" class="form-label">Code *</label>
+                        <input type="text" name="kode" id="kode" value="{{ old('kode') }}" class="form-input font-mono uppercase" placeholder="e.g.: jp" maxlength="5" required>
+                        <p class="mt-1.5 text-xs text-gray-400">ISO code 2-5 characters, e.g.: id, en, jp.</p>
                         @error('kode')
                             <p class="form-error">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="mb-4">
-                        <label for="nama" class="form-label">Nama Bahasa *</label>
-                        <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-input" placeholder="cth: Japan" required>
+                        <label for="nama" class="form-label">Language Name *</label>
+                        <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-input" placeholder="e.g.: Japan" required>
                         @error('nama')
                             <p class="form-error">{{ $message }}</p>
                         @enderror
@@ -154,20 +154,20 @@
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="hidden" name="aktif" value="0">
                             <input type="checkbox" name="aktif" value="1" checked class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Langsung aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active immediately</span>
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-primary w-full justify-center">Tambahkan</button>
+                    <button type="submit" class="btn-primary w-full justify-center">Add</button>
                 </form>
             </div>
 
             <div class="mt-4 rounded-xl border border-blue-100 bg-blue-50/60 p-4 text-xs leading-relaxed text-gray-600">
-                <p class="font-semibold text-[#2B4E94]">Catatan:</p>
+                <p class="font-semibold text-[#2B4E94]">Note:</p>
                 <ul class="mt-1.5 list-disc space-y-1 pl-4">
-                    <li>Bahasa default tidak dapat dinonaktifkan atau dihapus.</li>
-                    <li>Menghapus bahasa akan menghapus semua terjemahan dalam bahasa tersebut.</li>
-                    <li>Konten utama tersimpan netral; terjemahan diisi per tab bahasa pada setiap halaman CMS.</li>
+                    <li>The default language cannot be deactivated or deleted.</li>
+                    <li>Deleting a language will remove all translations in that language.</li>
+                    <li>Main content is stored neutrally; translations are filled per language tab on each CMS page.</li>
                 </ul>
             </div>
         </div>
@@ -187,12 +187,12 @@ function toggleBahasa(kode) {
     .then(res => res.json().then(data => ({ ok: res.ok, data })))
     .then(({ ok, data }) => {
         if (!ok) {
-            alert(data.message || 'Gagal mengubah status bahasa.');
+            alert(data.message || 'Failed to change language status.');
             return;
         }
         window.location.reload();
     })
-    .catch(() => alert('Terjadi kesalahan jaringan.'));
+    .catch(() => alert('Network error occurred.'));
 }
 </script>
 @endpush

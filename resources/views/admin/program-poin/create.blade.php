@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Program Poin')
+@section('title', 'Add Program Point')
 
 @section('content')
 <div class="form-page">
@@ -11,20 +11,20 @@
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <a href="{{ route('admin.program-poin.index') }}">Program Poin</a>
+                <a href="{{ route('admin.program-poin.index') }}">Program Points</a>
                 <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-                <span>Tambah</span>
+                <span>Add</span>
             </nav>
-            <h1 class="page-title">Tambah Program Poin</h1>
-            <p class="page-subtitle">Tambahkan poin program baru</p>
+            <h1 class="page-title">Add Program Point</h1>
+            <p class="page-subtitle">Add a new program point</p>
         </div>
         <a href="{{ route('admin.program-poin.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -37,7 +37,7 @@
                 <div>
                     <label for="program_id" class="form-label">Program <span class="text-red-500">*</span></label>
                     <select name="program_id" id="program_id" class="form-input" required>
-                        <option value="">Pilih Program</option>
+                        <option value="">Select Program</option>
                         @foreach($programs as $program)
                             <option value="{{ $program->id }}" {{ old('program_id') == $program->id ? 'selected' : '' }}>
                                 {{ $program->translateField('nama') ?: 'ID: '.$program->id }}
@@ -58,7 +58,7 @@
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan</label>
+                    <label for="urutan" class="form-label">Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -70,7 +70,7 @@
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" name="status" value="1" checked class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Aktif</span>
+                            <span class="text-sm font-medium text-gray-700">Active</span>
                         </label>
                     </div>
                 </div>
@@ -82,9 +82,9 @@
 
             @foreach ($bahasas as $bahasa)
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
-                    <x-trans-input field="judul" label="Judul" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Judul dalam bahasa {{ $bahasa->nama }}"/>
+                    <x-trans-input field="judul" label="Title" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="Title in language {{ $bahasa->nama }}"/>
                     <div class="mt-4">
-                        <x-trans-textarea field="deskripsi" label="Deskripsi" :kode="$bahasa->kode" rows="3" placeholder="Deskripsi dalam bahasa {{ $bahasa->nama }}"/>
+                        <x-trans-textarea field="deskripsi" label="Description" :kode="$bahasa->kode" rows="3" placeholder="Description in language {{ $bahasa->nama }}"/>
                     </div>
                 </x-lang-panel>
             @endforeach
@@ -96,9 +96,9 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
                     </svg>
-                    Simpan
+                    Save
                 </button>
-                <a href="{{ route('admin.program-poin.index') }}" class="btn-outline">Batal</a>
+                <a href="{{ route('admin.program-poin.index') }}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>

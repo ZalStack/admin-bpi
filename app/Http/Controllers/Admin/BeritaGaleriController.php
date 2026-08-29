@@ -15,7 +15,7 @@ class BeritaGaleriController extends AdminBaseController
 
     protected string $routeName = 'admin.berita.galeri';
 
-    protected string $label = 'Galeri berita';
+    protected string $label = 'News Gallery';
 
     protected array $validationRules = [
         'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -68,7 +68,7 @@ class BeritaGaleriController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index', $berita_id)
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function edit($berita_id = null, $id = null)
@@ -95,7 +95,7 @@ class BeritaGaleriController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index', $berita_id)
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 
     public function destroy($berita_id = null, $id = null)
@@ -109,6 +109,6 @@ class BeritaGaleriController extends AdminBaseController
         $item->delete();
 
         return redirect()->route($this->routeName.'.index', $berita_id)
-            ->with('success', $this->label.' berhasil dihapus');
+            ->with('success', $this->label.' deleted successfully');
     }
 }

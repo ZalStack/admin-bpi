@@ -18,7 +18,7 @@ class BeritaController extends AdminBaseController
 
     protected string $routeName = 'admin.berita';
 
-    protected string $label = 'Berita';
+    protected string $label = 'News';
 
     protected string $indexOrderColumn = 'created_at';
 
@@ -85,7 +85,7 @@ class BeritaController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function update(Request $request, $id)
@@ -107,7 +107,7 @@ class BeritaController extends AdminBaseController
         $item->tags()->sync($request->input('tag_ids', []));
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 
     public function toggleStatus($id)

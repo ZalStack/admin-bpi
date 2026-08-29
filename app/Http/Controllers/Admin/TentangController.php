@@ -14,7 +14,7 @@ class TentangController extends AdminBaseController
 
     protected string $routeName = 'admin.tentang';
 
-    protected string $label = 'Data tentang';
+    protected string $label = 'About';
 
     protected array $validationRules = [
         'section' => 'required|string|in:intro,visi,misi',
@@ -65,7 +65,7 @@ class TentangController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil ditambahkan');
+            ->with('success', $this->label.' added successfully');
     }
 
     public function edit($id)
@@ -132,6 +132,6 @@ class TentangController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 }

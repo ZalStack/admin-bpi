@@ -14,7 +14,7 @@ class MitraIntroController extends AdminBaseController
 
     protected string $routeName = 'admin.mitra-intro';
 
-    protected string $label = 'Intro Mitra';
+    protected string $label = 'Partner Intro';
 
     protected array $validationRules = [
         'status' => 'boolean',
@@ -58,6 +58,6 @@ class MitraIntroController extends AdminBaseController
         }
 
         return redirect()->route($this->routeName.'.edit', $item->id)
-            ->with('success', $this->label.' berhasil diupdate');
+            ->with('success', $this->label.' updated successfully');
     }
 }
