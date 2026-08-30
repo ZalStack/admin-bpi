@@ -16,6 +16,7 @@ class BannerHalaman extends Model
         'halaman',
         'gambar',
         'status',
+        'urutan',
     ];
 
     protected $casts = [

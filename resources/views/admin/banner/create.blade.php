@@ -53,6 +53,14 @@
                 </div>
 
                 <div>
+                    <label for="urutan" class="form-label">Order</label>
+                    <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" min="0" class="form-input" placeholder="0">
+                    @error('urutan')
+                        <p class="form-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
                     <label for="status" class="form-label">Status</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">

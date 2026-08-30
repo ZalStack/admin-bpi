@@ -64,6 +64,7 @@ Route::prefix('admin/v1')
             Route::get('/', [BannerApiController::class, 'index']);
             Route::post('/', [BannerApiController::class, 'store']);
             Route::get('/halaman/{halaman}', [BannerApiController::class, 'getByHalaman']);
+            Route::put('/update-urutan', [BannerApiController::class, 'updateUrutan']);
             Route::patch('/{id}/toggle-status', [BannerApiController::class, 'toggleStatus']);
             Route::get('/{id}', [BannerApiController::class, 'show']);
             Route::put('/{id}', [BannerApiController::class, 'update']);

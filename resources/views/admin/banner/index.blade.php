@@ -42,6 +42,7 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
+                            <th class="th">Order</th>
                             <th class="th">Page</th>
                             <th class="th hidden md:table-cell">Title</th>
                             <th class="th hidden lg:table-cell">Image</th>
@@ -64,6 +65,7 @@
                         @endphp
                         @foreach($items as $item)
                             <tr class="tr-hover">
+                                <td class="td font-medium text-gray-800">{{ $item->urutan ?? 0 }}</td>
                                 <td class="td">
                                     <span class="inline-flex items-center rounded-lg bg-[#97763A]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#97763A]">
                                         {{ $halamanLabels[$item->halaman] ?? ucfirst($item->halaman) }}

@@ -16,6 +16,7 @@ class BannerApiController extends BaseApiController
         'halaman' => 'required|string|max:50',
         'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'status' => 'boolean',
+        'urutan' => 'nullable|integer',
     ];
 
     protected array $translatableRules = [
@@ -25,16 +26,17 @@ class BannerApiController extends BaseApiController
 
     public function getByHalaman($halaman)
     {
-        $resource = $this->model::query()
+        $resources = $this->model::query()
             ->with($this->withRelations)
             ->where('halaman', $halaman)
             ->where('status', true)
-            ->first();
+            ->orderBy('urutan', 'asc')
+            ->get();
 
-        if (! $resource) {
+        if ($resources->isEmpty()) {
             return $this->notFoundResponse("Banner for halaman '{$halaman}' not found");
         }
 
-        return $this->successResponse($resource);
+        return $this->successResponse($resources);
     }
 }
