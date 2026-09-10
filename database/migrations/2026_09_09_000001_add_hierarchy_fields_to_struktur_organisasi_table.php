@@ -13,16 +13,22 @@ return new class extends Migration
     {
         Schema::table('struktur_organisasi', function (Blueprint $table) {
             if (!Schema::hasColumn('struktur_organisasi', 'kategori')) {
-                $table->string('kategori')->nullable()->after('divisi');
+                $table->string('kategori', 50)->default('bidang')->nullable();
             }
             if (!Schema::hasColumn('struktur_organisasi', 'sub_kategori')) {
-                $table->string('sub_kategori')->nullable()->after('kategori');
+                $table->string('sub_kategori', 50)->nullable();
             }
             if (!Schema::hasColumn('struktur_organisasi', 'departemen')) {
-                $table->string('departemen')->nullable()->after('sub_kategori');
+                $table->string('departemen', 255)->nullable();
             }
             if (!Schema::hasColumn('struktur_organisasi', 'level')) {
-                $table->integer('level')->default(1)->after('departemen');
+                $table->tinyInteger('level')->default(3);
+            }
+        });
+
+        Schema::table('struktur_organisasi_translations', function (Blueprint $table) {
+            if (!Schema::hasColumn('struktur_organisasi_translations', 'departemen')) {
+                $table->string('departemen', 255)->nullable()->after('jabatan');
             }
         });
     }
@@ -48,6 +54,12 @@ return new class extends Migration
             }
             if (!empty($columnsToDrop)) {
                 $table->dropColumn($columnsToDrop);
+            }
+        });
+
+        Schema::table('struktur_organisasi_translations', function (Blueprint $table) {
+            if (Schema::hasColumn('struktur_organisasi_translations', 'departemen')) {
+                $table->dropColumn('departemen');
             }
         });
     }
