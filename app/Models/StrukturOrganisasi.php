@@ -14,6 +14,10 @@ class StrukturOrganisasi extends Model
 
     protected $fillable = [
         'nama',
+        'kategori',
+        'sub_kategori',
+        'departemen',
+        'level',
         'foto',
         'linkedin',
         'instagram',
@@ -25,6 +29,8 @@ class StrukturOrganisasi extends Model
 
     protected $casts = [
         'status' => 'boolean',
+        'level' => 'integer',
+        'urutan' => 'integer',
     ];
 
     protected $appends = [

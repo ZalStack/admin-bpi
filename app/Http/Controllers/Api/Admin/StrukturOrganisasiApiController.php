@@ -12,19 +12,30 @@ class StrukturOrganisasiApiController extends BaseApiController
 
     protected ?string $imagePath = 'struktur';
 
-    protected array $orderBy = ['urutan' => 'asc'];
+    protected array $orderBy = [
+        'urutan' => 'asc',
+        'level' => 'asc',
+        'id' => 'asc',
+    ];
 
     protected array $validationRules = [
         'nama' => 'required|string|max:255',
+        'kategori' => 'required|string|in:pimpinan,dewan,bidang,komite,satgas_pokja',
+        'sub_kategori' => 'nullable|string|max:50',
+        'departemen' => 'nullable|string|max:255',
+        'level' => 'nullable|integer|between:1,4',
         'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'linkedin' => 'nullable|string|max:255',
         'instagram' => 'nullable|string|max:255',
         'email' => 'nullable|email|max:255',
+        'telepon' => 'nullable|string|max:50',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];
 
     protected array $translatableRules = [
         'jabatan' => 'required|string|max:255',
+        'departemen' => 'nullable|string|max:255',
+        'deskripsi' => 'nullable|string',
     ];
 }

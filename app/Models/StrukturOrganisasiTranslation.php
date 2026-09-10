@@ -15,6 +15,7 @@ class StrukturOrganisasiTranslation extends Model
         'struktur_organisasi_id',
         'bahasa',
         'jabatan',
+        'departemen',
         'deskripsi',
     ];
 }

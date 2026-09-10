@@ -14,10 +14,10 @@
                 <span>Organizational Structure</span>
             </nav>
             <h1 class="page-title">Organizational Structure</h1>
-            <p class="page-subtitle">Manage company organizational structure</p>
+            <p class="page-subtitle">Manage official BPI leadership, councils, strategic departments, and committees</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#520A18] ring-1 ring-[#520A18]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#520A18]"></span>
-                {{ $items->count() }} Data
+                {{ $items->count() }} Members
             </div>
         </div>
         <a href="{{ route('admin.struktur.create') }}" class="btn-primary">
@@ -44,6 +44,7 @@
                         <tr>
                             <th class="th">Photo</th>
                             <th class="th">Name</th>
+                            <th class="th">Category & Hierarchy</th>
                             <th class="th hidden md:table-cell">Position</th>
                             <th class="th hidden sm:table-cell">Order</th>
                             <th class="th hidden md:table-cell">Status</th>
@@ -63,12 +64,37 @@
                                         <span class="text-xs text-gray-400">No photo</span>
                                     @endif
                                 </td>
-                                <td class="td font-medium text-gray-800">{{ $item->nama }}</td>
+                                <td class="td font-semibold text-gray-900">
+                                    {{ $item->nama }}
+                                    @if($item->email)
+                                        <span class="block text-[11px] text-gray-400 font-normal">{{ $item->email }}</span>
+                                    @endif
+                                </td>
+                                <td class="td">
+                                    <div class="flex flex-col gap-1 items-start">
+                                        @php
+                                            $catBadge = match($item->kategori) {
+                                                'pimpinan' => 'bg-rose-100 text-[#650015] border-rose-200',
+                                                'dewan' => 'bg-blue-100 text-[#173872] border-blue-200',
+                                                'bidang' => 'bg-slate-100 text-slate-800 border-slate-200',
+                                                'satgas_pokja' => 'bg-amber-100 text-amber-900 border-amber-200',
+                                                'komite' => 'bg-purple-100 text-purple-900 border-purple-200',
+                                                default => 'bg-gray-100 text-gray-800 border-gray-200'
+                                            };
+                                        @endphp
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border {{ $catBadge }}">
+                                            {{ $item->kategori ?: 'General' }}
+                                        </span>
+                                        @if($item->departemen)
+                                            <span class="text-xs text-gray-600 font-medium line-clamp-1">{{ $item->departemen }}</span>
+                                        @endif
+                                    </div>
+                                </td>
                                 <td class="td hidden md:table-cell">
-                                    <span class="text-sm text-gray-600">{{ Str::limit($item->translateField('jabatan'), 25) }}</span>
+                                    <span class="text-sm font-medium text-gray-800">{{ Str::limit($item->translateField('jabatan'), 35) }}</span>
                                 </td>
                                 <td class="td hidden sm:table-cell">
-                                    <span class="inline-flex items-center rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">#{{ $item->urutan }}</span>
+                                    <span class="inline-flex items-center rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700">#{{ $item->urutan }}</span>
                                 </td>
                                 <td class="td hidden md:table-cell">
                                     <button onclick="toggleStatus('struktur', {{ $item->id }})" class="{{ $item->status ? 'badge-active' : 'badge-inactive' }} transition-transform hover:scale-105 cursor-pointer">
@@ -83,7 +109,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.struktur.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this data?')">
+                                        <form action="{{ route('admin.struktur.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this member?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="icon-btn-delete" title="Delete">

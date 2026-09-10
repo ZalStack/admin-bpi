@@ -14,7 +14,7 @@
                 <span>Partners</span>
             </nav>
             <h1 class="page-title">Partners</h1>
-            <p class="page-subtitle">Manage partner list, organization logos, categories, and the Partner page intro section</p>
+            <p class="page-subtitle">Manage partner list, organization logos, and categories</p>
             <div class="mt-3 flex flex-wrap items-center gap-2">
                 <span class="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#97763A] ring-1 ring-[#97763A]/10 shadow-sm">
                     <span class="h-1.5 w-1.5 rounded-full bg-[#97763A]"></span>
@@ -24,13 +24,6 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5">
-            <a href="{{ route('admin.mitra-intro.index') }}" class="inline-flex items-center gap-2 rounded-xl border border-[#132C5C]/20 bg-white px-4 py-2.5 text-xs font-bold text-[#132C5C] shadow-sm hover:bg-[#132C5C]/5 transition-all">
-                <svg class="w-4 h-4 text-[#97763A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                </svg>
-                Partner Page Intro
-            </a>
-
             <a href="{{ route('admin.kategori-mitra.index') }}" class="inline-flex items-center gap-2 rounded-xl border border-[#132C5C]/20 bg-white px-4 py-2.5 text-xs font-bold text-[#132C5C] shadow-sm hover:bg-[#132C5C]/5 transition-all">
                 <svg class="w-4 h-4 text-[#132C5C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
