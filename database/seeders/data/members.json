@@ -1,0 +1,768 @@
+[
+  {
+    "id": 1,
+    "name": "Gunawan Paggaru",
+    "role": "Ketua Umum",
+    "roleEn": "President / Chairperson of BPI",
+    "category": "pimpinan",
+    "subCategory": "inti",
+    "department": "Pimpinan Inti",
+    "departmentEn": "Executive Leadership",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Ketua Umum Badan Perfilman Indonesia periode 2026-2030. Memimpin orkestrasi ekosistem perfilman nasional menuju daya saing global.",
+    "bioEn": "Chairperson of the Indonesian Film Board 2026-2030, leading national cinema policy and global competitiveness.",
+    "socials": {
+      "email": "gunawan@bpi.or.id",
+      "linkedin": "https://linkedin.com",
+      "instagram": "https://instagram.com"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Chandra Endroputro",
+    "role": "Sekretaris Jenderal",
+    "roleEn": "Secretary General",
+    "category": "pimpinan",
+    "subCategory": "inti",
+    "department": "Sekretariat Jenderal",
+    "departmentEn": "General Secretariat",
+    "level": 2,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Memimpin tata kelola administrasi, legalitas organisasi, dan koordinasi strategis antardivisi BPI.",
+    "bioEn": "Leading organizational administration, legal governance, and inter-departmental coordination.",
+    "socials": {
+      "email": "sekjen@bpi.or.id",
+      "linkedin": "https://linkedin.com",
+      "instagram": "https://instagram.com"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Lulu Ratna",
+    "role": "Wasekjen Bidang Ekosistem Perfilman",
+    "roleEn": "Deputy SecGen for Film Ecosystem",
+    "category": "pimpinan",
+    "subCategory": "wasekjen",
+    "department": "Sekretariat Jenderal",
+    "departmentEn": "General Secretariat",
+    "level": 2,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengoordinasikan integrasi program komunitas perfilman, kurasi arsip, dan penguatan ekosistem sinema nusantara.",
+    "bioEn": "Coordinating cinema community programs, archival preservation, and ecosystem integration.",
+    "socials": {
+      "email": "wasekjen.ekosistem@bpi.or.id",
+      "linkedin": "https://linkedin.com",
+      "instagram": "https://instagram.com"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Angga Dwimas Sasongko",
+    "role": "Wasekjen Bidang Hukum",
+    "roleEn": "Deputy SecGen for Legal Affairs",
+    "category": "pimpinan",
+    "subCategory": "wasekjen",
+    "department": "Sekretariat Jenderal",
+    "departmentEn": "General Secretariat",
+    "level": 2,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengawal kepatuhan regulasi, advokasi peraturan perundang-undangan perfilman, serta perlindungan hukum sineas.",
+    "bioEn": "Guiding regulatory compliance, cinema legislative advocacy, and legal protection for filmmakers.",
+    "socials": {
+      "email": "wasekjen.hukum@bpi.or.id",
+      "linkedin": "https://linkedin.com",
+      "instagram": "https://instagram.com"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Vivian Idris",
+    "role": "Bendahara Umum",
+    "roleEn": "Treasurer General",
+    "category": "pimpinan",
+    "subCategory": "inti",
+    "department": "Kebendaharaan Umum",
+    "departmentEn": "General Treasury",
+    "level": 2,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengelola akuntabilitas keuangan organisasi, transparansi permodalan program, dan tata kelola pendanaan.",
+    "bioEn": "Managing financial accountability, program capitalization transparency, and fiscal governance.",
+    "socials": {
+      "email": "bendum@bpi.or.id",
+      "linkedin": "https://linkedin.com",
+      "instagram": "https://instagram.com"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Celerina Judisari",
+    "role": "Ketua Bidang Organisasi",
+    "roleEn": "Head of Organization Department",
+    "category": "bidang",
+    "department": "Bidang Organisasi",
+    "departmentEn": "Organization Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengelola pembinaan kelembagaan asosiasi profesi anggota BPI dan tata kelola internal organisasi.",
+    "bioEn": "Overseeing guild institution development, internal governance, and membership protocols.",
+    "socials": {
+      "email": "organisasi@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Garin Nugroho",
+    "role": "Ketua Bidang Penelitian",
+    "roleEn": "Head of Research Department",
+    "category": "bidang",
+    "department": "Bidang Penelitian",
+    "departmentEn": "Research Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Melaksanakan kajian data industri, sensus penonton bioskop, dan analisis ekonomi perfilman nasional.",
+    "bioEn": "Executing cinema industry data studies, audience census, and economic trend research.",
+    "socials": {
+      "email": "penelitian@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Salman Aristo",
+    "role": "Ketua Bidang Pengembangan SDM",
+    "roleEn": "Head of Human Resource Development",
+    "category": "bidang",
+    "department": "Bidang Pengembangan SDM",
+    "departmentEn": "HR Development Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengembangkan standarisasi kompetensi profesi film, sertifikasi SKKNI, dan pelatihan vokasi sinema.",
+    "bioEn": "Developing cinema competence standards, vocational SKKNI certification, and creative bootcamps.",
+    "socials": {
+      "email": "sdm@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Reza Rahadian",
+    "role": "Ketua Bidang Festival",
+    "roleEn": "Head of Festival Department",
+    "category": "bidang",
+    "department": "Bidang Festival",
+    "departmentEn": "Festival Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengkoordinasikan penyelenggaraan festival film dalam negeri dan standarisasi kurasi festival nasional.",
+    "bioEn": "Coordinating domestic film festival circuits and national curation standards.",
+    "socials": {
+      "email": "festival@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Gina S. Noer",
+    "role": "Ketua Bidang Literasi Film",
+    "roleEn": "Head of Film Literacy Department",
+    "category": "bidang",
+    "department": "Bidang Literasi Film",
+    "departmentEn": "Film Literacy Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Meningkatkan apresiasi masyarakat terhadap film nasional melalui program literasi sekolah dan ruang publik.",
+    "bioEn": "Advancing public appreciation and media literacy for Indonesian cinema across schools and public spheres.",
+    "socials": {
+      "email": "literasi@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Kamila Andini",
+    "role": "Ketua Bidang Hubungan Internasional",
+    "roleEn": "Head of International Relations",
+    "category": "bidang",
+    "department": "Bidang Hubungan Internasional",
+    "departmentEn": "International Relations Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Menjalin kemitraan pasar film global, fasilitasi ko-produksi lintas negara, dan delegasi festival internasional.",
+    "bioEn": "Forging global market partnerships, cross-border co-productions, and international festival delegations.",
+    "socials": {
+      "email": "internasional@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Ifa Isfansyah",
+    "role": "Ketua Bidang Pengembangan Film Daerah",
+    "roleEn": "Head of Regional Film Development",
+    "category": "bidang",
+    "department": "Bidang Pengembangan Film Daerah",
+    "departmentEn": "Regional Film Development Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Memperkuat komunitas film daerah, inkubasi sineas lokal, dan distribusi alternatif di luar ibukota.",
+    "bioEn": "Strengthening provincial cinema communities, local auteur incubation, and regional distribution.",
+    "socials": {
+      "email": "daerah@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Chand Parwez Servia",
+    "role": "Ketua Bidang Fasilitasi Pembiayaan",
+    "roleEn": "Head of Financing Facilitation",
+    "category": "bidang",
+    "department": "Bidang Fasilitasi Pembiayaan",
+    "departmentEn": "Financing Facilitation Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Menjembatani akses pendanaan perbankan, modal ventura, insentif pajak produksi, dan skema crowd-funding film.",
+    "bioEn": "Facilitating banking capital, venture funding, production tax rebates, and co-financing models.",
+    "socials": {
+      "email": "pembiayaan@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Mira Lesmana",
+    "role": "Ketua Bidang Pelestarian Film",
+    "roleEn": "Head of Film Preservation Department",
+    "category": "bidang",
+    "department": "Bidang Pelestarian Film",
+    "departmentEn": "Film Preservation Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengawal restorasi seluloid sinema klasik Indonesia, digitalisasi arsip nasional, dan penyelamatan memori sinema.",
+    "bioEn": "Overseeing classic cinema restoration, digital archiving, and national cinematic heritage conservation.",
+    "socials": {
+      "email": "pelestarian@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Joko Anwar",
+    "role": "Ketua Bidang Advokasi Kebijakan",
+    "roleEn": "Head of Policy Advocacy Department",
+    "category": "bidang",
+    "department": "Bidang Advokasi Kebijakan",
+    "departmentEn": "Policy Advocacy Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mendorong harmonisasi kebijakan pemerintah, insentif perfilman, dan perlindungan hak cipta karya anak bangsa.",
+    "bioEn": "Championing progressive film legislation, copyright defense, and creative freedom safeguards.",
+    "socials": {
+      "email": "advokasi@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Manoj Punjabi",
+    "role": "Ketua Bidang Kerjasama",
+    "roleEn": "Head of Partnership Department",
+    "category": "bidang",
+    "department": "Bidang Kerjasama",
+    "departmentEn": "Partnership Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Membangun sinergi strategis dengan kementerian, asosiasi bisnis komersial, platform streaming, dan jaringan bioskop.",
+    "bioEn": "Building strategic alliances with ministries, exhibitors, commercial networks, and streaming platforms.",
+    "socials": {
+      "email": "kerjasama@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Wregas Bhanuteja",
+    "role": "Ketua Bidang Komunikasi",
+    "roleEn": "Head of Communications Department",
+    "category": "bidang",
+    "department": "Bidang Komunikasi",
+    "departmentEn": "Communications Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengelola narasi publik BPI, publikasi media, dan diseminasi program perfilman kepada masyarakat luas.",
+    "bioEn": "Directing public narratives, official media relations, and nationwide outreach campaigns.",
+    "socials": {
+      "email": "komunikasi@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Shandy Gasella",
+    "role": "Ketua Bidang Kesekretariatan",
+    "roleEn": "Head of Secretariat Affairs",
+    "category": "bidang",
+    "department": "Bidang Kesekretariatan",
+    "departmentEn": "Secretariat Department",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Menjalankan tata usaha operasional harian kantor BPI, dokumentasi persuratan, dan layanan kesekretariatan.",
+    "bioEn": "Managing office administration, official records documentation, and day-to-day secretariat operations.",
+    "socials": {
+      "email": "kesekretariatan@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Lukman Sardi",
+    "role": "Ketua Komite Festival Film Indonesia 2026",
+    "roleEn": "Head of FFI Committee 2026",
+    "category": "komite",
+    "subCategory": "komite",
+    "department": "Komite Festival Film Indonesia 2026",
+    "departmentEn": "FFI Committee 2026",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Memimpin pelaksanaan Piala Citra Festival Film Indonesia 2026, standarisasi dewan juri, dan akuntabilitas seleksi.",
+    "bioEn": "Leading the 2026 Citra Awards, jury governance, and national award evaluation standards.",
+    "socials": {
+      "email": "ffi@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Riri Riza",
+    "role": "Ketua Pokja Kajian dan Advokasi Rencana Induk Perfilman Indonesia",
+    "roleEn": "Head of National Cinema Masterplan Working Group",
+    "category": "satgas_pokja",
+    "subCategory": "pokja",
+    "department": "Pokja Kajian dan Advokasi Rencana Induk Perfilman Indonesia",
+    "departmentEn": "Cinema Masterplan Working Group",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Merumuskan dokumen cetak biru Rencana Induk Perfilman Indonesia jangka panjang menuju Indonesia Emas 2045.",
+    "bioEn": "Formulating the long-term blueprint and masterplan for the Indonesian film industry toward 2045.",
+    "socials": {
+      "email": "pokja.masterplan@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Sheila Timothy",
+    "role": "Ketua Satgas Anti Pembajakan",
+    "roleEn": "Head of Anti-Piracy Taskforce",
+    "category": "satgas_pokja",
+    "subCategory": "satgas",
+    "department": "Satgas Anti Pembajakan",
+    "departmentEn": "Anti-Piracy Taskforce",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Gugus tugas gerak cepat dalam pemberantasan pembajakan digital, koordinasi take-down, dan perlindungan royalti sineas.",
+    "bioEn": "Rapid response taskforce combating digital piracy, takedown coordination, and IP royalty enforcement.",
+    "socials": {
+      "email": "satgas.antipembajakan@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 22,
+    "name": "Yandy Laurens",
+    "role": "Ketua Pokja Akselerasi Pengembangan SDM",
+    "roleEn": "Head of HR Acceleration Working Group",
+    "category": "satgas_pokja",
+    "subCategory": "pokja",
+    "department": "Pokja Akselerasi Pengembangan SDM",
+    "departmentEn": "HR Acceleration Working Group",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mempercepat transfer keterampilan kru muda, fasilitasi magang di set produksi besar, dan peningkatan kompetensi.",
+    "bioEn": "Accelerating crew skill transfers, production on-set internships, and talent capacity building.",
+    "socials": {
+      "email": "pokja.sdm@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Edwin",
+    "role": "Ketua Pokja Kajian Pelestarian Film",
+    "roleEn": "Head of Film Preservation Study Working Group",
+    "category": "satgas_pokja",
+    "subCategory": "pokja",
+    "department": "Pokja Kajian Pelestarian Film",
+    "departmentEn": "Film Preservation Study Working Group",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Menyusun peta jalan inventarisasi arsip film nasional dan protokol standar preservasi laboratorium film.",
+    "bioEn": "Drafting preservation roadmaps, archival inventory registries, and film laboratory storage protocols.",
+    "socials": {
+      "email": "pokja.pelestarian@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Marcella Zalianty",
+    "role": "Ketua Pokja Revisi UU Perfilman",
+    "roleEn": "Head of Film Law Revision Working Group",
+    "category": "satgas_pokja",
+    "subCategory": "pokja",
+    "department": "Pokja Revisi UU Perfilman",
+    "departmentEn": "Film Law Revision Working Group",
+    "level": 3,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Mengawal naskah akademik dan dengar pendapat bersama DPR RI untuk pembaruan Undang-Undang Perfilman No. 33 Tahun 2009.",
+    "bioEn": "Spearheading academic drafting and parliamentary hearings for revising the National Film Law.",
+    "socials": {
+      "email": "pokja.revisi-uu@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Triawan Munaf",
+    "role": "Dewan Pengawas",
+    "roleEn": "Supervisory Board",
+    "category": "dewan",
+    "subCategory": "pengawas",
+    "department": "Dewan Pengawas",
+    "departmentEn": "Supervisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Tokoh ekonomi kreatif dan mantan Kepala Badan Ekonomi Kreatif RI, menjalankan fungsi pengawasan kinerja, akuntabilitas, dan tata kelola BPI.",
+    "bioEn": "Creative economy pioneer supervising BPI governance and accountability.",
+    "socials": {
+      "email": "pengawas@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 27,
+    "name": "Slamet Rahardjo",
+    "role": "Dewan Pengawas",
+    "roleEn": "Supervisory Board",
+    "category": "dewan",
+    "subCategory": "pengawas",
+    "department": "Dewan Pengawas",
+    "departmentEn": "Supervisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Maestro seni peran dan sutradara teater/film, mengawal kesesuaian program kerja dengan mandat undang-undang dan marwah perfilman.",
+    "bioEn": "Master actor and theater director overseeing program alignment with statutory film board mandate.",
+    "socials": {
+      "email": "pengawas@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 32,
+    "name": "Mira Lesmana",
+    "role": "Dewan Pengawas",
+    "roleEn": "Supervisory Board",
+    "category": "dewan",
+    "subCategory": "pengawas",
+    "department": "Dewan Pengawas",
+    "departmentEn": "Supervisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Produser film terkemuka dan pelopor kebangkitan sinema Indonesia modern, mengawasi tata kelola produksi dan proteksi hak cipta sineas.",
+    "bioEn": "Leading producer supervising film production governance and copyright integrity.",
+    "socials": {
+      "email": "pengawas@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 33,
+    "name": "Fauzan Zidni",
+    "role": "Dewan Pengawas",
+    "roleEn": "Supervisory Board",
+    "category": "dewan",
+    "subCategory": "pengawas",
+    "department": "Dewan Pengawas",
+    "departmentEn": "Supervisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Produser dan praktisi asosiasi perfilman, mengawasi akuntabilitas kelembagaan serta koordinasi antar-asosiasi profesi.",
+    "bioEn": "Producer and film association practitioner overseeing institutional accountability.",
+    "socials": {
+      "email": "pengawas@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 34,
+    "name": "Cuk FK",
+    "role": "Dewan Pengawas",
+    "roleEn": "Supervisory Board",
+    "category": "dewan",
+    "subCategory": "pengawas",
+    "department": "Dewan Pengawas",
+    "departmentEn": "Supervisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Sutradara dan pengurus komunitas perfilman, menjalankan fungsi pengawasan kepatuhan program terhadap ekosistem sinema.",
+    "bioEn": "Director and cinema guild leader supervising program compliance.",
+    "socials": {
+      "email": "pengawas@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 26,
+    "name": "Christine Hakim",
+    "role": "Dewan Penasehat",
+    "roleEn": "Advisory Board",
+    "category": "dewan",
+    "subCategory": "penasehat",
+    "department": "Dewan Penasehat",
+    "departmentEn": "Advisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Aktris legendaris dan duta budaya Indonesia, memberikan pertimbangan nilai budaya, etika sinema, dan diplomasi perfilman internasional.",
+    "bioEn": "Legendary actress and cultural diplomat providing guidance on cinematic ethics and heritage.",
+    "socials": {
+      "email": "penasehat@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 35,
+    "name": "Deddy Mizwar",
+    "role": "Dewan Penasehat",
+    "roleEn": "Advisory Board",
+    "category": "dewan",
+    "subCategory": "penasehat",
+    "department": "Dewan Penasehat",
+    "departmentEn": "Advisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Aktor, sutradara senior, dan mantan Ketua Badan Pertimbangan Perfilman Nasional (BP2N), memberikan nasehat kebijakan strategis perfilman.",
+    "bioEn": "Senior actor, director, and former BP2N Chairman advising on national cinema policy.",
+    "socials": {
+      "email": "penasehat@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 36,
+    "name": "Eros Djarot",
+    "role": "Dewan Penasehat",
+    "roleEn": "Advisory Board",
+    "category": "dewan",
+    "subCategory": "penasehat",
+    "department": "Dewan Penasehat",
+    "departmentEn": "Advisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Budayawan, musisi, sutradara legendaris, dan tokoh perfilman Indonesia, memberikan arahan filosofi kebangsaan dalam karya sinema.",
+    "bioEn": "Cultural thinker and master director guiding national cultural philosophy in cinema.",
+    "socials": {
+      "email": "penasehat@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 37,
+    "name": "Reza Rahadian",
+    "role": "Dewan Penasehat",
+    "roleEn": "Advisory Board",
+    "category": "dewan",
+    "subCategory": "penasehat",
+    "department": "Dewan Penasehat",
+    "departmentEn": "Advisory Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Aktor terkemuka dan Ketua Komite Festival Film Indonesia (2021-2023), memberikan masukan penguatan generasi penerus dan apresiasi publik.",
+    "bioEn": "Acclaimed actor and former FFI Chairman advising on talent regeneration and public appreciation.",
+    "socials": {
+      "email": "penasehat@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 28,
+    "name": "Marselli Sumarno",
+    "role": "Dewan Pakar",
+    "roleEn": "Expert Board",
+    "category": "dewan",
+    "subCategory": "pakar",
+    "department": "Dewan Pakar",
+    "departmentEn": "Expert Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Pengamat perfilman, akademisi sinema, dan kurator film nasional, memberikan telaah dan pertimbangan strategis kepakaran perfilman.",
+    "bioEn": "Film scholar, cinema academic, and national film curator leading expert cinema advisory.",
+    "socials": {
+      "email": "pakar@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 38,
+    "name": "JB Kristanto",
+    "role": "Dewan Pakar",
+    "roleEn": "Expert Board",
+    "category": "dewan",
+    "subCategory": "pakar",
+    "department": "Dewan Pakar",
+    "departmentEn": "Expert Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Wartawan senior, kritikus film, dan penyusun Katalog Film Indonesia, memberikan kepakaran data historiografi perfilman nasional.",
+    "bioEn": "Senior film critic and editor of the Indonesian Film Catalog providing historiographical expertise.",
+    "socials": {
+      "email": "pakar@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 39,
+    "name": "Seno Gumira Ajidarma",
+    "role": "Dewan Pakar",
+    "roleEn": "Expert Board",
+    "category": "dewan",
+    "subCategory": "pakar",
+    "department": "Dewan Pakar",
+    "departmentEn": "Expert Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Sastrawan, akademisi, dan Rektor IKJ (2016-2020), memberikan telaah teoritis narasi, estetika sinema, dan semiotika film nusantara.",
+    "bioEn": "Author, film semiotician, and academic providing cinematic aesthetics and narrative expertise.",
+    "socials": {
+      "email": "pakar@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 40,
+    "name": "Prof. Dr. Sardono W. Kusumo",
+    "role": "Dewan Pakar",
+    "roleEn": "Expert Board",
+    "category": "dewan",
+    "subCategory": "pakar",
+    "department": "Dewan Pakar",
+    "departmentEn": "Expert Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Koreografer, sutradara film, dan Guru Besar Seni Pertunjukan, memberikan kepakaran dalam ekspresi seni visual dan performativitas.",
+    "bioEn": "Choreographer and visual art professor advising on visual cinematic performance.",
+    "socials": {
+      "email": "pakar@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 41,
+    "name": "Nan T. Achnas",
+    "role": "Dewan Pakar",
+    "roleEn": "Expert Board",
+    "category": "dewan",
+    "subCategory": "pakar",
+    "department": "Dewan Pakar",
+    "departmentEn": "Expert Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Sutradara, produser, dan akademisi Fakultas Film dan Televisi IKJ, memberikan panduan kurikulum pendidikan dan riset sinematografi.",
+    "bioEn": "Film director, producer, and academic guiding cinema education standards.",
+    "socials": {
+      "email": "pakar@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 42,
+    "name": "Tito Imanda",
+    "role": "Dewan Pakar",
+    "roleEn": "Expert Board",
+    "category": "dewan",
+    "subCategory": "pakar",
+    "department": "Dewan Pakar",
+    "departmentEn": "Expert Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Antropolog visual dan peneliti kebijakan perfilman, meneliti dinamika ekonomi politik dan ekosistem industri film Indonesia.",
+    "bioEn": "Visual anthropologist and cinema policy researcher examining industrial economics.",
+    "socials": {
+      "email": "pakar@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 43,
+    "name": "Hikmat Darmawan",
+    "role": "Dewan Pakar",
+    "roleEn": "Expert Board",
+    "category": "dewan",
+    "subCategory": "pakar",
+    "department": "Dewan Pakar",
+    "departmentEn": "Expert Council",
+    "level": 1,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Kritikus budaya populer, kurator, dan komisioner Dewan Kesenian Jakarta, memberikan kajian literasi sinema dan adaptasi lintas media.",
+    "bioEn": "Pop-culture critic and curator advising on cinema literacy and cross-media adaptations.",
+    "socials": {
+      "email": "pakar@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 29,
+    "name": "Prilly Latuconsina",
+    "role": "Anggota Komite Festival Film Indonesia 2026",
+    "roleEn": "FFI 2026 Committee Member",
+    "category": "komite",
+    "subCategory": "komite",
+    "department": "Komite Festival Film Indonesia 2026",
+    "departmentEn": "FFI Committee 2026",
+    "level": 4,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Aktris dan produser muda, menggerakkan kampanye FFI Goes to Campus dan literasi apresiasi film bagi generasi muda.",
+    "bioEn": "Actress and producer driving youth engagement and nationwide cinema appreciation.",
+    "socials": {
+      "email": "ffi.humas@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 30,
+    "name": "Hanung Bramantyo",
+    "role": "Anggota Pokja Revisi UU Perfilman",
+    "roleEn": "Film Law Revision Working Group Member",
+    "category": "satgas_pokja",
+    "subCategory": "pokja",
+    "department": "Pokja Revisi UU Perfilman",
+    "departmentEn": "Film Law Revision Working Group",
+    "level": 4,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Sutradara senior, memberikan masukan praktis dari lapangan terkait regulasi izin syuting dan insentif daerah.",
+    "bioEn": "Senior filmmaker providing on-set field insights on regional filming permits and incentives.",
+    "socials": {
+      "email": "pokja.uu@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  {
+    "id": 31,
+    "name": "Mouly Surya",
+    "role": "Anggota Pokja Kajian Pelestarian Film",
+    "roleEn": "Film Preservation Working Group Member",
+    "category": "satgas_pokja",
+    "subCategory": "pokja",
+    "department": "Pokja Kajian Pelestarian Film",
+    "departmentEn": "Film Preservation Working Group",
+    "level": 4,
+    "imageUrl": "/struktur/CTq0NtjD4iezz0K1g8P2zabHDm7a87QXDvN6Tlpn.jpg",
+    "bio": "Sutradara internasional, memfasilitasi kerja sama preservasi dan restorasi dengan laboratorium arsip sinema dunia.",
+    "bioEn": "International auteur facilitating film restoration collaborations with world archive labs.",
+    "socials": {
+      "email": "pokja.arsip@bpi.or.id",
+      "linkedin": "https://linkedin.com"
+    }
+  }
+]

@@ -11,7 +11,7 @@ class StrukturOrganisasiSeeder extends Seeder
     {
         $jsonPath = __DIR__ . '/data/members.json';
         if (!file_exists($jsonPath)) {
-            $jsonPath = 'C:/Users/Lenovo/.gemini/antigravity-ide/brain/652ebfc4-b80f-478c-9f54-b7cb9c6e6490/scratch/members.json';
+            $jsonPath = __DIR__ . '/data/members.json';
         }
         if (!file_exists($jsonPath)) {
             $this->command->error('members.json not found!');
