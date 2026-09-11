@@ -18,6 +18,7 @@ class KontakController extends AdminBaseController
     protected string $indexOrderColumn = 'id';
 
     protected array $validationRules = [
+        'gmaps_url' => 'nullable|string|max:1000',
         'latitude' => 'nullable|numeric|between:-90,90',
         'longitude' => 'nullable|numeric|between:-180,180',
         'status' => 'boolean',
@@ -28,6 +29,9 @@ class KontakController extends AdminBaseController
 
     protected array $translatableRules = [
         'judul' => 'required|string|max:255',
+        'nama_kantor' => 'nullable|string|max:255',
+        'alamat' => 'nullable|string|max:1000',
+        'jam_operasional' => 'nullable|string|max:255',
     ];
 
     public function index()
@@ -188,5 +192,72 @@ class KontakController extends AdminBaseController
                 ]);
             }
         }
+    }
+
+    protected function neutralData(array $validated, ?Request $request = null): array
+    {
+        $data = parent::neutralData($validated, $request);
+
+        if (! empty($data['gmaps_url'])) {
+            $rawUrl = trim($data['gmaps_url']);
+
+            // Jika admin paste tag iframe <iframe src="...">
+            if (preg_match('/src="([^"]+)"/i', $rawUrl, $iframeMatch)) {
+                $rawUrl = $iframeMatch[1];
+                $data['gmaps_url'] = $rawUrl;
+            }
+
+            // Ekstrak koordinat jika latitude atau longitude belum diisi manual
+            if (empty($data['latitude']) || empty($data['longitude'])) {
+                $coords = $this->extractCoordinatesFromUrl($rawUrl);
+                if ($coords) {
+                    $data['latitude'] = $coords['lat'];
+                    $data['longitude'] = $coords['lng'];
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    protected function extractCoordinatesFromUrl(string $url): ?array
+    {
+        // 1. Pola @latitude,longitude (standar Google Maps URL)
+        if (preg_match('/@(-?\d+\.\d+),(-?\d+\.\d+)/', $url, $matches)) {
+            return ['lat' => $matches[1], 'lng' => $matches[2]];
+        }
+
+        // 2. Pola query param ?q=latitude,longitude
+        if (preg_match('/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/', $url, $matches)) {
+            return ['lat' => $matches[1], 'lng' => $matches[2]];
+        }
+
+        // 3. Pola embed Google Maps pb=!1m18...!3dlatitude!4dlongitude
+        if (preg_match('/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/', $url, $matches)) {
+            return ['lat' => $matches[1], 'lng' => $matches[2]];
+        }
+
+        // 4. Jika link pendek (maps.app.goo.gl atau goo.gl), telusuri redirect URL
+        if (str_contains($url, 'goo.gl') || str_contains($url, 'maps.app.goo.gl')) {
+            try {
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+                curl_setopt($ch, CURLOPT_NOBODY, true);
+                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)');
+                curl_exec($ch);
+                $finalUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+                curl_close($ch);
+
+                if ($finalUrl && $finalUrl !== $url) {
+                    return $this->extractCoordinatesFromUrl($finalUrl);
+                }
+            } catch (\Throwable $e) {
+                // Ignore network failure fallback
+            }
+        }
+
+        return null;
     }
 }

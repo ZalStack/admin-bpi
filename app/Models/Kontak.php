@@ -15,6 +15,7 @@ class Kontak extends Model
     protected $fillable = [
         'latitude',
         'longitude',
+        'gmaps_url',
         'status',
     ];
 

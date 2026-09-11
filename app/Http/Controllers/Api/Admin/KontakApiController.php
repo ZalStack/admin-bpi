@@ -11,6 +11,7 @@ class KontakApiController extends BaseApiController
     protected array $orderBy = ['created_at' => 'desc'];
 
     protected array $validationRules = [
+        'gmaps_url' => 'nullable|string|max:1000',
         'latitude' => 'nullable|numeric|between:-90,90',
         'longitude' => 'nullable|numeric|between:-180,180',
         'status' => 'boolean',
@@ -18,6 +19,9 @@ class KontakApiController extends BaseApiController
 
     protected array $translatableRules = [
         'judul' => 'required|string|max:255',
+        'nama_kantor' => 'nullable|string|max:255',
+        'alamat' => 'nullable|string|max:1000',
+        'jam_operasional' => 'nullable|string|max:255',
     ];
 
     protected array $withRelations = ['social_media', 'email', 'phone'];
@@ -84,14 +88,21 @@ class KontakApiController extends BaseApiController
             'id' => $kontak->id,
             'latitude' => $kontak->latitude,
             'longitude' => $kontak->longitude,
+            'gmaps_url' => $kontak->gmaps_url,
             'status' => (bool) $kontak->status,
             'judul' => $trans?->judul ?? 'HUBUNGI KAMI',
+            'nama_kantor' => $trans?->nama_kantor ?? 'Sekretariat Pusat BPI',
+            'alamat' => $trans?->alamat ?? 'Gedung Film lt. 2, Jl. MT Haryono Kav. 47-48, Cikoko, Pancoran, Jakarta Selatan 12770',
+            'jam_operasional' => $trans?->jam_operasional ?? 'Senin – Jumat: 09.00 – 17.00 WIB',
             'translations' => $kontak->translations->map(function ($t) {
                 return [
                     'id' => $t->id,
                     'kontak_id' => $t->kontak_id,
                     'bahasa' => $t->bahasa,
                     'judul' => $t->judul,
+                    'nama_kantor' => $t->nama_kantor,
+                    'alamat' => $t->alamat,
+                    'jam_operasional' => $t->jam_operasional,
                 ];
             })->values()->all(),
             'social_media' => $kontak->social_media->map(function ($s) {

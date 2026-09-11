@@ -43,6 +43,11 @@
             { number: '+62 878 3992 0990', type: 'whatsapp', url: 'https://wa.me/6287839920990' },
             { number: '+62 878 3991 0991', type: 'whatsapp', url: 'https://wa.me/6287839910991' }
         ],
+        gmapsUrl: @js(old('gmaps_url', '')),
+        latitude: @js(old('latitude', '-6.2425000')),
+        longitude: @js(old('longitude', '106.8456000')),
+        detectedCoords: '',
+        showManualCoords: false,
         addSocialMedia() {
             this.socialMedia.push({ platform: 'instagram', username: '', url: '' });
         },
@@ -60,44 +65,121 @@
         },
         removePhone(index) {
             this.phones.splice(index, 1);
+        },
+        parseGmapsUrl() {
+            let val = (this.gmapsUrl || '').trim();
+            if (!val) {
+                this.detectedCoords = '';
+                return;
+            }
+            let iframeMatch = val.match(/src=[&quot;']([^&quot;'\s>]+)[&quot;']/i);
+            if (iframeMatch) {
+                this.gmapsUrl = iframeMatch[1];
+                val = iframeMatch[1];
+            }
+            let m1 = val.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+            if (m1) {
+                this.latitude = m1[1];
+                this.longitude = m1[2];
+                this.detectedCoords = `Titik koordinat terdeteksi: Lat ${m1[1]}, Long ${m1[2]}`;
+                return;
+            }
+            let m2 = val.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
+            if (m2) {
+                this.latitude = m2[1];
+                this.longitude = m2[2];
+                this.detectedCoords = `Titik koordinat terdeteksi: Lat ${m2[1]}, Long ${m2[2]}`;
+                return;
+            }
+            let m3 = val.match(/!3d(-?\d+\.\d+).*?!4d(-?\d+\.\d+)/);
+            if (m3) {
+                this.latitude = m3[1];
+                this.longitude = m3[2];
+                this.detectedCoords = `Titik koordinat terdeteksi: Lat ${m3[1]}, Long ${m3[2]}`;
+                return;
+            }
+            if (val.includes('goo.gl') || val.includes('maps.app.goo.gl')) {
+                this.detectedCoords = 'Tautan Google Maps terdeteksi. Koordinat akan diproses otomatis oleh server saat disimpan.';
+            } else {
+                this.detectedCoords = '';
+            }
         }
     }">
         <form action="{{ route('admin.kontak.store') }}" method="POST">
             @csrf
 
-            <!-- ================= SECTION 1: LOKASI & KOORDINAT ================= -->
+            <!-- ================= SECTION 1: LOKASI & PETA ================= -->
             <h3 class="section-label">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-                1. Location & Map Coordinates
+                1. Lokasi & Peta (Google Maps)
             </h3>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label for="latitude" class="form-label">Latitude</label>
-                    <input type="text" name="latitude" id="latitude" value="{{ old('latitude', '-6.2500000') }}" class="form-input" placeholder="-6.2500000">
-                    @error('latitude')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
+                    <div class="md:col-span-3">
+                        <label for="gmaps_url" class="form-label">Link Google Maps (URL / Link Share)</label>
+                        <div class="relative">
+                            <input type="text" name="gmaps_url" id="gmaps_url" x-model="gmapsUrl" @input.debounce.300ms="parseGmapsUrl()"
+                                class="form-input pr-10" placeholder="https://maps.app.goo.gl/... atau https://www.google.com/maps/place/...">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Salin (copy) link dari Google Maps atau fitur "Bagikan / Share". Sistem otomatis membaca titik koordinatnya dan mengarahkan tombol "Buka di Google Maps" di website.
+                        </p>
+                        <template x-if="detectedCoords">
+                            <div class="mt-2 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span x-text="detectedCoords"></span>
+                            </div>
+                        </template>
+                        @error('gmaps_url')
+                            <p class="form-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="status" class="form-label">Status</label>
+                        <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="status" value="1" checked class="form-checkbox">
+                                <span class="text-sm font-medium text-gray-700">Active</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
-                    <label for="longitude" class="form-label">Longitude</label>
-                    <input type="text" name="longitude" id="longitude" value="{{ old('longitude', '106.8500000') }}" class="form-input" placeholder="106.8500000">
-                    @error('longitude')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <button type="button" @click="showManualCoords = !showManualCoords" class="text-xs text-blue-600 hover:text-blue-800 font-semibold inline-flex items-center gap-1.5 transition-colors">
+                        <svg class="w-3.5 h-3.5 transition-transform" :class="showManualCoords ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                        <span>Pengaturan Koordinat Manual (Opsional / Tingkat Lanjut)</span>
+                    </button>
 
-                <div>
-                    <label for="status" class="form-label">Status</label>
-                    <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" name="status" value="1" checked class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Active</span>
-                        </label>
+                    <div x-show="showManualCoords" x-cloak class="mt-3 p-4 bg-gray-50 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="latitude" class="form-label text-xs">Latitude</label>
+                            <input type="text" name="latitude" id="latitude" x-model="latitude" class="form-input text-xs" placeholder="-6.2500000">
+                            @error('latitude')
+                                <p class="form-error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="longitude" class="form-label text-xs">Longitude</label>
+                            <input type="text" name="longitude" id="longitude" x-model="longitude" class="form-input text-xs" placeholder="106.8500000">
+                            @error('longitude')
+                                <p class="form-error">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
                 </div>
             </div>
@@ -237,12 +319,12 @@
 
             <div class="divider"></div>
 
-            <!-- ================= SECTION 5: JUDUL HALAMAN KONTAK ================= -->
+            <!-- ================= SECTION 5: INFORMASI KANTOR & HALAMAN KONTAK ================= -->
             <h3 class="section-label">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
-                5. Contact Page Title (Multilingual)
+                5. Informasi Kantor & Halaman Kontak (Multilingual)
             </h3>
 
             <x-lang-tabs :bahasas="$bahasas"/>
@@ -252,7 +334,10 @@
                     $req = $bahasa->is_default;
                 @endphp
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-4">
-                    <x-trans-input field="judul" label="Contact Page Title" :kode="$bahasa->kode" :required="$req" placeholder="e.g.: Contact Us"/>
+                    <x-trans-input field="judul" label="Judul Halaman Kontak" :kode="$bahasa->kode" :required="$req" placeholder="e.g.: Hubungi Kami / Contact Us"/>
+                    <x-trans-input field="nama_kantor" label="Nama Kantor / Sekretariat" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Sekretariat Pusat BPI"/>
+                    <x-trans-textarea field="alamat" label="Alamat Kantor Lengkap" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Gedung Film lt. 2, Jl. MT Haryono Kav. 47-48, Cikoko, Pancoran, Jakarta Selatan 12770"/>
+                    <x-trans-input field="jam_operasional" label="Jam Operasional" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Senin – Jumat: 09.00 – 17.00 WIB"/>
                 </x-lang-panel>
             @endforeach
 

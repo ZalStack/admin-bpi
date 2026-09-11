@@ -15,7 +15,9 @@ class KontakTranslation extends Model
         'kontak_id',
         'bahasa',
         'judul',
+        'nama_kantor',
         'deskripsi',
         'alamat',
+        'jam_operasional',
     ];
 }
