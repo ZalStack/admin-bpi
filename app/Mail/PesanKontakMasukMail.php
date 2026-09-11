@@ -27,7 +27,7 @@ class PesanKontakMasukMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Pesan Baru Website] ' . $this->kontakForm->subjek . ' - ' . $this->kontakForm->nama,
+            subject: '[New Contact Message] ' . $this->kontakForm->subjek . ' - ' . $this->kontakForm->nama,
             replyTo: [
                 new Address($this->kontakForm->email, $this->kontakForm->nama),
             ],
