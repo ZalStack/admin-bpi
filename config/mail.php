@@ -115,4 +115,15 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Notification Recipient
+    |--------------------------------------------------------------------------
+    |
+    | Alamat email resmi organisasi/admin yang akan menerima notifikasi
+    | setiap kali ada pesan baru dari formulir kontak website.
+    |
+    */
+    'contact_recipient' => env('MAIL_CONTACT_RECIPIENT', env('MAIL_FROM_ADDRESS')),
+
 ];

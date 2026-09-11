@@ -51,8 +51,9 @@
                                 <td class="td hidden md:table-cell text-sm text-gray-600">{{ $form->email }}</td>
                                 <td class="td hidden sm:table-cell text-sm text-gray-600">{{ Str::limit($form->subjek, 30) }}</td>
                                 <td class="td hidden md:table-cell">
-                                    <span class="{{ $form->status == 'read' ? 'badge-active' : ($form->status == 'pending' ? 'badge-warning' : 'badge-inactive') }}">
-                                        {{ ucfirst($form->status) }}
+                                    <span class="{{ $form->status === 'read' ? 'badge-active' : 'badge-warning' }}">
+                                        <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+                                        {{ $form->status === 'read' ? 'Read' : 'Unread' }}
                                     </span>
                                 </td>
                                 <td class="td hidden lg:table-cell text-sm text-gray-500">{{ $form->created_at->format('d/m/Y H:i') }}</td>

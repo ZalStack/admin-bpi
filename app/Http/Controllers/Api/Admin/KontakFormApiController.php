@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Mail\PesanKontakMasukMail;
 use App\Models\KontakForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class KontakFormApiController extends BaseApiController
 {
@@ -37,7 +40,19 @@ class KontakFormApiController extends BaseApiController
         $data = $request->only(['nama', 'email', 'subjek', 'pesan']);
         $data['status'] = 'unread';
 
-        return $this->createResource($this->model, $data);
+        $resource = $this->model::create($data);
+
+        // Kirim email notifikasi ke email resmi perusahaan/admin
+        try {
+            $recipient = config('mail.contact_recipient') ?: config('mail.from.address');
+            if (! empty($recipient) && filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+                Mail::to($recipient)->send(new PesanKontakMasukMail($resource));
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Gagal mengirim email notifikasi kontak baru: ' . $e->getMessage());
+        }
+
+        return $this->successResponse($resource, 'Message sent successfully', 201);
     }
 
     public function updateStatus(Request $request, $id)
