@@ -81,25 +81,25 @@
             if (m1) {
                 this.latitude = m1[1];
                 this.longitude = m1[2];
-                this.detectedCoords = `Titik koordinat terdeteksi: Lat ${m1[1]}, Long ${m1[2]}`;
+                this.detectedCoords = `Coordinates detected: Lat ${m1[1]}, Long ${m1[2]}`;
                 return;
             }
             let m2 = val.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
             if (m2) {
                 this.latitude = m2[1];
                 this.longitude = m2[2];
-                this.detectedCoords = `Titik koordinat terdeteksi: Lat ${m2[1]}, Long ${m2[2]}`;
+                this.detectedCoords = `Coordinates detected: Lat ${m2[1]}, Long ${m2[2]}`;
                 return;
             }
             let m3 = val.match(/!3d(-?\d+\.\d+).*?!4d(-?\d+\.\d+)/);
             if (m3) {
                 this.latitude = m3[1];
                 this.longitude = m3[2];
-                this.detectedCoords = `Titik koordinat terdeteksi: Lat ${m3[1]}, Long ${m3[2]}`;
+                this.detectedCoords = `Coordinates detected: Lat ${m3[1]}, Long ${m3[2]}`;
                 return;
             }
             if (val.includes('goo.gl') || val.includes('maps.app.goo.gl')) {
-                this.detectedCoords = 'Tautan Google Maps terdeteksi. Koordinat akan diproses otomatis oleh server saat disimpan.';
+                this.detectedCoords = 'Google Maps link detected. Coordinates will be automatically processed by the server upon saving.';
             } else {
                 this.detectedCoords = '';
             }
@@ -108,22 +108,22 @@
         <form action="{{ route('admin.kontak.store') }}" method="POST">
             @csrf
 
-            <!-- ================= SECTION 1: LOKASI & PETA ================= -->
+            <!-- ================= SECTION 1: LOCATION & MAP ================= -->
             <h3 class="section-label">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
-                1. Lokasi & Peta (Google Maps)
+                1. Location & Map (Google Maps)
             </h3>
 
             <div class="space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
                     <div class="md:col-span-3">
-                        <label for="gmaps_url" class="form-label">Link Google Maps (URL / Link Share)</label>
+                        <label for="gmaps_url" class="form-label">Google Maps Link (URL / Share Link)</label>
                         <div class="relative">
                             <input type="text" name="gmaps_url" id="gmaps_url" x-model="gmapsUrl" @input.debounce.300ms="parseGmapsUrl()"
-                                class="form-input pr-10" placeholder="https://maps.app.goo.gl/... atau https://www.google.com/maps/place/...">
+                                class="form-input pr-10" placeholder="https://maps.app.goo.gl/... or https://www.google.com/maps/place/...">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
@@ -131,7 +131,7 @@
                             </div>
                         </div>
                         <p class="text-xs text-gray-500 mt-1">
-                            Salin (copy) link dari Google Maps atau fitur "Bagikan / Share". Sistem otomatis membaca titik koordinatnya dan mengarahkan tombol "Buka di Google Maps" di website.
+                            Copy the link from Google Maps or the "Share" feature. The system will automatically extract coordinates and link the "Open in Google Maps" button on the website.
                         </p>
                         <template x-if="detectedCoords">
                             <div class="mt-2 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 flex items-center gap-2">
@@ -162,7 +162,7 @@
                         <svg class="w-3.5 h-3.5 transition-transform" :class="showManualCoords ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
-                        <span>Pengaturan Koordinat Manual (Opsional / Tingkat Lanjut)</span>
+                        <span>Manual Coordinate Settings (Optional / Advanced)</span>
                     </button>
 
                     <div x-show="showManualCoords" x-cloak class="mt-3 p-4 bg-gray-50 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -319,12 +319,12 @@
 
             <div class="divider"></div>
 
-            <!-- ================= SECTION 5: INFORMASI KANTOR & HALAMAN KONTAK ================= -->
+            <!-- ================= SECTION 5: OFFICE & CONTACT PAGE INFORMATION ================= -->
             <h3 class="section-label">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
-                5. Informasi Kantor & Halaman Kontak (Multilingual)
+                5. Office & Contact Page Information (Multilingual)
             </h3>
 
             <x-lang-tabs :bahasas="$bahasas"/>
@@ -334,10 +334,10 @@
                     $req = $bahasa->is_default;
                 @endphp
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-4">
-                    <x-trans-input field="judul" label="Judul Halaman Kontak" :kode="$bahasa->kode" :required="$req" placeholder="e.g.: Hubungi Kami / Contact Us"/>
-                    <x-trans-input field="nama_kantor" label="Nama Kantor / Sekretariat" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Sekretariat Pusat BPI"/>
-                    <x-trans-textarea field="alamat" label="Alamat Kantor Lengkap" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Gedung Film lt. 2, Jl. MT Haryono Kav. 47-48, Cikoko, Pancoran, Jakarta Selatan 12770"/>
-                    <x-trans-input field="jam_operasional" label="Jam Operasional" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Senin – Jumat: 09.00 – 17.00 WIB"/>
+                    <x-trans-input field="judul" label="Contact Page Title" :kode="$bahasa->kode" :required="$req" placeholder="e.g.: Contact Us / Hubungi Kami"/>
+                    <x-trans-input field="nama_kantor" label="Office / Secretariat Name" :kode="$bahasa->kode" :required="false" placeholder="e.g.: BPI Secretariat Headquarters / Sekretariat Pusat BPI"/>
+                    <x-trans-textarea field="alamat" label="Full Office Address" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Film Building 2nd Floor, Jl. MT Haryono Kav. 47-48, Pancoran, South Jakarta 12770"/>
+                    <x-trans-input field="jam_operasional" label="Operating Hours" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Mon – Fri: 09:00 – 17:00 WIB"/>
                 </x-lang-panel>
             @endforeach
 
