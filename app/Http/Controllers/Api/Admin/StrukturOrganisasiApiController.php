@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Bahasa;
 use App\Models\StrukturOrganisasi;
+use Illuminate\Http\Request;
 
 class StrukturOrganisasiApiController extends BaseApiController
 {
@@ -38,4 +40,28 @@ class StrukturOrganisasiApiController extends BaseApiController
         'departemen' => 'nullable|string|max:255',
         'deskripsi' => 'nullable|string',
     ];
+
+    public function store(Request $request)
+    {
+        $defaultKode = Bahasa::defaultKode();
+        if ($request->filled("translations.{$defaultKode}.departemen") && ! $request->filled('departemen')) {
+            $request->merge([
+                'departemen' => $request->input("translations.{$defaultKode}.departemen"),
+            ]);
+        }
+
+        return parent::store($request);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $defaultKode = Bahasa::defaultKode();
+        if ($request->filled("translations.{$defaultKode}.departemen")) {
+            $request->merge([
+                'departemen' => $request->input("translations.{$defaultKode}.departemen"),
+            ]);
+        }
+
+        return parent::update($request, $id);
+    }
 }

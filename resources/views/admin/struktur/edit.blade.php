@@ -48,7 +48,7 @@
             </div>
 
             <!-- Hierarchy Grouping (Kategori, Sub Kategori, Level, Departemen) -->
-            <div class="mt-5 p-5 rounded-2xl bg-slate-50/70 border border-slate-200/90 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="mt-5 p-5 rounded-2xl bg-slate-50/70 border border-slate-200/90 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label for="kategori" class="form-label font-bold text-slate-800">Category *</label>
                     <select name="kategori" id="kategori" x-model="kategori" class="form-select w-full" required>
@@ -90,41 +90,6 @@
                         <option value="4" {{ old('level', $item->level ?? 3) == 4 ? 'selected' : '' }}>Tier 4 - Anggota</option>
                     </select>
                     @error('level')
-                        <p class="form-error">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="departemen" class="form-label font-bold text-slate-800">Department / Unit</label>
-                    <input type="text" name="departemen" id="departemen" list="departemen-options" value="{{ old('departemen', $item->departemen) }}" class="form-input w-full" placeholder="e.g. Bidang Organisasi">
-                    <datalist id="departemen-options">
-                        <option value="Pimpinan Inti">
-                        <option value="Sekretariat Jenderal">
-                        <option value="Kebendaharaan Umum">
-                        <option value="Dewan Pengawas">
-                        <option value="Dewan Penasehat">
-                        <option value="Dewan Pakar">
-                        <option value="Bidang Organisasi">
-                        <option value="Bidang Penelitian">
-                        <option value="Bidang Pengembangan SDM">
-                        <option value="Bidang Festival">
-                        <option value="Bidang Literasi Film">
-                        <option value="Bidang Hubungan Internasional">
-                        <option value="Bidang Pengembangan Film Daerah">
-                        <option value="Bidang Fasilitasi Pembiayaan">
-                        <option value="Bidang Pelestarian Film">
-                        <option value="Bidang Advokasi Kebijakan">
-                        <option value="Bidang Kerjasama">
-                        <option value="Bidang Komunikasi">
-                        <option value="Bidang Kesekretariatan">
-                        <option value="Komite Festival Film Indonesia 2026">
-                        <option value="Pokja Kajian dan Advokasi Rencana Induk Perfilman Indonesia">
-                        <option value="Satgas Anti Pembajakan">
-                        <option value="Pokja Akselerasi Pengembangan SDM">
-                        <option value="Pokja Kajian Pelestarian Film">
-                        <option value="Pokja Revisi UU Perfilman">
-                    </datalist>
-                    @error('departemen')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
@@ -189,6 +154,63 @@
 
             <div class="divider"></div>
 
+            
+            <datalist id="departemen-options-id">
+                <option value="Pimpinan Inti">
+                <option value="Sekretariat Jenderal">
+                <option value="Kebendaharaan Umum">
+                <option value="Dewan Pengawas">
+                <option value="Dewan Penasehat">
+                <option value="Dewan Pakar">
+                <option value="Bidang Organisasi">
+                <option value="Bidang Penelitian">
+                <option value="Bidang Pengembangan SDM">
+                <option value="Bidang Festival">
+                <option value="Bidang Literasi Film">
+                <option value="Bidang Hubungan Internasional">
+                <option value="Bidang Pengembangan Film Daerah">
+                <option value="Bidang Fasilitasi Pembiayaan">
+                <option value="Bidang Pelestarian Film">
+                <option value="Bidang Advokasi Kebijakan">
+                <option value="Bidang Kerjasama">
+                <option value="Bidang Komunikasi">
+                <option value="Bidang Kesekretariatan">
+                <option value="Komite Festival Film Indonesia 2026">
+                <option value="Pokja Kajian dan Advokasi Rencana Induk Perfilman Indonesia">
+                <option value="Satgas Anti Pembajakan">
+                <option value="Pokja Akselerasi Pengembangan SDM">
+                <option value="Pokja Kajian Pelestarian Film">
+                <option value="Pokja Revisi UU Perfilman">
+            </datalist>
+
+            <datalist id="departemen-options-en">
+                <option value="Executive Leadership">
+                <option value="General Secretariat">
+                <option value="General Treasury">
+                <option value="Supervisory Council">
+                <option value="Advisory Council">
+                <option value="Expert Council">
+                <option value="Organization Department">
+                <option value="Research Department">
+                <option value="HR Development Department">
+                <option value="Festival Department">
+                <option value="Film Literacy Department">
+                <option value="International Relations Department">
+                <option value="Regional Film Development Department">
+                <option value="Financing Facilitation Department">
+                <option value="Film Preservation Department">
+                <option value="Policy Advocacy Department">
+                <option value="Partnership Department">
+                <option value="Communications Department">
+                <option value="Secretariat Department">
+                <option value="FFI Committee 2026">
+                <option value="Cinema Masterplan Working Group">
+                <option value="Anti-Piracy Taskforce">
+                <option value="HR Acceleration Working Group">
+                <option value="Film Preservation Study Working Group">
+                <option value="Film Law Revision Working Group">
+            </datalist>
+
             <!-- Multilingual Translatable Details -->
             <x-lang-tabs :bahasas="$bahasas"/>
 
@@ -196,7 +218,7 @@
                 <x-lang-panel :kode="$bahasa->kode" class="grid grid-cols-1 gap-4">
                     <x-trans-input field="jabatan" label="Position / Jabatan" :kode="$bahasa->kode" :required="$bahasa->is_default" :item="$item" placeholder="Position in {{ $bahasa->nama }} (e.g. Ketua Umum, Dewan Pengawas, Ketua Bidang Organisasi)"/>
                     
-                    <x-trans-input field="departemen" label="Department Name (Translated)" :kode="$bahasa->kode" :item="$item" placeholder="Department name in {{ $bahasa->nama }} (e.g. Organization Department, Supervisory Council)"/>
+                    <x-trans-input field="departemen" label="Department / Unit" :kode="$bahasa->kode" :item="$item" placeholder="Department / Unit in {{ $bahasa->nama }} (e.g. {{ $bahasa->kode === 'en' ? 'Organization Department' : 'Bidang Organisasi' }})" list="departemen-options-{{ $bahasa->kode }}"/>
                     
                     <x-trans-textarea field="deskripsi" label="Biography / Profile Description" :kode="$bahasa->kode" :item="$item" rows="4" placeholder="Brief biography or profile of the member in {{ $bahasa->nama }}..."/>
                 </x-lang-panel>
