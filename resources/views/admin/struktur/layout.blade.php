@@ -473,7 +473,7 @@ function chartLayoutManager() {
                     _token: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
                 };
 
-                const res = await fetch('{{ route("admin.struktur.save-layout") }}', {
+                const res = await fetch('{{ Route::has('admin.struktur.save-layout') ? route('admin.struktur.save-layout') : url('/admin/struktur-layout/save') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
