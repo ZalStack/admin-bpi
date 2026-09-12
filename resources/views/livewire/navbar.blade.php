@@ -1,9 +1,9 @@
-<nav class="fixed top-0 z-50 h-16 w-full bg-gradient-to-r from-[#520A18] via-[#5f0b1b] to-[#68001C] border-b border-[#68001C] shadow-[0_4px_24px_-8px_rgba(82,10,24,0.6)]">
+<nav x-data class="fixed top-0 z-50 h-16 w-full bg-gradient-to-r from-[#520A18] via-[#5f0b1b] to-[#68001C] border-b border-[#68001C] shadow-[0_4px_24px_-8px_rgba(82,10,24,0.6)]">
     <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#E3DBAF]/40 to-transparent"></div>
     <div class="h-full px-2 sm:px-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between h-full">
             <div class="flex items-center justify-start rtl:justify-end min-w-0">
-                <button @click="$dispatch('toggle-sidebar')" type="button" class="inline-flex items-center p-2 text-sm text-white rounded-lg lg:hidden hover:bg-[#821E38] focus:outline-none focus:ring-2 focus:ring-[#E3DBAF]/50 transition-colors shrink-0">
+                <button @click="$dispatch('toggle-sidebar')" type="button" class="inline-flex items-center p-2 text-sm text-white rounded-lg lg:hidden hover:bg-[#821E38] focus:outline-none focus:ring-2 focus:ring-[#E3DBAF]/50 transition-colors shrink-0 cursor-pointer">
                     <span class="sr-only">Open sidebar</span>
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>

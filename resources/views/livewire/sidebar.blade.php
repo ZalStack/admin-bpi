@@ -1,23 +1,32 @@
-<div x-data="{ isOpen: false }"
-     @toggle-sidebar.window="isOpen = !isOpen">
+<div x-data="{ sidebarOpen: false }"
+     @toggle-sidebar.window="sidebarOpen = !sidebarOpen">
 
     <!-- Mobile backdrop -->
-    <div x-show="isOpen" @click="isOpen = false" x-transition:opacity x-cloak
+    <div x-show="sidebarOpen" @click="sidebarOpen = false" x-transition:opacity x-cloak
          class="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
 
     <aside class="sidebar-scroll fixed top-16 bottom-0 left-0 z-40 w-72 overflow-y-auto border-r border-[#16336D]/60 bg-gradient-to-b from-[#132C5C] via-[#11264F] to-[#0E2043] shadow-[6px_0_30px_-12px_rgba(10,20,45,0.7)] transition-transform duration-300 ease-in-out lg:translate-x-0"
-           :class="{ 'translate-x-0': isOpen, '-translate-x-full': !isOpen }">
+           :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
         <div class="relative flex h-full flex-col px-3 pb-6">
             <!-- Decorative glow -->
             <div class="pointer-events-none absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-[#2B4E94]/30 blur-3xl"></div>
 
             <div class="relative flex-1">
+                <!-- Mobile Close Header -->
+                <div class="flex items-center justify-between pt-3 pb-2 px-1 lg:hidden border-b border-white/10 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-[#E3DBAF]">Menu Navigasi</span>
+                    <button @click="sidebarOpen = false" type="button" class="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer" aria-label="Tutup Menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
                 <ul class="space-y-1 pt-4 font-medium">
                     @auth
                     <!-- Dashboard -->
                     <li>
-                        <a href="{{ route('dashboard') }}" @click="isOpen = false"
+                        <a href="{{ route('dashboard') }}" @click="sidebarOpen = false"
                            class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs('dashboard') ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
                             @if(request()->routeIs('dashboard'))
                                 <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
@@ -117,7 +126,7 @@
 
                     @foreach($menuItems as $item)
                         <li>
-                            <a href="{{ route($item['route']) }}" @click="isOpen = false"
+                            <a href="{{ route($item['route']) }}" @click="sidebarOpen = false"
                                class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs($item['active']) ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
                                 @if(request()->routeIs($item['active']))
                                     <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
@@ -132,7 +141,7 @@
 
                     <!-- Language Settings -->
                     <li>
-                        <a href="{{ route('admin.bahasa.index') }}" @click="isOpen = false"
+                        <a href="{{ route('admin.bahasa.index') }}" @click="sidebarOpen = false"
                            class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs('admin.bahasa.*') ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
                             @if(request()->routeIs('admin.bahasa.*'))
                                 <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
@@ -169,7 +178,7 @@
 
                     @foreach($beritaItems as $item)
                         <li>
-                            <a href="{{ route($item['route']) }}" @click="isOpen = false"
+                            <a href="{{ route($item['route']) }}" @click="sidebarOpen = false"
                                class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs($item['active']) ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
                                 @if(request()->routeIs($item['active']))
                                     <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
@@ -188,7 +197,7 @@
                     <!-- API Documentation — Super Admin only -->
                     @role('super_admin')
                     <li>
-                        <a href="{{ route('admin.api-documentation.index') }}" @click="isOpen = false"
+                        <a href="{{ route('admin.api-documentation.index') }}" @click="sidebarOpen = false"
                            class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs('admin.api-documentation.*') ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
                             @if(request()->routeIs('admin.api-documentation.*'))
                                 <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
@@ -209,7 +218,7 @@
 
                     <!-- Profile -->
                     <li>
-                        <a href="{{ route('profile.edit') }}" @click="isOpen = false"
+                        <a href="{{ route('profile.edit') }}" @click="sidebarOpen = false"
                            class="group flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white">
                             <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
@@ -234,7 +243,7 @@
 
                     @guest
                     <li class="pt-4">
-                        <a href="{{ route('login') }}" @click="isOpen = false"
+                        <a href="{{ route('login') }}" @click="sidebarOpen = false"
                            class="group flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white">
                             <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>

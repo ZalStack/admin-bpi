@@ -1,9 +1,5 @@
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+// Livewire automatically includes and starts Alpine.js
+// Custom global Alpine configuration can be done on 'alpine:init' if needed
 
 window.toggleStatus = function (type, id) {
     fetch(`/admin/${type}/${id}/toggle-status`, {

@@ -117,6 +117,11 @@ Route::middleware('auth')->group(function () {
             Route::post('/tentang-poin/{id}/toggle-status', [TentangPoinController::class, 'toggleStatus'])->name('tentang-poin.toggle-status');
 
             // Struktur Organisasi
+            // Struktur Organisasi Layout
+            Route::get('/struktur-layout', [StrukturOrganisasiController::class, 'layoutView'])->name('struktur.layout');
+            Route::post('/struktur-layout/save', [StrukturOrganisasiController::class, 'saveLayoutOrder'])->name('struktur.save-layout');
+
+            // Struktur Organisasi
             Route::resource('struktur', StrukturOrganisasiController::class);
             Route::post('/struktur/{id}/toggle-status', [StrukturOrganisasiController::class, 'toggleStatus'])->name('struktur.toggle-status');
 
