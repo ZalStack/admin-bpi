@@ -17,5 +17,6 @@ class TentangTranslation extends Model
         'judul',
         'subjudul',
         'deskripsi',
+        'highlight_words',
     ];
 }

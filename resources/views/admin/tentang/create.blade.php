@@ -167,13 +167,30 @@ $icons = [
                         </div>
                     </template>
 
-                    <template x-if="section === 'visi' || section === 'misi'">
+                    <template x-if="section === 'visi'">
                         <div>
                             <div>
-                                <x-trans-input field="judul" label="Section Title" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Our Vision / Our Mission"/>
+                                <x-trans-input field="judul" label="Judul Visi" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Visi Kami"/>
                             </div>
                             <div class="mt-4">
-                                <x-trans-textarea field="deskripsi" label="Vision / Mission Narrative Description" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Narrative description in language {{ $bahasa->nama }}"/>
+                                <x-trans-textarea field="deskripsi" label="Teks Visi (Deskripsi)" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Teks visi lengkap dalam bahasa {{ $bahasa->nama }}"/>
+                            </div>
+                            <div class="mt-4">
+                                <x-trans-input field="highlight_words" label="Kata/Frasa yang Di-highlight" :kode="$bahasa->kode" placeholder="Contoh: unggul dan kompetitif, kompeten, sehat dan kondusif, sehat"/>
+                                <p class="mt-1 text-xs text-gray-500">
+                                    Masukkan kata atau frasa yang ingin diberi warna highlight emas pada teks visi di landing page. Pisahkan setiap kata/frasa dengan koma (,).
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="section === 'misi'">
+                        <div>
+                            <div>
+                                <x-trans-input field="judul" label="Judul Misi" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Our Mission"/>
+                            </div>
+                            <div class="mt-4">
+                                <x-trans-textarea field="deskripsi" label="Deskripsi Pengantar Misi" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Deskripsi pengantar misi dalam bahasa {{ $bahasa->nama }}"/>
                             </div>
                         </div>
                     </template>
@@ -195,7 +212,7 @@ $icons = [
             </div>
 
             <!-- EMBEDDED VISION / MISSION POINTS -->
-            <div x-show="section === 'visi' || section === 'misi'" class="transition-all">
+            <div x-show="section === 'misi'" class="transition-all">
                 <div class="divider"></div>
 
                 <div class="rounded-2xl border border-[#132C5C]/15 bg-[#132C5C]/[0.02] p-5 sm:p-6">
@@ -205,10 +222,10 @@ $icons = [
                                 <svg class="w-5 h-5 text-[#97763A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                 </svg>
-                                <span x-text="section === 'visi' ? 'Vision Pillar Points (Main Pillar)' : 'Mission Card Points (Mission Card)'"></span>
+                                <span>Mission Card Points (Poin Card Misi)</span>
                             </h3>
                             <p class="text-xs text-gray-500 mt-0.5">
-                                Manage pillar cards / mission cards displayed in the section on the landing page.
+                                Manage mission cards displayed in the MISI section on the landing page.
                             </p>
                         </div>
                         <button type="button" 

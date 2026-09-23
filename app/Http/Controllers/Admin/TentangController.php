@@ -28,6 +28,7 @@ class TentangController extends AdminBaseController
         'judul' => 'required|string|max:255',
         'subjudul' => 'nullable|string|max:255',
         'deskripsi' => 'nullable|string',
+        'highlight_words' => 'nullable|string',
     ];
 
     protected ?string $imageField = 'gambar';
@@ -49,7 +50,7 @@ class TentangController extends AdminBaseController
         }
 
         // Handle points for visi / misi on creation
-        if (in_array($item->section, ['visi', 'misi']) && $request->has('poin')) {
+        if ($item->section === 'misi' && $request->has('poin')) {
             foreach ($request->input('poin', []) as $poinData) {
                 $poin = TentangPoin::create([
                     'tentang_id' => $item->id,
@@ -94,7 +95,11 @@ class TentangController extends AdminBaseController
         }
 
         // Handle points for visi / misi
-        if (in_array($item->section, ['visi', 'misi'])) {
+        if ($item->section === 'visi') {
+            TentangPoin::where('tentang_id', $item->id)->delete();
+        }
+
+        if ($item->section === 'misi') {
             // Delete removed points if any
             if ($request->has('deleted_poin')) {
                 $deletedIds = array_filter(explode(',', (string)$request->input('deleted_poin')));
