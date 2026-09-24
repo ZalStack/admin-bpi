@@ -11,4 +11,8 @@ class KategoriBerita extends Model
     use HasFactory, HasTranslations;
 
     protected $table = 'kategori_berita';
+
+    protected $fillable = [
+        'warna',
+    ];
 }

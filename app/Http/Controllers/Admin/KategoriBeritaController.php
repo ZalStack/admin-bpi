@@ -21,7 +21,9 @@ class KategoriBeritaController extends AdminBaseController
 
     protected string $indexOrderDirection = 'asc';
 
-    protected array $validationRules = [];
+    protected array $validationRules = [
+        'warna' => 'nullable|string|max:50',
+    ];
 
     protected array $translatableRules = [
         'judul' => 'required|string|max:255',
@@ -31,9 +33,13 @@ class KategoriBeritaController extends AdminBaseController
     public function store(Request $request)
     {
         $validated = $request->validate($this->buildValidationRules(false));
+        $neutral = $this->neutralData($validated, $request);
+        if (empty($neutral['warna'])) {
+            $neutral['warna'] = '#68001C';
+        }
 
         $item = $this->model::create(array_merge(
-            $this->neutralData($validated, $request),
+            $neutral,
             $this->extraData($request, true),
             $this->uploadedImage($request)
         ));
@@ -57,9 +63,13 @@ class KategoriBeritaController extends AdminBaseController
         $item = $this->model::query()->findOrFail($id);
 
         $validated = $request->validate($this->buildValidationRules(true));
+        $neutral = $this->neutralData($validated, $request);
+        if (empty($neutral['warna'])) {
+            $neutral['warna'] = '#68001C';
+        }
 
         $item->update(array_merge(
-            $this->neutralData($validated, $request),
+            $neutral,
             $this->extraData($request, false),
             $this->uploadedImage($request, $item)
         ));

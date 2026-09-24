@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Bahasa;
 use App\Models\Berita;
+use App\Models\KategoriBerita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -140,8 +141,36 @@ class BeritaApiController extends BaseApiController
         return $this->successResponse($resources->map(fn ($item) => $this->formatBeritaList($item))->values());
     }
 
+        protected function getCategoryColorMap(): array
+    {
+        static $catColors = null;
+        if ($catColors !== null) {
+            return $catColors;
+        }
+
+        $catColors = [];
+        try {
+            $categories = KategoriBerita::with('translations')->get();
+            foreach ($categories as $cm) {
+                $w = $cm->warna ?: '#68001C';
+                foreach ($cm->translations as $ct) {
+                    if ($ct->judul) {
+                        $catColors[mb_strtolower(trim($ct->judul))] = $w;
+                    }
+                    if ($ct->slug) {
+                        $catColors[mb_strtolower(trim($ct->slug))] = $w;
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+        }
+
+        return $catColors;
+    }
+
     protected function formatBeritaList($berita): array
     {
+        $colorMap = $this->getCategoryColorMap();
         $tagsList = $berita->tags->map(function ($tag) use ($berita) {
             return [
                 'id' => $tag->pivot->id ?? $tag->id,
@@ -173,7 +202,7 @@ class BeritaApiController extends BaseApiController
             'tanggal_publikasi' => $berita->tanggal_publikasi ? (is_string($berita->tanggal_publikasi) ? substr($berita->tanggal_publikasi, 0, 10) : $berita->tanggal_publikasi->format('Y-m-d')) : null,
             'status' => $berita->status,
             'tags' => $tagsFormatted,
-            'translations' => $berita->translations->map(function ($t) use ($tagsList) {
+            'translations' => $berita->translations->map(function ($t) use ($tagsList, $colorMap) {
                 return [
                     'id' => $t->id,
                     'berita_id' => $t->berita_id,
@@ -182,6 +211,7 @@ class BeritaApiController extends BaseApiController
                     'ringkasan' => $t->ringkasan,
                     'isi' => $t->isi,
                     'kategori' => $t->kategori,
+                    'kategori_warna' => $colorMap[mb_strtolower(trim($t->kategori ?? ''))] ?? null,
                     'kutipan' => $t->kutipan,
                     'tags' => $tagsList,
                     'created_at' => $t->created_at?->toISOString(),
@@ -191,8 +221,9 @@ class BeritaApiController extends BaseApiController
         ];
     }
 
-    protected function formatBeritaDetail($berita): array
+        protected function formatBeritaDetail($berita): array
     {
+        $colorMap = $this->getCategoryColorMap();
         return [
             'id' => $berita->id,
             'slug' => $berita->slug,
@@ -227,7 +258,7 @@ class BeritaApiController extends BaseApiController
                     'updated_at' => $g->updated_at?->toISOString(),
                 ];
             })->values()->all(),
-            'translations' => $berita->translations->map(function ($t) {
+            'translations' => $berita->translations->map(function ($t) use ($colorMap) {
                 return [
                     'id' => $t->id,
                     'berita_id' => $t->berita_id,
@@ -236,6 +267,7 @@ class BeritaApiController extends BaseApiController
                     'ringkasan' => $t->ringkasan,
                     'isi' => $t->isi,
                     'kategori' => $t->kategori,
+                    'kategori_warna' => $colorMap[mb_strtolower(trim($t->kategori ?? ''))] ?? null,
                     'kutipan' => $t->kutipan,
                     'created_at' => $t->created_at?->toISOString(),
                     'updated_at' => $t->updated_at?->toISOString(),
@@ -390,3 +422,4 @@ class BeritaApiController extends BaseApiController
         ], 'Status updated successfully');
     }
 }
+
