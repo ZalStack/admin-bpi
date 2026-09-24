@@ -60,7 +60,8 @@
                     <tbody class="tbody">
                         @foreach($items as $index => $item)
                             @php
-                                $badgeColor = $item->warna ?: '#68001C';
+                                $rawColor = trim((string) $item->warna);
+                                $badgeColor = $rawColor !== '' ? (str_starts_with($rawColor, '#') ? $rawColor : '#' . $rawColor) : '#68001C';
                             @endphp
                             <tr class="tr-hover">
                                 <td class="td text-gray-500 font-mono text-xs">{{ $index + 1 }}</td>
@@ -119,3 +120,4 @@
     @endif
 </div>
 @endsection
+

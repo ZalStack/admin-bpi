@@ -36,7 +36,7 @@
         <form action="{{ route('admin.kategori-berita.store') }}" method="POST"
             x-data="{
                 lang: @js($bahasas->first()?->kode),
-                color: @js(old('warna', '#68001C')),
+                color: @js(str_starts_with((string) old('warna', '#68001C'), '#') ? old('warna', '#68001C') : '#' . old('warna', '#68001C')),
                 titleTick: 0,
                 presetColors: [
                     { hex: '#68001C', name: 'Maroon (BPI)' },
@@ -196,6 +196,7 @@
     </div>
 </div>
 @endsection
+
 
 
 

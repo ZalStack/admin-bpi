@@ -152,7 +152,7 @@ class BeritaApiController extends BaseApiController
         try {
             $categories = KategoriBerita::with('translations')->get();
             foreach ($categories as $cm) {
-                $w = $cm->warna ?: '#68001C';
+                $w = $cm->warna ? (str_starts_with($cm->warna, '#') ? $cm->warna : '#' . $cm->warna) : '#68001C';
                 foreach ($cm->translations as $ct) {
                     if ($ct->judul) {
                         $catColors[mb_strtolower(trim($ct->judul))] = $w;
@@ -422,4 +422,5 @@ class BeritaApiController extends BaseApiController
         ], 'Status updated successfully');
     }
 }
+
 

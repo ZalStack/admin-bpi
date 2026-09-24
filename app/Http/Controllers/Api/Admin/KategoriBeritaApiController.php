@@ -21,6 +21,18 @@ class KategoriBeritaApiController extends BaseApiController
         'slug' => 'nullable|string|max:255',
     ];
 
+    protected function normalizeWarna(?string $warna): string
+    {
+        $w = trim((string) $warna);
+        if ($w !== '' && !str_starts_with($w, '#')) {
+            $w = '#' . $w;
+        }
+        if ($w === '' || !preg_match('/^#[0-9a-fA-F]{3,8}$/', $w)) {
+            return '#68001C';
+        }
+        return $w;
+    }
+
     public function index()
     {
         $categories = $this->model::query()
@@ -31,7 +43,7 @@ class KategoriBeritaApiController extends BaseApiController
         $data = $categories->map(function ($item) {
             return [
                 'id' => $item->id,
-                'warna' => $item->warna ?? '#68001C',
+                'warna' => $this->normalizeWarna($item->warna),
                 'translations' => $item->translations->map(function ($t) {
                     return [
                         'id' => $t->id,
@@ -64,7 +76,7 @@ class KategoriBeritaApiController extends BaseApiController
 
         return $this->successResponse([
             'id' => $item->id,
-            'warna' => $item->warna ?? '#68001C',
+            'warna' => $this->normalizeWarna($item->warna),
             'translations' => $item->translations,
         ]);
     }
@@ -78,9 +90,7 @@ class KategoriBeritaApiController extends BaseApiController
         }
 
         $data = $this->neutralData($request);
-        if (empty($data['warna'])) {
-            $data['warna'] = '#68001C';
-        }
+        $data['warna'] = $this->normalizeWarna($data['warna'] ?? null);
         $resource = $this->model::create($data);
 
         $translations = (array) $request->input('translations', []);
@@ -111,9 +121,7 @@ class KategoriBeritaApiController extends BaseApiController
         }
 
         $data = $this->neutralData($request);
-        if (empty($data['warna'])) {
-            $data['warna'] = '#68001C';
-        }
+        $data['warna'] = $this->normalizeWarna($data['warna'] ?? null);
         $resource->update($data);
 
         if ($this->usesTranslations() && $request->has('translations')) {

@@ -30,13 +30,23 @@ class KategoriBeritaController extends AdminBaseController
         'slug' => 'nullable|string|max:255',
     ];
 
+    protected function normalizeWarna(?string $warna): string
+    {
+        $w = trim((string) $warna);
+        if ($w !== '' && !str_starts_with($w, '#')) {
+            $w = '#' . $w;
+        }
+        if ($w === '' || !preg_match('/^#[0-9a-fA-F]{3,8}$/', $w)) {
+            return '#68001C';
+        }
+        return $w;
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate($this->buildValidationRules(false));
         $neutral = $this->neutralData($validated, $request);
-        if (empty($neutral['warna'])) {
-            $neutral['warna'] = '#68001C';
-        }
+        $neutral['warna'] = $this->normalizeWarna($neutral['warna'] ?? null);
 
         $item = $this->model::create(array_merge(
             $neutral,
@@ -64,9 +74,7 @@ class KategoriBeritaController extends AdminBaseController
 
         $validated = $request->validate($this->buildValidationRules(true));
         $neutral = $this->neutralData($validated, $request);
-        if (empty($neutral['warna'])) {
-            $neutral['warna'] = '#68001C';
-        }
+        $neutral['warna'] = $this->normalizeWarna($neutral['warna'] ?? null);
 
         $item->update(array_merge(
             $neutral,
