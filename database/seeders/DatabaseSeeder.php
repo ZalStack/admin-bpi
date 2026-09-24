@@ -76,12 +76,13 @@ class DatabaseSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | PROGRAM STRATEGIS & PROYEK KOLABORASI
+        | CONTENT SEEDERS (Program, Proyek, Berita)
         |--------------------------------------------------------------------------
         */
         $this->call([
             ProgramStrategisSeeder::class,
             ProyekKolaborasiSeeder::class,
+            BeritaSeeder::class,
         ]);
 
         /*
