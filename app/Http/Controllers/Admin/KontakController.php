@@ -32,6 +32,12 @@ class KontakController extends AdminBaseController
         'nama_kantor' => 'nullable|string|max:255',
         'alamat' => 'nullable|string|max:1000',
         'jam_operasional' => 'nullable|string|max:255',
+        'deskripsi_sosial_media' => 'nullable|string',
+        'deskripsi_email' => 'nullable|string',
+        'deskripsi_telepon' => 'nullable|string',
+        'form_badge' => 'nullable|string|max:255',
+        'form_judul' => 'nullable|string|max:255',
+        'form_deskripsi' => 'nullable|string',
     ];
 
     public function index()

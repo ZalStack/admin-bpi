@@ -42,7 +42,6 @@
             return [
                 'id' => $e->id,
                 'email' => $e->email,
-                'description' => $e->description ?? '',
                 'url' => $e->url ?? '',
             ];
         })->values()->toArray();
@@ -79,7 +78,7 @@
             this.socialMedia.splice(index, 1);
         },
         addEmail() {
-            this.emails.push({ email: '', description: '', url: '' });
+            this.emails.push({ email: '', url: '' });
         },
         removeEmail(index) {
             this.emails.splice(index, 1);
@@ -276,16 +275,12 @@
             <div class="space-y-3">
                 <template x-for="(em, idx) in emails" :key="idx">
                     <div class="p-3.5 rounded-2xl border border-gray-200 bg-gray-50/70 flex flex-col md:flex-row items-start md:items-center gap-3">
-                        <div class="w-full md:w-60 shrink-0">
+                        <div class="flex-1 w-full">
                             <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Email Address</label>
                             <input type="email" :name="`email[${idx}][email]`" x-model="em.email" class="form-input text-xs py-2 bg-white" placeholder="info@bpi.or.id" required>
                         </div>
                         <div class="flex-1 w-full">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Description / Purpose</label>
-                            <input type="text" :name="`email[${idx}][description]`" x-model="em.description" class="form-input text-xs py-2 bg-white" placeholder="Quick response for official inquiries and collaboration.">
-                        </div>
-                        <div class="w-full md:w-56 shrink-0">
-                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Mailto URL (Optional)</label>
+                            <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Mailto URL (Optional, auto-generated if empty)</label>
                             <input type="text" :name="`email[${idx}][url]`" x-model="em.url" class="form-input text-xs py-2 bg-white" placeholder="mailto:info@bpi.or.id">
                         </div>
                         <div class="self-end md:self-center pt-2 md:pt-4">
@@ -358,11 +353,54 @@
                 @php
                     $req = $bahasa->is_default;
                 @endphp
-                <x-lang-panel :kode="$bahasa->kode" class="space-y-4">
-                    <x-trans-input field="judul" label="Contact Page Title" :kode="$bahasa->kode" :required="$req" :item="$item" placeholder="e.g.: Contact Us / Hubungi Kami"/>
-                    <x-trans-input field="nama_kantor" label="Office / Secretariat Name" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="e.g.: BPI Secretariat Headquarters / Sekretariat Pusat BPI"/>
-                    <x-trans-textarea field="alamat" label="Full Office Address" :rows="3" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="e.g.: Film Building 2nd Floor, Jl. MT Haryono Kav. 47-48, Pancoran, South Jakarta 12770"/>
-                    <x-trans-input field="jam_operasional" label="Operating Hours" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="e.g.: Mon – Fri: 09:00 – 17:00 WIB"/>
+                <x-lang-panel :kode="$bahasa->kode" class="space-y-5">
+                    <!-- 1. Judul Section Informasi Kontak (Header Utama) -->
+                    <div class="p-4 rounded-2xl bg-gray-50/80 border border-gray-200/80 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-[#68001C] flex items-center gap-2">
+                            <span>📌</span> 1. Judul Section Informasi Kontak (Header Utama)
+                        </h4>
+                        <x-trans-input field="judul" label="Judul Section (Pengganti teks besar Hubungi Kami)" :kode="$bahasa->kode" :required="$req" :item="$item" placeholder="Contoh: Informasi Kontak / Contact Information"/>
+                    </div>
+
+                    <!-- 2. Deskripsi Card Kontak (Bilingual) -->
+                    <div class="p-4 rounded-2xl bg-gray-50/80 border border-gray-200/80 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-[#143C78] flex items-center gap-2">
+                            <span>🗂️</span> 2. Deskripsi Card Kontak (Media Sosial, Email & WhatsApp)
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <x-trans-textarea field="deskripsi_sosial_media" label="Deskripsi Card Media Sosial" :rows="3" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Jelajahi kanal resmi kami untuk informasi program..."/>
+                            </div>
+                            <div>
+                                <x-trans-textarea field="deskripsi_email" label="Deskripsi Card Email" :rows="3" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Surat menyurat resmi, kerja sama kelembagaan..."/>
+                            </div>
+                            <div>
+                                <x-trans-textarea field="deskripsi_telepon" label="Deskripsi Card Phone / WhatsApp" :rows="3" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Layanan komunikasi responsif untuk konsultasi..."/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Section Bawah / Merah (Peta & Form Hubungi Kami) -->
+                    <div class="p-4 rounded-2xl bg-rose-50/40 border border-rose-200/70 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-[#68001C] flex items-center gap-2">
+                            <span>📮</span> 3. Section Bawah / Merah (Peta & Form Hubungi Kami)
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <x-trans-input field="form_badge" label="Badge Kecil Section" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Hubungi Kami / Get In Touch"/>
+                            <x-trans-input field="form_judul" label="Judul Section Merah" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Hubungi Kami / Contact Us"/>
+                        </div>
+                        <x-trans-textarea field="form_deskripsi" label="Deskripsi Section Merah" :rows="2" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Kunjungi langsung Sekretariat Badan Perfilman Indonesia atau kirimkan pesan online..."/>
+                    </div>
+
+                    <!-- 4. Informasi Kantor & Operasional -->
+                    <div class="p-4 rounded-2xl bg-gray-50/80 border border-gray-200/80 space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-2">
+                            <span>🏢</span> 4. Informasi Kantor & Operasional
+                        </h4>
+                        <x-trans-input field="nama_kantor" label="Nama Kantor / Sekretariat" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Sekretariat Pusat BPI"/>
+                        <x-trans-textarea field="alamat" label="Alamat Lengkap Kantor" :rows="3" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Gedung Film, Lantai Dasar, Jl. Letjen MT Haryono..."/>
+                        <x-trans-input field="jam_operasional" label="Jam Operasional" :kode="$bahasa->kode" :required="false" :item="$item" placeholder="Contoh: Senin – Jumat: 09.00 – 17.00 WIB"/>
+                    </div>
                 </x-lang-panel>
             @endforeach
 

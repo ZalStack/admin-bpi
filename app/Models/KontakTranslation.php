@@ -19,5 +19,11 @@ class KontakTranslation extends Model
         'deskripsi',
         'alamat',
         'jam_operasional',
+        'deskripsi_sosial_media',
+        'deskripsi_email',
+        'deskripsi_telepon',
+        'form_badge',
+        'form_judul',
+        'form_deskripsi',
     ];
 }
