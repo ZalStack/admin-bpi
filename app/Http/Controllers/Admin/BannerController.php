@@ -14,9 +14,9 @@ class BannerController extends AdminBaseController
 
     protected string $label = 'Banner';
 
-    protected string $indexOrderColumn = 'id';
+    protected string $indexOrderColumn = 'urutan';
 
-    protected string $indexOrderDirection = 'desc';
+    protected string $indexOrderDirection = 'asc';
 
     protected array $validationRules = [
         'halaman' => 'required|string|max:50',
@@ -32,4 +32,14 @@ class BannerController extends AdminBaseController
     protected ?string $imageField = 'gambar';
 
     protected ?string $imagePath = 'banners';
+
+    public function index()
+    {
+        $items = $this->model::query()
+            ->orderBy('urutan', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return view($this->viewPrefix.'.index', $this->viewData(['items' => $items]));
+    }
 }
