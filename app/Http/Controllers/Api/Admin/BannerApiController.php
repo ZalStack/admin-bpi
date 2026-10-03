@@ -26,9 +26,22 @@ class BannerApiController extends BaseApiController
 
     public function getByHalaman($halaman)
     {
+        $halamanMap = [
+            'project' => 'proyek',
+            'projects' => 'proyek',
+            'news' => 'berita',
+            'articles' => 'berita',
+            'about' => 'tentang',
+            'contact' => 'kontak',
+        ];
+        $targetHalaman = $halamanMap[$halaman] ?? $halaman;
+
         $resources = $this->model::query()
             ->with($this->withRelations)
-            ->where('halaman', $halaman)
+            ->where(function ($q) use ($halaman, $targetHalaman) {
+                $q->where('halaman', $halaman)
+                  ->orWhere('halaman', $targetHalaman);
+            })
             ->where('status', true)
             ->orderBy('urutan', 'asc')
             ->get();

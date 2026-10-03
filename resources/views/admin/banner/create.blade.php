@@ -38,14 +38,12 @@
                     <label for="halaman" class="form-label">Page *</label>
                     <select name="halaman" id="halaman" class="form-select" required>
                         <option value="" disabled {{ old('halaman') ? '' : 'selected' }}>-- Select Website Page --</option>
-                        <option value="home" {{ old('halaman') == 'home' ? 'selected' : '' }}>🏠 Homepage (home)</option>
-                        <option value="stakeholders" {{ old('halaman') == 'stakeholders' ? 'selected' : '' }}>👥 Stakeholders (stakeholders)</option>
-                        <option value="program" {{ old('halaman') == 'program' ? 'selected' : '' }}>📊 Strategic Programs (program)</option>
-                        <option value="proyek" {{ old('halaman') == 'proyek' ? 'selected' : '' }}>🎬 Collaboration Projects (proyek)</option>
-                        <option value="mitra" {{ old('halaman') == 'mitra' ? 'selected' : '' }}>🤝 Partners (mitra)</option>
-                        <option value="berita" {{ old('halaman') == 'berita' ? 'selected' : '' }}>📰 Articles & News (berita)</option>
-                        <option value="tentang" {{ old('halaman') == 'tentang' ? 'selected' : '' }}>🏛️ About Us (tentang)</option>
-                        <option value="kontak" {{ old('halaman') == 'kontak' ? 'selected' : '' }}>📞 Contact Us (kontak)</option>
+                        <option value="home" {{ old('halaman') == 'home' ? 'selected' : '' }}>🏠 Home</option>
+                        <option value="stakeholders" {{ old('halaman') == 'stakeholders' ? 'selected' : '' }}>👥 Stakeholders</option>
+                        <option value="proyek" {{ old('halaman') == 'proyek' ? 'selected' : '' }}>🎬 Projects</option>
+                        <option value="berita" {{ old('halaman') == 'berita' ? 'selected' : '' }}>📰 Articles</option>
+                        <option value="tentang" {{ old('halaman') == 'tentang' ? 'selected' : '' }}>🏛️ About Us</option>
+                        <option value="kontak" {{ old('halaman') == 'kontak' ? 'selected' : '' }}>📞 Contact Us</option>
                     </select>
                     @error('halaman')
                         <p class="form-error">{{ $message }}</p>

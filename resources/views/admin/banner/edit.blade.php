@@ -38,14 +38,15 @@
                 <div>
                     <label for="halaman" class="form-label">Page *</label>
                     <select name="halaman" id="halaman" class="form-select" required>
-                        <option value="home" {{ old('halaman', $item->halaman) == 'home' ? 'selected' : '' }}>🏠 Homepage (home)</option>
-                        <option value="stakeholders" {{ old('halaman', $item->halaman) == 'stakeholders' ? 'selected' : '' }}>👥 Stakeholders (stakeholders)</option>
-                        <option value="program" {{ old('halaman', $item->halaman) == 'program' ? 'selected' : '' }}>📊 Strategic Programs (program)</option>
-                        <option value="proyek" {{ old('halaman', $item->halaman) == 'proyek' ? 'selected' : '' }}>🎬 Collaboration Projects (proyek)</option>
-                        <option value="mitra" {{ old('halaman', $item->halaman) == 'mitra' ? 'selected' : '' }}>🤝 Partners (mitra)</option>
-                        <option value="berita" {{ old('halaman', $item->halaman) == 'berita' ? 'selected' : '' }}>📰 Articles & News (berita)</option>
-                        <option value="tentang" {{ old('halaman', $item->halaman) == 'tentang' ? 'selected' : '' }}>🏛️ About Us (tentang)</option>
-                        <option value="kontak" {{ old('halaman', $item->halaman) == 'kontak' ? 'selected' : '' }}>📞 Contact Us (kontak)</option>
+                        <option value="home" {{ old('halaman', $item->halaman) == 'home' ? 'selected' : '' }}>🏠 Home</option>
+                        <option value="stakeholders" {{ old('halaman', $item->halaman) == 'stakeholders' ? 'selected' : '' }}>👥 Stakeholders</option>
+                        <option value="proyek" {{ in_array(old('halaman', $item->halaman), ['proyek', 'project', 'projects']) ? 'selected' : '' }}>🎬 Projects</option>
+                        <option value="berita" {{ in_array(old('halaman', $item->halaman), ['berita', 'news', 'articles']) ? 'selected' : '' }}>📰 Articles</option>
+                        <option value="tentang" {{ in_array(old('halaman', $item->halaman), ['tentang', 'about']) ? 'selected' : '' }}>🏛️ About Us</option>
+                        <option value="kontak" {{ in_array(old('halaman', $item->halaman), ['kontak', 'contact']) ? 'selected' : '' }}>📞 Contact Us</option>
+                        @if(in_array($item->halaman, ['program', 'mitra']))
+                            <option value="{{ $item->halaman }}" selected>⚠️ {{ ucfirst($item->halaman) }} (Legacy)</option>
+                        @endif
                     </select>
                     @error('halaman')
                         <p class="form-error">{{ $message }}</p>
