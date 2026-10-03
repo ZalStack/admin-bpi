@@ -36,7 +36,7 @@
                 url: '{{ old('url', '') }}',
                 isCustom: false,
                 init() {
-                    const presets = ['/', '/stakeholders', '/program', '/proyek', '/mitra', '/berita', '/tentang', '/kontak'];
+                    const presets = ['/', '/stakeholders', '/project', '/news', '/about', '/contact', '/privacy-policy', '/terms-conditions'];
                     if (this.url && !presets.includes(this.url)) {
                         this.selectedPage = 'custom';
                         this.isCustom = true;
@@ -63,12 +63,12 @@
                         <option value="" disabled selected>-- Select Website Page --</option>
                         <option value="/">🏠 Home ( / )</option>
                         <option value="/stakeholders">👥 Stakeholders ( /stakeholders )</option>
-                        <option value="/program">📊 Strategic Programs ( /program )</option>
-                        <option value="/proyek">🎬 Collaboration Projects ( /proyek )</option>
-                        <option value="/mitra">🤝 Partners ( /mitra )</option>
-                        <option value="/berita">📰 Articles & News ( /berita )</option>
-                        <option value="/tentang">🏛️ About Us ( /tentang )</option>
-                        <option value="/kontak">📞 Contact Us ( /kontak )</option>
+                        <option value="/project">🎬 Projects ( /project )</option>
+                        <option value="/news">📰 Articles & News ( /news )</option>
+                        <option value="/about">🏛️ About Us ( /about )</option>
+                        <option value="/contact">📞 Contact Us ( /contact )</option>
+                        <option value="/privacy-policy">🔒 Privacy Policy ( /privacy-policy )</option>
+                        <option value="/terms-conditions">📜 Terms & Conditions ( /terms-conditions )</option>
                         <option value="custom">🔗 Custom Link / External URL...</option>
                     </select>
                 </div>
