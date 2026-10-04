@@ -19,11 +19,21 @@ trait HasTranslations
      * Simpan translations dari payload keyed per bahasa.
      * Format: ['id' => ['judul' => '...'], 'en' => ['judul' => '...']]
      * Bahasa baru cukup ditambahkan sebagai data, tanpa perubahan schema.
+     * Kolom kunci (id, bahasa, foreign key) dari payload diabaikan agar
+     * terjemahan tidak bisa dipindahkan ke record atau bahasa lain.
      */
     public function storeTranslations(array $translations): void
     {
+        $protected = array_flip(['id', 'bahasa', $this->translations()->getForeignKeyName()]);
+
         foreach ($translations as $kode => $fields) {
-            if (! is_array($fields) || $fields === []) {
+            if (! is_array($fields)) {
+                continue;
+            }
+
+            $fields = array_diff_key($fields, $protected);
+
+            if ($fields === []) {
                 continue;
             }
 

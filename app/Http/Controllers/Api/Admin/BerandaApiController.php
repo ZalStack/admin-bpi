@@ -16,6 +16,8 @@ class BerandaApiController extends BaseApiController
 
     protected array $validationRules = [
         'section' => 'required|string|in:tentang,struktur,proyek,program,berita,mitra',
+        'gambar' => 'nullable|string|max:255',
+        'icon' => 'nullable|string|max:255',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];

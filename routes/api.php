@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\Admin\StrukturOrganisasiApiController;
 use App\Http\Controllers\Api\Admin\TentangApiController;
 use App\Http\Controllers\Api\Admin\TentangPoinApiController;
 use App\Http\Controllers\Api\Admin\TagApiController;
+use App\Http\Middleware\PreventApiRequestForgery;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,8 @@ use Illuminate\Support\Facades\Route;
 | Base URL: http://localhost:8000/api/admin/v1/
 |
 | GET  : publik (throttle 120 req/menit per IP) untuk konsumsi frontend.
-| POST / PUT / PATCH / DELETE : wajib login admin (session).
+| POST / PUT / PATCH / DELETE : wajib login admin (session) + CSRF
+| (same-origin, atau header X-CSRF-TOKEN / X-XSRF-TOKEN).
 | Pengecualian: POST kontak-form tetap publik (form kontak situs),
 | dilindungi honeypot + throttle ketat.
 |
@@ -46,6 +48,7 @@ Route::prefix('admin/v1')
         EncryptCookies::class,
         StartSession::class,
         'mutation.auth',
+        PreventApiRequestForgery::class,
     ])
     ->group(function () {
 

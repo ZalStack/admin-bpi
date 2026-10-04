@@ -14,6 +14,21 @@ class TentangApiController extends BaseApiController
 
     protected array $orderBy = ['urutan' => 'asc'];
 
+    protected array $validationRules = [
+        'section' => 'required|string|in:intro,visi,misi',
+        'icon' => 'nullable|string|max:255',
+        'urutan' => 'nullable|integer',
+        'status' => 'boolean',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+    ];
+
+    protected array $translatableRules = [
+        'judul' => 'required|string|max:255',
+        'subjudul' => 'nullable|string|max:255',
+        'deskripsi' => 'nullable|string',
+        'highlight_words' => 'nullable|string',
+    ];
+
     public function getActive()
     {
         $resources = $this->model::query()

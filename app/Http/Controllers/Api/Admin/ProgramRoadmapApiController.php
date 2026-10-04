@@ -8,6 +8,10 @@ class ProgramRoadmapApiController extends BaseApiController
 {
     protected $model = ProgramRoadmap::class;
 
+    protected ?string $imageField = 'gambar';
+
+    protected ?string $imagePath = 'program';
+
     protected array $orderBy = ['urutan' => 'asc'];
 
     protected array $validationRules = [
@@ -15,6 +19,7 @@ class ProgramRoadmapApiController extends BaseApiController
         'icon' => 'nullable|string|max:100',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
     ];
 
     protected array $translatableRules = [

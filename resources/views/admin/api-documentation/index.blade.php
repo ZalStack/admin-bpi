@@ -143,7 +143,7 @@
             </div>
             <div class="rounded-xl border border-orange-100 bg-orange-50/60 p-3.5">
                 <p class="font-mono text-xs font-bold text-orange-700">POST / PUT / PATCH / DELETE — login required</p>
-                <p class="mt-1 text-xs leading-relaxed text-gray-600">Authenticated admin only. Without session: <code>401 Unauthorized</code>.</p>
+                <p class="mt-1 text-xs leading-relaxed text-gray-600">Authenticated admin only. Without session: <code>401 Unauthorized</code>. Cross-origin clients must also send <code>X-CSRF-TOKEN</code> or <code>X-XSRF-TOKEN</code>, otherwise <code>419</code>.</p>
             </div>
             <div class="rounded-xl border border-violet-100 bg-violet-50/60 p-3.5">
                 <p class="font-mono text-xs font-bold text-violet-700">Public exceptions</p>
@@ -265,6 +265,7 @@
                 ['code' => '400', 'title' => 'Bad Request', 'desc' => 'Invalid request', 'style' => 'text-amber-700 bg-amber-50 ring-amber-200'],
                 ['code' => '401', 'title' => 'Unauthorized', 'desc' => 'Not authenticated (login required)', 'style' => 'text-orange-700 bg-orange-50 ring-orange-200'],
                 ['code' => '404', 'title' => 'Not Found', 'desc' => 'Data/endpoint not found', 'style' => 'text-rose-700 bg-rose-50 ring-rose-200'],
+                ['code' => '419', 'title' => 'CSRF Token Mismatch', 'desc' => 'Missing/invalid CSRF token on a session mutation', 'style' => 'text-orange-700 bg-orange-50 ring-orange-200'],
                 ['code' => '422', 'title' => 'Unprocessable Entity', 'desc' => 'Input validation failed', 'style' => 'text-violet-700 bg-violet-50 ring-violet-200'],
             ] as $status)
                 <div class="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50/60 p-3.5">

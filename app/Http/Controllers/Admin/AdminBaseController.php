@@ -287,7 +287,32 @@ abstract class AdminBaseController extends Controller
             'field' => 'required|string',
         ]);
 
-        $modelClass = 'App\\Models\\' . $request->input('model');
+        // Hanya model & field gambar yang terdaftar di sini yang boleh dihapus.
+        // Format: Model => [folder storage, [field gambar]]
+        $imageFieldMap = [
+            'BannerHalaman' => ['banners', ['gambar']],
+            'Berita' => ['berita', ['gambar_utama']],
+            'BeritaGaleri' => ['berita/galeri', ['gambar']],
+            'Mitra' => ['mitra', ['logo']],
+            'MitraIntro' => ['mitra', ['gambar']],
+            'Program' => ['program', ['gambar']],
+            'ProgramRoadmap' => ['program', ['gambar']],
+            'Proyek' => ['proyek', ['gambar_utama']],
+            'ProyekGaleri' => ['proyek/galeri', ['gambar']],
+            'Stakeholder' => ['stakeholder', ['gambar']],
+            'StrukturOrganisasi' => ['struktur', ['foto']],
+            'Tentang' => ['tentang', ['gambar']],
+            'Beranda' => ['beranda', ['gambar']],
+        ];
+
+        $modelBasename = $request->input('model');
+        $field = $request->input('field');
+
+        if (! isset($imageFieldMap[$modelBasename]) || ! in_array($field, $imageFieldMap[$modelBasename][1], true)) {
+            return response()->json(['success' => false, 'message' => 'Model not found.'], 404);
+        }
+
+        $modelClass = 'App\\Models\\' . $modelBasename;
         if (! class_exists($modelClass)) {
             return response()->json(['success' => false, 'message' => 'Model not found.'], 404);
         }
@@ -297,35 +322,13 @@ abstract class AdminBaseController extends Controller
             return response()->json(['success' => false, 'message' => 'Data not found.'], 404);
         }
 
-        $field = $request->input('field');
         $filename = $item->{$field} ?? null;
 
         if (! $filename) {
             return response()->json(['success' => false, 'message' => 'No image to delete.'], 404);
         }
 
-        $imagePathMap = [
-            'BannerHalaman' => 'banners',
-            'Berita' => 'berita',
-            'BeritaGaleri' => 'berita/galeri',
-            'Mitra' => 'mitra',
-            'MitraIntro' => 'mitra',
-            'Program' => 'program',
-            'ProgramRoadmap' => 'program',
-            'Proyek' => 'proyek',
-            'ProyekGaleri' => 'proyek/galeri',
-            'Stakeholder' => 'stakeholder',
-            'StrukturOrganisasi' => 'struktur',
-            'Tentang' => 'tentang',
-            'Beranda' => 'beranda',
-        ];
-
-        $modelBasename = class_basename($modelClass);
-        $imagePath = $imagePathMap[$modelBasename] ?? null;
-
-        if ($imagePath) {
-            Storage::disk('public')->delete($imagePath . '/' . $filename);
-        }
+        Storage::disk('public')->delete($imageFieldMap[$modelBasename][0] . '/' . $filename);
 
         $item->{$field} = null;
         $item->save();

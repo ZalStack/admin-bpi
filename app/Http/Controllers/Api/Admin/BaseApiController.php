@@ -256,17 +256,20 @@ class BaseApiController extends Controller
     }
 
     /**
-     * Ambil hanya field netral dari request (buang translations & file).
+     * Ambil hanya field netral yang punya rule validasi
+     * (buang translations, file, dan field yang tidak divalidasi).
      */
     protected function neutralData(Request $request): array
     {
+        $allowed = array_keys(array_merge($this->validationRules, $this->updateValidationRules));
+
         $exclude = ['translations'];
 
         if ($this->imageField) {
             $exclude[] = $this->imageField;
         }
 
-        return $request->except($exclude);
+        return $request->only(array_values(array_diff($allowed, $exclude)));
     }
 
     /**
