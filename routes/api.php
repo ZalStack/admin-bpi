@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\FooterApiController;
 use App\Http\Controllers\Api\Admin\KategoriBeritaApiController;
 use App\Http\Controllers\Api\Admin\KontakApiController;
 use App\Http\Controllers\Api\Admin\KontakFormApiController;
+use App\Http\Controllers\Api\Admin\KontenHalamanApiController;
 use App\Http\Controllers\Api\Admin\MenuApiController;
 use App\Http\Controllers\Api\Admin\MitraApiController;
 use App\Http\Controllers\Api\Admin\ProgramApiController;
@@ -103,6 +104,11 @@ Route::prefix('admin/v1')
             Route::put('/{id}', [TentangApiController::class, 'update']);
             Route::delete('/{id}', [TentangApiController::class, 'destroy']);
         });
+
+        // ============================================
+        // KONTEN HALAMAN (teks statis per halaman, read-only)
+        // ============================================
+        Route::get('/konten-halaman/{halaman}', [KontenHalamanApiController::class, 'getByHalaman']);
 
         // ============================================
         // TENTANG POIN

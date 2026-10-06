@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\KontakController;
 use App\Http\Controllers\Admin\KontakFormController;
+use App\Http\Controllers\Admin\KontenHalamanController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\MitraIntroController;
@@ -60,9 +61,17 @@ Route::middleware('auth')->group(function () {
             Route::resource('banner', BannerController::class);
             Route::post('/banner/{id}/toggle-status', [BannerController::class, 'toggleStatus'])->name('banner.toggle-status');
 
+            // Teks halaman Beranda (judul section, badge, tombol)
+            Route::get('/beranda-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'beranda')->name('beranda.texts');
+            Route::put('/beranda-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'beranda')->name('beranda.texts.update');
+
             // Beranda
             Route::resource('beranda', BerandaController::class);
             Route::post('/beranda/{id}/toggle-status', [BerandaController::class, 'toggleStatus'])->name('beranda.toggle-status');
+
+            // Teks halaman Stakeholder (label, judul section, CTA)
+            Route::get('/stakeholder-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'stakeholder')->name('stakeholder.texts');
+            Route::put('/stakeholder-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'stakeholder')->name('stakeholder.texts.update');
 
             // Stakeholder
             Route::resource('stakeholder', StakeholderController::class);
@@ -79,6 +88,10 @@ Route::middleware('auth')->group(function () {
             // Program Poin
             Route::resource('program-poin', ProgramPoinController::class);
             Route::post('/program-poin/{id}/toggle-status', [ProgramPoinController::class, 'toggleStatus'])->name('program-poin.toggle-status');
+
+            // Teks halaman Proyek (judul/deskripsi section, label, judul section detail)
+            Route::get('/proyek-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'proyek')->name('proyek.texts');
+            Route::put('/proyek-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'proyek')->name('proyek.texts.update');
 
             // Proyek
             Route::resource('proyek', ProyekController::class);
@@ -121,9 +134,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/struktur-layout', [StrukturOrganisasiController::class, 'layoutView'])->name('struktur.layout');
             Route::post('/struktur-layout/save', [StrukturOrganisasiController::class, 'saveLayoutOrder'])->name('struktur.save-layout');
 
+            // Teks section Struktur di halaman Tentang (judul, subjudul, label bagan)
+            Route::get('/struktur-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'tentang')->name('struktur.texts');
+            Route::put('/struktur-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'tentang')->name('struktur.texts.update');
+
             // Struktur Organisasi
             Route::resource('struktur', StrukturOrganisasiController::class);
             Route::post('/struktur/{id}/toggle-status', [StrukturOrganisasiController::class, 'toggleStatus'])->name('struktur.toggle-status');
+
+            // Teks halaman Kontak (label kartu, tombol, teks form)
+            Route::get('/kontak-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'kontak')->name('kontak.texts');
+            Route::put('/kontak-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'kontak')->name('kontak.texts.update');
 
             // Kontak
             Route::resource('kontak', KontakController::class);
@@ -139,7 +160,15 @@ Route::middleware('auth')->group(function () {
             Route::resource('menu', MenuController::class);
             Route::post('/menu/{id}/toggle-status', [MenuController::class, 'toggleStatus'])->name('menu.toggle-status');
 
-            // Footer
+            // Footer & Legal: teks footer + isi halaman Kebijakan Privasi / Syarat Ketentuan
+            Route::get('/footer-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'footer')->name('footer.texts');
+            Route::put('/footer-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'footer')->name('footer.texts.update');
+            Route::get('/privacy-policy-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'privasi')->name('footer.privacy');
+            Route::put('/privacy-policy-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'privasi')->name('footer.privacy.update');
+            Route::get('/terms-texts', [KontenHalamanController::class, 'edit'])->defaults('halaman', 'syarat')->name('footer.terms');
+            Route::put('/terms-texts', [KontenHalamanController::class, 'update'])->defaults('halaman', 'syarat')->name('footer.terms.update');
+
+            // Footer (modul lama, tidak dipakai frontend)
             Route::resource('footer', FooterController::class);
             Route::post('/footer/{id}/toggle-status', [FooterController::class, 'toggleStatus'])->name('footer.toggle-status');
 

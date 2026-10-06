@@ -317,16 +317,16 @@ $icons = [
                     </div>
 
                     <div>
-                        <x-trans-textarea field="deskripsi" label="Deskripsi Lengkap Proyek" :kode="$bahasa->kode" :required="$req" :item="$proyek" rows="5" placeholder="Penjelasan mendalam mengenai proyek..."/>
+                        <x-trans-textarea field="deskripsi" label="Full Project Description" :kode="$bahasa->kode" :required="$req" :item="$proyek" rows="5" placeholder="In-depth explanation of the project..."/>
                     </div>
 
                     <!-- Meta Informasi Proyek -->
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-                        <x-trans-input field="lokasi" label="Lokasi" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="cth: Jakarta, Indonesia"/>
-                        <x-trans-input field="ruang_lingkup" label="Ruang Lingkup" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: Nasional & Internasional"/>
-                        <x-trans-input field="status_proyek" label="Status Proyek" :kode="$bahasa->kode" :item="$proyek" placeholder="cth: Berjalan"/>
+                        <x-trans-input field="lokasi" label="Location" :kode="$bahasa->kode" :required="$req" :item="$proyek" placeholder="e.g.: Jakarta, Indonesia"/>
+                        <x-trans-input field="ruang_lingkup" label="Scope" :kode="$bahasa->kode" :item="$proyek" placeholder="e.g.: National & International"/>
+                        <x-trans-input field="status_proyek" label="Project Status" :kode="$bahasa->kode" :item="$proyek" placeholder="e.g.: Ongoing"/>
                         <div>
-                            <label class="form-label text-xs">Icon Proyek (Font Awesome)</label>
+                            <label class="form-label text-xs">Project Icon (Font Awesome)</label>
                             <div class="flex items-center gap-2">
                                 <div class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-[#132C5C] shadow-sm">
                                     <template x-if="metaIcons['{{ $bahasa->kode }}']">
@@ -336,10 +336,10 @@ $icons = [
                                         <i class="fa-solid fa-icons text-sm text-gray-300"></i>
                                     </template>
                                 </div>
-                                <input type="text" name="translations[{{ $bahasa->kode }}][icon]" x-model="metaIcons['{{ $bahasa->kode }}']" class="form-input text-xs py-2 bg-white flex-1 font-mono" placeholder="Pilih icon...">
+                                <input type="text" name="translations[{{ $bahasa->kode }}][icon]" x-model="metaIcons['{{ $bahasa->kode }}']" class="form-input text-xs py-2 bg-white flex-1 font-mono" placeholder="Select icon...">
                                 <button type="button" @click="openMetaIconModal('{{ $bahasa->kode }}')" class="inline-flex h-[38px] items-center gap-1 rounded-xl bg-[#132C5C] px-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#0E2043] transition-all cursor-pointer shrink-0">
                                     <i class="fa-solid fa-shapes text-xs text-[#E3DBAF]"></i>
-                                    <span>Pilih</span>
+                                    <span>Select</span>
                                 </button>
                             </div>
                         </div>

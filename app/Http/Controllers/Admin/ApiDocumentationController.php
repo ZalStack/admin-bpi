@@ -68,6 +68,7 @@ class ApiDocumentationController extends Controller
                     ['method' => 'PUT', 'path' => 'tentang/{id}', 'desc' => 'Update about content'],
                     ['method' => 'PATCH', 'path' => 'tentang/{id}/toggle-status', 'desc' => 'Enable / disable about content'],
                     ['method' => 'DELETE', 'path' => 'tentang/{id}', 'desc' => 'Delete about content'],
+                    ['method' => 'GET', 'path' => 'konten-halaman/{halaman}', 'desc' => 'Editable static page texts as { key: { lang: value } } (halaman = tentang, proyek, stakeholder, beranda, kontak, footer, privasi, syarat)'],
                 ],
             ],
             [

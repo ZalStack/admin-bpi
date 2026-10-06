@@ -17,14 +17,14 @@
                 </svg>
                 <span>Add</span>
             </nav>
-            <h1 class="page-title">Tambah Section Beranda</h1>
-            <p class="page-subtitle">Pilih section beranda serta atur urutan posisi dan status tampil</p>
+            <h1 class="page-title">Add Homepage Section</h1>
+            <p class="page-subtitle">Choose a homepage section and set its display order and status</p>
         </div>
         <a href="{{ route('admin.beranda.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
-            Kembali
+            Back
         </a>
     </div>
 
@@ -36,13 +36,13 @@
                 <div>
                     <label for="section" class="form-label">Section <span class="text-rose-500">*</span></label>
                     <select name="section" id="section" class="form-select" required>
-                        <option value="" disabled {{ old('section') ? '' : 'selected' }}>-- Pilih Section --</option>
-                        <option value="tentang" {{ old('section') == 'tentang' ? 'selected' : '' }}>Tentang Kami (tentang)</option>
-                        <option value="struktur" {{ old('section') == 'struktur' ? 'selected' : '' }}>Struktur Organisasi (struktur)</option>
-                        <option value="proyek" {{ old('section') == 'proyek' ? 'selected' : '' }}>Proyek Kolaboratif (proyek)</option>
-                        <option value="program" {{ old('section') == 'program' ? 'selected' : '' }}>Program Strategis (program)</option>
-                        <option value="berita" {{ old('section') == 'berita' ? 'selected' : '' }}>Artikel & Berita (berita)</option>
-                        <option value="mitra" {{ old('section') == 'mitra' ? 'selected' : '' }}>Mitra Kerjasama (mitra)</option>
+                        <option value="" disabled {{ old('section') ? '' : 'selected' }}>-- Select Section --</option>
+                        <option value="tentang" {{ old('section') == 'tentang' ? 'selected' : '' }}>About Us (tentang)</option>
+                        <option value="struktur" {{ old('section') == 'struktur' ? 'selected' : '' }}>Organizational Structure (struktur)</option>
+                        <option value="proyek" {{ old('section') == 'proyek' ? 'selected' : '' }}>Collaborative Projects (proyek)</option>
+                        <option value="program" {{ old('section') == 'program' ? 'selected' : '' }}>Strategic Programs (program)</option>
+                        <option value="berita" {{ old('section') == 'berita' ? 'selected' : '' }}>Articles & News (berita)</option>
+                        <option value="mitra" {{ old('section') == 'mitra' ? 'selected' : '' }}>Partners (mitra)</option>
                     </select>
                     @error('section')
                         <p class="form-error">{{ $message }}</p>
@@ -50,7 +50,7 @@
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan Posisi</label>
+                    <label for="urutan" class="form-label">Display Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 1) }}" class="form-input" min="1">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -58,12 +58,12 @@
                 </div>
 
                 <div>
-                    <label for="status" class="form-label">Status Tampil</label>
+                    <label for="status" class="form-label">Display Status</label>
                     <div class="flex h-[46px] items-center rounded-xl border border-gray-300 bg-gray-50/60 px-3.5">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="hidden" name="status" value="0">
                             <input type="checkbox" name="status" value="1" {{ old('status', '1') == '1' ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Tampilkan di Beranda</span>
+                            <span class="text-sm font-medium text-gray-700">Show on Homepage</span>
                         </label>
                     </div>
                 </div>

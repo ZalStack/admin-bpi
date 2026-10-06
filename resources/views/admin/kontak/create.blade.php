@@ -330,52 +330,52 @@
                     $req = $bahasa->is_default;
                 @endphp
                 <x-lang-panel :kode="$bahasa->kode" class="space-y-5">
-                    <!-- 1. Judul Section Informasi Kontak (Header Utama) -->
+                    <!-- 1. Contact Information Section Title (Main Header) -->
                     <div class="p-4 rounded-2xl bg-gray-50/80 border border-gray-200/80 space-y-3">
                         <h4 class="text-xs font-bold uppercase tracking-wider text-[#68001C] flex items-center gap-2">
-                            <span>📌</span> 1. Judul Section Informasi Kontak (Header Utama)
+                            <span>📌</span> 1. Contact Information Section Title (Main Header)
                         </h4>
-                        <x-trans-input field="judul" label="Judul Section (Pengganti teks besar Hubungi Kami)" :kode="$bahasa->kode" :required="$req" placeholder="Contoh: Informasi Kontak / Contact Information"/>
+                        <x-trans-input field="judul" label="Section Title (replaces the large &quot;Contact Us&quot; heading)" :kode="$bahasa->kode" :required="$req" placeholder="e.g.: Contact Information"/>
                     </div>
 
                     <!-- 2. Deskripsi Card Kontak (Bilingual) -->
                     <div class="p-4 rounded-2xl bg-gray-50/80 border border-gray-200/80 space-y-3">
                         <h4 class="text-xs font-bold uppercase tracking-wider text-[#143C78] flex items-center gap-2">
-                            <span>🗂️</span> 2. Deskripsi Card Kontak (Media Sosial, Email & WhatsApp)
+                            <span>🗂️</span> 2. Contact Card Descriptions (Social Media, Email & WhatsApp)
                         </h4>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div>
-                                <x-trans-textarea field="deskripsi_sosial_media" label="Deskripsi Card Media Sosial" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Jelajahi kanal resmi kami untuk informasi program..."/>
+                                <x-trans-textarea field="deskripsi_sosial_media" label="Social Media Card Description" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Explore our official channels for program updates..."/>
                             </div>
                             <div>
-                                <x-trans-textarea field="deskripsi_email" label="Deskripsi Card Email" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Surat menyurat resmi, kerja sama kelembagaan..."/>
+                                <x-trans-textarea field="deskripsi_email" label="Email Card Description" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Official correspondence, institutional cooperation..."/>
                             </div>
                             <div>
-                                <x-trans-textarea field="deskripsi_telepon" label="Deskripsi Card Phone / WhatsApp" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Layanan komunikasi responsif untuk konsultasi..."/>
+                                <x-trans-textarea field="deskripsi_telepon" label="Phone / WhatsApp Card Description" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Responsive communication for consultation..."/>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 3. Section Bawah / Merah (Peta & Form Hubungi Kami) -->
+                    <!-- 3. Bottom / Red Section (Map & Contact Form) -->
                     <div class="p-4 rounded-2xl bg-rose-50/40 border border-rose-200/70 space-y-3">
                         <h4 class="text-xs font-bold uppercase tracking-wider text-[#68001C] flex items-center gap-2">
-                            <span>📮</span> 3. Section Bawah / Merah (Peta & Form Hubungi Kami)
+                            <span>📮</span> 3. Bottom / Red Section (Map & Contact Form)
                         </h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <x-trans-input field="form_badge" label="Badge Kecil Section" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Hubungi Kami / Get In Touch"/>
-                            <x-trans-input field="form_judul" label="Judul Section Merah" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Hubungi Kami / Contact Us"/>
+                            <x-trans-input field="form_badge" label="Badge Kecil Section" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Get In Touch"/>
+                            <x-trans-input field="form_judul" label="Red Section Title" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Contact Us"/>
                         </div>
-                        <x-trans-textarea field="form_deskripsi" label="Deskripsi Section Merah" :rows="2" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Kunjungi langsung Sekretariat Badan Perfilman Indonesia atau kirimkan pesan online..."/>
+                        <x-trans-textarea field="form_deskripsi" label="Red Section Description" :rows="2" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Visit the BPI Secretariat in person or send us an online message..."/>
                     </div>
 
-                    <!-- 4. Informasi Kantor & Operasional -->
+                    <!-- 4. Office & Operating Information -->
                     <div class="p-4 rounded-2xl bg-gray-50/80 border border-gray-200/80 space-y-3">
                         <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-2">
-                            <span>🏢</span> 4. Informasi Kantor & Operasional
+                            <span>🏢</span> 4. Office & Operating Information
                         </h4>
-                        <x-trans-input field="nama_kantor" label="Nama Kantor / Sekretariat" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Sekretariat Pusat BPI"/>
-                        <x-trans-textarea field="alamat" label="Alamat Lengkap Kantor" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Gedung Film, Lantai Dasar, Jl. Letjen MT Haryono..."/>
-                        <x-trans-input field="jam_operasional" label="Jam Operasional" :kode="$bahasa->kode" :required="false" placeholder="Contoh: Senin – Jumat: 09.00 – 17.00 WIB"/>
+                        <x-trans-input field="nama_kantor" label="Office / Secretariat Name" :kode="$bahasa->kode" :required="false" placeholder="e.g.: BPI Central Secretariat"/>
+                        <x-trans-textarea field="alamat" label="Full Office Address" :rows="3" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Film Building, Ground Floor, Jl. Letjen MT Haryono..."/>
+                        <x-trans-input field="jam_operasional" label="Office Hours" :kode="$bahasa->kode" :required="false" placeholder="e.g.: Mon – Fri: 09:00 – 17:00 WIB"/>
                     </div>
                 </x-lang-panel>
             @endforeach

@@ -70,6 +70,6 @@ class BerandaController extends AdminBaseController
         $item->storeTranslations($translations);
 
         return redirect()->route($this->routeName.'.index')
-            ->with('success', 'Section beranda berhasil ditambahkan');
+            ->with('success', 'Homepage section added successfully');
     }
 }

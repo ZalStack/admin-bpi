@@ -14,18 +14,26 @@
                 <span>Homepage</span>
             </nav>
             <h1 class="page-title">Homepage</h1>
-            <p class="page-subtitle">Kelola urutan tampil dan status aktif/tidak aktif section pada halaman beranda</p>
+            <p class="page-subtitle">Manage the display order and active/inactive status of the homepage sections</p>
             <div class="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-[#132C5C] ring-1 ring-[#132C5C]/10 shadow-sm">
                 <span class="h-1.5 w-1.5 rounded-full bg-[#132C5C]"></span>
-                {{ $items->count() }} Section Terdaftar
+                {{ $items->count() }} Registered Sections
             </div>
         </div>
-        <a href="{{ route('admin.beranda.create') }}" class="btn-primary">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            Tambah Section
-        </a>
+        <div class="flex items-center gap-3">
+            <a href="{{ Route::has('admin.beranda.texts') ? route('admin.beranda.texts') : url('/admin/beranda-texts') }}" class="btn-outline flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h10M4 18h16"/>
+                </svg>
+                <span>Page Texts</span>
+            </a>
+            <a href="{{ route('admin.beranda.create') }}" class="btn-primary">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Section
+            </a>
+        </div>
     </div>
 
     @if($items->isEmpty())
@@ -33,8 +41,8 @@
             <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            <h3 class="empty-title">Belum ada section beranda</h3>
-            <p class="empty-desc">Data section halaman beranda belum diinisialisasi.</p>
+            <h3 class="empty-title">No homepage sections yet</h3>
+            <p class="empty-desc">Homepage sections have not been set up yet.</p>
         </div>
     @else
         <div class="table-container">
@@ -42,21 +50,21 @@
                 <table class="table">
                     <thead class="thead">
                         <tr>
-                            <th class="th">Nama Section</th>
-                            <th class="th text-center">Urutan Tampil</th>
-                            <th class="th text-center">Status Tampil</th>
-                            <th class="th text-right">Aksi</th>
+                            <th class="th">Section Name</th>
+                            <th class="th text-center">Display Order</th>
+                            <th class="th text-center">Display Status</th>
+                            <th class="th text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="tbody">
                         @php
                             $sectionLabels = [
-                                'tentang' => 'Tentang Kami',
-                                'struktur' => 'Struktur Organisasi',
-                                'proyek' => 'Proyek Kolaboratif',
-                                'program' => 'Program Strategis',
-                                'berita' => 'Artikel & Berita',
-                                'mitra' => 'Mitra Kerjasama',
+                                'tentang' => 'About Us',
+                                'struktur' => 'Organizational Structure',
+                                'proyek' => 'Collaborative Projects',
+                                'program' => 'Strategic Programs',
+                                'berita' => 'Articles & News',
+                                'mitra' => 'Partners',
                             ];
                         @endphp
                         @foreach($items as $item)
@@ -78,7 +86,7 @@
                                 </td>
                                 <td class="td text-right">
                                     <div class="flex items-center justify-end gap-1.5">
-                                         <a href="{{ route('admin.beranda.edit', $item->id) }}" class="icon-btn-edit" title="Edit Title & Order">
+                                         <a href="{{ route('admin.beranda.edit', $item->id) }}" class="icon-btn-edit" title="Edit Order & Status">
                                             <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>

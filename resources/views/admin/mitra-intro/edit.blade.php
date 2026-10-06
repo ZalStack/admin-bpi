@@ -18,7 +18,7 @@
                 <span>Partner Page Intro</span>
             </nav>
             <h1 class="page-title">Partner Page Intro</h1>
-            <p class="page-subtitle">Set section title, headline subtitle, description, and intro photo on the Partner page</p>
+            <p class="page-subtitle">Set the badge, headline, and description shown as the Partners section header on the Stakeholders page</p>
         </div>
         <a href="{{ route('admin.mitra.index') }}" class="btn-outline">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,7 +54,7 @@
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="hidden" name="status" value="0">
                             <input type="checkbox" name="status" value="1" {{ old('status', $item->status) ? 'checked' : '' }} class="form-checkbox">
-                            <span class="text-sm font-medium text-gray-700">Show Intro Section on Landing Page</span>
+                            <span class="text-sm font-medium text-gray-700">Use these texts on the website (when off, the default header text is shown)</span>
                         </label>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                 @endif
                 <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200 shadow-sm">
                 <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
-                <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the photo. Format: JPG, PNG, WEBP max 2MB.</p>
+                <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the photo. Format: JPG, PNG, WEBP max 2MB. Note: the current website design does not display this photo.</p>
                 @error('gambar')
                     <p class="form-error">{{ $message }}</p>
                 @enderror

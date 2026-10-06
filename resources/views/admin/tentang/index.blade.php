@@ -20,12 +20,20 @@
                 {{ $items->count() }} Registered Sections
             </div>
         </div>
-        <a href="{{ route('admin.tentang.create') }}" class="btn-primary">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-            </svg>
-            Add Section
-        </a>
+        <div class="flex items-center gap-3">
+            <a href="{{ Route::has('admin.struktur.texts') ? route('admin.struktur.texts') : url('/admin/struktur-texts') }}" class="btn-outline flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h10M4 18h16"/>
+                </svg>
+                <span>Structure Section Texts</span>
+            </a>
+            <a href="{{ route('admin.tentang.create') }}" class="btn-primary">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Section
+            </a>
+        </div>
     </div>
 
     @if($items->isEmpty())

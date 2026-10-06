@@ -6,11 +6,16 @@
     'placeholder' => 'Write full content...',
     'item' => null,
     'height' => '240px',
+    // Optional overrides for forms that don't use translations[kode][field]
+    // (e.g. Page Texts: name="konten[id][kode]" with its own value).
+    'name' => null,
+    'value' => null,
 ])
 
 @php
-$errorKey = "translations.{$kode}.{$field}";
-$value = old($errorKey, $item?->translationFor($kode)?->{$field} ?? '');
+$inputName = $name ?? "translations[{$kode}][{$field}]";
+$errorKey = trim(str_replace(['[', ']'], ['.', ''], $inputName), '.');
+$value = old($errorKey, $value ?? $item?->translationFor($kode)?->{$field} ?? '');
 $editorId = "quill-editor-{$kode}-{$field}";
 $inputId = "quill-input-{$kode}-{$field}";
 @endphp
@@ -70,7 +75,7 @@ $inputId = "quill-input-{$kode}-{$field}";
     </div>
 
     <!-- Hidden input holding actual HTML for POST -->
-    <textarea name="translations[{{ $kode }}][{{ $field }}]" id="{{ $inputId }}" class="hidden">{{ $value }}</textarea>
+    <textarea name="{{ $inputName }}" id="{{ $inputId }}" class="hidden">{{ $value }}</textarea>
 
     @error($errorKey)
         <p class="form-error mt-1.5">{{ $message }}</p>
