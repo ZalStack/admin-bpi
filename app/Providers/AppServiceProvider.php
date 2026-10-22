@@ -35,5 +35,9 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('kontak-form', function (Request $request) {
             return Limit::perMinute(5)->by('kontak:'.$request->ip());
         });
+
+        RateLimiter::for('shortlink-resolve', function (Request $request) {
+            return Limit::perMinute(600)->by('shortlink:'.$request->ip());
+        });
     }
 }

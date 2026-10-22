@@ -153,6 +153,43 @@
                             <span class="ms-3 font-poppins">Language Settings</span>
                         </a>
                     </li>
+
+                    {{-- Tools — Super Admin & Admin --}}
+                    <li class="pt-4">
+                        <p class="px-2.5 pb-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#5876B0]">Tools</p>
+                    </li>
+
+                    @php
+                        $toolItems = [
+                            [
+                                'label' => 'Shortlink',
+                                'route' => 'admin.shortlink.index',
+                                'active' => 'admin.shortlink.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>'
+                            ],
+                            [
+                                'label' => 'QR Code',
+                                'route' => 'admin.qrcode.index',
+                                'active' => 'admin.qrcode.*',
+                                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>'
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach($toolItems as $item)
+                        <li>
+                            <a href="{{ route($item['route']) }}" @click="sidebarOpen = false"
+                               class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs($item['active']) ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
+                                @if(request()->routeIs($item['active']))
+                                    <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
+                                @endif
+                                <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    {!! $item['icon'] !!}
+                                </svg>
+                                <span class="ms-3 font-poppins">{{ $item['label'] }}</span>
+                            </a>
+                        </li>
+                    @endforeach
                     @endrole
 
                     {{-- ================================================================== --}}

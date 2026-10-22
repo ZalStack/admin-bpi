@@ -20,6 +20,8 @@ use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\ProgramRoadmapController;
 use App\Http\Controllers\Admin\ProyekController;
 use App\Http\Controllers\Admin\ProyekGaleriController;
+use App\Http\Controllers\Admin\QrcodeController;
+use App\Http\Controllers\Admin\ShortlinkController;
 use App\Http\Controllers\Admin\StakeholderController;
 use App\Http\Controllers\Admin\StrukturOrganisasiController;
 use App\Http\Controllers\Admin\TagController;
@@ -171,6 +173,11 @@ Route::middleware('auth')->group(function () {
             // Footer (modul lama, tidak dipakai frontend)
             Route::resource('footer', FooterController::class);
             Route::post('/footer/{id}/toggle-status', [FooterController::class, 'toggleStatus'])->name('footer.toggle-status');
+
+            // Tools: Shortlink & QR Code (khusus CMS, redirect dilayani landing page)
+            Route::resource('shortlink', ShortlinkController::class)->except('show');
+            Route::post('/shortlink/{id}/toggle-status', [ShortlinkController::class, 'toggleStatus'])->name('shortlink.toggle-status');
+            Route::resource('qrcode', QrcodeController::class)->except('show');
 
             // Bahasa
             Route::get('bahasa', [BahasaController::class, 'index'])->name('bahasa.index');

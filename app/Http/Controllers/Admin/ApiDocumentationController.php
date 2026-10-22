@@ -300,6 +300,14 @@ class ApiDocumentationController extends Controller
                     ['method' => 'DELETE', 'path' => 'bahasa/{kode}', 'desc' => 'Delete language along with all its translations'],
                 ],
             ],
+            [
+                'name' => 'Shortlink',
+                'prefix' => 'shortlink',
+                'color' => '#132C5C',
+                'endpoints' => [
+                    ['method' => 'GET', 'path' => 'shortlink/resolve/{kode}', 'desc' => 'Resolve an active shortlink code to its destination URL (data.url) and count the click. Used by the landing page; management is CMS-only'],
+                ],
+            ],
         ];
     }
 }

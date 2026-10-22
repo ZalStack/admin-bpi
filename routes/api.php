@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\Admin\ProgramPoinApiController;
 use App\Http\Controllers\Api\Admin\ProgramRoadmapApiController;
 use App\Http\Controllers\Api\Admin\ProyekApiController;
 use App\Http\Controllers\Api\Admin\ProyekGaleriApiController;
+use App\Http\Controllers\Api\Admin\ShortlinkApiController;
 use App\Http\Controllers\Api\Admin\StakeholderApiController;
 use App\Http\Controllers\Api\Admin\StrukturOrganisasiApiController;
 use App\Http\Controllers\Api\Admin\TentangApiController;
@@ -42,6 +43,15 @@ use Illuminate\Support\Facades\Route;
 | dilindungi honeypot + throttle ketat.
 |
 */
+
+// ============================================
+// SHORTLINK RESOLVE (publik, dipanggil server landing page)
+// Di luar grup utama: tidak butuh session/CSRF, dan memakai limiter sendiri
+// karena seluruh klik pengunjung datang dari IP server landing yang sama.
+// ============================================
+Route::get('admin/v1/shortlink/resolve/{kode}', [ShortlinkApiController::class, 'resolve'])
+    ->where('kode', '[A-Za-z0-9-]+')
+    ->middleware('throttle:shortlink-resolve');
 
 Route::prefix('admin/v1')
     ->middleware([
