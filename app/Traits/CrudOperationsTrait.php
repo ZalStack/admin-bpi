@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Support\ImageOptimizer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
@@ -156,8 +157,8 @@ trait CrudOperationsTrait
 
     /**
      * Handle file upload.
-     * Nama file dibangkitkan acak (hashName); ekstensi dari nama file
-     * klien tidak dipercaya.
+     * Gambar diperkecil & dikompres ke WebP (lihat ImageOptimizer).
+     * Nama file dari judul/nama record + kode acak; ekstensi dari klien tidak dipercaya.
      */
     protected function uploadFile($file, string $path, ?string $oldFile = null): string
     {
@@ -165,7 +166,12 @@ trait CrudOperationsTrait
             Storage::disk('public')->delete($path.'/'.$oldFile);
         }
 
-        return basename($file->store($path, 'public'));
+        return ImageOptimizer::store(
+            $file,
+            $path,
+            $this->imageMaxSize ?? ImageOptimizer::DEFAULT_MAX_SIZE,
+            ImageOptimizer::labelFromRequest(request())
+        );
     }
 
     /**

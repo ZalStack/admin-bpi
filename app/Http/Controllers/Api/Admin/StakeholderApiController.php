@@ -12,6 +12,8 @@ class StakeholderApiController extends BaseApiController
 
     protected ?string $imagePath = 'stakeholder';
 
+    protected int $imageMaxSize = 800;
+
     protected array $orderBy = ['urutan' => 'asc'];
 
     protected array $validationRules = [

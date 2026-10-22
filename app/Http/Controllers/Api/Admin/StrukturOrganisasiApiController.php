@@ -14,6 +14,8 @@ class StrukturOrganisasiApiController extends BaseApiController
 
     protected ?string $imagePath = 'struktur';
 
+    protected int $imageMaxSize = 1000;
+
     protected array $orderBy = [
         'urutan' => 'asc',
         'level' => 'asc',

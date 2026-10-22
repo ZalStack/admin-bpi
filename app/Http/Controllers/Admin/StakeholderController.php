@@ -28,4 +28,6 @@ class StakeholderController extends AdminBaseController
     protected ?string $imageField = 'gambar';
 
     protected ?string $imagePath = 'stakeholder';
+
+    protected int $imageMaxSize = 800;
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bahasa;
+use App\Support\ImageOptimizer;
 use App\Traits\HasTranslations;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -40,6 +41,9 @@ abstract class AdminBaseController extends Controller
     protected ?string $imageField = null;
 
     protected ?string $imagePath = null;
+
+    /** Sisi terpanjang maksimal (px) gambar upload sebelum disimpan sebagai WebP. */
+    protected int $imageMaxSize = ImageOptimizer::DEFAULT_MAX_SIZE;
 
     protected string $indexOrderColumn = 'urutan';
 
@@ -242,8 +246,8 @@ abstract class AdminBaseController extends Controller
 
     /**
      * Upload gambar (jika ada) dan hapus file lama saat update.
-     * Nama file dibangkitkan acak (hashName); ekstensi dari nama file
-     * klien tidak dipercaya.
+     * Gambar diperkecil & dikompres ke WebP (lihat ImageOptimizer).
+     * Nama file dari judul/nama record + kode acak; ekstensi dari klien tidak dipercaya.
      */
     protected function uploadedImage(Request $request, ?Model $item = null): array
     {
@@ -251,13 +255,18 @@ abstract class AdminBaseController extends Controller
             return [];
         }
 
-        $path = $request->file($this->imageField)->store($this->imagePath, 'public');
+        $filename = ImageOptimizer::store(
+            $request->file($this->imageField),
+            $this->imagePath,
+            $this->imageMaxSize,
+            ImageOptimizer::labelFromRequest($request)
+        );
 
         if ($item && $item->{$this->imageField}) {
             Storage::disk('public')->delete($this->imagePath.'/'.$item->{$this->imageField});
         }
 
-        return [$this->imageField => basename($path)];
+        return [$this->imageField => $filename];
     }
 
     /**

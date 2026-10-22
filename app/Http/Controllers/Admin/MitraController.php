@@ -21,7 +21,7 @@ class MitraController extends AdminBaseController
         'website' => 'nullable|string|max:255',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
-        'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+        'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
     ];
 
     protected array $translatableRules = [
@@ -32,6 +32,8 @@ class MitraController extends AdminBaseController
     protected ?string $imageField = 'logo';
 
     protected ?string $imagePath = 'mitra';
+
+    protected int $imageMaxSize = 600;
 
     public function index()
     {

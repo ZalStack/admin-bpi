@@ -41,6 +41,8 @@ class StrukturOrganisasiController extends AdminBaseController
 
     protected ?string $imagePath = 'struktur';
 
+    protected int $imageMaxSize = 1000;
+
     public function store(Request $request)
     {
         $defaultKode = Bahasa::defaultKode();

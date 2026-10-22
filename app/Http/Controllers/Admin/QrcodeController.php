@@ -22,6 +22,8 @@ class QrcodeController extends AdminBaseController
 
     protected ?string $imagePath = 'qrcode';
 
+    protected int $imageMaxSize = 512;
+
     public function index()
     {
         $items = Qrcode::query()->with('shortlink')->latest()->get();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bahasa;
+use App\Support\ImageOptimizer;
 use App\Traits\ApiResponseTrait;
 use App\Traits\CrudOperationsTrait;
 use App\Traits\HasTranslations;
@@ -38,6 +39,9 @@ class BaseApiController extends Controller
     protected ?string $imageField = null;
 
     protected ?string $imagePath = null;
+
+    /** Sisi terpanjang maksimal (px) gambar upload sebelum disimpan sebagai WebP. */
+    protected int $imageMaxSize = ImageOptimizer::DEFAULT_MAX_SIZE;
 
     protected array $searchFields = [];
 

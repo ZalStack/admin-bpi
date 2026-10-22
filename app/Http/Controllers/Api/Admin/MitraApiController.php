@@ -15,10 +15,12 @@ class MitraApiController extends BaseApiController
 
     protected ?string $imagePath = 'mitra';
 
+    protected int $imageMaxSize = 600;
+
     protected array $orderBy = ['urutan' => 'asc'];
 
     protected array $validationRules = [
-        'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+        'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'website' => 'nullable|string|max:255',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
