@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ProgramRoadmapController;
 use App\Http\Controllers\Admin\ProyekController;
 use App\Http\Controllers\Admin\ProyekGaleriController;
 use App\Http\Controllers\Admin\QrcodeController;
+use App\Http\Controllers\Admin\RoleManagementController;
 use App\Http\Controllers\Admin\ShortlinkController;
 use App\Http\Controllers\Admin\StakeholderController;
 use App\Http\Controllers\Admin\StrukturOrganisasiController;
@@ -230,6 +231,11 @@ Route::middleware('auth')->group(function () {
         ->prefix('admin')
         ->name('admin.')
         ->group(function () {
+            // Role Management: kelola akun Admin & Editor
+            Route::resource('role-management', RoleManagementController::class)
+                ->except('show')
+                ->parameters(['role-management' => 'id']);
+
             // API Documentation
             Route::get('api-documentation', [ApiDocumentationController::class, 'index'])
                 ->name('api-documentation.index');
