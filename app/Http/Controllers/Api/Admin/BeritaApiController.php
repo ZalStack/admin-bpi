@@ -21,7 +21,7 @@ class BeritaApiController extends BaseApiController
 
     protected array $validationRules = [
         'slug' => 'nullable|string|max:255|unique:berita,slug',
-        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'penulis' => 'required|string|max:255',
         'tanggal_publikasi' => 'required|date',
         'status' => 'nullable|string|in:draft,published,archived',
@@ -29,7 +29,7 @@ class BeritaApiController extends BaseApiController
 
     protected array $updateValidationRules = [
         'slug' => 'nullable|string|max:255',
-        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'penulis' => 'required|string|max:255',
         'tanggal_publikasi' => 'required|date',
         'status' => 'nullable|string|in:draft,published,archived',

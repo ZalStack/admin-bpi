@@ -19,7 +19,7 @@ class ProyekApiController extends BaseApiController
 
     protected array $validationRules = [
         'slug' => 'nullable|string|max:255|unique:proyek,slug',
-        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'tahun' => 'required|string|max:20',
         'status' => 'nullable|string|in:draft,published,archived',
         'urutan' => 'nullable|integer',
@@ -27,7 +27,7 @@ class ProyekApiController extends BaseApiController
 
     protected array $updateValidationRules = [
         'slug' => 'nullable|string|max:255',
-        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar_utama' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'tahun' => 'required|string|max:20',
         'status' => 'nullable|string|in:draft,published,archived',
         'urutan' => 'nullable|integer',

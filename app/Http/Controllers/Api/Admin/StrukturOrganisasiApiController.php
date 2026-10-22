@@ -28,7 +28,7 @@ class StrukturOrganisasiApiController extends BaseApiController
         'sub_kategori' => 'nullable|string|max:50',
         'departemen' => 'nullable|string|max:255',
         'level' => 'nullable|integer|between:1,4',
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'linkedin' => 'nullable|string|max:255',
         'instagram' => 'nullable|string|max:255',
         'email' => 'nullable|email|max:255',

@@ -15,7 +15,7 @@ class ProyekGaleriApiController extends BaseApiController
 
     protected array $validationRules = [
         'proyek_id' => 'required|exists:proyek,id',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];

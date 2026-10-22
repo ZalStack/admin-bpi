@@ -18,13 +18,13 @@ class BeritaGaleriController extends AdminBaseController
     protected string $label = 'News Gallery';
 
     protected array $validationRules = [
-        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];
 
     protected array $updateValidationRules = [
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];

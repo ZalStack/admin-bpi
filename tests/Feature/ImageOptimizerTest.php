@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Bahasa;
+use App\Models\Berita;
+use App\Models\BeritaGaleri;
 use App\Models\Mitra;
 use App\Models\MitraIntro;
 use App\Models\User;
@@ -134,6 +136,32 @@ class ImageOptimizerTest extends TestCase
         $logo = Mitra::firstOrFail()->logo;
         $this->assertMatchesRegularExpression('/^partner-a-[a-z0-9]{6}\.webp$/', $logo);
         $this->assertSame([600, 300], array_slice(getimagesizefromstring(Storage::disk('public')->get('mitra/'.$logo)), 0, 2));
+    }
+
+    public function test_news_gallery_accepts_webp_upload(): void
+    {
+        Role::firstOrCreate(['name' => 'editor', 'guard_name' => 'web']);
+        $editor = User::factory()->create();
+        $editor->assignRole('editor');
+        Bahasa::create(['kode' => 'id', 'nama' => 'Indonesia', 'aktif' => true, 'is_default' => true]);
+        $berita = Berita::create(['slug' => 'berita-a', 'penulis' => 'Tim BPI', 'tanggal_publikasi' => '2026-10-22', 'status' => 'published']);
+
+        $image = imagecreatetruecolor(800, 600);
+        $source = tempnam(sys_get_temp_dir(), 'img');
+        imagewebp($image, $source, 80);
+
+        $this->actingAs($editor)
+            ->post(route('admin.berita.galeri.store', $berita->id), [
+                'status' => 1,
+                'gambar' => $this->upload($source, 'galeri.webp', 'image/webp'),
+                'translations' => ['id' => ['judul' => 'Foto Kegiatan']],
+            ])
+            ->assertRedirect(route('admin.berita.galeri.index', $berita->id))
+            ->assertSessionHasNoErrors();
+
+        $gambar = BeritaGaleri::firstOrFail()->gambar;
+        $this->assertStringEndsWith('.webp', $gambar);
+        Storage::disk('public')->assertExists('berita/galeri/'.$gambar);
     }
 
     public function test_command_converts_existing_images_and_updates_every_reference(): void

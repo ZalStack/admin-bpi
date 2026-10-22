@@ -18,7 +18,7 @@ class StakeholderApiController extends BaseApiController
 
     protected array $validationRules = [
         'icon' => 'nullable|string|max:255',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'urutan' => 'nullable|integer',
         'status' => 'boolean',
     ];

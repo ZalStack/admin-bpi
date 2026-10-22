@@ -14,7 +14,7 @@ class BannerApiController extends BaseApiController
 
     protected array $validationRules = [
         'halaman' => 'required|string|max:50',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         'status' => 'boolean',
         'urutan' => 'nullable|integer',
     ];
