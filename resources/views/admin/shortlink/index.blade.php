@@ -3,7 +3,8 @@
 @section('title', 'Shortlinks')
 
 @section('content')
-<div>
+{{-- x-data: scope Alpine untuk tombol QR ($dispatch) di tabel --}}
+<div x-data>
     <div class="page-header">
         <div>
             <nav class="breadcrumb">
