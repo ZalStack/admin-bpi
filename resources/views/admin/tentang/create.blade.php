@@ -170,15 +170,15 @@ $icons = [
                     <template x-if="section === 'visi'">
                         <div>
                             <div>
-                                <x-trans-input field="judul" label="Judul Visi" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Visi Kami"/>
+                                <x-trans-input field="judul" label="Vision Title" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Visi Kami"/>
                             </div>
                             <div class="mt-4">
-                                <x-trans-textarea field="deskripsi" label="Teks Visi (Deskripsi)" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Teks visi lengkap dalam bahasa {{ $bahasa->nama }}"/>
+                                <x-trans-textarea field="deskripsi" label="Vision Statement" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Full vision statement in {{ $bahasa->nama }}"/>
                             </div>
                             <div class="mt-4">
-                                <x-trans-input field="highlight_words" label="Kata/Frasa yang Di-highlight" :kode="$bahasa->kode" placeholder="Contoh: unggul dan kompetitif, kompeten, sehat dan kondusif, sehat"/>
+                                <x-trans-input field="highlight_words" label="Highlighted Words / Phrases" :kode="$bahasa->kode" placeholder="e.g.: unggul dan kompetitif, kompeten, sehat dan kondusif, sehat"/>
                                 <p class="mt-1 text-xs text-gray-500">
-                                    Masukkan kata atau frasa yang ingin diberi warna highlight emas pada teks visi di landing page. Pisahkan setiap kata/frasa dengan koma (,).
+                                    Enter words or phrases from the vision statement to highlight on the landing page. Separate each word or phrase with a comma (,).
                                 </p>
                             </div>
                         </div>
@@ -187,10 +187,10 @@ $icons = [
                     <template x-if="section === 'misi'">
                         <div>
                             <div>
-                                <x-trans-input field="judul" label="Judul Misi" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Our Mission"/>
+                                <x-trans-input field="judul" label="Mission Title" :kode="$bahasa->kode" :required="$bahasa->is_default" placeholder="e.g.: Our Mission"/>
                             </div>
                             <div class="mt-4">
-                                <x-trans-textarea field="deskripsi" label="Deskripsi Pengantar Misi" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Deskripsi pengantar misi dalam bahasa {{ $bahasa->nama }}"/>
+                                <x-trans-textarea field="deskripsi" label="Mission Introduction" :kode="$bahasa->kode" :required="$bahasa->is_default" rows="4" placeholder="Mission introduction in {{ $bahasa->nama }}"/>
                             </div>
                         </div>
                     </template>
@@ -203,7 +203,7 @@ $icons = [
                 <div>
                     <label for="gambar" class="form-label">Main Section Photo / Image</label>
                     <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200 shadow-sm">
-                    <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
+                    <input type="file" name="gambar" id="gambar" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-gambar')">
                     <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Max 2MB.</p>
                     @error('gambar')
                         <p class="form-error">{{ $message }}</p>
@@ -222,10 +222,10 @@ $icons = [
                                 <svg class="w-5 h-5 text-[#97763A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
                                 </svg>
-                                <span>Mission Card Points (Poin Card Misi)</span>
+                                <span>Mission Card Points</span>
                             </h3>
                             <p class="text-xs text-gray-500 mt-0.5">
-                                Manage mission cards displayed in the MISI section on the landing page.
+                                Manage the mission cards displayed in the Mission section on the landing page.
                             </p>
                         </div>
                         <button type="button" 

@@ -51,11 +51,11 @@
                 <div>
                     <label for="kategori" class="form-label font-bold text-slate-800">Category *</label>
                     <select name="kategori" id="kategori" x-model="kategori" class="form-select w-full" required>
-                        <option value="pimpinan">Pimpinan Inti (Ketum, Sekjen, Bendum)</option>
-                        <option value="dewan">Majelis Dewan (Pengawas, Penasehat, Pakar)</option>
-                        <option value="bidang">Bidang Strategis BPI</option>
-                        <option value="satgas_pokja">Satgas & Pokja BPI</option>
-                        <option value="komite">Komite BPI (e.g. Komite FFI)</option>
+                        <option value="pimpinan">Core Leadership (Pimpinan Inti: Chair, Sec-Gen, Treasurer)</option>
+                        <option value="dewan">Councils (Majelis Dewan: Supervisory, Advisory, Expert)</option>
+                        <option value="bidang">Strategic Departments (Bidang Strategis BPI)</option>
+                        <option value="satgas_pokja">Taskforces &amp; Working Groups (Satgas &amp; Pokja BPI)</option>
+                        <option value="komite">Committees (Komite BPI, e.g. FFI Committee)</option>
                     </select>
                     @error('kategori')
                         <p class="form-error">{{ $message }}</p>
@@ -65,15 +65,15 @@
                 <div>
                     <label for="sub_kategori" class="form-label font-bold text-slate-800">Sub-Category</label>
                     <select name="sub_kategori" id="sub_kategori" x-model="sub_kategori" class="form-select w-full">
-                        <option value="inti">Pimpinan Inti</option>
-                        <option value="wasekjen">Wakil Sekretaris Jenderal</option>
-                        <option value="pengawas">Dewan Pengawas</option>
-                        <option value="penasehat">Dewan Penasehat</option>
-                        <option value="pakar">Dewan Pakar</option>
-                        <option value="bidang">Bidang</option>
-                        <option value="satgas">Satuan Tugas (Satgas)</option>
-                        <option value="pokja">Kelompok Kerja (Pokja)</option>
-                        <option value="komite">Komite</option>
+                        <option value="inti">Core Leadership (Pimpinan Inti)</option>
+                        <option value="wasekjen">Deputy Secretary-General (Wasekjen)</option>
+                        <option value="pengawas">Supervisory Council (Dewan Pengawas)</option>
+                        <option value="penasehat">Advisory Council (Dewan Penasehat)</option>
+                        <option value="pakar">Expert Council (Dewan Pakar)</option>
+                        <option value="bidang">Department (Bidang)</option>
+                        <option value="satgas">Taskforce (Satgas)</option>
+                        <option value="pokja">Working Group (Pokja)</option>
+                        <option value="komite">Committee (Komite)</option>
                     </select>
                     @error('sub_kategori')
                         <p class="form-error">{{ $message }}</p>
@@ -83,10 +83,10 @@
                 <div>
                     <label for="level" class="form-label font-bold text-slate-800">Hierarchy Level *</label>
                     <select name="level" id="level" class="form-select w-full" required>
-                        <option value="1" {{ old('level', '3') == '1' ? 'selected' : '' }}>Tier 1 - Ketum / Anggota Dewan</option>
-                        <option value="2" {{ old('level', '3') == '2' ? 'selected' : '' }}>Tier 2 - Sekjen / Bendum / Wasekjen</option>
-                        <option value="3" {{ old('level', '3') == '3' ? 'selected' : '' }}>Tier 3 - Ketua Bidang / Unit</option>
-                        <option value="4" {{ old('level', '3') == '4' ? 'selected' : '' }}>Tier 4 - Anggota</option>
+                        <option value="1" {{ old('level', '3') == '1' ? 'selected' : '' }}>Tier 1 - Chairperson / Council Member</option>
+                        <option value="2" {{ old('level', '3') == '2' ? 'selected' : '' }}>Tier 2 - Secretary-General / Treasurer / Deputy Secretary-General</option>
+                        <option value="3" {{ old('level', '3') == '3' ? 'selected' : '' }}>Tier 3 - Head of Department / Unit</option>
+                        <option value="4" {{ old('level', '3') == '4' ? 'selected' : '' }}>Tier 4 - Member</option>
                     </select>
                     @error('level')
                         <p class="form-error">{{ $message }}</p>
@@ -229,7 +229,7 @@
             <div>
                 <label for="foto" class="form-label">Official Photo</label>
                 <img id="preview-foto" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
-                <input type="file" name="foto" id="foto" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-foto')">
+                <input type="file" name="foto" id="foto" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-foto')">
                 <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Max 2MB. Recommended ratio: Portrait / Square.</p>
                 @error('foto')
                     <p class="form-error">{{ $message }}</p>

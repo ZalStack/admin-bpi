@@ -15,8 +15,8 @@
             <div class="relative flex-1">
                 <!-- Mobile Close Header -->
                 <div class="flex items-center justify-between pt-3 pb-2 px-1 lg:hidden border-b border-white/10 mb-2">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-[#E3DBAF]">Menu Navigasi</span>
-                    <button @click="sidebarOpen = false" type="button" class="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer" aria-label="Tutup Menu">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-[#E3DBAF]">Navigation Menu</span>
+                    <button @click="sidebarOpen = false" type="button" class="p-1.5 text-white/70 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer" aria-label="Close menu">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -269,6 +269,20 @@
                     <!-- Group: Account -->
                     <li class="pt-4">
                         <p class="px-2.5 pb-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#5876B0]">Account</p>
+                    </li>
+
+                    <!-- Guide (panduan) -->
+                    <li>
+                        <a href="{{ route('admin.panduan.index') }}" @click="sidebarOpen = false"
+                           class="group relative flex items-center rounded-xl p-2.5 text-[15px] text-white/80 transition-all duration-200 hover:bg-white/[0.06] hover:text-white {{ request()->routeIs('admin.panduan.*') ? 'bg-gradient-to-r from-[#2B4E94]/80 to-[#16336D] text-white shadow-lg shadow-[#0E2043]/60' : '' }}">
+                            @if(request()->routeIs('admin.panduan.*'))
+                                <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#E3DBAF]"></span>
+                            @endif
+                            <svg class="h-5 w-5 shrink-0 transition duration-200 group-hover:text-[#E3DBAF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                            <span class="ms-3 font-poppins">Guide</span>
+                        </a>
                     </li>
 
                     <!-- Profile -->

@@ -48,11 +48,15 @@ class ProfileController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validate([
+        $user = $request->user();
+
+        // Sama seperti Role Management: akun super admin tidak bisa dihapus dari CMS,
+        // agar akses tertinggi tidak hilang (hanya lewat seeder/database).
+        abort_if($user->hasRole('super_admin'), 403, 'Super admin accounts cannot be deleted from the CMS.');
+
+        $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
-
-        $user = $request->user();
 
         Auth::logout();
 

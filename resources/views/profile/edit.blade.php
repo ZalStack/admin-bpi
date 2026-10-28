@@ -355,7 +355,9 @@
             <div class="border-t border-gray-200"></div>
 
             {{-- Danger Zone --}}
-            <div class="bg-red-50/80 rounded-xl p-4 sm:p-5 border border-red-200/60">
+            @php $deletionErrors = $errors->getBag('userDeletion'); @endphp
+            <div class="bg-red-50/80 rounded-xl p-4 sm:p-5 border border-red-200/60"
+                 x-data="{ confirming: @js($deletionErrors->isNotEmpty()) }">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
                         <h4 class="text-sm font-semibold text-red-700 flex items-center gap-2">
@@ -364,20 +366,46 @@
                             </svg>
                             Delete Account
                         </h4>
-                        <p class="text-sm text-red-600/70 mt-0.5">Once your account is deleted, all data will be permanently removed</p>
+                        @if($user->hasRole('super_admin'))
+                            <p class="text-sm text-red-600/70 mt-0.5">Super admin accounts are protected and cannot be deleted from the CMS.</p>
+                        @else
+                            <p class="text-sm text-red-600/70 mt-0.5">Once your account is deleted, all data will be permanently removed</p>
+                        @endif
                     </div>
-                    <form method="post" action="{{ route('profile.destroy') }}"
-                          onsubmit="return confirm('Are you sure you want to delete this account? This action cannot be undone!')">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-all duration-200 text-sm">
+                    @unless($user->hasRole('super_admin'))
+                        <button type="button" x-show="!confirming" @click="confirming = true; $nextTick(() => $refs.deletePassword.focus())"
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-all duration-200 text-sm">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                             </svg>
                             Delete Account
                         </button>
-                    </form>
+                    @endunless
                 </div>
+
+                @unless($user->hasRole('super_admin'))
+                    <form method="post" action="{{ route('profile.destroy') }}" x-show="confirming" x-cloak
+                          class="mt-4 border-t border-red-200/60 pt-4"
+                          onsubmit="return confirm('Are you sure you want to delete this account? This action cannot be undone!')">
+                        @csrf
+                        @method('delete')
+                        <label for="delete_password" class="block text-sm font-medium text-red-700 mb-1.5">Enter your password to confirm</label>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="password" name="password" id="delete_password" x-ref="deletePassword"
+                                   class="w-full sm:max-w-xs px-4 py-2.5 border border-red-300 rounded-xl focus:ring-2 focus:ring-red-500/40 focus:border-red-500 transition-all outline-none text-sm"
+                                   placeholder="Current password" autocomplete="current-password" required>
+                            <button type="submit" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-all duration-200 text-sm">
+                                Permanently Delete
+                            </button>
+                            <button type="button" @click="confirming = false" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 bg-white text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-all duration-200 text-sm">
+                                Cancel
+                            </button>
+                        </div>
+                        @if($deletionErrors->has('password'))
+                            <p class="mt-1.5 text-sm text-red-600">{{ $deletionErrors->first('password') }}</p>
+                        @endif
+                    </form>
+                @endunless
             </div>
         </div>
     </div>

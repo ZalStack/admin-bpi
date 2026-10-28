@@ -119,6 +119,10 @@ class ProyekController extends AdminBaseController
 
     protected function saveProjectTranslations(Proyek $proyek, array $translations): void
     {
+        // Tab bahasa non-default yang kosong (termasuk daftar tujuan, capaian,
+        // kegiatan, linimasa) memakai isian bahasa default.
+        $translations = Proyek::lengkapiDariBahasaDefault($translations);
+
         foreach ($translations as $kode => $transData) {
             $trans = $proyek->translations()->updateOrCreate(
                 ['bahasa' => $kode],

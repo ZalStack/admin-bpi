@@ -94,28 +94,28 @@
 
                 <div class="space-y-4">
                     <div>
-                        <p class="text-xs font-medium text-gray-500 mb-2">Status Pesan</p>
+                        <p class="text-xs font-medium text-gray-500 mb-2">Message Status</p>
                         <div>
                             @if($form->status === 'read')
                                 <span class="badge-active text-xs py-1 px-3">
                                     <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
-                                    Sudah Dibaca (Read)
+                                    Read
                                 </span>
                             @else
                                 <span class="badge-warning text-xs py-1 px-3">
                                     <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
-                                    Belum Dibaca (Unread)
+                                    Unread
                                 </span>
                             @endif
                         </div>
                     </div>
                     <div class="border-t border-gray-100 pt-4">
-                        <p class="text-xs font-medium text-gray-500 mb-1">Diterima pada</p>
+                        <p class="text-xs font-medium text-gray-500 mb-1">Received At</p>
                         <p class="text-sm font-semibold text-gray-800">{{ $form->created_at->format('d M Y, H:i') }} WIB</p>
                         <p class="text-xs text-gray-400 mt-0.5">{{ $form->created_at->diffForHumans() }}</p>
                     </div>
                     <div class="border-t border-gray-100 pt-4">
-                        <p class="text-xs font-medium text-gray-500 mb-1">Terakhir diperbarui</p>
+                        <p class="text-xs font-medium text-gray-500 mb-1">Last Updated</p>
                         <p class="text-sm font-semibold text-gray-800">{{ $form->updated_at->format('d M Y, H:i') }} WIB</p>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
                     </svg>
-                    Aksi Pesan
+                    Message Actions
                 </h3>
 
                 <div class="space-y-2.5">
@@ -136,25 +136,25 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                             </svg>
-                            Tandai Sudah Dibaca
+                            Mark as Read
                         </button>
                     @else
                         <button type="button" onclick="updateStatus('unread')" class="btn-outline w-full justify-center text-sm gap-2 text-gray-700 hover:bg-gray-100">
                             <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
-                            Tandai Belum Dibaca
+                            Mark as Unread
                         </button>
                     @endif
 
-                    <form action="{{ route('admin.kontak-form.destroy', $form->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesan ini? Tindakan ini tidak dapat dibatalkan.')">
+                    <form action="{{ route('admin.kontak-form.destroy', $form->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this message? This action cannot be undone.')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn w-full justify-center text-sm border border-rose-200 bg-white text-rose-600 hover:bg-rose-50 hover:border-rose-300 focus-visible:ring-rose-300">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                             </svg>
-                            Hapus Pesan
+                            Delete Message
                         </button>
                     </form>
                 </div>

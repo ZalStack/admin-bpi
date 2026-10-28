@@ -31,8 +31,13 @@
 
         <livewire:sidebar />
 
+        @php
+            $babPanduan = \App\Support\Panduan::babUntukRoute(request()->route()?->getName(), auth()->user());
+        @endphp
+
         <main class="pt-16 lg:pl-72 min-h-screen">
-            <div class="p-4 md:p-6 lg:p-8 lg:px-10 max-w-[1600px] mx-auto w-full">
+            {{-- pb ekstra agar baris terakhir tidak tertutup tombol bantuan --}}
+            <div class="p-4 md:p-6 lg:p-8 lg:px-10 max-w-[1600px] mx-auto w-full {{ $babPanduan ? 'pb-24 lg:pb-24' : '' }}">
                 @if (session('success'))
                     <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
                          x-transition.opacity.duration.500ms
@@ -96,6 +101,18 @@
                 @yield('content')
             </div>
         </main>
+
+        {{-- Tombol bantuan: buka bab panduan untuk halaman yang sedang dibuka --}}
+        @if ($babPanduan)
+            <a href="{{ route('admin.panduan.show', $babPanduan) }}" target="_blank"
+               class="guide-help-btn fixed bottom-24 right-4 z-30 inline-flex items-center gap-2 rounded-full border border-[#97763A]/30 bg-white p-3 text-sm font-semibold text-[#520A18] shadow-[0_8px_24px_-8px_rgba(23,32,54,0.35)] transition-all hover:-translate-y-0.5 hover:bg-[#FBF8EF] lg:bottom-6 lg:right-6 lg:px-4 lg:py-2.5"
+               title="Open the guide for this page (new tab)">
+                <svg class="h-5 w-5 text-[#97763A]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="hidden lg:inline">Page Guide</span>
+            </a>
+        @endif
     </div>
     @livewireScripts
     <!-- Quill Rich Text Editor JS -->

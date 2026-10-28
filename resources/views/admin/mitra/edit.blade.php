@@ -54,14 +54,14 @@
 
                 <div>
                     <label for="website" class="form-label">Website URL</label>
-                    <input type="url" name="website" id="website" value="{{ old('website', $item->website) }}" class="form-input" placeholder="https://contoh-mitra.com">
+                    <input type="url" name="website" id="website" value="{{ old('website', $item->website) }}" class="form-input" placeholder="https://example-partner.com">
                     @error('website')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan</label>
+                    <label for="urutan" class="form-label">Display Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', $item->urutan) }}" class="form-input" min="0">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -119,8 +119,8 @@
                     </div>
                 @endif
                 <img id="preview-logo" src="" alt="Preview" class="hidden mb-3 h-24 w-44 rounded-xl object-contain ring-1 ring-gray-200 bg-white p-2 shadow-sm">
-                <input type="file" name="logo" id="logo" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-logo')">
-                <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the logo. Format: PNG, JPG, WEBP, SVG max 2MB.</p>
+                <input type="file" name="logo" id="logo" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-logo')">
+                <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the logo. Format: PNG, JPG, WEBP, GIF. Max 2MB.</p>
                 @error('logo')
                     <p class="form-error">{{ $message }}</p>
                 @enderror

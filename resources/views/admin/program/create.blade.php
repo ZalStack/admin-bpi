@@ -240,8 +240,8 @@ $icons = [
                             @foreach ($bahasas as $bahasa)
                                 <div x-show="lang === '{{ $bahasa->kode }}'" class="space-y-2 pt-2 border-t border-gray-200/60">
                                     <div>
-                                        <label class="form-label text-xs">Sub-Point Title ({{ $bahasa->nama }}) <span class="text-rose-500">*</span></label>
-                                        <input type="text" :name="`poin[${poin.id}][translations][{{ $bahasa->kode }}][judul]`" x-model="poin.translations['{{ $bahasa->kode }}'].judul" class="form-input text-xs py-2 bg-white" placeholder="e.g.: Strengthening Incentive Scheme" required>
+                                        <label class="form-label text-xs">Sub-Point Title ({{ $bahasa->nama }}) @if($bahasa->is_default)<span class="text-rose-500">*</span>@endif</label>
+                                        <input type="text" :name="`poin[${poin.id}][translations][{{ $bahasa->kode }}][judul]`" x-model="poin.translations['{{ $bahasa->kode }}'].judul" class="form-input text-xs py-2 bg-white" placeholder="e.g.: Strengthening Incentive Scheme" {{ $bahasa->is_default ? 'required' : '' }}>
                                     </div>
                                 </div>
                             @endforeach

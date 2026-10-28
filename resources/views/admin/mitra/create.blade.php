@@ -52,14 +52,14 @@
 
                 <div>
                     <label for="website" class="form-label">Website URL</label>
-                    <input type="url" name="website" id="website" value="{{ old('website') }}" class="form-input" placeholder="https://contoh-mitra.com">
+                    <input type="url" name="website" id="website" value="{{ old('website') }}" class="form-input" placeholder="https://example-partner.com">
                     @error('website')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label for="urutan" class="form-label">Urutan</label>
+                    <label for="urutan" class="form-label">Display Order</label>
                     <input type="number" name="urutan" id="urutan" value="{{ old('urutan', 0) }}" class="form-input" min="0">
                     @error('urutan')
                         <p class="form-error">{{ $message }}</p>
@@ -104,8 +104,8 @@
             <div>
                 <label for="logo" class="form-label">Partner Logo <span class="text-red-500">*</span></label>
                 <img id="preview-logo" src="" alt="Preview" class="hidden mb-3 h-28 w-44 rounded-xl object-contain ring-1 ring-gray-200 bg-white p-2">
-                <input type="file" name="logo" id="logo" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-logo')" required>
-                <p class="mt-1.5 text-xs text-gray-400">Format: PNG, JPG, WEBP, SVG. Max 2MB.</p>
+                <input type="file" name="logo" id="logo" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-logo')" required>
+                <p class="mt-1.5 text-xs text-gray-400">Format: PNG, JPG, WEBP, GIF. Max 2MB.</p>
                 @error('logo')
                     <p class="form-error">{{ $message }}</p>
                 @enderror

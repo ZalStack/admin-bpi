@@ -51,7 +51,7 @@
 
                 <div>
                     <label for="icon" class="form-label">Icon</label>
-                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="Nama icon">
+                    <input type="text" name="icon" id="icon" value="{{ old('icon') }}" class="form-input" placeholder="Icon name">
                     @error('icon')
                         <p class="form-error">{{ $message }}</p>
                     @enderror

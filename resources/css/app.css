@@ -422,3 +422,193 @@ fill: #97763a;
 }
 }
 
+
+/* ---------- Panduan (guidebook) ----------
+ * Di luar @layer agar tidak terbuang saat build: sebagian class
+ * (callout-*, heading-anchor) dibuat oleh PHP, bukan ditulis di Blade.
+ */
+.guide-prose {
+@apply text-[0.94rem] leading-7 text-gray-700;
+}
+
+.guide-prose > * + * {
+@apply mt-4;
+}
+
+.guide-prose h2 {
+@apply mt-10 scroll-mt-24 border-b border-gray-100 pb-2 text-xl font-bold text-[#520A18];
+}
+
+.guide-prose h3 {
+@apply mt-8 scroll-mt-24 text-base font-bold text-[#132C5C];
+}
+
+.guide-prose h4 {
+@apply mt-6 font-semibold text-gray-800;
+}
+
+.guide-prose > h2:first-child,
+.guide-prose > h3:first-child {
+@apply mt-0;
+}
+
+.guide-prose .heading-anchor {
+@apply ml-2 text-gray-300 no-underline opacity-0 transition-opacity hover:text-[#520A18];
+}
+
+.guide-prose h2:hover .heading-anchor,
+.guide-prose h3:hover .heading-anchor {
+@apply opacity-100;
+}
+
+.guide-prose a {
+@apply font-medium text-[#2B4E94] underline decoration-[#2B4E94]/30 underline-offset-2 hover:decoration-[#2B4E94];
+}
+
+.guide-prose a.cms-link::after {
+content: " ↗";
+@apply text-xs;
+}
+
+.guide-prose strong {
+@apply font-semibold text-gray-900;
+}
+
+.guide-prose ul {
+@apply list-disc space-y-1.5 pl-6;
+}
+
+.guide-prose ol {
+@apply list-decimal space-y-1.5 pl-6;
+}
+
+.guide-prose li > ul,
+.guide-prose li > ol {
+@apply mt-1.5;
+}
+
+.guide-prose li::marker {
+@apply text-[#97763A];
+}
+
+.guide-prose code {
+@apply rounded-md bg-gray-100 px-1.5 py-0.5 font-mono text-[0.82em] text-[#520A18];
+}
+
+.guide-prose hr {
+@apply my-8 border-gray-100;
+}
+
+.guide-prose img {
+@apply rounded-xl border border-gray-200 shadow-sm;
+}
+
+.guide-figure {
+@apply my-6;
+}
+
+.guide-figure a {
+@apply block cursor-zoom-in no-underline;
+}
+
+.guide-figure img {
+@apply w-full transition-shadow hover:shadow-md;
+}
+
+.guide-figure figcaption {
+@apply mt-2 text-center text-xs text-gray-500;
+}
+
+.guide-prose table {
+@apply block w-full overflow-x-auto text-sm md:table;
+border-collapse: collapse;
+}
+
+.guide-prose th {
+@apply border border-gray-200 bg-gray-50 px-3 py-2 text-left font-semibold text-gray-800;
+}
+
+.guide-prose td {
+@apply border border-gray-200 px-3 py-2 align-top;
+}
+
+.guide-prose blockquote {
+@apply rounded-xl border-l-4 border-gray-300 bg-gray-50 px-4 py-3 text-gray-700;
+}
+
+.guide-prose blockquote > * + * {
+@apply mt-2;
+}
+
+.guide-prose .callout-info {
+@apply border-[#2B4E94] bg-[#2B4E94]/[0.05];
+}
+
+.guide-prose .callout-tip {
+@apply border-emerald-500 bg-emerald-50;
+}
+
+.guide-prose .callout-warning {
+@apply border-amber-500 bg-amber-50;
+}
+
+.guide-prose .callout-danger {
+@apply border-rose-500 bg-rose-50;
+}
+
+.guide-cover {
+@apply flex min-h-[80vh] flex-col items-center justify-center text-center;
+}
+
+.guide-page {
+@apply mt-16;
+}
+
+@media print {
+@page {
+margin: 18mm 16mm;
+}
+
+aside.sidebar-scroll,
+nav.fixed,
+.guide-help-btn {
+display: none !important;
+}
+
+main {
+padding: 0 !important;
+}
+
+.card {
+box-shadow: none !important;
+border: 0 !important;
+}
+
+.guide-page {
+break-before: page;
+margin-top: 0;
+}
+
+.guide-prose h2,
+.guide-prose h3 {
+break-after: avoid;
+}
+
+.guide-prose table,
+.guide-prose blockquote {
+break-inside: avoid;
+}
+
+.guide-prose .heading-anchor {
+display: none;
+}
+}
+
+.guide-prose li:has(> input[type="checkbox"]) {
+list-style: none;
+margin-left: -1.25rem;
+}
+
+.guide-prose li > input[type="checkbox"] {
+@apply mr-2 rounded border-gray-300 text-[#520A18];
+}

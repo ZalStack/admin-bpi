@@ -11,6 +11,9 @@ class KontenHalaman extends Model
 
     protected $table = 'konten_halaman';
 
+    /** Kolom kosong = website memakai teks bawaannya, jadi jangan disalin dari bahasa default. */
+    protected bool $salinDariBahasaDefault = false;
+
     protected $fillable = [
         'halaman',
         'kunci',

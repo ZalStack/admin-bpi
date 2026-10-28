@@ -128,8 +128,8 @@
             <div>
                 <label for="gambar" class="form-label">Roadmap Logo / Image <span class="text-xs font-normal text-gray-400">(Main Display Priority)</span></label>
                 <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-28 w-auto max-w-xs rounded-xl object-contain bg-white p-2 border border-gray-200">
-                <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
-                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP, SVG. Max 2MB. If uploaded, the image will be prioritized on the landing page over the Font Awesome icon.</p>
+                <input type="file" name="gambar" id="gambar" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-gambar')">
+                <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP, GIF. Max 2MB. If uploaded, the image will be prioritized on the landing page over the Font Awesome icon.</p>
                 @error('gambar')
                     <p class="form-error">{{ $message }}</p>
                 @enderror

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\KontenHalamanController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\MitraIntroController;
+use App\Http\Controllers\Admin\PanduanController;
 use App\Http\Controllers\Admin\KategoriBeritaController;
 use App\Http\Controllers\Admin\KategoriMitraController;
 use App\Http\Controllers\Admin\ProgramController;
@@ -222,6 +223,11 @@ Route::middleware('auth')->group(function () {
             // Tag
             Route::resource('tag', TagController::class);
             Route::post('/tag/{id}/toggle-status', [TagController::class, 'toggleStatus'])->name('tag.toggle-status');
+
+            // Panduan (guidebook) — isi bab disaring sesuai role di PanduanController
+            Route::get('panduan', [PanduanController::class, 'index'])->name('panduan.index');
+            Route::get('panduan/cetak', [PanduanController::class, 'cetak'])->name('panduan.cetak');
+            Route::get('panduan/{bab}', [PanduanController::class, 'show'])->name('panduan.show');
         });
 
     // =========================================================================

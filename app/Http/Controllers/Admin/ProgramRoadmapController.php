@@ -46,6 +46,7 @@ class ProgramRoadmapController extends AdminBaseController
     public function edit($id)
     {
         $item = $this->model::query()->with(['translations'])->findOrFail($id);
+
         return view($this->viewPrefix.'.edit', $this->viewData(['item' => $item]));
     }
 
@@ -98,6 +99,9 @@ class ProgramRoadmapController extends AdminBaseController
 
     protected function saveRoadmapTranslations(ProgramRoadmap $roadmap, array $translations): void
     {
+        // Tab bahasa non-default yang kosong (termasuk poin capaian) memakai isian bahasa default.
+        $translations = ProgramRoadmap::lengkapiDariBahasaDefault($translations);
+
         foreach ($translations as $kode => $transData) {
             // Process items from array or textarea lines
             $items = [];

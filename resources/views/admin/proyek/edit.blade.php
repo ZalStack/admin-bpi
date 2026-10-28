@@ -250,7 +250,7 @@ $icons = [
                     </div>
                 @endif
                 <img id="preview-gambar-utama" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
-                <input type="file" name="gambar_utama" id="gambar_utama" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar-utama')">
+                <input type="file" name="gambar_utama" id="gambar_utama" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-gambar-utama')">
                 <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the main image. Format: JPG, PNG, WEBP. Maximum 2MB.</p>
                 @error('gambar_utama')
                     <p class="form-error">{{ $message }}</p>

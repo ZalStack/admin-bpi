@@ -87,7 +87,7 @@
             <div>
                 <label for="gambar" class="form-label">Image</label>
                 <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
-                <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
+                <input type="file" name="gambar" id="gambar" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-gambar')">
                 <p class="mt-1.5 text-xs text-gray-400">Format: JPG, PNG, WEBP. Max 2MB.</p>
                 @error('gambar')
                     <p class="form-error">{{ $message }}</p>

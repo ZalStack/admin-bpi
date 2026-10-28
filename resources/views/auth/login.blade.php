@@ -664,8 +664,8 @@
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E3DBAF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 6L7 2h10l5 4"/><line x1="7" y1="2" x2="10" y2="6"/><line x1="12" y1="2" x2="15" y2="6"/></svg>
                     </div>
                     <div>
-                        <h2 class="text-white font-semibold text-base sm:text-lg">Masuk</h2>
-                        <p class="text-white/45 text-[0.7rem] sm:text-xs">Silakan masuk ke akun Anda</p>
+                        <h2 class="text-white font-semibold text-base sm:text-lg">Log In</h2>
+                        <p class="text-white/45 text-[0.7rem] sm:text-xs">Please log in to your account</p>
                     </div>
                 </div>
 
@@ -680,12 +680,12 @@
                     @csrf
 
                     <div>
-                        <label for="email" class="block text-sm font-medium text-white/85 mb-2.5">Alamat Email</label>
+                        <label for="email" class="block text-sm font-medium text-white/85 mb-2.5">Email Address</label>
                         <div class="input-wrapper relative group">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-white/30 input-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13L2 4"/></svg>
                             </div>
-                            <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus class="w-full pl-11 pr-4 py-3.5 input-glass rounded-xl text-white text-sm focus:outline-none" placeholder="contoh@email.com">
+                            <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus class="w-full pl-11 pr-4 py-3.5 input-glass rounded-xl text-white text-sm focus:outline-none" placeholder="example@email.com">
                         </div>
                         @error('email')
                             <p class="text-[#EBA9B0] text-xs mt-2 flex items-center gap-1.5 shake"><svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>{{ $message }}</p>
@@ -698,7 +698,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-white/30 input-icon" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                             </div>
-                            <input type="password" name="password" id="password" required class="w-full pl-11 pr-11 py-3.5 input-glass rounded-xl text-white text-sm focus:outline-none" placeholder="Masukan password">
+                            <input type="password" name="password" id="password" required class="w-full pl-11 pr-11 py-3.5 input-glass rounded-xl text-white text-sm focus:outline-none" placeholder="Enter your password">
                             <button type="button" class="toggle-password" onclick="togglePassword()" tabindex="-1" aria-label="Toggle password visibility">
                                 <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                                 <svg id="eyeOffIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
@@ -712,19 +712,19 @@
                     <div class="flex items-center justify-between">
                         <label class="flex items-center cursor-pointer group">
                             <input type="checkbox" name="remember" id="remember" class="custom-checkbox">
-                            <span class="ml-2.5 text-sm text-white/55 group-hover:text-white/75 transition-colors">Ingat Saya</span>
+                            <span class="ml-2.5 text-sm text-white/55 group-hover:text-white/75 transition-colors">Remember Me</span>
                         </label>
                     </div>
 
                     @if ($errors->has('email') || $errors->has('password'))
                         <div class="bg-red-500/10 backdrop-blur-sm border border-red-400/25 text-white px-4 py-3.5 rounded-xl flex items-center gap-3 shake">
                             <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-red-500/15 flex items-center justify-center"><svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-                            <p class="text-sm text-white/85">Email atau password salah. Silakan coba lagi.</p>
+                            <p class="text-sm text-white/85">Incorrect email or password. Please try again.</p>
                         </div>
                     @endif
 
                     <button type="submit" id="submitBtn" class="w-full btn-submit py-3.5 rounded-xl font-semibold text-[#520A18] text-sm sm:text-base shadow-lg focus:outline-none focus:ring-4 focus:ring-[#E3DBAF]/30">
-                        <span class="btn-text flex items-center justify-center gap-2.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Masuk ke Dashboard</span>
+                        <span class="btn-text flex items-center justify-center gap-2.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Log In to Dashboard</span>
                         <span class="btn-spinner"></span>
                     </button>
 

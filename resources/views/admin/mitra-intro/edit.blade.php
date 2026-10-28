@@ -74,7 +74,7 @@
                             :kode="$bahasa->kode" 
                             :required="$bahasa->is_default" 
                             :item="$item"
-                            placeholder="cth: Mitra Kami"
+                            placeholder="e.g.: Mitra Kami"
                         />
                         <x-trans-input 
                             field="subjudul" 
@@ -82,7 +82,7 @@
                             :kode="$bahasa->kode" 
                             :required="$bahasa->is_default" 
                             :item="$item"
-                            placeholder="cth: Kolaborasi Membangun Masa Depan Perfilman Indonesia"
+                            placeholder="e.g.: Kolaborasi Membangun Masa Depan Perfilman Indonesia"
                         />
                     </div>
                     <div class="mt-2">
@@ -117,7 +117,7 @@
                     </div>
                 @endif
                 <img id="preview-gambar" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200 shadow-sm">
-                <input type="file" name="gambar" id="gambar" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-gambar')">
+                <input type="file" name="gambar" id="gambar" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-gambar')">
                 <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the photo. Format: JPG, PNG, WEBP max 2MB. Note: the current website design does not display this photo.</p>
                 @error('gambar')
                     <p class="form-error">{{ $message }}</p>

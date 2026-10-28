@@ -86,13 +86,13 @@ class BaseApiController extends Controller
             $rules["translations.*.$field"] = $this->optionalizedRule($rule);
         }
 
-        if (! $forUpdate) {
-            $defaultKode = Bahasa::defaultKode();
+        // Field wajib harus terisi di bahasa default. Saat update cukup jika
+        // field itu dikirim ('sometimes'), agar update sebagian tetap bisa.
+        $defaultKode = Bahasa::defaultKode();
 
-            foreach ($this->translatableRules as $field => $rule) {
-                if (str_contains($rule, 'required')) {
-                    $rules["translations.$defaultKode.$field"] = $rule;
-                }
+        foreach ($this->translatableRules as $field => $rule) {
+            if (str_contains($rule, 'required')) {
+                $rules["translations.$defaultKode.$field"] = $forUpdate ? 'sometimes|'.$rule : $rule;
             }
         }
 
@@ -134,7 +134,8 @@ class BaseApiController extends Controller
             fn (string $part) => $part !== '' && ! str_starts_with($part, 'required')
         );
 
-        return $parts === [] ? 'nullable' : implode('|', $parts);
+        // Bahasa non-default boleh kosong: HasTranslations mengisinya dari bahasa default.
+        return implode('|', ['nullable', ...$parts]);
     }
 
     /**

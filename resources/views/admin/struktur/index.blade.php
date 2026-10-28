@@ -97,7 +97,7 @@
                                             };
                                         @endphp
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border {{ $catBadge }}">
-                                            {{ $item->kategori ?: 'General' }}
+                                            {{ ['pimpinan' => 'Core Leadership', 'dewan' => 'Council', 'bidang' => 'Department', 'satgas_pokja' => 'Taskforce / Working Group', 'komite' => 'Committee'][$item->kategori] ?? ($item->kategori ?: 'General') }}
                                         </span>
                                         @if($item->departemen)
                                             <span class="text-xs text-gray-600 font-medium line-clamp-1">{{ $item->departemen }}</span>

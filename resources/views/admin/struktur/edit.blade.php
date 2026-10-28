@@ -52,11 +52,11 @@
                 <div>
                     <label for="kategori" class="form-label font-bold text-slate-800">Category *</label>
                     <select name="kategori" id="kategori" x-model="kategori" class="form-select w-full" required>
-                        <option value="pimpinan" {{ old('kategori', $item->kategori) == 'pimpinan' ? 'selected' : '' }}>Pimpinan Inti (Ketum, Sekjen, Bendum)</option>
-                        <option value="dewan" {{ old('kategori', $item->kategori) == 'dewan' ? 'selected' : '' }}>Majelis Dewan (Pengawas, Penasehat, Pakar)</option>
-                        <option value="bidang" {{ old('kategori', $item->kategori) == 'bidang' ? 'selected' : '' }}>Bidang Strategis BPI</option>
-                        <option value="satgas_pokja" {{ old('kategori', $item->kategori) == 'satgas_pokja' ? 'selected' : '' }}>Satgas & Pokja BPI</option>
-                        <option value="komite" {{ old('kategori', $item->kategori) == 'komite' ? 'selected' : '' }}>Komite BPI (e.g. Komite FFI)</option>
+                        <option value="pimpinan" {{ old('kategori', $item->kategori) == 'pimpinan' ? 'selected' : '' }}>Core Leadership (Pimpinan Inti: Chair, Sec-Gen, Treasurer)</option>
+                        <option value="dewan" {{ old('kategori', $item->kategori) == 'dewan' ? 'selected' : '' }}>Councils (Majelis Dewan: Supervisory, Advisory, Expert)</option>
+                        <option value="bidang" {{ old('kategori', $item->kategori) == 'bidang' ? 'selected' : '' }}>Strategic Departments (Bidang Strategis BPI)</option>
+                        <option value="satgas_pokja" {{ old('kategori', $item->kategori) == 'satgas_pokja' ? 'selected' : '' }}>Taskforces &amp; Working Groups (Satgas &amp; Pokja BPI)</option>
+                        <option value="komite" {{ old('kategori', $item->kategori) == 'komite' ? 'selected' : '' }}>Committees (Komite BPI, e.g. FFI Committee)</option>
                     </select>
                     @error('kategori')
                         <p class="form-error">{{ $message }}</p>
@@ -66,15 +66,15 @@
                 <div>
                     <label for="sub_kategori" class="form-label font-bold text-slate-800">Sub-Category</label>
                     <select name="sub_kategori" id="sub_kategori" x-model="sub_kategori" class="form-select w-full">
-                        <option value="inti" {{ old('sub_kategori', $item->sub_kategori) == 'inti' ? 'selected' : '' }}>Pimpinan Inti</option>
-                        <option value="wasekjen" {{ old('sub_kategori', $item->sub_kategori) == 'wasekjen' ? 'selected' : '' }}>Wakil Sekretaris Jenderal</option>
-                        <option value="pengawas" {{ old('sub_kategori', $item->sub_kategori) == 'pengawas' ? 'selected' : '' }}>Dewan Pengawas</option>
-                        <option value="penasehat" {{ old('sub_kategori', $item->sub_kategori) == 'penasehat' ? 'selected' : '' }}>Dewan Penasehat</option>
-                        <option value="pakar" {{ old('sub_kategori', $item->sub_kategori) == 'pakar' ? 'selected' : '' }}>Dewan Pakar</option>
-                        <option value="bidang" {{ old('sub_kategori', $item->sub_kategori) == 'bidang' ? 'selected' : '' }}>Bidang</option>
-                        <option value="satgas" {{ old('sub_kategori', $item->sub_kategori) == 'satgas' ? 'selected' : '' }}>Satuan Tugas (Satgas)</option>
-                        <option value="pokja" {{ old('sub_kategori', $item->sub_kategori) == 'pokja' ? 'selected' : '' }}>Kelompok Kerja (Pokja)</option>
-                        <option value="komite" {{ old('sub_kategori', $item->sub_kategori) == 'komite' ? 'selected' : '' }}>Komite</option>
+                        <option value="inti" {{ old('sub_kategori', $item->sub_kategori) == 'inti' ? 'selected' : '' }}>Core Leadership (Pimpinan Inti)</option>
+                        <option value="wasekjen" {{ old('sub_kategori', $item->sub_kategori) == 'wasekjen' ? 'selected' : '' }}>Deputy Secretary-General (Wasekjen)</option>
+                        <option value="pengawas" {{ old('sub_kategori', $item->sub_kategori) == 'pengawas' ? 'selected' : '' }}>Supervisory Council (Dewan Pengawas)</option>
+                        <option value="penasehat" {{ old('sub_kategori', $item->sub_kategori) == 'penasehat' ? 'selected' : '' }}>Advisory Council (Dewan Penasehat)</option>
+                        <option value="pakar" {{ old('sub_kategori', $item->sub_kategori) == 'pakar' ? 'selected' : '' }}>Expert Council (Dewan Pakar)</option>
+                        <option value="bidang" {{ old('sub_kategori', $item->sub_kategori) == 'bidang' ? 'selected' : '' }}>Department (Bidang)</option>
+                        <option value="satgas" {{ old('sub_kategori', $item->sub_kategori) == 'satgas' ? 'selected' : '' }}>Taskforce (Satgas)</option>
+                        <option value="pokja" {{ old('sub_kategori', $item->sub_kategori) == 'pokja' ? 'selected' : '' }}>Working Group (Pokja)</option>
+                        <option value="komite" {{ old('sub_kategori', $item->sub_kategori) == 'komite' ? 'selected' : '' }}>Committee (Komite)</option>
                     </select>
                     @error('sub_kategori')
                         <p class="form-error">{{ $message }}</p>
@@ -84,10 +84,10 @@
                 <div>
                     <label for="level" class="form-label font-bold text-slate-800">Hierarchy Level *</label>
                     <select name="level" id="level" class="form-select w-full" required>
-                        <option value="1" {{ old('level', $item->level ?? 3) == 1 ? 'selected' : '' }}>Tier 1 - Ketum / Anggota Dewan</option>
-                        <option value="2" {{ old('level', $item->level ?? 3) == 2 ? 'selected' : '' }}>Tier 2 - Sekjen / Bendum / Wasekjen</option>
-                        <option value="3" {{ old('level', $item->level ?? 3) == 3 ? 'selected' : '' }}>Tier 3 - Ketua Bidang / Unit</option>
-                        <option value="4" {{ old('level', $item->level ?? 3) == 4 ? 'selected' : '' }}>Tier 4 - Anggota</option>
+                        <option value="1" {{ old('level', $item->level ?? 3) == 1 ? 'selected' : '' }}>Tier 1 - Chairperson / Council Member</option>
+                        <option value="2" {{ old('level', $item->level ?? 3) == 2 ? 'selected' : '' }}>Tier 2 - Secretary-General / Treasurer / Deputy Secretary-General</option>
+                        <option value="3" {{ old('level', $item->level ?? 3) == 3 ? 'selected' : '' }}>Tier 3 - Head of Department / Unit</option>
+                        <option value="4" {{ old('level', $item->level ?? 3) == 4 ? 'selected' : '' }}>Tier 4 - Member</option>
                     </select>
                     @error('level')
                         <p class="form-error">{{ $message }}</p>
@@ -242,7 +242,7 @@
                     </div>
                 @endif
                 <img id="preview-foto" src="" alt="Preview" class="hidden mb-3 h-44 w-full max-w-md rounded-xl object-cover ring-1 ring-gray-200">
-                <input type="file" name="foto" id="foto" accept="image/*" class="form-file" onchange="previewImage(this, 'preview-foto')">
+                <input type="file" name="foto" id="foto" accept="image/jpeg,image/png,image/gif,image/webp" class="form-file" onchange="previewImage(this, 'preview-foto')">
                 <p class="mt-1.5 text-xs text-gray-400">Leave empty if you don't want to change the photo.</p>
                 @error('foto')
                     <p class="form-error">{{ $message }}</p>
