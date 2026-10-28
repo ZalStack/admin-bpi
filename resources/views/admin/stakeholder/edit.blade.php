@@ -36,6 +36,19 @@
 
             <div class="input-group">
                 <div>
+                    <label for="kategori" class="form-label">Stakeholder Category</label>
+                    <select name="kategori" id="kategori" class="form-select">
+                        <option value="">— No category —</option>
+                        @foreach($kategoris as $cat)
+                            <option value="{{ $cat->slug }}" @selected(old('kategori', $item->kategori) === $cat->slug)>{{ $cat->translateField('nama') ?: ucfirst($cat->slug) }}</option>
+                        @endforeach
+                    </select>
+                    @error('kategori')
+                        <p class="form-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
                     <x-icon-picker name="icon" :value="old('icon', $item->icon)" label="Icon Stakeholder" />
                 </div>
 

@@ -15,6 +15,7 @@ class Stakeholder extends Model
     protected $fillable = [
         'icon',
         'gambar',
+        'kategori',
         'urutan',
         'status',
     ];

@@ -157,7 +157,9 @@ Route::prefix('admin/v1')
             Route::get('/', [StakeholderApiController::class, 'index']);
             Route::post('/', [StakeholderApiController::class, 'store']);
             Route::get('/active', [StakeholderApiController::class, 'getActive']);
+            Route::get('/kategori', [StakeholderApiController::class, 'getKategori']);
             Route::put('/update-urutan', [StakeholderApiController::class, 'updateUrutan']);
+            Route::get('/kategori/{kategori}', [StakeholderApiController::class, 'getByKategori']);
             Route::patch('/{id}/toggle-status', [StakeholderApiController::class, 'toggleStatus']);
             Route::get('/{id}', [StakeholderApiController::class, 'show']);
             Route::put('/{id}', [StakeholderApiController::class, 'update']);

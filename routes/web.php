@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\MitraController;
 use App\Http\Controllers\Admin\MitraIntroController;
 use App\Http\Controllers\Admin\KategoriBeritaController;
 use App\Http\Controllers\Admin\KategoriMitraController;
+use App\Http\Controllers\Admin\KategoriStakeholderController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\ProgramRoadmapController;
 use App\Http\Controllers\Admin\ProyekController;
@@ -79,6 +80,10 @@ Route::middleware('auth')->group(function () {
             // Stakeholder
             Route::resource('stakeholder', StakeholderController::class);
             Route::post('/stakeholder/{id}/toggle-status', [StakeholderController::class, 'toggleStatus'])->name('stakeholder.toggle-status');
+
+            // Kategori Stakeholder
+            Route::resource('kategori-stakeholder', KategoriStakeholderController::class);
+            Route::post('/kategori-stakeholder/{id}/toggle-status', [KategoriStakeholderController::class, 'toggleStatus'])->name('kategori-stakeholder.toggle-status');
 
             // Program
             Route::resource('program', ProgramController::class);

@@ -20,7 +20,13 @@
                 {{ $items->count() }} Data
             </div>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex flex-wrap items-center justify-end gap-3">
+            <a href="{{ route('admin.kategori-stakeholder.index') }}" class="btn-outline flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                <span>Manage Categories</span>
+            </a>
             <a href="{{ Route::has('admin.stakeholder.texts') ? route('admin.stakeholder.texts') : url('/admin/stakeholder-texts') }}" class="btn-outline flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h10M4 18h16"/>
@@ -51,6 +57,7 @@
                     <thead class="thead">
                         <tr>
                             <th class="th">Name</th>
+                            <th class="th">Category</th>
                             <th class="th hidden md:table-cell">Image</th>
                             <th class="th hidden sm:table-cell">Order</th>
                             <th class="th hidden md:table-cell">Status</th>
@@ -61,6 +68,15 @@
                         @foreach($items as $item)
                             <tr class="tr-hover">
                                 <td class="td font-medium text-gray-800">{{ $item->translateField('nama') }}</td>
+                                <td class="td">
+                                    @if($item->kategori)
+                                        <span class="inline-flex items-center rounded-lg bg-[#A85C66]/[0.1] px-2.5 py-1 text-xs font-semibold text-[#A85C66]">
+                                            {{ $kategoris->get($item->kategori)?->translateField('nama') ?: ucfirst($item->kategori) }}
+                                        </span>
+                                    @else
+                                        <span class="text-gray-400">-</span>
+                                    @endif
+                                </td>
                                 <td class="td hidden md:table-cell">
                                     @if($item->gambar)
                                         <img src="{{ asset('storage/stakeholder/'.$item->gambar) }}" alt="stakeholder" class="thumb" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
